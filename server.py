@@ -5,6 +5,8 @@ import json
 import mimetypes
 import os
 import threading
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -14,11 +16,14 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 FEEDBACK_FILE = DATA_DIR / "feedback.jsonl"
+EMAIL_ERROR_FILE = DATA_DIR / "email-errors.jsonl"
 MAX_BODY_BYTES = 16 * 1024
 FEEDBACK_LOCK = threading.Lock()
 PRIVATE_PREFIXES = ("/.git", "/data")
 PRIVATE_FILES = {"/server.py", "/runeterra-guide.service"}
 ALLOWED_FEEDBACK_TYPES = {"", "功能建议", "bug/报错", "其他"}
+EMAIL_GATEWAY_URL = "http://169.254.169.254/gateway/email/send"
+FEEDBACK_EMAIL_TO = os.environ.get("FEEDBACK_EMAIL_TO", "chenpiao@jihuanshe.com")
 
 
 class GuideHandler(SimpleHTTPRequestHandler):
@@ -111,6 +116,7 @@ class GuideHandler(SimpleHTTPRequestHandler):
             with FEEDBACK_FILE.open("a", encoding="utf-8") as f:
                 f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
+        self.send_feedback_email(record)
         self.send_json(200, {"ok": True})
 
     def is_private_path(self) -> bool:
@@ -127,6 +133,59 @@ class GuideHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(encoded)))
         self.end_headers()
         self.wfile.write(encoded)
+
+    def send_feedback_email(self, record: dict):
+        subject_type = record["type"] or "未分类"
+        payload = {
+            "to": FEEDBACK_EMAIL_TO,
+            "subject": f"刀妹内战网页反馈：{subject_type}",
+            "body": format_feedback_email(record),
+        }
+        request = urllib.request.Request(
+            EMAIL_GATEWAY_URL,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+
+        try:
+            with urllib.request.urlopen(request, timeout=5) as response:
+                body = response.read().decode("utf-8", errors="replace")
+                if response.status >= 400:
+                    raise RuntimeError(f"email gateway status {response.status}: {body}")
+                result = json.loads(body)
+                if not result.get("success"):
+                    raise RuntimeError(f"email gateway error: {body}")
+        except (OSError, urllib.error.URLError, json.JSONDecodeError, RuntimeError) as error:
+            self.log_email_error(record, str(error))
+
+    def log_email_error(self, record: dict, error: str):
+        DATA_DIR.mkdir(exist_ok=True)
+        error_record = {
+            "createdAt": datetime.now(timezone.utc).isoformat(),
+            "feedbackCreatedAt": record.get("createdAt"),
+            "error": error,
+        }
+        with FEEDBACK_LOCK:
+            with EMAIL_ERROR_FILE.open("a", encoding="utf-8") as f:
+                f.write(json.dumps(error_record, ensure_ascii=False) + "\n")
+
+
+def format_feedback_email(record: dict) -> str:
+    return "\n".join([
+        "收到一条新的网页反馈。",
+        "",
+        f"提交时间: {record.get('createdAt', '')}",
+        f"反馈类型: {record.get('type') or '未分类'}",
+        f"联系方式: {record.get('contact') or '未填写'}",
+        f"提交页面: {record.get('pageUrl') or '未知'}",
+        f"来源 IP: {record.get('remoteAddr') or '未知'}",
+        f"浏览器: {record.get('userAgent') or '未知'}",
+        f"Referer: {record.get('referer') or '无'}",
+        "",
+        "反馈内容:",
+        record.get("message", ""),
+    ])
 
 
 def main():
