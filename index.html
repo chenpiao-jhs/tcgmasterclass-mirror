@@ -802,6 +802,12 @@
       font-size: 14px;
     }
 
+    .feedback-field .optional {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
     .feedback-field textarea,
     .feedback-field input {
       width: 100%;
@@ -1530,13 +1536,12 @@
       <div class="feedback-head">
         <div>
           <h2 id="feedbackTitle">我要吐槽</h2>
-          <p>看不懂、不同意、发现错误，或者想补充打法细节，都可以直接丢给我。</p>
         </div>
         <button class="feedback-close" id="feedbackClose" type="button" aria-label="关闭反馈窗口">×</button>
       </div>
       <form class="feedback-form" id="feedbackForm">
         <div class="feedback-field">
-          <span>反馈类型，可不选</span>
+          <span>反馈类型 <span class="optional">（选填）</span></span>
           <input id="feedbackType" name="type" type="hidden">
           <div class="feedback-type-tabs" role="group" aria-label="反馈类型">
             <button class="feedback-type-tab" type="button" data-feedback-type="功能建议" aria-pressed="false">功能建议</button>
@@ -1546,7 +1551,7 @@
         </div>
         <label class="feedback-field">
           <span>吐槽内容</span>
-          <textarea id="feedbackMessage" name="message" maxlength="4000" required placeholder="哪里写得不清楚？哪段判断你不同意？"></textarea>
+          <textarea id="feedbackMessage" name="message" maxlength="4000" required placeholder="你遇到了什么问题？有任何建议？"></textarea>
         </label>
         <label class="feedback-field">
           <span>联系方式，可不填</span>
