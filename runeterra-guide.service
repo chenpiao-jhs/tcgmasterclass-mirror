@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/home/exedev/runeterra-irelia-mirror-guide
-ExecStart=/bin/busybox httpd -f -p 8000 -h /home/exedev/runeterra-irelia-mirror-guide
+ExecStart=/usr/bin/python3 /home/exedev/runeterra-irelia-mirror-guide/server.py
 Restart=always
 RestartSec=2
 User=exedev
