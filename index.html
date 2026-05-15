@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>从公开赛决赛桌学习到的刀妹内战方法</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --blue: #315f78;
+      --blue-soft: #dcebf0;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("lark_doc_images/06_game2_final_1600.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .page-shell {
+      width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 86px;
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      width: auto;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      z-index: 10;
+      border: 1px solid rgba(223, 231, 221, 0.92);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
+    }
+
+    .topbar .media {
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: none;
+    }
+
+    .topbar .media figcaption {
+      display: none;
+    }
+
+    .topbar .video-toolbar {
+      padding: 10px 12px;
+    }
+
+    .topbar .video-status {
+      font-size: 13px;
+    }
+
+    .topbar .video-open {
+      font-size: 13px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 840px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning,
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      font-size: 20px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .media {
+      margin: 24px 0 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #152017;
+    }
+
+    .media figcaption {
+      padding: 12px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .video-hub {
+      overflow: hidden;
+    }
+
+    .video-screen {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #101712;
+    }
+
+    .video-screen iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #101712;
+    }
+
+    .video-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .video-status {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .video-open,
+    .watch-link {
+      color: var(--green-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .video-open:hover,
+    .video-open:focus,
+    .watch-link:hover,
+    .watch-link:focus {
+      color: var(--green);
+      outline: none;
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      min-height: 118px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    .watch-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 28px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 38px rgba(25, 39, 31, 0.08);
+    }
+
+    .watch-card p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .watch-time {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .watch-title {
+      display: block;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .watch-button {
+      appearance: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      min-width: 112px;
+      padding: 11px 14px;
+      white-space: nowrap;
+    }
+
+    .watch-button:hover,
+    .watch-button:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      font-weight: 760;
+      color: var(--green-dark);
+      width: 190px;
+    }
+
+    .method-flow {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      position: relative;
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .method-flow h3 {
+      font-size: 18px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #35443a;
+    }
+
+    ul.clean {
+      padding-left: 22px;
+      margin: 18px 0;
+    }
+
+    ul.clean li {
+      margin: 8px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--green);
+      margin-top: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), #3f5d3d);
+    }
+
+    .footer p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green-dark);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 470px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .page-shell {
+        width: 100%;
+        display: block;
+        padding: 0 0 86px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        left: auto;
+        width: auto;
+        max-height: none;
+        overflow: visible;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: rgba(245, 247, 242, 0.93);
+        box-shadow: none;
+      }
+
+      .topbar .media {
+        display: none;
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        align-items: start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .brand {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .links {
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 0 0 2px;
+        width: 100%;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .mistakes,
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .watch-card {
+        grid-template-columns: 1fr;
+      }
+
+      .watch-button,
+      .watch-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 公开赛决赛桌复盘</div>
+      <h1>从公开赛决赛桌学习到的刀妹内战方法</h1>
+      <p class="summary">把阿门 2:0 梦之星小乐色的刀锋舞者内战，拆成可复用的调度、资源交换、聚守、斩杀计算和复盘清单。</p>
+      <ul class="hero-meta">
+        <li>比赛：第二赛季全国公开赛决赛第 8P</li>
+        <li>对局：刀锋舞者 VS 刀锋舞者</li>
+        <li>结果：阿门 2:0 获胜</li>
+        <li>目标：方法论，不是流水账</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1WnAMzQEfF&page=8&autoplay=0&t=223" title="第二赛季全国公开赛决赛第 8P：刀锋舞者 VS 刀锋舞者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：03:43 牌表差异</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=223" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">刀妹内战方法</div>
+        <div class="links">
+          <a href="#principles">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#deck">牌表差异</a>
+          <a href="#framework">打法框架</a>
+          <a href="#game-one">第一局</a>
+          <a href="#lethal">斩杀</a>
+          <a href="#game-two">第二局</a>
+          <a href="#checklist">清单</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+    <section id="principles">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Core</div>
+          <h2>先记住这场内战的三句话</h2>
+        </div>
+      </div>
+      <p class="lead">这场决赛最有价值的地方，不是某个单卡强度，而是刀妹内战里怎么读牌、怎么逼资源、怎么把一个回合规划成胜负回合。</p>
+      <div class="grid-3">
+        <article class="insight">
+          <h3>刀妹不一定是唯一主 C</h3>
+          <p>中期经常靠天角牧者滚资源；终局甚至可能由德莱文完成最后一分。</p>
+        </article>
+        <article class="insight">
+          <h3>内战胜负在聚守一回合</h3>
+          <p>双方轮流拿分时，真正拉开差距的是守住一边，让对手多花牌、多花费。</p>
+        </article>
+        <article class="insight">
+          <h3>斩杀回合不要省牌</h3>
+          <p>只要能从 5/6 分跳到 8 分，费用打光、资源打满都是正确路线。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="video">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Watch</div>
+          <h2>边看比赛，边对照方法</h2>
+        </div>
+        <div class="time">P8 决赛全场</div>
+      </div>
+      <p class="lead">左侧固定播放器会一直跟随页面。点击下面任一时间点或正文里的“播放这一段”，左侧播放器会直接切到对应比赛片段，页面滚动位置保持不动。</p>
+      <div class="jump-grid" aria-label="关键片段跳转">
+        <button class="jump-card active" type="button" data-time="223" data-label="03:43 牌表差异">
+          <span>03:43</span>
+          <strong>牌表与备牌</strong>
+          <em>先看双方内战思路差异。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="727" data-label="12:07 第一局中期交换">
+          <span>12:07</span>
+          <strong>第一局中期交换</strong>
+          <em>低价值牌逼出高价值巨破。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="1290" data-label="21:30 全撤分歧">
+          <span>21:30</span>
+          <strong>全撤还是留场</strong>
+          <em>看免费让分的风险。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="1620" data-label="27:00 第一局斩杀">
+          <span>27:00</span>
+          <strong>第一局斩杀</strong>
+          <em>先探答案，再打满资源。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="2117" data-label="35:17 第二局开局">
+          <span>35:17</span>
+          <strong>第二局开局</strong>
+          <em>战场与方尖碑节奏博弈。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="2430" data-label="40:30 装备与机器人">
+          <span>40:30</span>
+          <strong>装备与机器人</strong>
+          <em>靴子价值在于补频率。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="2669" data-label="44:29 留费保互动">
+          <span>44:29</span>
+          <strong>留费保互动</strong>
+          <em>手牌多不等于能防住。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="3017" data-label="50:17 最终回合">
+          <span>50:17</span>
+          <strong>最终回合</strong>
+          <em>刀妹换刀妹，德莱文赢另一边。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="3555" data-label="59:15 冠军采访">
+          <span>59:15</span>
+          <strong>冠军采访</strong>
+          <em>复盘刀妹上下限与临场计算。</em>
+        </button>
+      </div>
+    </section>
+
+    <section id="deck">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Deckbuilding</div>
+          <h2>牌表差异告诉我们什么</h2>
+        </div>
+        <div class="time">03:43 - 05:08</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">03:43 - 05:08</span>
+          <span class="watch-title">牌表与备牌差异</span>
+          <p>小乐色偏内战场面控制，阿门偏关键单卡与节奏切换。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="223" data-label="03:43 牌表差异">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=223" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>观察点</th>
+            <th>小乐色方向</th>
+            <th>阿门方向</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>内战针对</td>
+            <td>薇古丝、预判公式、自适应机器人，更偏场面控制与装备处理。</td>
+            <td>灭世、靴子、复活甲、撤退、灵魂之轮，更偏关键单卡数量的临场切换。</td>
+          </tr>
+          <tr>
+            <td>中期核心</td>
+            <td>用更多手牌与装备尝试把单点做大。</td>
+            <td>用小交换逼出关键牌，再规划下一回合决胜。</td>
+          </tr>
+          <tr>
+            <td>学习点</td>
+            <td>内战不能只看手牌数量，要看是否有魅惑、巨破、极速反制这类有效互动。</td>
+            <td>构筑和备牌要为关键回合服务，而不是只追求泛用牌效。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p><strong>构筑自检：</strong>我有哪些牌能在对手低费时惩罚他？有哪些牌能在自己斩杀回合补频率？有哪些牌只是让手牌变多但不能阻止对手赢？</p>
+      </div>
+    </section>
+
+    <section id="framework">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Framework</div>
+          <h2>基础框架：先抢轮次，再找聚守</h2>
+        </div>
+        <div class="time">07:00 - 12:30</div>
+      </div>
+      <p class="lead">刀妹内战常见节奏是“你上一边，我下一边；你拿一分，我拿一分”。如果只顺着这个节奏打，比赛很快进入双方 6 分、7 分的危险区。</p>
+      <ol class="method-flow">
+        <li>
+          <span class="num">1</span>
+          <h3>前期展开</h3>
+          <p>有天角牧者就围绕它规划；没有好单位就用装备或低费单位避免空过。</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>交换读牌</h3>
+          <p>用低成本动作测试对手 Buff、反制和撤退，判断手牌弹性。</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>寻找聚守</h3>
+          <p>让一个战场变成对手不能白吃的点，迫使对手多花牌、多花费。</p>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <h3>胜负回合</h3>
+          <p>先探反制，再把频率、战力、费用一次算清楚，能赢就打满。</p>
+        </li>
+      </ol>
+      <h3>起手与前期原则</h3>
+      <ul class="clean">
+        <li>有天角牧者时，优先围绕它规划中期，因为它能把移动、进攻和过牌串起来。</li>
+        <li>没有好单位时，不要空过费用；中亚沙漏、靴子这类铺垫牌可以让后续回合更顺。</li>
+        <li>不要为了防一个可能存在的解牌，把自己的正常节奏打乱。刀妹是当前最强节奏点时，就应该拍。</li>
+        <li>水手这类低费单位不一定负责终局，但能抢分数轮次，让你先站到 4、5、6 分节点。</li>
+      </ul>
+    </section>
+
+    <section id="game-one">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 1</div>
+          <h2>第一局：低价值牌逼出高价值牌</h2>
+        </div>
+        <div class="time">12:07 - 24:40</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">12:07 - 24:40</span>
+          <span class="watch-title">第一局中期资源交换</span>
+          <p>用普通 Buff 与训练有素测试对手手牌弹性，逼出巨破之舞。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="727" data-label="12:07 第一局中期交换">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=727" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <p class="lead">第一局中段，阿门多次用普通 Buff 或训练有素去压小乐色。目标不是单纯赢当前这一小段，而是逼小乐色把巨破之舞交在不舒服的位置。</p>
+      <div class="note">
+        <p><strong>真正赚的地方：</strong>阿门用低价值 Buff 换出对手高价值巨破，同时读到对手手里其他 Buff 弹性不足。</p>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>看到对手被迫交巨破</td>
+            <td>说明他没有更便宜、更合适的 Buff 或防守牌。</td>
+          </tr>
+          <tr>
+            <td>看到对手不敢拍德莱文</td>
+            <td>说明他费用或保护不足，拍出来可能被魅惑或推上去处理。</td>
+          </tr>
+          <tr>
+            <td>看到对手高费回合仍保守</td>
+            <td>说明他的手牌数量可能多，但有效互动不够。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="grid-2">
+        <div class="warning">
+          <p><strong>全撤的风险：</strong>自己安全，但对手可能不用交资源就拿分；一旦对手到 7 分，你下回合必须完成高压反打。</p>
+        </div>
+        <div class="note">
+          <p><strong>留大单位的价值：</strong>有复活甲、身材大、手里有防守牌时，留一边能迫使对手交 Buff 或进攻手段。</p>
+        </div>
+      </div>
+      <p>阿门全撤之所以能成立，是因为他前面已经读出小乐色 Buff 不多，自己手里有双巨破与魅惑，准备把胜负放到下一回合解决。</p>
+    </section>
+
+    <section id="lethal">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Lethal Turn</div>
+          <h2>斩杀回合：先探答案，再打满资源</h2>
+        </div>
+        <div class="time">27:00 - 30:55</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">27:00 - 30:55</span>
+          <span class="watch-title">第一局斩杀回合</span>
+          <p>先用魅惑探反制，再用巨破和剩余费用完成 6 到 8 的推进。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="1620" data-label="27:00 第一局斩杀">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=1620" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="stamp">第一步</div>
+          <p>先打魅惑，逼对手交康，确认对手是否有撤退或极速反制。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">第二步</div>
+          <p>观察对手费用。对手只有少量费用时，手牌再多也只能回应一两次。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">第三步</div>
+          <p>再打巨破与 Buff。把对手答案耗掉后，战力牌才是真正有效的。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">第四步</div>
+          <p>不省资源。能从 6 分打到 8 分就直接打光；斩杀回合没有下回合。</p>
+        </div>
+      </div>
+      <div class="warning">
+        <p>不要只看明面场攻。刀妹内战里，剩 2 费可能代表接近 10 点战力差，因为训练有素、决斗架势、巨破等牌都会把小费用转成巨大差距。</p>
+      </div>
+    </section>
+
+    <section id="game-two">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 2</div>
+          <h2>第二局：手牌多，不等于能防住</h2>
+        </div>
+        <div class="time">34:19 - 53:00</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">35:17 - 37:55</span>
+          <span class="watch-title">第二局开局与战场选择</span>
+          <p>沉默神庙对巨神峰之巅，双方都没有亮方尖碑，节奏选择进入心理博弈。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="2117" data-label="35:17 第二局开局">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=2117" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <p class="lead">第二局战场是沉默神庙对巨神峰之巅，双方都没有亮方尖碑。这个选择本身就是节奏博弈：不开可以避免给对方更舒服的开局节点。</p>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">40:30 - 42:50</span>
+          <span class="watch-title">第二局中盘装备交互</span>
+          <p>自适应机器人威胁靴子，阿门优先保护能补频率的装备。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="2430" data-label="40:30 装备与机器人">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=2430" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <div class="note">
+        <p><strong>装备评价标准：</strong>不要只问它加多少战力，要问它能不能补频率、能不能让你跨战场进攻、能不能让斩杀回合成立。</p>
+      </div>
+      <p>小乐色第二局手牌一度非常多，但缺少魅惑、灭世、极速反制这类关键互动。结果是：手牌数量优势没有转化成防守质量。</p>
+    </section>
+
+    <section id="endgame">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Endgame</div>
+          <h2>终局：德莱文才是最后胜负手</h2>
+        </div>
+        <div class="time">53:00 - 59:15</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">50:17 - 59:15</span>
+          <span class="watch-title">第二局最终回合</span>
+          <p>御风解决频率，训练有素、决斗架势与巨破解决战力，德莱文完成终局压力。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="3017" data-label="50:17 最终回合">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=3017" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>频率问题</td>
+            <td>御风而行让单位跨战场参与进攻，补上从 5/6 分跳到 8 分所需的进攻次数。</td>
+          </tr>
+          <tr>
+            <td>战力问题</td>
+            <td>训练有素、决斗架势、巨破之舞把刀妹推到能与对手大单位交换的区间。</td>
+          </tr>
+          <tr>
+            <td>胜负手选择</td>
+            <td>刀妹可以死，只要她换掉对面刀妹；真正负责赢另一边的是德莱文。</td>
+          </tr>
+          <tr>
+            <td>细节收益</td>
+            <td>刀妹先移动再御风变活跃，吃到额外 +1。内战终局经常就是这 1 点决定胜负。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p>终局不要问“我的刀妹能不能活”，要问“我的刀妹死了以后，另一边谁能赢”。阿门的答案是德莱文。</p>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Practice</div>
+          <h2>你可以直接照着练的操作清单</h2>
+        </div>
+      </div>
+      <h3>每回合都做的四个判断</h3>
+      <div class="checklist">
+        <div class="check"><span class="box"></span><span>对手刚才交的牌，是主动赚，还是被迫交？</span></div>
+        <div class="check"><span class="box"></span><span>对手还剩多少费用？这些费用能转成几次有效互动？</span></div>
+        <div class="check"><span class="box"></span><span>我这一回合是在拿分，还是在逼对手交关键牌？</span></div>
+        <div class="check"><span class="box"></span><span>如果我全撤，会不会让对手免费到 7 分？</span></div>
+      </div>
+
+      <h3>关键牌使用规则</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>魅惑</td>
+            <td>优先打在对手没费或低费窗口；斩杀前也可以用来探极速反制。</td>
+          </tr>
+          <tr>
+            <td>巨破之舞</td>
+            <td>不要轻易交在普通交换里；它是决胜回合最重要的战力和互动资源。</td>
+          </tr>
+          <tr>
+            <td>极速反制</td>
+            <td>不是有目标就交，要判断交完后自己还剩不剩有效防守。</td>
+          </tr>
+          <tr>
+            <td>撤退 / 全撤</td>
+            <td>不是自动安全按钮；如果会让对手免费拿分，要重新考虑是否留大单位防守。</td>
+          </tr>
+          <tr>
+            <td>靴子 / 御风</td>
+            <td>优先按“能不能补频率”评价，而不是按单点战力评价。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>斩杀回合计算模板</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="stamp">算分数</div>
+          <p>我这一轮是单征服到 7，还是双征服直接到 8？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算频率</div>
+          <p>我有几个能进攻的单位？御风、靴子、移动能否补一边？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算战力</div>
+          <p>对手最大单位多少？我的 Buff 加完是否能赢或至少换掉？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算答案</div>
+          <p>对手费用能打几张？他最可能有魅惑、巨破、撤退还是极速反制？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">排顺序</div>
+          <p>先用低成本动作探康，再把真正的战力牌打进去。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="mistakes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Review</div>
+          <h2>最容易犯的错</h2>
+        </div>
+      </div>
+      <ul class="mistakes">
+        <li>把刀妹当唯一核心，忽略天角牧者和德莱文的胜负手价值。</li>
+        <li>巨破之舞交太早，真正决胜回合没有高质量互动。</li>
+        <li>手牌很多就觉得安全，但费用只剩 1 点时，能打出的答案其实很少。</li>
+        <li>习惯性全撤，免费让对手到 7 分。</li>
+        <li>只看场面战力，不算对手剩余费用能转化出的战力差。</li>
+        <li>为了防可能存在的解牌，打乱自己的正常节奏。</li>
+        <li>斩杀回合还想省牌，结果给了对手多一个回合。</li>
+      </ul>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">59:15 起</span>
+          <span class="watch-title">冠军采访</span>
+          <p>阿门提到刀妹上下限差距大，说明内战非常吃资源排序与临场计算。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="3555" data-label="59:15 冠军采访">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8&t=3555" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      <p>阿门采访里说刀妹是“上下限差很远”的卡组。这场决赛正好说明：刀妹内战的上限不是靠单张牌强度打出来的，而是靠信息读取、资源排序、费用压制和终局计算打出来的。</p>
+    </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script>
+    (() => {
+      const player = document.querySelector("#matchPlayer");
+      const status = document.querySelector("#videoStatus");
+      const openLink = document.querySelector("#videoOpen");
+      const jumps = [...document.querySelectorAll(".jump-card")];
+      const controls = [...document.querySelectorAll("[data-time][data-label]")];
+      const basePlayer = "https://player.bilibili.com/player.html?bvid=BV1WnAMzQEfF&page=8&autoplay=1";
+      const basePage = "https://www.bilibili.com/video/BV1WnAMzQEfF/?p=8";
+
+      function setVideo(time, label) {
+        if (!player) return;
+        player.src = `${basePlayer}&t=${time}`;
+        if (status) status.textContent = `当前：${label}`;
+        if (openLink) openLink.href = `${basePage}&t=${time}`;
+
+        jumps.forEach((jump) => {
+          jump.classList.toggle("active", jump.dataset.time === String(time));
+        });
+      }
+
+      controls.forEach((control) => {
+        control.addEventListener("click", () => {
+          setVideo(control.dataset.time, control.dataset.label);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
