@@ -803,7 +803,8 @@
     }
 
     .feedback-field textarea,
-    .feedback-field input {
+    .feedback-field input,
+    .feedback-field select {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 7px;
@@ -820,7 +821,8 @@
     }
 
     .feedback-field textarea:focus,
-    .feedback-field input:focus {
+    .feedback-field input:focus,
+    .feedback-field select:focus {
       border-color: var(--green);
       outline: 3px solid rgba(47, 111, 78, 0.14);
     }
@@ -1502,6 +1504,15 @@
       </div>
       <form class="feedback-form" id="feedbackForm">
         <label class="feedback-field">
+          <span>反馈类型，可不选</span>
+          <select id="feedbackType" name="type">
+            <option value="">不选择</option>
+            <option value="功能建议">功能建议</option>
+            <option value="bug/报错">bug/报错</option>
+            <option value="其他">其他</option>
+          </select>
+        </label>
+        <label class="feedback-field">
           <span>吐槽内容</span>
           <textarea id="feedbackMessage" name="message" maxlength="4000" required placeholder="哪里写得不清楚？哪段判断你不同意？"></textarea>
         </label>
@@ -1551,6 +1562,7 @@
       const modal = document.querySelector("#feedbackModal");
       const closeButton = document.querySelector("#feedbackClose");
       const form = document.querySelector("#feedbackForm");
+      const type = document.querySelector("#feedbackType");
       const message = document.querySelector("#feedbackMessage");
       const contact = document.querySelector("#feedbackContact");
       const status = document.querySelector("#feedbackStatus");
@@ -1595,6 +1607,7 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+              type: type.value,
               message: text,
               contact: contact.value.trim(),
               pageUrl: window.location.href

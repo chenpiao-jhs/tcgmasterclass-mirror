@@ -18,6 +18,7 @@ MAX_BODY_BYTES = 16 * 1024
 FEEDBACK_LOCK = threading.Lock()
 PRIVATE_PREFIXES = ("/.git", "/data")
 PRIVATE_FILES = {"/server.py", "/runeterra-guide.service"}
+ALLOWED_FEEDBACK_TYPES = {"", "功能建议", "bug/报错", "其他"}
 
 
 class GuideHandler(SimpleHTTPRequestHandler):
@@ -75,7 +76,12 @@ class GuideHandler(SimpleHTTPRequestHandler):
 
         message = str(payload.get("message", "")).strip()
         contact = str(payload.get("contact", "")).strip()
+        feedback_type = str(payload.get("type", "")).strip()
         page_url = str(payload.get("pageUrl", "")).strip()
+
+        if feedback_type not in ALLOWED_FEEDBACK_TYPES:
+            self.send_json(400, {"ok": False, "error": "bad_type"})
+            return
 
         if len(message) < 2:
             self.send_json(400, {"ok": False, "error": "message_required"})
@@ -91,6 +97,7 @@ class GuideHandler(SimpleHTTPRequestHandler):
 
         record = {
             "createdAt": datetime.now(timezone.utc).isoformat(),
+            "type": feedback_type,
             "message": message,
             "contact": contact,
             "pageUrl": page_url[:500],
