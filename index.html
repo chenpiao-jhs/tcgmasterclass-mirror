@@ -803,8 +803,7 @@
     }
 
     .feedback-field textarea,
-    .feedback-field input,
-    .feedback-field select {
+    .feedback-field input {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 7px;
@@ -821,10 +820,43 @@
     }
 
     .feedback-field textarea:focus,
-    .feedback-field input:focus,
-    .feedback-field select:focus {
+    .feedback-field input:focus {
       border-color: var(--green);
       outline: 3px solid rgba(47, 111, 78, 0.14);
+    }
+
+    .feedback-type-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 2px 0;
+    }
+
+    .feedback-type-tab {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper-soft);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 9px 12px;
+    }
+
+    .feedback-type-tab:hover,
+    .feedback-type-tab:focus {
+      border-color: var(--green);
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .feedback-type-tab.active {
+      border-color: var(--green-dark);
+      background: var(--green-dark);
+      color: #fff;
     }
 
     .feedback-actions {
@@ -1503,15 +1535,15 @@
         <button class="feedback-close" id="feedbackClose" type="button" aria-label="关闭反馈窗口">×</button>
       </div>
       <form class="feedback-form" id="feedbackForm">
-        <label class="feedback-field">
+        <div class="feedback-field">
           <span>反馈类型，可不选</span>
-          <select id="feedbackType" name="type">
-            <option value="">不选择</option>
-            <option value="功能建议">功能建议</option>
-            <option value="bug/报错">bug/报错</option>
-            <option value="其他">其他</option>
-          </select>
-        </label>
+          <input id="feedbackType" name="type" type="hidden">
+          <div class="feedback-type-tabs" role="group" aria-label="反馈类型">
+            <button class="feedback-type-tab" type="button" data-feedback-type="功能建议" aria-pressed="false">功能建议</button>
+            <button class="feedback-type-tab" type="button" data-feedback-type="bug/报错" aria-pressed="false">bug/报错</button>
+            <button class="feedback-type-tab" type="button" data-feedback-type="其他" aria-pressed="false">其他</button>
+          </div>
+        </div>
         <label class="feedback-field">
           <span>吐槽内容</span>
           <textarea id="feedbackMessage" name="message" maxlength="4000" required placeholder="哪里写得不清楚？哪段判断你不同意？"></textarea>
@@ -1563,6 +1595,7 @@
       const closeButton = document.querySelector("#feedbackClose");
       const form = document.querySelector("#feedbackForm");
       const type = document.querySelector("#feedbackType");
+      const typeTabs = [...document.querySelectorAll(".feedback-type-tab")];
       const message = document.querySelector("#feedbackMessage");
       const contact = document.querySelector("#feedbackContact");
       const status = document.querySelector("#feedbackStatus");
@@ -1581,6 +1614,21 @@
 
       openButton.addEventListener("click", openModal);
       closeButton.addEventListener("click", closeModal);
+
+      function setFeedbackType(nextType) {
+        const selected = type.value === nextType ? "" : nextType;
+        type.value = selected;
+
+        typeTabs.forEach((tab) => {
+          const isActive = tab.dataset.feedbackType === selected;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+
+      typeTabs.forEach((tab) => {
+        tab.addEventListener("click", () => setFeedbackType(tab.dataset.feedbackType));
+      });
 
       modal.addEventListener("click", (event) => {
         if (event.target === modal) closeModal();
@@ -1617,6 +1665,7 @@
           if (!response.ok) throw new Error("submit_failed");
 
           form.reset();
+          setFeedbackType("");
           status.textContent = "已收到，我会看。";
           window.setTimeout(closeModal, 900);
         } catch (error) {
