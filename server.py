@@ -175,6 +175,10 @@ def format_feedback_email(record: dict) -> str:
     return "\n".join([
         "收到一条新的网页反馈。",
         "",
+        "【吐槽内容】",
+        record.get("message", ""),
+        "",
+        "【相关信息】",
         f"提交时间: {record.get('createdAt', '')}",
         f"反馈类型: {record.get('type') or '未分类'}",
         f"联系方式: {record.get('contact') or '未填写'}",
@@ -182,9 +186,6 @@ def format_feedback_email(record: dict) -> str:
         f"来源 IP: {record.get('remoteAddr') or '未知'}",
         f"浏览器: {record.get('userAgent') or '未知'}",
         f"Referer: {record.get('referer') or '无'}",
-        "",
-        "反馈内容:",
-        record.get("message", ""),
     ])
 
 
