@@ -1,0 +1,15 @@
+[Unit]
+Description=Runeterra Irelia Mirror Guide static site
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/exedev/runeterra-irelia-mirror-guide
+ExecStart=/bin/busybox httpd -f -p 8000 -h /home/exedev/runeterra-irelia-mirror-guide
+Restart=always
+RestartSec=2
+User=exedev
+Group=exedev
+
+[Install]
+WantedBy=multi-user.target
