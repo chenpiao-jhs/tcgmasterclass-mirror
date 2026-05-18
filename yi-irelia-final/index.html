@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>刀妹打剑圣：决赛里最该学会的安全进攻法</title>
+  <title>刀妹与剑圣双视角：苏州站决赛复盘</title>
   <style>
     :root {
       --bg: #f5f7f2;
@@ -518,6 +518,52 @@
       line-height: 1.45;
     }
 
+    .perspective-switch {
+      position: sticky;
+      top: 18px;
+      z-index: 18;
+      margin: 0 0 26px;
+      padding: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 44px rgba(25, 39, 31, 0.13);
+    }
+
+    .perspective-tab {
+      appearance: none;
+      min-height: 48px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 850;
+    }
+
+    .perspective-tab:hover,
+    .perspective-tab:focus {
+      color: var(--green-dark);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .perspective-tab.active {
+      color: #fff;
+      background: var(--green-dark);
+      box-shadow: 0 8px 22px rgba(22, 64, 44, 0.2);
+    }
+
+    .perspective-panel[hidden],
+    [data-perspective-nav][hidden] {
+      display: none;
+    }
+
     .watch-card {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto auto;
@@ -973,6 +1019,7 @@
       .grid-2,
       .method-flow,
       .mistakes,
+      .perspective-switch,
       .jump-grid {
         grid-template-columns: 1fr;
       }
@@ -989,6 +1036,10 @@
 
       .watch-card {
         grid-template-columns: 1fr;
+      }
+
+      .perspective-switch {
+        top: calc(min(76vh, 640px) + 10px);
       }
 
       .watch-button,
@@ -1054,13 +1105,13 @@
   <header class="hero">
     <div class="hero-inner">
       <div class="eyebrow">符文战场 TCG · 苏州站决赛复盘</div>
-      <h1>刀妹打剑圣：决赛里最该学会的安全进攻法</h1>
-      <p class="summary">把林川 2:1 LineKa·OAK 的无极剑圣 VS 刀锋舞者决赛，整理成刀妹玩家能直接复盘和练习的打法方法。</p>
+      <h1>刀妹与剑圣双视角：决赛里最该学会的攻防方法</h1>
+      <p class="summary">把林川 2:1 LineKa·OAK 的无极剑圣 VS 刀锋舞者决赛，整理成刀妹玩家和剑圣玩家都能直接复盘的打法方法。</p>
       <ul class="hero-meta">
         <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 6P</li>
         <li>对局：无极剑圣（林川） VS 刀锋舞者（LineKa·OAK）</li>
         <li>结果：林川 2:1 翻盘夺冠</li>
-        <li>视角：刀妹玩家怎么打剑圣</li>
+        <li>视角：默认刀妹玩家视角，可切换剑圣玩家视角</li>
       </ul>
     </div>
   </header>
@@ -1089,8 +1140,8 @@
         </button>
       </section>
       <nav class="nav" aria-label="页面导航">
-        <div class="brand">刀妹打剑圣方法</div>
-        <div class="links">
+        <div class="brand">决赛双视角方法</div>
+        <div class="links" data-perspective-nav="irelia">
           <a href="#principles">核心结论</a>
           <a href="#video">关键片段</a>
           <a href="#deck">牌表与备牌</a>
@@ -1101,10 +1152,27 @@
           <a href="#checklist">清单</a>
           <a href="#mistakes">常见错误</a>
         </div>
+        <div class="links" data-perspective-nav="yi" hidden>
+          <a href="#yi-principles">核心结论</a>
+          <a href="#yi-video">关键片段</a>
+          <a href="#yi-deck">牌表与备牌</a>
+          <a href="#yi-framework">防守框架</a>
+          <a href="#yi-game-one">第一局</a>
+          <a href="#yi-game-two">第二局</a>
+          <a href="#yi-game-three">决胜局</a>
+          <a href="#yi-checklist">清单</a>
+          <a href="#yi-mistakes">常见错误</a>
+        </div>
       </nav>
     </aside>
 
     <main>
+    <div class="perspective-switch" role="tablist" aria-label="分析视角">
+      <button class="perspective-tab active" id="tab-irelia" type="button" role="tab" aria-selected="true" aria-controls="panel-irelia" data-perspective-target="irelia">刀妹玩家视角</button>
+      <button class="perspective-tab" id="tab-yi" type="button" role="tab" aria-selected="false" aria-controls="panel-yi" data-perspective-target="yi">剑圣玩家视角</button>
+    </div>
+
+    <div class="perspective-panel" id="panel-irelia" role="tabpanel" aria-labelledby="tab-irelia" data-perspective-panel="irelia">
     <section id="principles">
       <div class="section-head">
         <div>
@@ -1551,6 +1619,421 @@
     <div class="footer">
       <p>这场决赛对刀妹玩家最有价值的地方，是它同时展示了刀妹的上限和刀妹的脆弱点：你能用废弃大厅和巨破打出惊人数字，也会因为排序、信息暴露和单位不足把冠军点交出去。</p>
     </div>
+    </div>
+
+    <div class="perspective-panel" id="panel-yi" role="tabpanel" aria-labelledby="tab-yi" data-perspective-panel="yi" hidden>
+    <section id="yi-principles">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Core</div>
+          <h2>剑圣视角先记住这五句话</h2>
+        </div>
+      </div>
+      <p class="lead">林川这场赢得不像单纯“剑圣数值更大”。第一局他的信息战赌错，后两局才真正把剑圣的优势打出来：先看手牌，再逼刀妹把关键法术交在非核心进攻上，最后用保留到终局的答案封死废弃大厅。</p>
+      <div class="grid-3">
+        <article class="insight">
+          <h3>信息比单张解牌更重要</h3>
+          <p>河道蟹和迅捷蟹不是随便过牌。看见御风、训练有素、巨破和中亚之后，剑圣才知道哪些交换能逼，哪些进攻该放。</p>
+        </article>
+        <article class="insight">
+          <h3>狮子狗是逼资源的牌</h3>
+          <p>狮子狗扑天角、清费用、伏击回场，核心价值是让刀妹把巨破、训练有素、造化弄人交在小单位和非废弃大厅回合上。</p>
+        </article>
+        <article class="insight">
+          <h3>灭世要留给路线，不是留给情绪</h3>
+          <p>第二局灭世逼出了 OAK 的排序问题；决胜局面对废弃大厅刀妹时，灭世和法抗的选择决定了后续还能不能接住总攻。</p>
+        </article>
+      </div>
+      <div class="grid-2">
+        <article class="insight">
+          <h3>能沉淀就别急着硬打</h3>
+          <p>第三局林川多次接受过牌和沉淀。刀妹手里全是法术但单位不足时，剑圣越拖越容易把牌变成已知信息。</p>
+        </article>
+        <article class="insight">
+          <h3>先打再问是终局保险</h3>
+          <p>最后一攻里，OAK 把刀妹御风到废弃大厅并做出 10 点战力；林川从开局捏到最后的先打再问，才让狮子狗和剑圣被动完成封锁。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="yi-video">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Watch</div>
+          <h2>剑圣玩家要重点看的片段</h2>
+        </div>
+        <div class="time">P6 决赛全场</div>
+      </div>
+      <p class="lead">这套时间线按剑圣决策排列：先看哪里拿信息，哪里逼刀妹交错资源，哪里选择不进攻，最后如何把答案留到决胜手。</p>
+      <div class="jump-grid" aria-label="剑圣视角关键片段跳转">
+        <button class="jump-card" type="button" data-time="958" data-label="15:58 河道蟹看手牌">
+          <span>15:58</span>
+          <strong>信息战启动</strong>
+          <em>看见手牌后，剑圣开始围绕御风和训练有素设计路线。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="1131" data-label="18:51 魅惑赌错">
+          <span>18:51</span>
+          <strong>第一局赌错</strong>
+          <em>三张魅惑只能赌御风，训练有素让这条线失败。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="1630" data-label="27:10 第二局开始">
+          <span>27:10</span>
+          <strong>备牌后调整</strong>
+          <em>阿克尚、暗中破坏和极速反制提升对刀妹法术的覆盖。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="2821" data-label="47:01 第二局排序瑕疵">
+          <span>47:01</span>
+          <strong>灭世逼排序</strong>
+          <em>让对手在训练有素、魅惑、御风之间做出困难排序。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="3880" data-label="64:38 暗中破坏逼反应">
+          <span>64:38</span>
+          <strong>废弃大厅警报</strong>
+          <em>刀妹能瞬间到 10 点，剑圣要判断能不能接总攻。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="4326" data-label="72:06 狮子狗沉淀">
+          <span>72:06</span>
+          <strong>沉淀狮子狗</strong>
+          <em>不急着进攻，先把单位质量和后续费用养起来。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="4439" data-label="73:59 逼出巨破">
+          <span>73:59</span>
+          <strong>逼错落点</strong>
+          <em>让巨破和训练有素离开废弃大厅刀妹，就是剑圣舒服的局面。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="4952" data-label="82:32 最后一攻">
+          <span>82:32</span>
+          <strong>终局封锁</strong>
+          <em>先打再问、狮子狗和剑圣被动合在一起挡住最后一波。</em>
+        </button>
+      </div>
+    </section>
+
+    <section id="yi-deck">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Deckbuilding</div>
+          <h2>牌表与备牌：剑圣要把答案密度打出来</h2>
+        </div>
+        <div class="time">02:25 - 08:45</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">02:25 - 04:20</span>
+          <span class="watch-title">标准化剑圣对宇宙流刀妹</span>
+          <p>解说判断剑圣小优，原因不是刀妹没上限，而是林川这套关键牌更稳定，能持续抽到重复答案。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="145" data-label="02:25 牌表与优劣判断">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=145" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>观察点</th>
+            <th>剑圣侧打法</th>
+            <th>对应刀妹威胁</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>主牌稳定性</td>
+            <td>关键单位和互动牌更集中，允许你反复用同类答案处理刀妹的不同爆发点。</td>
+            <td>OAK 的宇宙流单卡很多，爆发上限高，但每次抽到的路线不同。</td>
+          </tr>
+          <tr>
+            <td>备牌调整</td>
+            <td>阿克尚、暗中破坏和更多极速反制，是为了偷中亚、覆盖巨破与魅惑，并限制刀妹的关键法术。</td>
+            <td>刀妹会带紧急召回、玄冰之心、欢欢乐等牌来反制剑圣的沉淀和保护。</td>
+          </tr>
+          <tr>
+            <td>对局目标</td>
+            <td>不要跟废弃大厅刀妹硬比单次峰值，改成用信息、沉淀和单位质量让刀妹爆发打在错误位置。</td>
+            <td>刀妹真正可怕的是英雄区或废弃大厅上的巨破、训练有素和御风连动。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p><strong>剑圣玩家的牌表自检：</strong>你的卡组是否有足够的信息牌和可重复答案？如果只有一张关键解，面对废弃大厅刀妹时很容易被迫把答案交早。</p>
+      </div>
+    </section>
+
+    <section id="yi-framework">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Framework</div>
+          <h2>防守框架：先拿信息，再逼错资源，最后封总攻</h2>
+        </div>
+        <div class="time">全场通用</div>
+      </div>
+      <p class="lead">剑圣打刀妹不能只想着“这回合能不能杀刀妹”。更稳的路线是先弄清对手手里能改变结算的牌，再用单位质量和费用压力让对手的关键法术离开刀妹本体。</p>
+      <ol class="method-flow">
+        <li>
+          <span class="num">1</span>
+          <h3>先看手牌</h3>
+          <p>河道蟹和迅捷蟹看到的信息，会决定你该赌御风、该防训练有素，还是该直接过牌沉淀。</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>逼小交换</h3>
+          <p>用狮子狗和高质量单位打天角、埃波罗、大副这类节点，逼刀妹把巨破和训练有素交在非致胜点。</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>保留关键答案</h3>
+          <p>灭世、魅惑、先打再问不能只看当下赚不赚，要看它们是否是下一轮废弃大厅总攻的唯一答案。</p>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <h3>接受沉淀长盘</h3>
+          <p>刀妹单位不足时，剑圣可以多过牌、多下单位。你越知道对手信息，后期越容易封住路线。</p>
+        </li>
+      </ol>
+      <h3>剑圣每回合先问这三个问题</h3>
+      <ul class="clean">
+        <li>我现在知道刀妹手里哪些牌？未知牌里最怕哪张？</li>
+        <li>这波互动会不会把巨破、训练有素从废弃大厅刀妹身上逼走？</li>
+        <li>如果我现在交灭世或先打再问，下一波御风到废弃大厅还有没有答案？</li>
+      </ul>
+    </section>
+
+    <section id="yi-game-one">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 1</div>
+          <h2>第一局：信息拿到了，但不要把风险管理变成纯赌</h2>
+        </div>
+        <div class="time">09:00 - 20:00</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">15:58 - 19:10</span>
+          <span class="watch-title">河道蟹看手牌后，魅惑押错训练有素</span>
+          <p>林川看见 OAK 的有限答案后，选择押御风；但 OAK 实际用训练有素接住，剑圣第一局的关键赌点失败。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="958" data-label="15:58 河道蟹看手牌">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=958" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <p class="lead">第一局最适合剑圣玩家复盘“信息不等于确定性”。看见手牌以后，你只是缩小了范围，并没有让对手失去选择。林川赛后说手里三张魅惑只能赌，说明那一刻已经缺少更稳的资源线。</p>
+      <div class="note">
+        <p><strong>剑圣侧要学的：</strong>如果你能通过更早的沉淀、换防或保留灭世把局面拖到下一轮，就不要把整局交给“他会不会按我想的方式打”。</p>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>狮子狗扑天角</td>
+            <td>这步方向正确。天角牧者会给刀妹补牌，早点处理能降低后续爆发密度。</td>
+          </tr>
+          <tr>
+            <td>河道蟹看手牌</td>
+            <td>信息价值很高，但看见御风和训练有素后，要把两条线都算进去，而不是只押其中一条。</td>
+          </tr>
+          <tr>
+            <td>魅惑赌御风</td>
+            <td>这是无奈选择，不是理想模板。剑圣玩家要复盘的是为什么前面没把对手逼到只能交御风。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="warning">
+        <p><strong>第一局结论：</strong>剑圣可以输给刀妹的上限，但不要输给自己把信息战打成单选题。看完手牌后，下一步应该是压缩对手选项，而不是只猜对手会选哪张。</p>
+      </div>
+    </section>
+
+    <section id="yi-game-two">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 2</div>
+          <h2>第二局：灭世制造压力，等对手排序犯错</h2>
+        </div>
+        <div class="time">27:10 - 51:00</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">47:01 - 50:17</span>
+          <span class="watch-title">灭世、训练有素和御风的关键结算</span>
+          <p>这一段不是只有 OAK 排序失误。剑圣用灭世把问题抛给刀妹：你要先抽、先魅惑，还是先保御风路线？</p>
+        </div>
+        <button class="watch-button" type="button" data-time="2821" data-label="47:01 第二局排序瑕疵">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=2821" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <p class="lead">第二局林川一度很危险，但剑圣玩家可以学到两点：第一，备牌后的反制密度能让刀妹必须反复检查排序；第二，只要刀妹没有在正确窗口用训练有素和御风完成斩杀，剑圣就能把局面拖回 1:1。</p>
+      <div class="grid-2">
+        <article class="insight">
+          <h3>阿克尚不是主攻手</h3>
+          <p>阿克尚在这个对局里更像压力源和偷中亚的威胁。它让刀妹必须考虑紧急召回、灭世和场面节奏。</p>
+        </article>
+        <article class="insight">
+          <h3>灭世要打在对手难受的窗口</h3>
+          <p>对手如果必须在灭世结算前决定训练有素、魅惑和御风，排序压力会放大，失误也更容易出现。</p>
+        </article>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>备牌后空过风险</td>
+            <td>剑圣先手空过会让刀妹取得节奏，但只要保留反制牌和关键单位，仍有机会把局面拉长。</td>
+          </tr>
+          <tr>
+            <td>给对手排序题</td>
+            <td>灭世不只是解牌，也是让刀妹必须先后处理抽牌、检索、御风和魅惑的压力源。</td>
+          </tr>
+          <tr>
+            <td>看见窗口就收局</td>
+            <td>一旦 OAK 错过训练有素响应灭世的最佳时点，剑圣就要立刻把这一局转成资源和轮次优势。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="warning">
+        <p><strong>第二局结论：</strong>剑圣不一定要每次都主动做最大动作。你可以把问题交给刀妹，只要对手排序稍慢一步，灭世和狮子狗就会把比赛拖回你的节奏。</p>
+      </div>
+    </section>
+
+    <section id="yi-game-three">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 3</div>
+          <h2>决胜局：别怕废弃大厅，怕的是没留终局答案</h2>
+        </div>
+        <div class="time">60:31 - 83:23</div>
+      </div>
+      <p class="lead">决胜局的难点在 65 分钟后就出现了：刀妹在废弃大厅上能从 4 点跳到 10 点，剑圣不能每一波都硬吃。但林川后续通过迅捷蟹看信息、狮子狗沉淀、让 OAK 把巨破和训练有素交在埃波罗进攻上，成功把终局压力降到了可控范围。</p>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">64:38 - 65:25</span>
+          <span class="watch-title">废弃大厅刀妹到 10 点</span>
+          <p>这里说明剑圣不能盲目和刀妹比峰值。正确目标是让下一次爆发缺少单位、缺少隐藏信息或缺少关键法术。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="3880" data-label="64:38 暗中破坏逼反应">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=3880" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="stamp">65:14</div>
+          <p>刀妹在废弃大厅爆发到 10 点。剑圣要承认这一波数值很难正面赢，转而保留后续答案。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">68:48</div>
+          <p>迅捷蟹继续看刀妹手牌，确认训练有素、御风和中亚等信息。信息越多，刀妹越难装第二条路线。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">72:06</div>
+          <p>林川在后场沉淀狮子狗，没有急着组织不稳定进攻。高质量单位越多，刀妹越难只靠一个废弃大厅解决问题。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">73:59</div>
+          <p>OAK 为埃波罗进攻交出巨破、训练有素和造化弄人。剑圣真正赚到的是这些牌没有留给废弃大厅刀妹。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">82:32</div>
+          <p>最后一攻，刀妹御风到废弃大厅并涨到 10 点；林川用一直保留的先打再问配合狮子狗和剑圣被动封死。</p>
+        </div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">82:32 - 83:10</span>
+          <span class="watch-title">先打再问封住冠军点</span>
+          <p>这不是临时摸到的答案，而是从开局一路保留到终局的保险。剑圣赢在没有把不可替代牌提前交掉。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="4952" data-label="82:32 最后一攻">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=4952" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <div class="note">
+        <p><strong>决胜局结论：</strong>废弃大厅会让刀妹赢数值，但剑圣可以赢路线。只要你持续拿信息、逼错法术落点，并保留终局答案，刀妹最后的 10 点战力也会变成可计算问题。</p>
+      </div>
+    </section>
+
+    <section id="yi-checklist">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Practice</div>
+          <h2>剑圣玩家可以直接照着练的清单</h2>
+        </div>
+      </div>
+      <h3>每回合都做的四个判断</h3>
+      <div class="checklist">
+        <div class="check"><span class="box"></span><span>我是否已经知道刀妹手里的巨破、训练有素、御风、魅惑或中亚？</span></div>
+        <div class="check"><span class="box"></span><span>这波交换能不能逼刀妹把关键法术交在非英雄区、非废弃大厅的单位上？</span></div>
+        <div class="check"><span class="box"></span><span>我现在交灭世、魅惑或先打再问后，下一波总攻还有没有答案？</span></div>
+        <div class="check"><span class="box"></span><span>刀妹现在是单位不足还是法术不足？如果单位不足，我能不能继续沉淀长盘？</span></div>
+      </div>
+
+      <h3>关键牌使用规则</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>河道蟹 / 迅捷蟹</td>
+            <td>先拿信息，再决定是否进攻。看见牌以后要压缩对手选择，不要只猜一张。</td>
+          </tr>
+          <tr>
+            <td>狮子狗</td>
+            <td>优先处理天角、逼中亚、逼巨破落错位置。回手不一定亏，因为高费回合还能重新伏击。</td>
+          </tr>
+          <tr>
+            <td>灭世</td>
+            <td>打在对手必须排序的窗口。它既能解牌，也能迫使刀妹提前暴露训练有素、魅惑或御风路线。</td>
+          </tr>
+          <tr>
+            <td>魅惑妖术</td>
+            <td>不是每次都要赌。只有当对手选项被压缩到足够少，魅惑才是稳定收束；否则就是第一局那种高风险下注。</td>
+          </tr>
+          <tr>
+            <td>先打再问</td>
+            <td>尽量留给最终总攻。它的价值不是小赚一波，而是和狮子狗、剑圣被动一起封死废弃大厅刀妹。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>对刀妹的关键回合计算模板</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="stamp">算信息</div>
+          <p>我知道哪些手牌？哪些未知牌会改变结算？有没有必要先用蟹再看一眼？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算落点</div>
+          <p>刀妹的巨破和训练有素会落在英雄区、废弃大厅，还是被我逼去救小单位？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算下波</div>
+          <p>我这张灭世或先打再问如果现在交掉，下一波御风到废弃大厅还能不能处理？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算沉淀</div>
+          <p>如果这回合不打，我能不能用狮子狗、大副或过牌把场面养到刀妹更难处理？</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="yi-mistakes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Review</div>
+          <h2>剑圣玩家最容易犯的错</h2>
+        </div>
+      </div>
+      <ul class="mistakes">
+        <li>看完手牌后只赌一张答案，没有继续压缩刀妹的其他选择。</li>
+        <li>把灭世交在当下看起来赚的交换上，导致废弃大厅总攻没有答案。</li>
+        <li>急着和废弃大厅刀妹比数值，忽略自己可以沉淀单位和过牌。</li>
+        <li>狮子狗只当解牌用，没有用它逼中亚、逼巨破或清掉刀妹费用。</li>
+        <li>没有记录迅捷蟹看到的信息，过两回合后又把已知牌当未知牌处理。</li>
+        <li>把阿克尚当主攻核心，忘了它真正的价值是偷中亚和给刀妹制造压力。</li>
+        <li>先打再问交太早，最后面对御风到废弃大厅只能硬算不够的防守线。</li>
+      </ul>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">84:56 起</span>
+          <span class="watch-title">冠军采访里的剑圣复盘</span>
+          <p>林川说第一局三张魅惑只能赌，也点出第二局 OAK 的排序问题。剑圣玩家要把这两点合起来看：少赌，多制造排序压力。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="5096" data-label="84:56 赛后解释">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=5096" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      <p>这场决赛对剑圣玩家最有价值的地方，是它展示了如何把刀妹的高上限变成可管理的路线：持续拿信息、逼错资源落点、接受沉淀长盘，并把不可替代答案留到最后。</p>
+    </div>
+    </div>
     </main>
   </div>
 
@@ -1570,6 +2053,57 @@
     </div>
   </div>
   <script>
+    (() => {
+      const tabs = [...document.querySelectorAll("[data-perspective-target]")];
+      const panels = [...document.querySelectorAll("[data-perspective-panel]")];
+      const navGroups = [...document.querySelectorAll("[data-perspective-nav]")];
+      const panelByAnchor = new Map();
+
+      panels.forEach((panel) => {
+        panel.querySelectorAll("[id]").forEach((node) => {
+          panelByAnchor.set(node.id, panel.dataset.perspectivePanel);
+        });
+      });
+
+      function setPerspective(name, shouldFocus = false) {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.perspectiveTarget === name;
+          tab.classList.toggle("active", active);
+          tab.setAttribute("aria-selected", String(active));
+          if (active && shouldFocus) tab.focus();
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.perspectivePanel !== name;
+        });
+
+        navGroups.forEach((group) => {
+          group.hidden = group.dataset.perspectiveNav !== name;
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          setPerspective(tab.dataset.perspectiveTarget, true);
+        });
+      });
+
+      function applyHashPerspective() {
+        const anchor = decodeURIComponent(window.location.hash.slice(1));
+        if (!anchor) return;
+        const perspective = panelByAnchor.get(anchor);
+        if (perspective) {
+          setPerspective(perspective);
+          window.requestAnimationFrame(() => {
+            document.getElementById(anchor)?.scrollIntoView();
+          });
+        }
+      }
+
+      applyHashPerspective();
+      window.addEventListener("hashchange", applyHashPerspective);
+    })();
+
     (() => {
       const player = document.querySelector("#matchPlayer");
       const status = document.querySelector("#videoStatus");
