@@ -126,6 +126,83 @@
       color: var(--muted);
     }
 
+    .season-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 10px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .season-tab {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 850;
+      line-height: 1;
+      padding: 12px 14px;
+    }
+
+    .season-tab:hover,
+    .season-tab:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    .season-tab.active {
+      border-color: rgba(47, 111, 78, 0.34);
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .season-panel[hidden] {
+      display: none;
+    }
+
+    .season-panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .season-panel-head h3 {
+      color: var(--green-dark);
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .season-panel-head p {
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    .season-count {
+      flex: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #edf4ee;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
     .guide-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -281,6 +358,21 @@
       .section-head h2 {
         font-size: 28px;
       }
+
+      .season-tabs,
+      .season-panel-head {
+        display: block;
+      }
+
+      .season-tab {
+        width: 100%;
+        text-align: left;
+      }
+
+      .season-count {
+        display: inline-flex;
+        margin-top: 12px;
+      }
     }
   </style>
 </head>
@@ -297,60 +389,107 @@
     <div class="section-head">
       <div>
         <h2>当前已有 3 篇</h2>
-        <p>每篇都保留固定播放器、章节导航、片段跳转和反馈入口。</p>
+        <p>按赛季分类查看，每篇都保留固定播放器、章节导航、片段跳转和反馈入口。</p>
       </div>
     </div>
 
-    <section class="guide-grid" aria-label="复盘页面列表">
-      <a class="guide-card" href="irelia-mirror-final/">
-        <div class="thumb mirror"></div>
-        <div class="card-body">
-          <div class="tagline">公开赛决赛桌 · 刀妹内战</div>
-          <h3>从公开赛决赛桌学习到的刀妹内战方法</h3>
-          <p>整理刀妹内战里的节奏、关键交换、斩杀窗口和资源管理，适合刀妹玩家反复对照练习。</p>
-          <ul class="meta">
-            <li>刀锋舞者 VS 刀锋舞者</li>
-            <li>第二赛季全国公开赛</li>
-            <li>视角：刀妹内战</li>
-          </ul>
-          <span class="open">打开复盘</span>
-        </div>
-      </a>
+    <div class="season-tabs" role="tablist" aria-label="赛季分类">
+      <button class="season-tab" id="tab-season-2" type="button" role="tab" aria-selected="false" aria-controls="panel-season-2" data-season="season-2">第二赛季-铸魂淬炼</button>
+      <button class="season-tab active" id="tab-season-3" type="button" role="tab" aria-selected="true" aria-controls="panel-season-3" data-season="season-3">第三赛季-破限</button>
+    </div>
 
-      <a class="guide-card" href="yi-irelia-final/">
-        <div class="thumb irelia"></div>
-        <div class="card-body">
-          <div class="tagline">苏州站决赛 · 刀妹打剑圣</div>
-          <h3>从苏州站决赛学习刀妹打剑圣的方法</h3>
-          <p>把无极剑圣 VS 刀锋舞者决赛拆成刀妹玩家能用的安全窗口、排序、巨破和废弃大厅方法。</p>
-          <ul class="meta">
-            <li>无极剑圣 VS 刀锋舞者</li>
-            <li>第三赛季苏州站 DAY2 第 6P</li>
-            <li>视角：刀妹玩家</li>
-          </ul>
-          <span class="open">打开复盘</span>
+    <section class="season-panel" id="panel-season-2" role="tabpanel" aria-labelledby="tab-season-2" data-season-panel="season-2" hidden>
+      <div class="season-panel-head">
+        <div>
+          <h3>第二赛季-铸魂淬炼</h3>
+          <p>全国公开赛决赛桌复盘，先从刀妹内战的资源交换和终局计算开始。</p>
         </div>
-      </a>
+        <span class="season-count">1 篇复盘</span>
+      </div>
+      <div class="guide-grid" aria-label="第二赛季复盘页面列表">
+        <a class="guide-card" href="irelia-mirror-final/">
+          <div class="thumb mirror"></div>
+          <div class="card-body">
+            <div class="tagline">公开赛决赛桌 · 刀妹内战</div>
+            <h3>从公开赛决赛桌学习到的刀妹内战方法</h3>
+            <p>整理刀妹内战里的节奏、关键交换、斩杀窗口和资源管理，适合刀妹玩家反复对照练习。</p>
+            <ul class="meta">
+              <li>刀锋舞者 VS 刀锋舞者</li>
+              <li>第二赛季全国公开赛</li>
+              <li>视角：刀妹内战</li>
+            </ul>
+            <span class="open">打开复盘</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
-      <a class="guide-card" href="yi-aurora-semifinal/">
-        <div class="thumb aurora"></div>
-        <div class="card-body">
-          <div class="tagline">苏州站半决赛 · 剑圣打极光</div>
-          <h3>从苏州站半决赛学习剑圣打极光的方法</h3>
-          <p>复盘战争女神（希维尔/极光）VS 无极剑圣，重点看河道蟹、阿克尚、据为己有和卑鄙之喉。</p>
-          <ul class="meta">
-            <li>战争女神 VS 无极剑圣</li>
-            <li>第三赛季苏州站 DAY2 第 5P</li>
-            <li>视角：中速剑圣</li>
-          </ul>
-          <span class="open">打开复盘</span>
+    <section class="season-panel" id="panel-season-3" role="tabpanel" aria-labelledby="tab-season-3" data-season-panel="season-3">
+      <div class="season-panel-head">
+        <div>
+          <h3>第三赛季-破限</h3>
+          <p>苏州站淘汰赛复盘，集中看剑圣、刀妹和极光体系之间的攻防方法。</p>
         </div>
-      </a>
+        <span class="season-count">2 篇复盘</span>
+      </div>
+      <div class="guide-grid" aria-label="第三赛季复盘页面列表">
+        <a class="guide-card" href="yi-irelia-final/">
+          <div class="thumb irelia"></div>
+          <div class="card-body">
+            <div class="tagline">苏州站决赛 · 刀妹打剑圣</div>
+            <h3>从苏州站决赛学习刀妹打剑圣的方法</h3>
+            <p>把无极剑圣 VS 刀锋舞者决赛拆成刀妹玩家能用的安全窗口、排序、巨破和废弃大厅方法。</p>
+            <ul class="meta">
+              <li>无极剑圣 VS 刀锋舞者</li>
+              <li>第三赛季苏州站 DAY2 第 6P</li>
+              <li>视角：刀妹玩家</li>
+            </ul>
+            <span class="open">打开复盘</span>
+          </div>
+        </a>
+
+        <a class="guide-card" href="yi-aurora-semifinal/">
+          <div class="thumb aurora"></div>
+          <div class="card-body">
+            <div class="tagline">苏州站半决赛 · 剑圣打极光</div>
+            <h3>从苏州站半决赛学习剑圣打极光的方法</h3>
+            <p>复盘战争女神（希维尔/极光）VS 无极剑圣，重点看河道蟹、阿克尚、据为己有和卑鄙之喉。</p>
+            <ul class="meta">
+              <li>战争女神 VS 无极剑圣</li>
+              <li>第三赛季苏州站 DAY2 第 5P</li>
+              <li>视角：中速剑圣</li>
+            </ul>
+            <span class="open">打开复盘</span>
+          </div>
+        </a>
+      </div>
     </section>
 
     <div class="note">
       <strong>原来的首页内容已经保留：</strong>刀妹内战复盘现在放在 <a href="irelia-mirror-final/">irelia-mirror-final/</a>，以后首页会作为所有复盘的统一入口。
     </div>
   </main>
+  <script>
+    (() => {
+      const tabs = [...document.querySelectorAll(".season-tab")];
+      const panels = [...document.querySelectorAll(".season-panel")];
+
+      function setSeason(nextSeason) {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.season === nextSeason;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.seasonPanel !== nextSeason;
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => setSeason(tab.dataset.season));
+      });
+    })();
+  </script>
 </body>
 </html>
