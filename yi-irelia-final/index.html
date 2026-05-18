@@ -183,6 +183,7 @@
     .decklist-panel {
       display: grid;
       gap: 10px;
+      margin: 0;
       padding: 14px;
       border-bottom: 1px solid var(--line);
       background: rgba(251, 252, 248, 0.78);
@@ -532,6 +533,10 @@
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(16px);
       box-shadow: 0 16px 44px rgba(25, 39, 31, 0.13);
+    }
+
+    .perspective-switch.perspective-switch-mobile {
+      display: none;
     }
 
     .perspective-tab {
@@ -938,7 +943,14 @@
       }
 
       .topbar .video-toolbar {
-        padding: 8px 12px;
+        gap: 8px;
+        padding: 4px 12px;
+      }
+
+      .topbar .video-status,
+      .topbar .video-open {
+        font-size: 11px;
+        line-height: 1.15;
       }
 
       .nav {
@@ -984,6 +996,29 @@
         display: none;
       }
 
+      .perspective-switch-desktop {
+        display: none;
+      }
+
+      .perspective-switch.perspective-switch-mobile {
+        position: static;
+        width: min(var(--max), calc(100% - 40px));
+        min-height: 0;
+        margin: 3px auto 2px;
+        padding: 2px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px;
+        box-shadow: 0 6px 16px rgba(25, 39, 31, 0.07);
+      }
+
+      .perspective-switch.perspective-switch-mobile .perspective-tab {
+        min-height: 30px;
+        border-radius: 5px;
+        font-size: 12px;
+        line-height: 1;
+      }
+
       .links {
         flex-direction: row;
         align-items: center;
@@ -1019,7 +1054,6 @@
       .grid-2,
       .method-flow,
       .mistakes,
-      .perspective-switch,
       .jump-grid {
         grid-template-columns: 1fr;
       }
@@ -1036,10 +1070,6 @@
 
       .watch-card {
         grid-template-columns: 1fr;
-      }
-
-      .perspective-switch {
-        top: calc(min(76vh, 640px) + 10px);
       }
 
       .watch-button,
@@ -1080,6 +1110,10 @@
 
       .decklist-panel {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .perspective-switch-mobile {
+        width: min(100% - 28px, var(--max));
       }
 
       .deck-dialog {
@@ -1128,6 +1162,10 @@
         </div>
         <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
       </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-irelia-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-irelia" data-perspective-target="irelia">刀妹玩家视角</button>
+        <button class="perspective-tab" id="tab-yi-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-yi" data-perspective-target="yi">剑圣玩家视角</button>
+      </div>
       <section class="decklist-panel" aria-label="公开牌表">
         <div class="decklist-label">公开牌表</div>
         <button class="decklist-button" type="button" data-deck-title="剑圣牌表" data-deck-player="林川" data-deck-image="deck-linchuan-yi.jpg" data-deck-alt="林川的剑圣牌表截图">
@@ -1167,7 +1205,7 @@
     </aside>
 
     <main>
-    <div class="perspective-switch" role="tablist" aria-label="分析视角">
+    <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
       <button class="perspective-tab active" id="tab-irelia" type="button" role="tab" aria-selected="true" aria-controls="panel-irelia" data-perspective-target="irelia">刀妹玩家视角</button>
       <button class="perspective-tab" id="tab-yi" type="button" role="tab" aria-selected="false" aria-controls="panel-yi" data-perspective-target="yi">剑圣玩家视角</button>
     </div>
