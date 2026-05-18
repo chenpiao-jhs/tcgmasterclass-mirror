@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>刀妹打希维尔极光：用针对牌和聚首抢下窗口</title>
+  <style>
+    :root {
+      --bg: #f4f6f1;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --red: #9f3d36;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 530px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.88), rgba(8, 18, 13, 0.62) 48%, rgba(8, 18, 13, 0.16)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 860px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 780px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .page-shell {
+      width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 86px;
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      width: auto;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      z-index: 10;
+      border: 1px solid rgba(223, 231, 221, 0.92);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
+    }
+
+    .topbar .media {
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: none;
+    }
+
+    .topbar .media figcaption {
+      display: none;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 860px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      font-size: 20px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .media {
+      margin: 24px 0 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .video-screen {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #101712;
+    }
+
+    .video-screen iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #101712;
+    }
+
+    .video-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .topbar .video-toolbar {
+      padding: 10px 12px;
+    }
+
+    .video-status {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .topbar .video-status,
+    .topbar .video-open {
+      font-size: 13px;
+    }
+
+    .video-open,
+    .watch-link {
+      color: var(--green-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .video-open:hover,
+    .video-open:focus,
+    .watch-link:hover,
+    .watch-link:focus {
+      color: var(--green);
+      outline: none;
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      min-height: 118px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    .watch-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 28px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 38px rgba(25, 39, 31, 0.08);
+    }
+
+    .watch-card p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .watch-time {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .watch-title {
+      display: block;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .watch-button {
+      appearance: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      min-width: 112px;
+      padding: 11px 14px;
+      white-space: nowrap;
+    }
+
+    .watch-button:hover,
+    .watch-button:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      font-weight: 760;
+      color: var(--green-dark);
+      width: 190px;
+    }
+
+    .method-flow {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .method-flow h3 {
+      font-size: 18px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #35443a;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--green);
+      margin-top: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), #3f5d3d);
+    }
+
+    .footer p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green-dark);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 470px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .page-shell {
+        width: 100%;
+        display: block;
+        padding: 0 0 86px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        left: auto;
+        width: auto;
+        max-height: none;
+        overflow: visible;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: rgba(245, 247, 242, 0.93);
+        box-shadow: none;
+      }
+
+      .topbar .media {
+        display: none;
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        align-items: start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .brand {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .links {
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 0 0 2px;
+        width: 100%;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      .section-head,
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .mistakes,
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item,
+      .watch-card {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .watch-button,
+      .watch-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 苏州站 8 进 4 复盘</div>
+      <h1>刀妹打希维尔极光：用针对牌和聚首抢下窗口</h1>
+      <p class="summary">把第 4P “战争女神 VS 刀锋舞者”的淘汰赛拆成可执行方法：OAK 的刀妹怎样用自适应机器人、反制牌和精确费用，把希维尔极光拖进自己能赢的聚首窗口。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 4P</li>
+        <li>对局：战争女神（希维尔极光） VS 刀锋舞者（LineKa·OAK）</li>
+        <li>结果：OAK 2:0 晋级四强</li>
+        <li>视角：刀妹如何处理极光与远古龙</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=4&autoplay=0&t=195" title="第三赛季区域公开赛苏州站 DAY2 第 4P：战争女神 VS 刀锋舞者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：03:15 对局判断与选手登场</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=195" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">刀妹抗极光方法</div>
+        <div class="links">
+          <a href="#principles">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#framework">对局框架</a>
+          <a href="#game-one">第一局</a>
+          <a href="#game-two">第二局</a>
+          <a href="#checklist">练习清单</a>
+          <a href="#mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="principles">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Core</div>
+            <h2>先记住这场对局的五句话</h2>
+          </div>
+        </div>
+        <p class="lead">这场 8 进 4 最值得学的是：刀妹不是靠和远古龙硬拼赢极光，而是先抢分，再用针对牌逼极光少一次有效结算，最后用聚首把比赛收掉。</p>
+        <div class="grid-3">
+          <article class="insight">
+            <h3>自适应机器人是环境解读</h3>
+            <p>OAK 主牌就放自适应机器人，说明他预判淘汰赛会频繁遇到极光。它不是普通站场，而是专门拆闪耀极光的答案。</p>
+          </article>
+          <article class="insight">
+            <h3>远古龙不能只靠战力硬撞</h3>
+            <p>刀妹能把数值拉很高，但远古龙会让交换变成平换甚至亏频率。真正的胜路是抢分和聚首。</p>
+          </article>
+          <article class="insight">
+            <h3>第一局小康康饭盒很关键</h3>
+            <p>希维尔极光的强点之一是提前回费启动。第一局饭盒被康掉后，极光节奏慢了一拍，刀妹拿到主动权。</p>
+          </article>
+        </div>
+        <div class="grid-2">
+          <article class="insight">
+            <h3>金身是在保护频率</h3>
+            <p>第一局薇古丝加金身不是单纯保单位，而是确保远古龙点人后刀妹仍然有频率继续做聚首路线。</p>
+          </article>
+          <article class="insight">
+            <h3>费用计算就是胜负线</h3>
+            <p>解说反复提到 OAK 每回合都能把费用正好用完。两局能 2:0，靠的是最后窗口的精确费用和路线选择。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="video">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Watch</div>
+            <h2>边看比赛，边对照方法</h2>
+          </div>
+          <div class="time">P4 8进4全场</div>
+        </div>
+        <p class="lead">左侧固定播放器会一直跟随页面。点击任一时间点或正文里的“播放这一段”，左侧播放器会切到对应比赛片段，页面滚动位置保持不动。</p>
+        <div class="jump-grid" aria-label="关键片段跳转">
+          <button class="jump-card active" type="button" data-time="195" data-label="03:15 对局判断与选手登场">
+            <span>03:15</span>
+            <strong>对局判断</strong>
+            <em>希维尔锁定极光形态，刀妹有针对牌会有微小机会。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="377" data-label="06:17 自适应机器人主牌出现">
+            <span>06:17</span>
+            <strong>机器人主牌</strong>
+            <em>OAK 的环境准备直接露出来。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="501" data-label="08:21 小康康掉饭盒">
+            <span>08:21</span>
+            <strong>康掉饭盒</strong>
+            <em>巨神峰两费变成关键反制。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="813" data-label="13:33 极光拉远古龙">
+            <span>13:33</span>
+            <strong>远古龙落地</strong>
+            <em>机器人被点掉，但刀妹分数领先。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="952" data-label="15:52 薇古丝加金身">
+            <span>15:52</span>
+            <strong>保住频率</strong>
+            <em>金身为后续聚首路线垫住单位数量。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="1435" data-label="23:55 第一局造化弄人收口">
+            <span>23:55</span>
+            <strong>造化弄人</strong>
+            <em>回收活跃远古龙，拿下第一局。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="1837" data-label="30:37 第二局自适应机器人上手">
+            <span>30:37</span>
+            <strong>第二局起手</strong>
+            <em>机器人、二费单位和针对牌都到位。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="2303" data-label="38:23 御风机器人拆极光">
+            <span>38:23</span>
+            <strong>拆闪耀极光</strong>
+            <em>御风和机器人一起把极光变成增益。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="2397" data-label="39:57 金身撞远古龙">
+            <span>39:57</span>
+            <strong>撞远古龙</strong>
+            <em>趁对手没费，尝试用金身带破处理远古龙。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="2501" data-label="41:41 御风加小康抢窗口">
+            <span>41:41</span>
+            <strong>御风加小康</strong>
+            <em>刀妹继续追聚首窗口，费用刚好够。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="2812" data-label="46:52 第二局聚首晋级">
+            <span>46:52</span>
+            <strong>2:0 晋级</strong>
+            <em>两局都通过聚首获胜。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="2885" data-label="48:05 全场K牌自适应机器人">
+            <span>48:05</span>
+            <strong>全场 K 牌</strong>
+            <em>自适应机器人获得官方赛后 K 牌。</em>
+          </button>
+        </div>
+      </section>
+
+      <section id="framework">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Framework</div>
+            <h2>打法框架：不是解完极光，而是让它来不及赢</h2>
+          </div>
+          <div class="time">全场通用</div>
+        </div>
+        <p class="lead">希维尔极光的优势是跳费、金币和远古龙结算。刀妹的胜路不是把每一条龙都处理干净，而是用前期分数逼对手防守，再让自适应机器人、造化弄人和聚首把最后窗口变成自己的。</p>
+        <ol class="method-flow">
+          <li>
+            <span class="num">1</span>
+            <h3>前期先抢分</h3>
+            <p>迅捷蟹、埃波罗、游走鞋这些低费频率要优先把分数推高。没有分数压力，极光会舒服进入远古龙回合。</p>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <h3>反制跳费和关键结算</h3>
+            <p>小康康饭盒、极速反制应对远古龙，都不是赚一张牌的问题，而是让极光慢一拍。</p>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <h3>机器人要算时机</h3>
+            <p>能四费站场抢分，也能等极光打出后再激活拆装备。选择哪条路线，要看当前是否已经有足够频率。</p>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <h3>最后用聚首收口</h3>
+            <p>远古龙站住以后，物理交换很难赢。刀妹要把御风、魅惑、造化弄人这些牌算成聚首路线。</p>
+          </li>
+        </ol>
+        <div class="note">
+          <p><strong>一句话记法：</strong>刀妹打极光先问“我能不能把对手逼到防守”，再问“我有没有办法让远古龙离开关键战场”，最后才看能不能靠数值硬打。</p>
+        </div>
+      </section>
+
+      <section id="game-one">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Game 1</div>
+            <h2>第一局：小康拖慢极光，造化弄人完成收口</h2>
+          </div>
+          <div class="time">05:43 - 24:43</div>
+        </div>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">06:17 起</span>
+            <span class="watch-title">主牌自适应机器人露面</span>
+            <p>解说直接指出，这张针对牌能在主牌出现，说明 OAK 对极光环境判断很准。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="377" data-label="06:17 自适应机器人主牌出现">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=377" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <p class="lead">OAK 第一局先攻，二费迅捷蟹接自适应机器人，本身已经是非常顺的抢分结构。真正让极光难受的是 08:21 的小康：饭盒被康掉后，希维尔极光没有办法按最舒服的节奏启动。</p>
+        <table>
+          <tbody>
+            <tr>
+              <td>06:17 机器人</td>
+              <td>机器人在主牌里出现，不只是为了拆极光，也能作为四费单位继续参与抢分。</td>
+            </tr>
+            <tr>
+              <td>08:21 小康</td>
+              <td>利用巨神峰之巅活跃的两费康掉饭盒，让极光无法顺利提速到关键费用。</td>
+            </tr>
+            <tr>
+              <td>15:52 金身</td>
+              <td>薇古丝加金身保的是频率。远古龙会点单位，所以刀妹要先保证自己被点后还能继续行动。</td>
+            </tr>
+            <tr>
+              <td>23:55 造化弄人</td>
+              <td>最后回收对手活跃远古龙，让希维尔极光没有足够动点阻止刀妹聚首。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="grid-2">
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">08:21 起</span>
+              <span class="watch-title">饭盒被康，极光慢一拍</span>
+              <p>如果饭盒成功，希维尔极光会更早进入九费与远古龙回合；这一康改变了前半局节奏。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="501" data-label="08:21 小康康掉饭盒">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=501" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">23:55 起</span>
+              <span class="watch-title">第一局靠造化弄人收下</span>
+              <p>解说总结第一局核心：刀妹前期快攻抢分，最后靠造化弄人把极光的防线拆开。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1435" data-label="23:55 第一局造化弄人收口">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=1435" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+        </div>
+        <div class="warning">
+          <p><strong>第一局结论：</strong>刀妹赢极光的窗口很窄。OAK 能拿下，是因为前期分数领先、小康拖慢极光、金身保住频率，最后造化弄人正好接住聚首路线。</p>
+        </div>
+      </section>
+
+      <section id="game-two">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Game 2</div>
+            <h2>第二局：机器人拆极光，费用刚好够到 2:0</h2>
+          </div>
+          <div class="time">30:27 - 47:10</div>
+        </div>
+        <p class="lead">第二局换位备牌后，OAK 依然摸到自适应机器人，而且手里有二费单位、御风、魅惑和反制牌。希维尔极光有极光但缺跳费，给了刀妹继续抢分和布置针对牌的时间。</p>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">38:23 起</span>
+            <span class="watch-title">御风加机器人拆掉闪耀极光</span>
+            <p>这是全场最清楚的“针对牌兑现”：机器人征服战场后，直接把对手的闪耀极光变成自己的增益。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="2303" data-label="38:23 御风机器人拆极光">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2303" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="stamp">30:37</div>
+            <p>第二局开局，OAK 再次拿到自适应机器人，并且手里已经有两个二费单位，抢分节奏没有断。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">32:21</div>
+            <p>刀妹拿到应对远古龙的反制牌。极光侧手牌很多，但缺少跳费，组件拼在一起不够顺。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">37:21</div>
+            <p>远古龙点掉关键频率，OAK 继续过牌找路线。这里重点是后场至少要保住单位，否则聚首路线会断。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">38:23</div>
+            <p>御风而行配合自适应机器人拆掉闪耀极光。解说称它“化成温暖的增益”，这就是机器人被评为 K 牌的核心画面。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">39:57</div>
+            <p>OAK 试图趁对手没费，用金身带破处理远古龙。对手随后用噬魂夜再拉远古龙，局面又被拖回极限计算。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">46:52</div>
+            <p>希维尔极光没能翻到阻止聚首的远古龙，OAK 两局都通过聚首获胜，2:0 晋级四强。</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">41:41 起</span>
+              <span class="watch-title">御风加小康继续追窗口</span>
+              <p>刀妹在被远古龙解光后仍然能找回路线，原因是御风、小康和费用正好能拼到一起。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="2501" data-label="41:41 御风加小康抢窗口">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2501" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">48:05 起</span>
+              <span class="watch-title">赛后 K 牌：自适应机器人</span>
+              <p>官方赛后 K 牌给到自适应机器人。第一局它参与抢分，第二局它真正拆掉闪耀极光。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="2885" data-label="48:05 全场K牌自适应机器人">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2885" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+        </div>
+        <div class="note">
+          <p><strong>第二局结论：</strong>机器人拆极光只是结果，前面的低费频率、过牌、御风和反制牌才是让它能兑现的原因。OAK 的关键优势是每一回合都知道自己在追哪条胜利路线。</p>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Practice</div>
+            <h2>你可以直接照着练的操作清单</h2>
+          </div>
+        </div>
+        <h3>刀妹侧每回合都问这六个问题</h3>
+        <div class="checklist">
+          <div class="check"><span class="box"></span><span>我当前是在抢第几分？如果这回合只解场、不拿分，后面还有没有聚首窗口？</span></div>
+          <div class="check"><span class="box"></span><span>对手下回合能不能到九费拍极光？饭盒、金币、跳费是否需要被康掉？</span></div>
+          <div class="check"><span class="box"></span><span>自适应机器人现在是应该站场抢分，还是留到极光打出后再激活拆装备？</span></div>
+          <div class="check"><span class="box"></span><span>远古龙落地会点掉我几个单位？金身、复活甲或站位能不能保住至少一个后续频率？</span></div>
+          <div class="check"><span class="box"></span><span>我有没有御风、魅惑、造化弄人这类能改变战场位置的牌，用来服务聚首？</span></div>
+          <div class="check"><span class="box"></span><span>我的符文颜色和金币够不够？对手有没有隐藏金币能让看似不够的防守重新成立？</span></div>
+        </div>
+
+        <h3>关键牌使用规则</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>自适应机器人</td>
+              <td>打极光的核心针对牌。能抢分，也能在征服战场后拆闪耀极光；不要只把它当普通四费单位。</td>
+            </tr>
+            <tr>
+              <td>小康</td>
+              <td>优先看饭盒、跳费和关键防守牌。第一局康掉饭盒，就是把极光的强启动拖慢。</td>
+            </tr>
+            <tr>
+              <td>极速反制</td>
+              <td>主要用于应对远古龙效果。备牌后如果手里有它，刀妹对远古龙的承受力会明显提高。</td>
+            </tr>
+            <tr>
+              <td>金身/复活甲</td>
+              <td>不要只看单个单位能不能活，重点是远古龙结算后你还有没有频率继续拿分或聚首。</td>
+            </tr>
+            <tr>
+              <td>御风而行</td>
+              <td>既能转场拿分，也能配合机器人拆极光。终局时要把它算进聚首路线。</td>
+            </tr>
+            <tr>
+              <td>造化弄人</td>
+              <td>第一局的收口牌。面对活跃远古龙时，它能把极光最后的防守点移走。</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="mistakes">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Review</div>
+            <h2>最容易犯的错</h2>
+          </div>
+        </div>
+        <ul class="mistakes">
+          <li>看到远古龙就想着硬解，忘了刀妹真正能赢的是抢分和聚首。</li>
+          <li>自适应机器人一直捏在手里，导致前期少一个抢分单位。</li>
+          <li>没有提前判断饭盒、金币和跳费，让极光太早进入九费回合。</li>
+          <li>金身和复活甲只当保命牌，没有围绕频率和后续聚首路线规划。</li>
+          <li>御风、魅惑、造化弄人随手交，最后需要转场或移开远古龙时没有牌。</li>
+          <li>只算符文颜色，不算对手金币，误判对手是否还有防守操作。</li>
+          <li>分数领先时继续拖，错过“这是最后一次赢得比赛的机会”的窗口。</li>
+          <li>备牌只考虑单卡强度，没有像 OAK 一样围绕环境和极光数量做准备。</li>
+        </ul>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">46:52 - 50:40</span>
+            <span class="watch-title">赛后总结：两局都靠聚首，自适应机器人拿 K 牌</span>
+            <p>解说明确总结，OAK 2:0 晋级四强，两局都通过聚首获胜；全场 K 牌给到自适应机器人。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="2812" data-label="46:52 第二局聚首晋级">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2812" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </section>
+
+      <div class="footer">
+        <p>这场 8 进 4 对刀妹玩家最有价值的地方，是它把“抗极光”具体拆成了几件事：前期抢分、康掉提速、自适应机器人拆闪耀极光、保护频率，以及在远古龙完全接管战斗前用聚首结束比赛。</p>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script>
+    (() => {
+      const player = document.querySelector("#matchPlayer");
+      const status = document.querySelector("#videoStatus");
+      const openLink = document.querySelector("#videoOpen");
+      const jumps = [...document.querySelectorAll(".jump-card")];
+      const controls = [...document.querySelectorAll("[data-time][data-label]")];
+      const basePlayer = "https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=4&autoplay=1";
+      const basePage = "https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4";
+
+      function setVideo(time, label) {
+        if (!player) return;
+        player.src = `${basePlayer}&t=${time}`;
+        if (status) status.textContent = `当前：${label}`;
+        if (openLink) openLink.href = `${basePage}&t=${time}`;
+
+        jumps.forEach((jump) => {
+          jump.classList.toggle("active", jump.dataset.time === String(time));
+        });
+      }
+
+      controls.forEach((control) => {
+        control.addEventListener("click", () => {
+          setVideo(control.dataset.time, control.dataset.label);
+        });
+      });
+    })();
+  </script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
