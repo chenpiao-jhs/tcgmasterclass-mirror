@@ -1,4 +1,4 @@
-# 从公开赛决赛桌学习到的刀妹内战方法
+# 符文战场-比赛精华汇总
 
 一个符文战场 TCG 比赛复盘静态网页，围绕公开赛决赛桌刀锋舞者内战整理打法方法。
 
@@ -17,7 +17,7 @@ python3 server.py
 当前部署在 exe.dev VM：
 
 ```bash
-ssh spin-fortune.exe.xyz
+ssh tcgmasterclass.exe.xyz
 cd ~/runeterra-irelia-mirror-guide
 git pull
 ```
