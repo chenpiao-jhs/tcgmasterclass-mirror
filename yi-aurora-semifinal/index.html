@@ -1,0 +1,1600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>从苏州站半决赛学习剑圣打极光的方法</title>
+  <style>
+    :root {
+      --bg: #f4f6f1;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --blue: #315f78;
+      --blue-soft: #dcebf0;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 530px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.88), rgba(8, 18, 13, 0.62) 48%, rgba(8, 18, 13, 0.16)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 860px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 780px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .page-shell {
+      width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 86px;
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      width: auto;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      z-index: 10;
+      border: 1px solid rgba(223, 231, 221, 0.92);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
+    }
+
+    .topbar .media {
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: none;
+    }
+
+    .topbar .media figcaption {
+      display: none;
+    }
+
+    .topbar .video-toolbar {
+      padding: 10px 12px;
+    }
+
+    .topbar .video-status,
+    .topbar .video-open {
+      font-size: 13px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 860px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      font-size: 20px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .media {
+      margin: 24px 0 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .video-hub {
+      overflow: hidden;
+    }
+
+    .video-screen {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #101712;
+    }
+
+    .video-screen iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #101712;
+    }
+
+    .video-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .video-status {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .video-open,
+    .watch-link {
+      color: var(--green-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .video-open:hover,
+    .video-open:focus,
+    .watch-link:hover,
+    .watch-link:focus {
+      color: var(--green);
+      outline: none;
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      min-height: 118px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    .watch-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 28px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 38px rgba(25, 39, 31, 0.08);
+    }
+
+    .watch-card p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .watch-time {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .watch-title {
+      display: block;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .watch-button {
+      appearance: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      min-width: 112px;
+      padding: 11px 14px;
+      white-space: nowrap;
+    }
+
+    .watch-button:hover,
+    .watch-button:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      font-weight: 760;
+      color: var(--green-dark);
+      width: 190px;
+    }
+
+    .method-flow {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      position: relative;
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .method-flow h3 {
+      font-size: 18px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #35443a;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--green);
+      margin-top: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), #3f5d3d);
+    }
+
+    .footer p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green-dark);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+
+    .feedback-fab {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 30;
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      padding: 12px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .feedback-fab:hover,
+    .feedback-fab:focus {
+      background: #7f2d28;
+      outline: none;
+    }
+
+    .feedback-modal[hidden] {
+      display: none;
+    }
+
+    .feedback-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(8, 18, 13, 0.52);
+    }
+
+    .feedback-dialog {
+      width: min(520px, 100%);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 28px 90px rgba(8, 18, 13, 0.28);
+      overflow: hidden;
+    }
+
+    .feedback-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 22px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .feedback-head h2 {
+      color: var(--green-dark);
+      font-size: 24px;
+    }
+
+    .feedback-close {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper-soft);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 22px;
+      line-height: 1;
+      width: 34px;
+      height: 34px;
+    }
+
+    .feedback-close:hover,
+    .feedback-close:focus {
+      color: var(--green-dark);
+      border-color: var(--green);
+      outline: none;
+    }
+
+    .feedback-form {
+      display: grid;
+      gap: 14px;
+      padding: 18px 22px 22px;
+    }
+
+    .feedback-field {
+      display: grid;
+      gap: 7px;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .feedback-field span {
+      font-size: 14px;
+    }
+
+    .feedback-field .optional {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .feedback-field textarea,
+    .feedback-field input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-soft);
+      color: var(--ink);
+      font: inherit;
+      line-height: 1.55;
+      padding: 11px 12px;
+    }
+
+    .feedback-field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .feedback-field textarea:focus,
+    .feedback-field input:focus {
+      border-color: var(--green);
+      outline: 3px solid rgba(47, 111, 78, 0.14);
+    }
+
+    .feedback-type-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 2px 0;
+    }
+
+    .feedback-type-tab {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper-soft);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 9px 12px;
+    }
+
+    .feedback-type-tab:hover,
+    .feedback-type-tab:focus {
+      border-color: var(--green);
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .feedback-type-tab.active {
+      border-color: var(--green-dark);
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .feedback-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    .feedback-status {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .feedback-submit {
+      appearance: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      padding: 12px 16px;
+      white-space: nowrap;
+    }
+
+    .feedback-submit:hover,
+    .feedback-submit:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    .feedback-submit:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 470px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .page-shell {
+        width: 100%;
+        display: block;
+        padding: 0 0 86px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        left: auto;
+        width: auto;
+        max-height: none;
+        overflow: visible;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: rgba(245, 247, 242, 0.93);
+        box-shadow: none;
+      }
+
+      .topbar .media {
+        display: none;
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        align-items: start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .brand {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .links {
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 0 0 2px;
+        width: 100%;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .mistakes,
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .watch-card {
+        grid-template-columns: 1fr;
+      }
+
+      .watch-button,
+      .watch-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+
+      .feedback-fab {
+        top: auto;
+        right: 14px;
+        bottom: 14px;
+      }
+
+      .feedback-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .feedback-submit {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 苏州站半决赛复盘</div>
+      <h1>从苏州站半决赛学习剑圣打极光的方法</h1>
+      <p class="summary">把第 5P “战争女神 VS 无极剑圣”的半决赛拆成可执行方法：中速剑圣怎样用信息、备牌和关键针对牌拆掉极光体系。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 5P</li>
+        <li>对局：战争女神（希维尔/极光） VS 无极剑圣（林川）</li>
+        <li>结果：林川 2:1 晋级决赛</li>
+        <li>视角：中速剑圣如何打极光</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=5&autoplay=0&t=242" title="第三赛季区域公开赛苏州站 DAY2 第 5P：战争女神 VS 无极剑圣" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：04:02 第一局河道蟹开局</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=242" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">剑圣打极光方法</div>
+        <div class="links">
+          <a href="#principles">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#framework">对局框架</a>
+          <a href="#game-one">第一局</a>
+          <a href="#game-two">第二局</a>
+          <a href="#game-three">决胜局</a>
+          <a href="#checklist">练习清单</a>
+          <a href="#mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="principles">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Core</div>
+            <h2>先记住这场对局的五句话</h2>
+          </div>
+        </div>
+        <p class="lead">这场半决赛最值得学的不是“极光强不强”，而是剑圣怎样把极光的强点拆成几个能处理的窗口。林川赢下决胜局，靠的不是一张单卡，而是一整套针对牌一起出现。</p>
+        <div class="grid-3">
+          <article class="insight">
+            <h3>河道蟹是最舒服的开局</h3>
+            <p>对极光时，河道蟹既是 2 费节奏，也是滤牌和金币来源。它让剑圣后续 3、5、9 费回合更顺。</p>
+          </article>
+          <article class="insight">
+            <h3>远古龙才是极光最大杀招</h3>
+            <p>极光侧真正吓人的不是单纯控手牌，而是远古龙一次点掉两到三个剑圣单位。</p>
+          </article>
+          <article class="insight">
+            <h3>卑鄙之喉是突破口</h3>
+            <p>玄龙和远古龙把场面站住以后，剑圣最需要的是能绕过大身材防线的机制答案。</p>
+          </article>
+        </div>
+        <div class="grid-2">
+          <article class="insight">
+            <h3>阿克尚让极光变成资源点</h3>
+            <p>备牌局里阿克尚非常关键。只要极光没有及时处理阿克尚，极光翻出来的资源会反过来喂给剑圣。</p>
+          </article>
+          <article class="insight">
+            <h3>极光最大的敌人是排序</h3>
+            <p>解说反复提到，极光玩家很多时候输给的是自己的先后手选择和费用预留，而不是牌不够强。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="video">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Watch</div>
+            <h2>边看比赛，边对照方法</h2>
+          </div>
+          <div class="time">P5 半决赛全场</div>
+        </div>
+        <p class="lead">左侧固定播放器会一直跟随页面。点击任一时间点或正文里的“播放这一段”，左侧播放器会切到对应片段，页面滚动位置保持不动。</p>
+        <div class="jump-grid" aria-label="关键片段跳转">
+          <button class="jump-card" type="button" data-time="160" data-label="02:40 对局与针对牌">
+            <span>02:40</span>
+            <strong>赛前判断</strong>
+            <em>剑圣面对两个极光，需要主牌就有抗性。</em>
+          </button>
+          <button class="jump-card active" type="button" data-time="242" data-label="04:02 第一局河道蟹开局">
+            <span>04:02</span>
+            <strong>河道蟹开局</strong>
+            <em>对极光最舒服的 2 费之一。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="665" data-label="11:05 第一局排序讨论">
+            <span>11:05</span>
+            <strong>先拿信息再操作</strong>
+            <em>暗中破坏、魅惑、卑鄙之喉的取舍。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="1243" data-label="20:43 第一局复盘">
+            <span>20:43</span>
+            <strong>极光侧复盘</strong>
+            <em>极光最大的对手是自己。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="1824" data-label="30:24 第二局该拍极光">
+            <span>30:24</span>
+            <strong>该拍极光时就拍</strong>
+            <em>拖一回合会让剑圣多拿信息。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="2802" data-label="46:42 据为己有大翻盘">
+            <span>46:42</span>
+            <strong>据为己有</strong>
+            <em>偷走卑鄙之喉，第二局极光扳回。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="3260" data-label="54:20 决胜局开局">
+            <span>54:20</span>
+            <strong>决胜局开局</strong>
+            <em>极光手牌很顺，剑圣也有针对牌。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="3460" data-label="57:40 阿克尚登场">
+            <span>57:40</span>
+            <strong>阿克尚登场</strong>
+            <em>备牌局最关键的反极光资源点。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="3793" data-label="63:13 7费和8费的差距">
+            <span>63:13</span>
+            <strong>7 费和 8 费</strong>
+            <em>希维尔那一拍，让据为己有错过窗口。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="4038" data-label="67:18 赛后答案">
+            <span>67:18</span>
+            <strong>赛后答案</strong>
+            <em>魅惑、暗中破坏、阿克尚都要有。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="4204" data-label="70:04 本场K牌">
+            <span>70:04</span>
+            <strong>本场 K 牌</strong>
+            <em>卑鄙之喉成为剑圣打极光的突破牌。</em>
+          </button>
+        </div>
+      </section>
+
+      <section id="framework">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Framework</div>
+            <h2>打法框架：别硬撞极光，要拆它的结算点</h2>
+          </div>
+          <div class="time">全场通用</div>
+        </div>
+        <p class="lead">剑圣打极光最忌讳只看场攻。极光真正赢你的方式，是先用跳费和极光把玄龙、远古龙送下来，再让你的单位和手牌被一串结算清掉。剑圣要做的是提前打断这串结算。</p>
+        <ol class="method-flow">
+          <li>
+            <span class="num">1</span>
+            <h3>前期先找河道蟹</h3>
+            <p>河道蟹能给金币、滤牌和场面。你不是只要站一个 2 费，而是要把后续费用拉顺。</p>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <h3>用信息牌拆手牌</h3>
+            <p>暗中破坏和魅惑的价值，在于确认对手极光、远古龙、据为己有分别在哪个窗口。</p>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <h3>阿克尚逼极光回答</h3>
+            <p>阿克尚活着，极光每多翻一次都可能变成剑圣的资源。极光侧会被迫处理它。</p>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <h3>卑鄙之喉收残局</h3>
+            <p>当玄龙和远古龙站住，普通身材很难穿过去。卑鄙之喉给剑圣一个不靠数值硬拼的突破口。</p>
+          </li>
+        </ol>
+        <div class="note">
+          <p><strong>一句话记法：</strong>河道蟹让你有节奏，暗中破坏和魅惑让你有信息，阿克尚让极光不敢舒服启动，卑鄙之喉负责最后拆墙。</p>
+        </div>
+      </section>
+
+      <section id="game-one">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Game 1</div>
+            <h2>第一局：极光没摸到核心，剑圣先证明能赢</h2>
+          </div>
+          <div class="time">04:02 - 19:28</div>
+        </div>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">04:02 起</span>
+            <span class="watch-title">河道蟹是对极光很舒服的先手</span>
+            <p>解说明确提到，河道蟹面对极光时非常合适。它让剑圣有单位、有过牌，还有金币补后续费用。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="242" data-label="04:02 第一局河道蟹开局">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=242" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <p class="lead">第一局极光侧没有顺利摸到核心，剑圣靠河道蟹、信息牌和场面压力拿下。这里最有价值的点，是剑圣怎么在不知道对面下一张是不是极光时，先把自己的资源结构做好。</p>
+        <table>
+          <tbody>
+            <tr>
+              <td>开局河道蟹</td>
+              <td>这不是随便下个单位。它帮剑圣补一张牌，给后面回合留金币，也让对手不能完全空过等极光。</td>
+            </tr>
+            <tr>
+              <td>防远古龙站位</td>
+              <td>剑圣必须提前问：远古龙下来会点几个单位？如果一次被点两三个，后面再多答案也可能接不上。</td>
+            </tr>
+            <tr>
+              <td>卑鄙之喉取舍</td>
+              <td>第一局有一段围绕卑鄙之喉、魅惑和暗中破坏的讨论。结论是，先拿更多信息再决定弃哪张，通常更稳。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">20:43 - 21:40</span>
+            <span class="watch-title">第一局赛后复盘</span>
+            <p>解说说“玩极光最大的对手是自己”，并指出极光侧更应该围绕远古龙杀伤来组织回合。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="1243" data-label="20:43 第一局复盘">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=1243" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <div class="warning">
+          <p><strong>第一局结论：</strong>剑圣赢极光不能只靠对方卡手，但第一局告诉你一件事：只要极光没有立刻进入远古龙连锁，剑圣完全有时间用河道蟹和信息牌把局面拉回自己节奏。</p>
+        </div>
+      </section>
+
+      <section id="game-two">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Game 2</div>
+            <h2>第二局：极光扳回，关键是据为己有接住了卑鄙之喉</h2>
+          </div>
+          <div class="time">23:36 - 47:25</div>
+        </div>
+        <p class="lead">第二局极光先手，手里甚至保留两张极光来应对剑圣的暗中破坏。剑圣有针对牌，但极光这局把“远古龙压场加据为己有偷答案”的路线打出来了。</p>
+        <div class="grid-2">
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">30:24 起</span>
+              <span class="watch-title">有极光时，别拖太久</span>
+              <p>解说批评极光侧这里应该更果断拍极光。拖一回合会让剑圣多看牌、多找答案。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1824" data-label="30:24 第二局该拍极光">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=1824" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">46:42 起</span>
+              <span class="watch-title">据为己有偷卑鄙之喉</span>
+              <p>这一手非常关键。极光不仅解掉剑圣突破口，还把对手最重要的反极光牌变成自己的牌。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="2802" data-label="46:42 据为己有大翻盘">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=2802" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>极光侧正确目标</td>
+              <td>别过度执着控剑圣手牌。远古龙能一次清多个单位，这才是极光打剑圣最致命的杀招。</td>
+            </tr>
+            <tr>
+              <td>剑圣侧压力点</td>
+              <td>剑圣要持续问自己：我有没有魅惑、暗中破坏、阿克尚或卑鄙之喉？如果没有，远古龙落地后会很难翻。</td>
+            </tr>
+            <tr>
+              <td>据为己有窗口</td>
+              <td>这张牌不是锦上添花，而是能直接翻转整局的答案。它偷的不是一个单位，而是剑圣的突破计划。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          <p><strong>第二局结论：</strong>剑圣针对牌再多，也要尊重极光的 8 费偷牌窗口。只要卑鄙之喉被据为己有接走，剑圣想穿过玄龙和远古龙防线就会很吃力。</p>
+        </div>
+      </section>
+
+      <section id="game-three">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Game 3</div>
+            <h2>决胜局：阿克尚和卑鄙之喉把最顺的极光也掀翻</h2>
+          </div>
+          <div class="time">54:20 - 66:49</div>
+        </div>
+        <p class="lead">决胜局极光侧手牌很豪华，有罡风跳费和极光；但剑圣也有河道蟹、阿克尚、魅惑、暗中破坏和卑鄙之喉。最终胜负落在“阿克尚是否被及时处理”和“据为己有有没有留下 8 费”。</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="stamp">54:20</div>
+            <p>决胜局开始。剑圣需要继续找河道蟹和低费节奏，不能让极光安静跳费。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">55:24</div>
+            <p>极光侧手牌质量很高，罡风跳费加极光都在。正常看，这是极光很想要的开局。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">57:40</div>
+            <p>阿克尚登场。解说指出，剑圣有机会通过阿克尚把极光抢过来，极光侧必须重视这个点。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">60:16</div>
+            <p>阿克尚如果多活几个回合，极光反而会帮剑圣多制造频率。这里开始，胜利天平向剑圣倾斜。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">63:13</div>
+            <p>关键细节：极光侧把据为己有的费用拿去拍希维尔，只剩 7 费。面对明牌卑鄙之喉时，少了最关键的 1 费。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">66:49</div>
+            <p>林川赢下决胜局。赛后解说总结，中速剑圣打极光的答案就是更多魅惑、暗中破坏和阿克尚。</p>
+          </div>
+        </div>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">57:40 - 60:30</span>
+            <span class="watch-title">阿克尚把极光的节奏反过来用</span>
+            <p>极光越想启动，越要先回答阿克尚。否则它翻出来的资源会持续被剑圣利用。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="3460" data-label="57:40 阿克尚登场">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=3460" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">63:13 - 64:30</span>
+            <span class="watch-title">据为己有必须留 8 费</span>
+            <p>如果选择相信据为己有，就不能为了希维尔把费用花到只剩 7。这个细节直接决定卑鄙之喉能不能过。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="3793" data-label="63:13 7费和8费的差距">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=3793" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <div class="warning">
+          <p><strong>决胜局结论：</strong>极光再顺，也不是自动赢。只要剑圣的针对牌数量超过极光启动次数，阿克尚和卑鄙之喉就能把优势重新抢回来。</p>
+        </div>
+      </section>
+
+      <section id="checklist">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Practice</div>
+            <h2>你可以直接照着练的操作清单</h2>
+          </div>
+        </div>
+        <h3>剑圣侧每回合都问这六个问题</h3>
+        <div class="checklist">
+          <div class="check"><span class="box"></span><span>我有没有河道蟹或其他低费单位，让自己不是空等对手极光？</span></div>
+          <div class="check"><span class="box"></span><span>对手下回合能不能拍极光？拍完最可能翻玄龙还是远古龙？</span></div>
+          <div class="check"><span class="box"></span><span>远古龙落地会点掉我几个单位？我有没有必要提前调整站位？</span></div>
+          <div class="check"><span class="box"></span><span>我是否已经用暗中破坏、魅惑或其他方式确认对手关键手牌？</span></div>
+          <div class="check"><span class="box"></span><span>阿克尚能不能安全活一回合？如果能，极光翻牌就可能变成我的资源。</span></div>
+          <div class="check"><span class="box"></span><span>卑鄙之喉是不是要留到玄龙、远古龙站住以后再打，而不是提前浪费？</span></div>
+        </div>
+
+        <h3>关键牌使用规则</h3>
+        <table>
+          <tbody>
+            <tr>
+              <td>河道蟹</td>
+              <td>优先作为对极光的前期稳定器。它不只是站场，而是帮助你把费用和手牌一起修顺。</td>
+            </tr>
+            <tr>
+              <td>暗中破坏</td>
+              <td>不要只当作弃牌。它的价值是让你知道对手有没有极光、据为己有和保护牌。</td>
+            </tr>
+            <tr>
+              <td>魅惑</td>
+              <td>在这个对局里越多越好。它既能拆对手站位，也能帮剑圣创造通过玄龙防线的窗口。</td>
+            </tr>
+            <tr>
+              <td>阿克尚</td>
+              <td>备牌局核心。它会迫使极光侧先处理阿克尚，否则极光越启动，剑圣越容易赚到频率。</td>
+            </tr>
+            <tr>
+              <td>卑鄙之喉</td>
+              <td>本场 K 牌。面对橙色极光的玄龙和远古龙防线，它是剑圣最重要的突破手段。</td>
+            </tr>
+            <tr>
+              <td>据为己有</td>
+              <td>如果你是极光侧，这张牌必须按 8 费窗口规划。少留 1 费，就可能让卑鄙之喉直接穿过去。</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="mistakes">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Review</div>
+            <h2>最容易犯的错</h2>
+          </div>
+        </div>
+        <ul class="mistakes">
+          <li>剑圣前期空等极光启动，没有用河道蟹和低费单位把节奏撑住。</li>
+          <li>只看当前场攻，不提前算远古龙会点掉几个单位。</li>
+          <li>暗中破坏和魅惑太早交，真正要拆极光或据为己有时手里没答案。</li>
+          <li>阿克尚下场后没有围绕它规划，让极光侧轻松处理掉。</li>
+          <li>卑鄙之喉提前浪费，没有留到玄龙、远古龙把墙搭起来以后。</li>
+          <li>极光侧有极光却不拍，给剑圣多一回合找针对牌。</li>
+          <li>极光侧明知道据为己有是关键牌，还把费用花到只剩 7。</li>
+          <li>过度控对手手牌，忘了远古龙一次清多个单位才是对剑圣最大杀伤。</li>
+        </ul>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">67:18 起</span>
+            <span class="watch-title">赛后总结：中速剑圣怎么战胜极光</span>
+            <p>解说给出的答案很直接：魅惑要多，暗中破坏要有，阿克尚要有。你的针对牌数量要超过对手极光启动次数。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="4038" data-label="67:18 赛后答案">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=4038" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">70:04 起</span>
+            <span class="watch-title">本场 K 牌：卑鄙之喉</span>
+            <p>这张牌第二局被据为己有反过来用，第三局又帮助剑圣翻盘。它就是这场打极光的关键。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="4204" data-label="70:04 本场K牌">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=4204" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </section>
+
+      <div class="footer">
+        <p>这场半决赛对剑圣玩家最有价值的地方，是它证明了极光并不是只能硬吃。你要把它拆成几个问题：谁先拿信息，谁先处理阿克尚，谁能保住 8 费据为己有，以及卑鄙之喉能不能在最后一个窗口穿过去。</p>
+      </div>
+    </main>
+  </div>
+
+  <button class="feedback-fab" id="feedbackOpen" type="button">我要吐槽</button>
+
+  <div class="feedback-modal" id="feedbackModal" hidden>
+    <div class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+      <div class="feedback-head">
+        <div>
+          <h2 id="feedbackTitle">我要吐槽</h2>
+        </div>
+        <button class="feedback-close" id="feedbackClose" type="button" aria-label="关闭反馈窗口">×</button>
+      </div>
+      <form class="feedback-form" id="feedbackForm">
+        <div class="feedback-field">
+          <span>反馈类型 <span class="optional">（选填）</span></span>
+          <input id="feedbackType" name="type" type="hidden">
+          <div class="feedback-type-tabs" role="group" aria-label="反馈类型">
+            <button class="feedback-type-tab" type="button" data-feedback-type="功能建议" aria-pressed="false">功能建议</button>
+            <button class="feedback-type-tab" type="button" data-feedback-type="bug/报错" aria-pressed="false">bug/报错</button>
+            <button class="feedback-type-tab" type="button" data-feedback-type="其他" aria-pressed="false">其他</button>
+          </div>
+        </div>
+        <label class="feedback-field">
+          <span>吐槽内容</span>
+          <textarea id="feedbackMessage" name="message" maxlength="4000" required placeholder="你遇到了什么问题？有任何建议？"></textarea>
+        </label>
+        <label class="feedback-field">
+          <span>联系方式 <span class="optional">（选填）</span></span>
+          <input id="feedbackContact" name="contact" maxlength="200" placeholder="微信、飞书、邮箱都行">
+        </label>
+        <div class="feedback-actions">
+          <div class="feedback-status" id="feedbackStatus" role="status" aria-live="polite"></div>
+          <button class="feedback-submit" id="feedbackSubmit" type="submit">提交反馈</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script>
+    (() => {
+      const player = document.querySelector("#matchPlayer");
+      const status = document.querySelector("#videoStatus");
+      const openLink = document.querySelector("#videoOpen");
+      const jumps = [...document.querySelectorAll(".jump-card")];
+      const controls = [...document.querySelectorAll("[data-time][data-label]")];
+      const basePlayer = "https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=5&autoplay=1";
+      const basePage = "https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5";
+
+      function setVideo(time, label) {
+        if (!player) return;
+        player.src = `${basePlayer}&t=${time}`;
+        if (status) status.textContent = `当前：${label}`;
+        if (openLink) openLink.href = `${basePage}&t=${time}`;
+
+        jumps.forEach((jump) => {
+          jump.classList.toggle("active", jump.dataset.time === String(time));
+        });
+      }
+
+      controls.forEach((control) => {
+        control.addEventListener("click", () => {
+          setVideo(control.dataset.time, control.dataset.label);
+        });
+      });
+    })();
+
+    (() => {
+      const openButton = document.querySelector("#feedbackOpen");
+      const modal = document.querySelector("#feedbackModal");
+      const closeButton = document.querySelector("#feedbackClose");
+      const form = document.querySelector("#feedbackForm");
+      const type = document.querySelector("#feedbackType");
+      const typeTabs = [...document.querySelectorAll(".feedback-type-tab")];
+      const message = document.querySelector("#feedbackMessage");
+      const contact = document.querySelector("#feedbackContact");
+      const status = document.querySelector("#feedbackStatus");
+      const submit = document.querySelector("#feedbackSubmit");
+
+      function openModal() {
+        modal.hidden = false;
+        status.textContent = "";
+        window.setTimeout(() => message.focus(), 0);
+      }
+
+      function closeModal() {
+        modal.hidden = true;
+        openButton.focus();
+      }
+
+      openButton.addEventListener("click", openModal);
+      closeButton.addEventListener("click", closeModal);
+
+      function setFeedbackType(nextType) {
+        const selected = type.value === nextType ? "" : nextType;
+        type.value = selected;
+
+        typeTabs.forEach((tab) => {
+          const isActive = tab.dataset.feedbackType === selected;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+
+      typeTabs.forEach((tab) => {
+        tab.addEventListener("click", () => setFeedbackType(tab.dataset.feedbackType));
+      });
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hidden) closeModal();
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const text = message.value.trim();
+        if (!text) {
+          status.textContent = "先写点内容再提交。";
+          message.focus();
+          return;
+        }
+
+        submit.disabled = true;
+        status.textContent = "正在提交...";
+
+        try {
+          const response = await fetch("/api/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: type.value,
+              message: text,
+              contact: contact.value.trim(),
+              pageUrl: window.location.href
+            })
+          });
+
+          if (!response.ok) throw new Error("submit_failed");
+
+          form.reset();
+          setFeedbackType("");
+          status.textContent = "已收到，我会看。";
+          window.setTimeout(closeModal, 900);
+        } catch (error) {
+          status.textContent = "提交失败，稍后再试。";
+        } finally {
+          submit.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
