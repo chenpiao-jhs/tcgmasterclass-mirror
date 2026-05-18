@@ -180,6 +180,63 @@
       font-size: 13px;
     }
 
+    .decklist-panel {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 252, 248, 0.78);
+    }
+
+    .decklist-label {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .decklist-button {
+      appearance: none;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 48px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper);
+      color: var(--green-dark);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      box-shadow: 0 8px 24px rgba(25, 39, 31, 0.06);
+    }
+
+    .decklist-button:hover,
+    .decklist-button:focus {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .decklist-button span {
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .decklist-button strong {
+      flex: none;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #edf4ee;
+      color: #35443a;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
     .nav {
       display: flex;
       flex-direction: column;
@@ -697,6 +754,99 @@
       font-weight: 800;
     }
 
+    body.deck-modal-open {
+      overflow: hidden;
+    }
+
+    .deck-modal[hidden] {
+      display: none;
+    }
+
+    .deck-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: rgba(8, 18, 13, 0.74);
+    }
+
+    .deck-dialog {
+      width: min(1120px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.35);
+    }
+
+    .deck-dialog-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .deck-dialog-head h2 {
+      color: var(--green-dark);
+      font-size: 22px;
+    }
+
+    .deck-dialog-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .deck-close {
+      appearance: none;
+      flex: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      padding: 10px 12px;
+    }
+
+    .deck-close:hover,
+    .deck-close:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    .deck-image-wrap {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      background: #101712;
+    }
+
+    .deck-image-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-width: min(820px, calc(100vw - 32px));
+    }
+
+    @media (min-width: 901px) and (max-width: 1250px) {
+      .page-shell {
+        width: min(1180px, calc(100% - 32px));
+        grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+        gap: 24px;
+      }
+    }
+
 
     @media (max-width: 900px) {
       .hero {
@@ -720,19 +870,29 @@
       .topbar {
         position: sticky;
         top: 0;
-        left: auto;
-        width: auto;
-        max-height: none;
-        overflow: visible;
+        width: 100%;
+        max-height: min(76vh, 640px);
+        overflow: auto;
+        z-index: 25;
         border: 0;
         border-bottom: 1px solid rgba(223, 231, 221, 0.88);
         border-radius: 0;
-        background: rgba(245, 247, 242, 0.93);
-        box-shadow: none;
+        background: rgba(245, 247, 242, 0.96);
+        box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
       }
 
       .topbar .media {
-        display: none;
+        display: block;
+        margin: 0;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+      }
+
+      .topbar .video-toolbar {
+        padding: 8px 12px;
       }
 
       .nav {
@@ -740,12 +900,42 @@
         margin: 0 auto;
         align-items: start;
         flex-direction: column;
-        padding: 12px 0;
+        padding: 6px 0 7px;
+      }
+
+      .decklist-panel {
+        width: min(var(--max), calc(100% - 40px));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin: 0 auto;
+        padding: 8px 0 0;
+        border-bottom: 0;
+        background: transparent;
+      }
+
+      .decklist-label {
+        display: none;
+      }
+
+      .decklist-button {
+        min-height: 34px;
+        padding: 6px 8px;
+        gap: 5px;
+      }
+
+      .decklist-button span {
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .decklist-button strong {
+        padding: 3px 6px;
+        font-size: 10px;
+        white-space: nowrap;
       }
 
       .brand {
-        padding-bottom: 0;
-        border-bottom: 0;
+        display: none;
       }
 
       .links {
@@ -763,9 +953,15 @@
         padding-top: 44px;
       }
 
+      section {
+        scroll-margin-top: min(76vh, 640px);
+      }
+
       .links a {
-        padding: 7px 10px;
+        padding: 4px 7px;
         border-radius: 999px;
+        font-size: 13px;
+        line-height: 1.15;
         white-space: nowrap;
       }
 
@@ -800,6 +996,11 @@
         width: 100%;
         text-align: center;
       }
+
+      .deck-dialog-head {
+        align-items: start;
+        flex: none;
+      }
     }
 
     @media (max-width: 560px) {
@@ -824,6 +1025,23 @@
       th,
       td {
         min-width: 180px;
+      }
+
+      .decklist-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .deck-dialog {
+        width: calc(100vw - 20px);
+        max-height: calc(100vh - 20px);
+      }
+
+      .deck-dialog-head h2 {
+        font-size: 19px;
+      }
+
+      .deck-image-wrap img {
+        min-width: 760px;
       }
 
       .backtop {
@@ -859,6 +1077,17 @@
         </div>
         <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
       </figure>
+      <section class="decklist-panel" aria-label="公开牌表">
+        <div class="decklist-label">公开牌表</div>
+        <button class="decklist-button" type="button" data-deck-title="剑圣牌表" data-deck-player="林川" data-deck-image="deck-linchuan-yi.jpg" data-deck-alt="林川的剑圣牌表截图">
+          <span>剑圣牌表</span>
+          <strong>林川</strong>
+        </button>
+        <button class="decklist-button" type="button" data-deck-title="刀妹牌表" data-deck-player="LineKa·OAK" data-deck-image="deck-oak-irelia.jpg" data-deck-alt="LineKa·OAK 的刀妹牌表截图">
+          <span>刀妹牌表</span>
+          <strong>LineKa·OAK</strong>
+        </button>
+      </section>
       <nav class="nav" aria-label="页面导航">
         <div class="brand">刀妹打剑圣方法</div>
         <div class="links">
@@ -1326,6 +1555,20 @@
   </div>
 
   <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <div class="deck-modal" id="deckModal" hidden>
+    <div class="deck-dialog" role="dialog" aria-modal="true" aria-labelledby="deckModalTitle" aria-describedby="deckModalPlayer">
+      <div class="deck-dialog-head">
+        <div>
+          <h2 id="deckModalTitle">牌表</h2>
+          <p id="deckModalPlayer">选手</p>
+        </div>
+        <button class="deck-close" type="button" data-deck-close>关闭</button>
+      </div>
+      <div class="deck-image-wrap">
+        <img id="deckModalImage" src="" alt="">
+      </div>
+    </div>
+  </div>
   <script>
     (() => {
       const player = document.querySelector("#matchPlayer");
@@ -1351,6 +1594,52 @@
         control.addEventListener("click", () => {
           setVideo(control.dataset.time, control.dataset.label);
         });
+      });
+    })();
+
+    (() => {
+      const modal = document.querySelector("#deckModal");
+      const image = document.querySelector("#deckModalImage");
+      const title = document.querySelector("#deckModalTitle");
+      const player = document.querySelector("#deckModalPlayer");
+      const closeButton = document.querySelector("[data-deck-close]");
+      const buttons = [...document.querySelectorAll(".decklist-button")];
+      let lastTrigger = null;
+
+      function openDeck(button) {
+        if (!modal || !image || !title || !player) return;
+        lastTrigger = button;
+        title.textContent = button.dataset.deckTitle || "牌表";
+        player.textContent = `选手：${button.dataset.deckPlayer || ""}`;
+        image.src = button.dataset.deckImage || "";
+        image.alt = button.dataset.deckAlt || title.textContent;
+        modal.hidden = false;
+        document.body.classList.add("deck-modal-open");
+        closeButton?.focus();
+      }
+
+      function closeDeck() {
+        if (!modal || !image) return;
+        modal.hidden = true;
+        document.body.classList.remove("deck-modal-open");
+        image.removeAttribute("src");
+        lastTrigger?.focus();
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => openDeck(button));
+      });
+
+      modal?.addEventListener("click", (event) => {
+        if (event.target === modal || event.target.closest("[data-deck-close]")) {
+          closeDeck();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal && !modal.hidden) {
+          closeDeck();
+        }
       });
     })();
   </script>
