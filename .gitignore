@@ -5,6 +5,7 @@ dao_mei_mirror_methods.xml
 *.m4s
 data/
 .DS_Store
+.swift-module-cache/
 media/
 bv1z-p6-*
 bv1z-p5-*
