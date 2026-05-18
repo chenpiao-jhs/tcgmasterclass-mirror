@@ -5,3 +5,6 @@ dao_mei_mirror_methods.xml
 *.m4s
 data/
 .DS_Store
+media/
+bv1z-p6-*
+scripts/

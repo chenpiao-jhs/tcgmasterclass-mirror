@@ -1,0 +1,1702 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>从苏州站决赛学习刀妹打剑圣的方法</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --blue: #315f78;
+      --blue-soft: #dcebf0;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .page-shell {
+      width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 86px;
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      width: auto;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      z-index: 10;
+      border: 1px solid rgba(223, 231, 221, 0.92);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
+    }
+
+    .topbar .media {
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: none;
+    }
+
+    .topbar .media figcaption {
+      display: none;
+    }
+
+    .topbar .video-toolbar {
+      padding: 10px 12px;
+    }
+
+    .topbar .video-status {
+      font-size: 13px;
+    }
+
+    .topbar .video-open {
+      font-size: 13px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 840px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning,
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      font-size: 20px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .media {
+      margin: 24px 0 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #152017;
+    }
+
+    .media figcaption {
+      padding: 12px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .video-hub {
+      overflow: hidden;
+    }
+
+    .video-screen {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #101712;
+    }
+
+    .video-screen iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #101712;
+    }
+
+    .video-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: var(--paper-soft);
+    }
+
+    .video-status {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .video-open,
+    .watch-link {
+      color: var(--green-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .video-open:hover,
+    .video-open:focus,
+    .watch-link:hover,
+    .watch-link:focus {
+      color: var(--green);
+      outline: none;
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      min-height: 118px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    .watch-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 28px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 38px rgba(25, 39, 31, 0.08);
+    }
+
+    .watch-card p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .watch-time {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .watch-title {
+      display: block;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .watch-button {
+      appearance: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      min-width: 112px;
+      padding: 11px 14px;
+      white-space: nowrap;
+    }
+
+    .watch-button:hover,
+    .watch-button:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      font-weight: 760;
+      color: var(--green-dark);
+      width: 190px;
+    }
+
+    .method-flow {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      position: relative;
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .method-flow h3 {
+      font-size: 18px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #35443a;
+    }
+
+    ul.clean {
+      padding-left: 22px;
+      margin: 18px 0;
+    }
+
+    ul.clean li {
+      margin: 8px 0;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--green);
+      margin-top: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), #3f5d3d);
+    }
+
+    .footer p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green-dark);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+
+    .feedback-fab {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 30;
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      padding: 12px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .feedback-fab:hover,
+    .feedback-fab:focus {
+      background: #7f2d28;
+      outline: none;
+    }
+
+    .feedback-modal[hidden] {
+      display: none;
+    }
+
+    .feedback-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(8, 18, 13, 0.52);
+    }
+
+    .feedback-dialog {
+      width: min(520px, 100%);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 28px 90px rgba(8, 18, 13, 0.28);
+      overflow: hidden;
+    }
+
+    .feedback-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 22px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .feedback-head h2 {
+      color: var(--green-dark);
+      font-size: 24px;
+    }
+
+    .feedback-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .feedback-close {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper-soft);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 22px;
+      line-height: 1;
+      width: 34px;
+      height: 34px;
+    }
+
+    .feedback-close:hover,
+    .feedback-close:focus {
+      color: var(--green-dark);
+      border-color: var(--green);
+      outline: none;
+    }
+
+    .feedback-form {
+      display: grid;
+      gap: 14px;
+      padding: 18px 22px 22px;
+    }
+
+    .feedback-field {
+      display: grid;
+      gap: 7px;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .feedback-field span {
+      font-size: 14px;
+    }
+
+    .feedback-field .optional {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .feedback-field textarea,
+    .feedback-field input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-soft);
+      color: var(--ink);
+      font: inherit;
+      line-height: 1.55;
+      padding: 11px 12px;
+    }
+
+    .feedback-field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .feedback-field textarea:focus,
+    .feedback-field input:focus {
+      border-color: var(--green);
+      outline: 3px solid rgba(47, 111, 78, 0.14);
+    }
+
+    .feedback-type-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 2px 0;
+    }
+
+    .feedback-type-tab {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper-soft);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 9px 12px;
+    }
+
+    .feedback-type-tab:hover,
+    .feedback-type-tab:focus {
+      border-color: var(--green);
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .feedback-type-tab.active {
+      border-color: var(--green-dark);
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .feedback-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    .feedback-status {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .feedback-submit {
+      appearance: none;
+      border: 0;
+      border-radius: 7px;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      line-height: 1;
+      padding: 12px 16px;
+      white-space: nowrap;
+    }
+
+    .feedback-submit:hover,
+    .feedback-submit:focus {
+      background: var(--green);
+      outline: none;
+    }
+
+    .feedback-submit:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 470px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .page-shell {
+        width: 100%;
+        display: block;
+        padding: 0 0 86px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        left: auto;
+        width: auto;
+        max-height: none;
+        overflow: visible;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: rgba(245, 247, 242, 0.93);
+        box-shadow: none;
+      }
+
+      .topbar .media {
+        display: none;
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        align-items: start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .brand {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .links {
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 0 0 2px;
+        width: 100%;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .mistakes,
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .watch-card {
+        grid-template-columns: 1fr;
+      }
+
+      .watch-button,
+      .watch-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+
+      .feedback-fab {
+        top: auto;
+        right: 14px;
+        bottom: 14px;
+      }
+
+      .feedback-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .feedback-submit {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 苏州站决赛复盘</div>
+      <h1>从苏州站决赛学习刀妹打剑圣的方法</h1>
+      <p class="summary">把林川 2:1 LineKa·OAK 的无极剑圣 VS 刀锋舞者决赛，整理成刀妹玩家能直接复盘和练习的打法方法。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 6P</li>
+        <li>对局：无极剑圣（林川） VS 刀锋舞者（LineKa·OAK）</li>
+        <li>结果：林川 2:1 翻盘夺冠</li>
+        <li>视角：刀妹玩家怎么打剑圣</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=6&autoplay=0&t=145" title="第三赛季区域公开赛苏州站 DAY2 第 6P：无极剑圣 VS 刀锋舞者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：02:25 牌表与优劣判断</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=145" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">刀妹打剑圣方法</div>
+        <div class="links">
+          <a href="#principles">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#deck">牌表与备牌</a>
+          <a href="#framework">打法框架</a>
+          <a href="#game-one">第一局</a>
+          <a href="#game-two">第二局</a>
+          <a href="#game-three">决胜局</a>
+          <a href="#checklist">清单</a>
+          <a href="#mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+    <section id="principles">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Core</div>
+          <h2>先记住这场对局的五句话</h2>
+        </div>
+      </div>
+      <p class="lead">这不是一场“刀妹打不过剑圣”或“刀妹只靠废弃大厅”的比赛。OAK 的刀妹三局都有赢点，但胜负落在资源投放、排序、信息差和单位密度上。</p>
+      <div class="grid-3">
+        <article class="insight">
+          <h3>刀妹要先判断安全窗口</h3>
+          <p>后手五费准时拍刀妹并不总是好事。剑圣能用被动、魅惑和狮子狗把刀妹拉上来处理掉。</p>
+        </article>
+        <article class="insight">
+          <h3>巨破别交在小交换里</h3>
+          <p>巨破之舞最值钱的位置，是英雄区刀妹或废弃大厅上的关键回合，而不是救一个普通小单位。</p>
+        </article>
+        <article class="insight">
+          <h3>抽牌顺序会决定胜负</h3>
+          <p>先拿不可控信息，再用可控检索。第二局 OAK 本来有机会 2:0，问题就出在排序没有接住。</p>
+        </article>
+      </div>
+      <div class="grid-2">
+        <article class="insight">
+          <h3>废弃大厅很强，但不能只靠它</h3>
+          <p>废弃大厅能把刀妹推到 10 点以上，但如果手里全是法术、场上没单位，剑圣会用信息和沉淀慢慢压住你。</p>
+        </article>
+        <article class="insight">
+          <h3>剑圣最怕你算清楚，不怕你赌</h3>
+          <p>林川第一局赌错，后两局靠迅捷蟹看手牌、灭世和先打再问稳住。刀妹玩家要少让对手用信息差打你。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="video">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Watch</div>
+          <h2>边看比赛，边对照方法</h2>
+        </div>
+        <div class="time">P6 决赛全场</div>
+      </div>
+      <p class="lead">左侧固定播放器会一直跟随页面。点击任一时间点或正文里的“播放这一段”，左侧播放器会切到对应片段，页面滚动位置保持不动。</p>
+      <div class="jump-grid" aria-label="关键片段跳转">
+        <button class="jump-card active" type="button" data-time="145" data-label="02:25 牌表与优劣判断">
+          <span>02:25</span>
+          <strong>赛前牌表</strong>
+          <em>宇宙流刀妹对标准化剑圣。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="540" data-label="09:00 第一局开局">
+          <span>09:00</span>
+          <strong>第一局开局</strong>
+          <em>刀妹先攻，天角牧者先给压力。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="802" data-label="13:22 狮子狗扑天角">
+          <span>13:22</span>
+          <strong>狮子狗扑天角</strong>
+          <em>剑圣开始把战斗拖到自己喜欢的形状。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="958" data-label="15:58 河道蟹看手牌">
+          <span>15:58</span>
+          <strong>河道蟹看手牌</strong>
+          <em>看完手牌后，林川选择赌御风。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="1131" data-label="18:51 魅惑赌错">
+          <span>18:51</span>
+          <strong>魅惑赌错</strong>
+          <em>OAK 用训练有素接住，先拿第一局。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="1630" data-label="27:10 第二局开始">
+          <span>27:10</span>
+          <strong>第二局备牌后</strong>
+          <em>剑圣换阿克尚、暗中破坏和极速反制。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="2821" data-label="47:01 第二局排序瑕疵">
+          <span>47:01</span>
+          <strong>排序瑕疵</strong>
+          <em>本该先天角抽不可控牌，再用骗术拿可控牌。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="3914" data-label="65:14 废弃大厅爆发">
+          <span>65:14</span>
+          <strong>废弃大厅爆发</strong>
+          <em>刀妹从 4 点一路膨胀到 10 点。</em>
+        </button>
+        <button class="jump-card" type="button" data-time="4952" data-label="82:32 最后一攻">
+          <span>82:32</span>
+          <strong>最后一攻</strong>
+          <em>御风到废弃大厅，但先打再问封死。</em>
+        </button>
+      </div>
+    </section>
+
+    <section id="deck">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Deckbuilding</div>
+          <h2>牌表与备牌：刀妹上限高，剑圣答案稳定</h2>
+        </div>
+        <div class="time">02:25 - 08:45</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">02:25 - 04:20</span>
+          <span class="watch-title">OAK 的宇宙流刀妹</span>
+          <p>主牌和备牌都有很多一张单卡，八张备牌给了八个不同选择，说明他更依赖临场判断和对局理解。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="145" data-label="02:25 牌表与优劣判断">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=145" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>观察点</th>
+            <th>刀妹侧</th>
+            <th>剑圣侧</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>构筑形态</td>
+            <td>OAK 偏宇宙流，很多针对牌只带一张，备牌选择更细。</td>
+            <td>林川剑圣更标准化，关键强牌多为满编，稳定性更高。</td>
+          </tr>
+          <tr>
+            <td>主要上限</td>
+            <td>巨破之舞、训练有素、决斗架势和废弃大厅能把刀妹战力拉到剑圣难以承受的高度。</td>
+            <td>狮子狗、魅惑、灭世、先打再问和迅捷蟹的信息优势，能把刀妹的爆发拆开。</td>
+          </tr>
+          <tr>
+            <td>对局判断</td>
+            <td>解说开场判断剑圣可能小优，但刀妹只要顺起来，废弃大厅上的战力会远远超过剑圣。</td>
+            <td>剑圣不一定靠单次爆发赢，而是靠更稳定的答案和更多已知信息拖垮刀妹。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p><strong>刀妹玩家的牌表自检：</strong>你的巨破和训练有素是为了关键回合服务，还是经常被迫交在小单位交换里？你的备牌能不能解决剑圣的狮子狗、魅惑和先打再问？</p>
+      </div>
+    </section>
+
+    <section id="framework">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Framework</div>
+          <h2>打法框架：先保刀妹窗口，再把爆发留到关键点</h2>
+        </div>
+        <div class="time">全场通用</div>
+      </div>
+      <p class="lead">刀妹打剑圣的核心不是每回合都硬拼，而是先确认刀妹什么时候能安全站住，再决定巨破、训练有素、御风这些牌要不要交。</p>
+      <ol class="method-flow">
+        <li>
+          <span class="num">1</span>
+          <h3>确认剑圣答案</h3>
+          <p>先想对手有没有魅惑、狮子狗、灭世、先打再问。剑圣费用越完整，你越不能随便把刀妹暴露出去。</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>让巨破交在大回合</h3>
+          <p>巨破之舞是刀妹越过剑圣身材的核心资源，别为了救天角、埃波罗这种小交换轻易打掉。</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>先不可控，再可控</h3>
+          <p>要抽牌和检索时，先用天角这类不可控抽牌，再用卡牌骗术等可控手段修正结果。</p>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <h3>不要只有法术没有单位</h3>
+          <p>废弃大厅再强，也需要单位承接。手里全是法术时，剑圣会用迅捷蟹看手牌后慢慢压死你。</p>
+        </li>
+      </ol>
+      <h3>对局里最重要的三个问题</h3>
+      <ul class="clean">
+        <li>我这回合拍刀妹，会不会被剑圣被动加魅惑或狮子狗直接处理？</li>
+        <li>我现在交巨破，是在赢关键回合，还是只是帮自己少亏一点？</li>
+        <li>对手是否已经通过迅捷蟹、河道蟹知道了我的手牌？如果他知道，我还能不能继续装有答案？</li>
+      </ul>
+    </section>
+
+    <section id="game-one">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 1</div>
+          <h2>第一局：能赢，但别用心理战替代计算</h2>
+        </div>
+        <div class="time">09:00 - 20:00</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">13:22 - 19:10</span>
+          <span class="watch-title">狮子狗扑天角，河道蟹看手牌，魅惑赌错</span>
+          <p>剑圣用信息和拉扯试图解掉刀妹，但 OAK 没按林川预期交御风，而是用训练有素接住。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="802" data-label="13:22 狮子狗扑天角">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=802" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <p class="lead">OAK 第一局先攻赢下，说明刀妹不是没有机会。关键在于：林川知道了 OAK 手牌后，选择押 OAK 会用御风；OAK 实际选择训练有素，避开了这条魅惑线。</p>
+      <div class="note">
+        <p><strong>刀妹侧要学的：</strong>如果对手已经看过你的手牌，你的选择要反过来思考。对手最希望你交哪张牌？你是否有等价但不同窗口的选择？</p>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>天角牧者早期给压迫</td>
+            <td>可以抢节奏，但不要因此把巨破之舞过早交掉。天角赚到牌就够了，巨破要尽量留给刀妹本体。</td>
+          </tr>
+          <tr>
+            <td>狮子狗惩罚天角</td>
+            <td>剑圣喜欢把场面变成“我有高质量单位，你必须交资源”的样子。刀妹要避免被小单位交换拖走关键牌。</td>
+          </tr>
+          <tr>
+            <td>河道蟹看手牌</td>
+            <td>一旦对手知道你只有御风、训练有素这类有限答案，就会开始设计特定路线。此时不要按对手最舒服的剧本出牌。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="grid-2">
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">15:58</span>
+            <span class="watch-title">河道蟹看手牌</span>
+            <p>这是第一局的分水岭：信息被看见以后，双方开始围绕御风和训练有素博弈。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="958" data-label="15:58 河道蟹看手牌">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=958" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">84:56</span>
+            <span class="watch-title">赛后解释：三张魅惑只能赌</span>
+            <p>林川赛后说自己手里三张魅惑，“不赌真的没得赌”。这说明第一局不是剑圣算赢，而是赌错。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="5096" data-label="84:56 赛后解释">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=5096" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </div>
+      <div class="warning">
+        <p><strong>第一局结论：</strong>刀妹能赢剑圣，但不能只靠对手赌错。你要把“他可能有什么”变成“他还剩几费、能打出几张、哪张会真正改变结算”。</p>
+      </div>
+    </section>
+
+    <section id="game-two">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 2</div>
+          <h2>第二局：卡组给了答案，排序没有接住</h2>
+        </div>
+        <div class="time">27:10 - 51:00</div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">27:10 - 31:00</span>
+          <span class="watch-title">备牌后开局</span>
+          <p>剑圣带入阿克尚、暗中破坏和更多极速反制；刀妹换入欢欢乐、玄冰之心、紧急召回等针对牌。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="1630" data-label="27:10 第二局开始">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=1630" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <p class="lead">这一局 OAK 本来最接近 2:0。刀妹前面节奏顺，剑圣先手空过也很难受；真正错过比赛的是 47 分钟后的抽牌与响应排序。</p>
+      <div class="note">
+        <p><strong>最重要的一课：</strong>先用天角牧者抽不可控牌，再用卡牌骗术拿可控牌。不要反过来，否则你会把最需要控制的信息交给运气。</p>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">47:01 - 50:17</span>
+          <span class="watch-title">排序瑕疵与巨大伏笔</span>
+          <p>如果训练有素响应对手灭世，抽到灭世可以无效化对手灭世，再接阿克尚下去和御风路线，OAK 可能直接拿下。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="2821" data-label="47:01 第二局排序瑕疵">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=2821" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>备牌理解</td>
+            <td>暗中破坏在刀妹对局里目标不多，更多像是为巨破、魅惑和特定法术做保险；紧急召回则能让中亚等铺垫牌亏节奏。</td>
+          </tr>
+          <tr>
+            <td>抽牌排序</td>
+            <td>先天角后骗术。不可控抽牌越早做，后面的可控检索越能修正路线。</td>
+          </tr>
+          <tr>
+            <td>响应窗口</td>
+            <td>训练有素不是“有空再打”的牌。它可以插在对手灭世结算前，改变这一串结算的结果。</td>
+          </tr>
+          <tr>
+            <td>最终结果</td>
+            <td>解说明确提到本来有机会 2:0。刀妹玩家要把这种“有答案但顺序错了”的局拿回来。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="warning">
+        <p><strong>第二局结论：</strong>刀妹不是缺上限，而是非常吃操作顺序。越到关键回合，越不能先打“看起来舒服”的牌，要先问哪张牌会影响后续所有选择。</p>
+      </div>
+    </section>
+
+    <section id="game-three">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Game 3</div>
+          <h2>决胜局：废弃大厅很强，但信息差和单位密度更强</h2>
+        </div>
+        <div class="time">60:31 - 83:23</div>
+      </div>
+      <p class="lead">第三局 OAK 拿到废弃大厅，这是刀妹最强战场之一。问题是：废弃大厅能制造爆发，但不能自动解决单位不足和被对手看穿手牌的问题。</p>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">64:38 - 65:25</span>
+          <span class="watch-title">暗中破坏逼反应，废弃大厅爆发</span>
+          <p>OAK 用决斗架势回应暗中破坏，随后废弃大厅点刀妹，战力从 4 点一路膨胀到 10 点。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="3880" data-label="64:38 暗中破坏逼反应">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=3880" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="stamp">60:31</div>
+          <p>决胜局开始。OAK 有废弃大厅、埃波罗、游走鞋、魅惑和花康，开局质量不差。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">65:14</div>
+          <p>废弃大厅展示上限。刀妹吃到多段加成后达到 10 点，这就是刀妹能突破剑圣的来源。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">73:08</div>
+          <p>林川反复用迅捷蟹看 OAK 手牌。刀妹强牌都很强，但被看见以后威胁会打折。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">74:02</div>
+          <p>OAK 被迫把巨破、训练有素、造化弄人交在埃波罗进攻上。剑圣反而舒服，因为这些牌没有落在废弃大厅刀妹身上。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">82:32</div>
+          <p>最后一攻御风把刀妹送到废弃大厅，刀妹来到 10 点；但林川一直留着先打再问，狮子狗加剑圣被动足够封死。</p>
+        </div>
+      </div>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">82:32 - 83:10</span>
+          <span class="watch-title">最终攻势被先打再问封死</span>
+          <p>OAK 打出最后机会，但林川从开局捏到最后的先打再问让这次进攻过不去。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="4952" data-label="82:32 最后一攻">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=4952" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+      <div class="note">
+        <p><strong>决胜局结论：</strong>废弃大厅是刀妹的上限来源，但不是免死金牌。你需要足够单位密度、足够隐藏信息，以及把巨破和训练有素留给真正能赢的那一回合。</p>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Practice</div>
+          <h2>你可以直接照着练的操作清单</h2>
+        </div>
+      </div>
+      <h3>每回合都做的四个判断</h3>
+      <div class="checklist">
+        <div class="check"><span class="box"></span><span>剑圣现在有没有足够费用打魅惑、灭世、先打再问或狮子狗？</span></div>
+        <div class="check"><span class="box"></span><span>我的巨破之舞是赢关键回合，还是只是救一个小交换？</span></div>
+        <div class="check"><span class="box"></span><span>对手有没有用迅捷蟹或河道蟹看过我的手牌？如果看过，我还能不能装答案？</span></div>
+        <div class="check"><span class="box"></span><span>我手里是有单位承接法术，还是只有一堆很强但没地方落的法术？</span></div>
+      </div>
+
+      <h3>关键牌使用规则</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>巨破之舞</td>
+            <td>优先留给英雄区刀妹、废弃大厅刀妹或能直接改写胜负的战斗。不要轻易交在小单位保命上。</td>
+          </tr>
+          <tr>
+            <td>训练有素</td>
+            <td>既是战力，也是抽牌。关键时可以插入对手结算窗口，不要只当成普通 Buff。</td>
+          </tr>
+          <tr>
+            <td>魅惑妖术</td>
+            <td>可以逼剑圣单位失去防守身份，也可以干扰狮子狗。问题是对手如果知道你有，就会围绕它排路线。</td>
+          </tr>
+          <tr>
+            <td>御风而行</td>
+            <td>终局常用来把刀妹送到废弃大厅或换场补频率，但要确认过去以后能不能回来，不能只看眼前战力。</td>
+          </tr>
+          <tr>
+            <td>废弃大厅</td>
+            <td>它让刀妹上限爆炸，但你仍要保证单位密度和隐藏信息。否则剑圣会知道你只能从这一路进攻。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>对剑圣的关键回合计算模板</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="stamp">算窗口</div>
+          <p>我拍刀妹或推刀妹进攻时，剑圣剩余费用能不能打出关键答案？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算信息</div>
+          <p>对手知道我哪些牌？我接下来有没有能反常规出牌的路线？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算排序</div>
+          <p>先抽不可控牌，再检索可控牌；先逼对手关键响应，再交真正决定战力的牌。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算落点</div>
+          <p>我的巨破、训练有素、御风最终是落在刀妹、废弃大厅，还是被迫落在小单位上？</p>
+        </div>
+        <div class="timeline-item">
+          <div class="stamp">算失败后果</div>
+          <p>如果这波没过，刀妹能不能回到安全位置？还有没有第二个单位或第二条路？</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="mistakes">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Review</div>
+          <h2>最容易犯的错</h2>
+        </div>
+      </div>
+      <ul class="mistakes">
+        <li>后手五费无脑拍刀妹，忽略剑圣被动、魅惑和狮子狗的处理线。</li>
+        <li>巨破之舞交太早，真正需要突破剑圣防线时没有高质量战力牌。</li>
+        <li>抽牌和检索顺序反了，把本来可以控制的终局交给随机抽牌。</li>
+        <li>被迅捷蟹看过手牌后，还继续按“对手不知道”的方式出牌。</li>
+        <li>废弃大厅在场就以为必赢，但没有准备足够单位承接法术。</li>
+        <li>为了止损把巨破、训练有素、造化弄人交在非关键进攻上。</li>
+        <li>只看刀妹能到 10 点，不算狮子狗、剑圣被动和先打再问叠起来后的防守线。</li>
+      </ul>
+      <div class="watch-card">
+        <div>
+          <span class="watch-time">84:56 起</span>
+          <span class="watch-title">冠军采访里的关键解释</span>
+          <p>林川解释第一局三张魅惑只能赌，也提到第二局 OAK 打错。这两点正好对应本页最重要的两课：不要只赌，要算排序。</p>
+        </div>
+        <button class="watch-button" type="button" data-time="5096" data-label="84:56 赛后解释">播放这一段</button>
+        <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6&t=5096" target="_blank" rel="noreferrer">B站打开</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      <p>这场决赛对刀妹玩家最有价值的地方，是它同时展示了刀妹的上限和刀妹的脆弱点：你能用废弃大厅和巨破打出惊人数字，也会因为排序、信息暴露和单位不足把冠军点交出去。</p>
+    </div>
+    </main>
+  </div>
+
+  <button class="feedback-fab" id="feedbackOpen" type="button">我要吐槽</button>
+
+  <div class="feedback-modal" id="feedbackModal" hidden>
+    <div class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+      <div class="feedback-head">
+        <div>
+          <h2 id="feedbackTitle">我要吐槽</h2>
+        </div>
+        <button class="feedback-close" id="feedbackClose" type="button" aria-label="关闭反馈窗口">×</button>
+      </div>
+      <form class="feedback-form" id="feedbackForm">
+        <div class="feedback-field">
+          <span>反馈类型 <span class="optional">（选填）</span></span>
+          <input id="feedbackType" name="type" type="hidden">
+          <div class="feedback-type-tabs" role="group" aria-label="反馈类型">
+            <button class="feedback-type-tab" type="button" data-feedback-type="功能建议" aria-pressed="false">功能建议</button>
+            <button class="feedback-type-tab" type="button" data-feedback-type="bug/报错" aria-pressed="false">bug/报错</button>
+            <button class="feedback-type-tab" type="button" data-feedback-type="其他" aria-pressed="false">其他</button>
+          </div>
+        </div>
+        <label class="feedback-field">
+          <span>吐槽内容</span>
+          <textarea id="feedbackMessage" name="message" maxlength="4000" required placeholder="你遇到了什么问题？有任何建议？"></textarea>
+        </label>
+        <label class="feedback-field">
+          <span>联系方式 <span class="optional">（选填）</span></span>
+          <input id="feedbackContact" name="contact" maxlength="200" placeholder="微信、飞书、邮箱都行">
+        </label>
+        <div class="feedback-actions">
+          <div class="feedback-status" id="feedbackStatus" role="status" aria-live="polite"></div>
+          <button class="feedback-submit" id="feedbackSubmit" type="submit">提交反馈</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script>
+    (() => {
+      const player = document.querySelector("#matchPlayer");
+      const status = document.querySelector("#videoStatus");
+      const openLink = document.querySelector("#videoOpen");
+      const jumps = [...document.querySelectorAll(".jump-card")];
+      const controls = [...document.querySelectorAll("[data-time][data-label]")];
+      const basePlayer = "https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=6&autoplay=1";
+      const basePage = "https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6";
+
+      function setVideo(time, label) {
+        if (!player) return;
+        player.src = `${basePlayer}&t=${time}`;
+        if (status) status.textContent = `当前：${label}`;
+        if (openLink) openLink.href = `${basePage}&t=${time}`;
+
+        jumps.forEach((jump) => {
+          jump.classList.toggle("active", jump.dataset.time === String(time));
+        });
+      }
+
+      controls.forEach((control) => {
+        control.addEventListener("click", () => {
+          setVideo(control.dataset.time, control.dataset.label);
+        });
+      });
+    })();
+
+    (() => {
+      const openButton = document.querySelector("#feedbackOpen");
+      const modal = document.querySelector("#feedbackModal");
+      const closeButton = document.querySelector("#feedbackClose");
+      const form = document.querySelector("#feedbackForm");
+      const type = document.querySelector("#feedbackType");
+      const typeTabs = [...document.querySelectorAll(".feedback-type-tab")];
+      const message = document.querySelector("#feedbackMessage");
+      const contact = document.querySelector("#feedbackContact");
+      const status = document.querySelector("#feedbackStatus");
+      const submit = document.querySelector("#feedbackSubmit");
+
+      function openModal() {
+        modal.hidden = false;
+        status.textContent = "";
+        window.setTimeout(() => message.focus(), 0);
+      }
+
+      function closeModal() {
+        modal.hidden = true;
+        openButton.focus();
+      }
+
+      openButton.addEventListener("click", openModal);
+      closeButton.addEventListener("click", closeModal);
+
+      function setFeedbackType(nextType) {
+        const selected = type.value === nextType ? "" : nextType;
+        type.value = selected;
+
+        typeTabs.forEach((tab) => {
+          const isActive = tab.dataset.feedbackType === selected;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+
+      typeTabs.forEach((tab) => {
+        tab.addEventListener("click", () => setFeedbackType(tab.dataset.feedbackType));
+      });
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hidden) closeModal();
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const text = message.value.trim();
+        if (!text) {
+          status.textContent = "先写点内容再提交。";
+          message.focus();
+          return;
+        }
+
+        submit.disabled = true;
+        status.textContent = "正在提交...";
+
+        try {
+          const response = await fetch("/api/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: type.value,
+              message: text,
+              contact: contact.value.trim(),
+              pageUrl: window.location.href
+            })
+          });
+
+          if (!response.ok) throw new Error("submit_failed");
+
+          form.reset();
+          setFeedbackType("");
+          status.textContent = "已收到，我会看。";
+          window.setTimeout(closeModal, 900);
+        } catch (error) {
+          status.textContent = "提交失败，稍后再试。";
+        } finally {
+          submit.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
