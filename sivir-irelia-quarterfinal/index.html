@@ -432,6 +432,55 @@
       line-height: 1.45;
     }
 
+    .perspective-switch {
+      position: sticky;
+      top: 18px;
+      z-index: 18;
+      margin: 0 0 26px;
+      padding: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 44px rgba(25, 39, 31, 0.13);
+    }
+
+    .perspective-switch.perspective-switch-mobile {
+      display: none;
+    }
+
+    .perspective-tab {
+      appearance: none;
+      min-height: 48px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 850;
+    }
+
+    .perspective-tab:hover,
+    .perspective-tab:focus {
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .perspective-tab.active {
+      background: var(--green-dark);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(22, 64, 44, 0.18);
+    }
+
+    .perspective-panel[hidden],
+    [data-perspective-nav][hidden] {
+      display: none;
+    }
+
     .watch-card {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto auto;
@@ -680,19 +729,36 @@
       .topbar {
         position: sticky;
         top: 0;
-        left: auto;
-        width: auto;
-        max-height: none;
-        overflow: visible;
+        width: 100%;
+        max-height: min(76vh, 640px);
+        overflow: auto;
+        z-index: 25;
         border: 0;
         border-bottom: 1px solid rgba(223, 231, 221, 0.88);
         border-radius: 0;
-        background: rgba(245, 247, 242, 0.93);
-        box-shadow: none;
+        background: rgba(245, 247, 242, 0.96);
+        box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
       }
 
       .topbar .media {
-        display: none;
+        display: block;
+        margin: 0;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+      }
+
+      .topbar .video-toolbar {
+        gap: 8px;
+        padding: 4px 12px;
+      }
+
+      .topbar .video-status,
+      .topbar .video-open {
+        font-size: 11px;
+        line-height: 1.15;
       }
 
       .nav {
@@ -700,12 +766,34 @@
         margin: 0 auto;
         align-items: start;
         flex-direction: column;
-        padding: 12px 0;
+        padding: 6px 0 7px;
       }
 
       .brand {
-        padding-bottom: 0;
-        border-bottom: 0;
+        display: none;
+      }
+
+      .perspective-switch-desktop {
+        display: none;
+      }
+
+      .perspective-switch.perspective-switch-mobile {
+        position: static;
+        width: min(var(--max), calc(100% - 40px));
+        min-height: 0;
+        margin: 3px auto 2px;
+        padding: 2px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px;
+        box-shadow: 0 6px 16px rgba(25, 39, 31, 0.07);
+      }
+
+      .perspective-switch.perspective-switch-mobile .perspective-tab {
+        min-height: 30px;
+        border-radius: 5px;
+        font-size: 12px;
+        line-height: 1;
       }
 
       .links {
@@ -727,6 +815,10 @@
         width: min(var(--max), calc(100% - 40px));
         margin: 0 auto;
         padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
       }
 
       .section-head,
@@ -780,6 +872,10 @@
         min-width: 180px;
       }
 
+      .perspective-switch-mobile {
+        width: min(100% - 28px, var(--max));
+      }
+
       .backtop {
         display: none;
       }
@@ -796,7 +892,7 @@
         <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 4P</li>
         <li>对局：战争女神（希维尔极光） VS 刀锋舞者（LineKa·OAK）</li>
         <li>结果：OAK 2:0 晋级四强</li>
-        <li>视角：刀妹如何处理极光与远古龙</li>
+        <li>视角：默认刀妹玩家视角，可切换希维尔极光玩家视角</li>
       </ul>
     </div>
   </header>
@@ -813,9 +909,13 @@
         </div>
         <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
       </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-irelia-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-irelia" data-perspective-target="irelia">刀妹玩家视角</button>
+        <button class="perspective-tab" id="tab-aurora-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-aurora" data-perspective-target="aurora">极光玩家视角</button>
+      </div>
       <nav class="nav" aria-label="页面导航">
-        <div class="brand">刀妹抗极光方法</div>
-        <div class="links">
+        <div class="brand">8进4双视角方法</div>
+        <div class="links" data-perspective-nav="irelia">
           <a href="#principles">核心结论</a>
           <a href="#video">关键片段</a>
           <a href="#framework">对局框架</a>
@@ -824,10 +924,25 @@
           <a href="#checklist">练习清单</a>
           <a href="#mistakes">常见错误</a>
         </div>
+        <div class="links" data-perspective-nav="aurora" hidden>
+          <a href="#aurora-principles">核心结论</a>
+          <a href="#aurora-video">关键片段</a>
+          <a href="#aurora-framework">对局框架</a>
+          <a href="#aurora-game-one">第一局</a>
+          <a href="#aurora-game-two">第二局</a>
+          <a href="#aurora-checklist">练习清单</a>
+          <a href="#aurora-mistakes">常见错误</a>
+        </div>
       </nav>
     </aside>
 
     <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-irelia" type="button" role="tab" aria-selected="true" aria-controls="panel-irelia" data-perspective-target="irelia">刀妹玩家视角</button>
+        <button class="perspective-tab" id="tab-aurora" type="button" role="tab" aria-selected="false" aria-controls="panel-aurora" data-perspective-target="aurora">希维尔极光玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-irelia" role="tabpanel" aria-labelledby="tab-irelia" data-perspective-panel="irelia">
       <section id="principles">
         <div class="section-head">
           <div>
@@ -1182,11 +1297,345 @@
       <div class="footer">
         <p>这场 8 进 4 对刀妹玩家最有价值的地方，是它把“抗极光”具体拆成了几件事：前期抢分、康掉提速、自适应机器人拆闪耀极光、保护频率，以及在远古龙完全接管战斗前用聚首结束比赛。</p>
       </div>
+      </div>
+
+      <div class="perspective-panel" id="panel-aurora" role="tabpanel" aria-labelledby="tab-aurora" data-perspective-panel="aurora" hidden>
+        <section id="aurora-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>极光视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这场 8 进 4 的字幕重点很清楚：希维尔极光不是没有强点，而是在 OAK 的针对牌和聚首压力下，必须更早处理提速被康、机器人拆极光、远古龙落点和防聚首动点。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>饭盒被康后要换节奏</h3>
+              <p>第一局 08:21 饭盒被小康康掉，解说说“非常难受”，因为下回合只能到 8 费，不能正常拍极光。</p>
+            </article>
+            <article class="insight">
+              <h3>远古龙不能翻太早</h3>
+              <p>第一局复盘说，希维尔少带玄龙是为了多翻远古龙，但远古龙太早翻出也会被造化弄人和聚首窗口利用。</p>
+            </article>
+            <article class="insight">
+              <h3>机器人是必须回答的目标</h3>
+              <p>自适应机器人第一局抢分，第二局直接拆闪耀极光。极光视角不能只把它当普通四费单位。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>防守要优先防聚首</h3>
+              <p>两局都是 OAK 通过聚首获胜。极光侧每个远古龙落点，都要问能不能阻止刀妹最后一分。</p>
+            </article>
+            <article class="insight">
+              <h3>金币优势要变成动点</h3>
+              <p>赛后数据提到希维尔金币多，这是极光最大优势之一；但如果没有把金币留给防御和再启动，优势就不会兑现。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="aurora-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>从极光视角重看关键窗口</h2>
+            </div>
+            <div class="time">P4 8进4全场</div>
+          </div>
+          <p class="lead">这些片段对应希维尔极光侧真正要复盘的决策：提速被康后怎么转线，远古龙应该怎么站，机器人出现时怎么防，以及最后怎么阻止聚首。</p>
+          <div class="jump-grid" aria-label="极光视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="195" data-label="03:15 对局判断与选手登场">
+              <span>03:15</span>
+              <strong>赛前判断</strong>
+              <em>刀妹有针对牌时，极光优势会被压缩。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="501" data-label="08:21 饭盒被小康康掉">
+              <span>08:21</span>
+              <strong>饭盒被康</strong>
+              <em>提速断档后，极光不能按标准轮次启动。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="813" data-label="13:33 远古龙先点机器人">
+              <span>13:33</span>
+              <strong>先点机器人</strong>
+              <em>远古龙果断点掉自适应机器人，但刀妹分数已领先。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="959" data-label="15:59 第二张极光与防守压力">
+              <span>15:59</span>
+              <strong>第二张极光</strong>
+              <em>分数压力太大，极光必须先考虑怎么防进攻。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1300" data-label="21:40 造化弄人回手远古龙">
+              <span>21:40</span>
+              <strong>远古龙被回手</strong>
+              <em>造化弄人让极光最后防线失去动点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1837" data-label="30:37 第二局有极光无跳费">
+              <span>30:37</span>
+              <strong>有极光无跳费</strong>
+              <em>手里有极光，但缺跳费，节奏很尴尬。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2066" data-label="34:26 第二局启动稍急">
+              <span>34:26</span>
+              <strong>启动稍急</strong>
+              <em>远古龙在手，极光体系一度不成立。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2303" data-label="38:23 机器人拆极光">
+              <span>38:23</span>
+              <strong>极光被拆</strong>
+              <em>机器人征服战场后，把闪耀极光拆成刀妹增益。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2784" data-label="46:24 最后一次防聚首">
+              <span>46:24</span>
+              <strong>最后防聚首</strong>
+              <em>下一张不是远古龙，已经挡不住 OAK 聚首。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2885" data-label="48:05 K牌自适应机器人">
+              <span>48:05</span>
+              <strong>K牌复盘</strong>
+              <em>全场 K 牌给到自适应机器人。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="aurora-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>极光框架：把大牌优势变成防聚首能力</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">希维尔极光打刀妹，不是把远古龙翻出来就结束。刀妹会用小康拖慢你，用机器人拆极光，用御风、魅惑和造化弄人绕过大单位，最后靠聚首拿分。极光侧要把每一次大牌结算都转化为“少给刀妹一分”。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>提速被康后重算轮次</h3>
+              <p>饭盒被康，意味着下回合不能准时极光。此时要优先找下一条能保住场面的节奏，而不是继续按原计划走。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>机器人要尽早处理</h3>
+              <p>机器人如果只是在场上抢分也很麻烦；如果等到它征服战场，闪耀极光就会变成对手资源。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>远古龙落点服务防守</h3>
+              <p>不要只追求点最大单位，要看这一点能不能让刀妹无法聚首或失去下一波频率。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>金币留给最后动点</h3>
+              <p>希维尔的优势是金币和费用弹性。最后防聚首时，金币要转化成额外防守，而不是只变成数据优势。</p>
+            </li>
+          </ol>
+          <div class="note">
+            <p><strong>一句话记法：</strong>极光视角不要问“我能翻多大”，先问“刀妹还差几分、机器人能不能拆我、我有没有动点阻止聚首”。</p>
+          </div>
+        </section>
+
+        <section id="aurora-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：提速被康后，远古龙没能挡住聚首</h2>
+            </div>
+            <div class="time">07:23 - 24:57</div>
+          </div>
+          <p class="lead">第一局希维尔后手本来已经慢一点，饭盒又被小康康掉。字幕里说“下回合只能来到 8 费，是没有办法打出极光的”，这就是整局节奏被刀妹抢走的起点。</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>08:21 饭盒被康</td>
+                <td>这是极光侧最关键的断档。标准提速失败后，OAK 能继续抢分，把你推入先防守再启动的局面。</td>
+              </tr>
+              <tr>
+                <td>13:33 远古龙点机器人</td>
+                <td>这个处理本身合理，远古龙果断点掉自适应机器人。但刀妹已经拿到分数领先，远古龙没能同时处理分数压力。</td>
+              </tr>
+              <tr>
+                <td>15:59 第二张极光</td>
+                <td>解说指出，极光面临的分数压力很大，必须先想着怎么防住进攻。此时手牌强不等于局面稳。</td>
+              </tr>
+              <tr>
+                <td>21:40 造化弄人</td>
+                <td>活跃远古龙被回手后，极光侧没有足够动点阻止聚首。远古龙在场，也可能因为位置被绕开。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">08:21 起</span>
+              <span class="watch-title">饭盒被康掉的连锁影响</span>
+              <p>被康的不只是一个饭盒，而是极光的准时启动轮次。后续每一回合都开始被刀妹分数压力牵着走。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="501" data-label="08:21 饭盒被小康康掉">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=501" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>极光侧不是没有大牌，而是大牌出现时已经先背上防聚首压力。饭盒被康后必须立刻重算轮次和防守资源。</p>
+          </div>
+        </section>
+
+        <section id="aurora-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：有极光无跳费，机器人拆掉最后优势</h2>
+            </div>
+            <div class="time">30:37 - 47:10</div>
+          </div>
+          <p class="lead">第二局开局字幕直接说，希维尔“有极光，但是没有跳费，比较尴尬”。这让 OAK 有时间找到机器人、御风、魅惑等完整路线。</p>
+          <div class="grid-2">
+            <div class="watch-card">
+              <div>
+                <span class="watch-time">38:23 起</span>
+                <span class="watch-title">自适应机器人拆闪耀极光</span>
+                <p>这是极光侧最该复盘的一幕：让机器人征服战场后，闪耀极光不只是被解，还变成了刀妹的增益。</p>
+              </div>
+              <button class="watch-button" type="button" data-time="2303" data-label="38:23 机器人拆极光">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2303" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+            <div class="watch-card">
+              <div>
+                <span class="watch-time">46:24 起</span>
+                <span class="watch-title">最后防聚首失败</span>
+                <p>极光有 9 费可以再打，但下一张不是远古龙，解说判断已经没有更稳定的防聚首方法。</p>
+              </div>
+              <button class="watch-button" type="button" data-time="2784" data-label="46:24 最后一次防聚首">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2784" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>有极光无跳费</td>
+                <td>极光在手但拍不出，就是给刀妹补齐针对牌的时间。这里要优先找能稳住前几分的临时方案。</td>
+              </tr>
+              <tr>
+                <td>远古龙在手</td>
+                <td>手抽远古龙不一定是好消息。它可能让极光体系一度不成立，也让后续翻牌概率变差。</td>
+              </tr>
+              <tr>
+                <td>机器人拆装备</td>
+                <td>机器人只要能征服，闪耀极光就会失效。极光侧要么提前处理机器人，要么保留阻止征服的动点。</td>
+              </tr>
+              <tr>
+                <td>最后一张不是远古龙</td>
+                <td>防聚首不能完全寄托在翻牌结果上。越到后期，越要提前准备确定性动点。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <p><strong>第二局结论：</strong>极光侧输在节奏和确定性。手牌里有极光不够，必须让极光准时启动，并且不能让机器人轻松征服战场。</p>
+          </div>
+        </section>
+
+        <section id="aurora-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>希维尔极光玩家可以照着练的清单</h2>
+            </div>
+          </div>
+          <h3>每回合先问这六个问题</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>饭盒、金币或跳费被康后，我下一个极光轮次变成几费？</span></div>
+            <div class="check"><span class="box"></span><span>自适应机器人现在能不能征服战场？我有没有办法阻止它拆闪耀极光？</span></div>
+            <div class="check"><span class="box"></span><span>刀妹当前几分？我这次远古龙落点能不能阻止下一次聚首？</span></div>
+            <div class="check"><span class="box"></span><span>我手抽了远古龙时，下一张极光还能翻到什么？概率是否已经变差？</span></div>
+            <div class="check"><span class="box"></span><span>我有多少金币能在回合外变成动点，而不是只留作资源数字？</span></div>
+            <div class="check"><span class="box"></span><span>面对造化弄人、御风、魅惑，我的前后场位置是否会被一张牌绕开？</span></div>
+          </div>
+        </section>
+
+        <section id="aurora-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>极光侧最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>饭盒被康后仍按原计划计算费用，没有马上重排极光轮次。</li>
+            <li>只看远古龙能点掉什么，没有看它能否阻止刀妹聚首。</li>
+            <li>低估自适应机器人，把它当普通四费单位放任到征服战场。</li>
+            <li>手抽远古龙后没重新计算极光牌库命中，导致关键回合翻牌不稳定。</li>
+            <li>分数压力已经很大，还把操作重心放在继续铺大牌，而不是防下一分。</li>
+            <li>没有为造化弄人保留后手，活跃远古龙被回手后立刻失去防线。</li>
+            <li>把金币优势留在数据面板上，没有转成回合外防守动点。</li>
+            <li>只复盘“刀妹牌好”，没有复盘 OAK 的针对牌为什么能每回合兑现。</li>
+          </ul>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">48:05 起</span>
+              <span class="watch-title">K 牌复盘：自适应机器人</span>
+              <p>解说给 K 牌时说，机器人第一局积累分数，第二局关键拆掉极光。这正是极光侧最需要防的牌。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="2885" data-label="48:05 K牌自适应机器人">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=4&t=2885" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+        </section>
+
+        <div class="footer">
+          <p>这场 8 进 4 对希维尔极光玩家最有价值的地方，是它提醒你：强卡组也要尊重针对牌。饭盒、极光、远古龙和金币都要服务于同一个目标，阻止刀妹把最后一分聚首出来。</p>
+        </div>
+      </div>
     </main>
   </div>
 
   <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
   <script>
+    (() => {
+      const tabs = [...document.querySelectorAll("[data-perspective-target]")];
+      const panels = [...document.querySelectorAll("[data-perspective-panel]")];
+      const navGroups = [...document.querySelectorAll("[data-perspective-nav]")];
+      const panelByAnchor = new Map();
+
+      panels.forEach((panel) => {
+        panel.querySelectorAll("[id]").forEach((node) => {
+          panelByAnchor.set(node.id, panel.dataset.perspectivePanel);
+        });
+      });
+
+      function setPerspective(name, shouldFocus = false) {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.perspectiveTarget === name;
+          tab.classList.toggle("active", active);
+          tab.setAttribute("aria-selected", String(active));
+          if (active && shouldFocus) tab.focus();
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.perspectivePanel !== name;
+        });
+
+        navGroups.forEach((group) => {
+          group.hidden = group.dataset.perspectiveNav !== name;
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          setPerspective(tab.dataset.perspectiveTarget, true);
+        });
+      });
+
+      function applyHashPerspective() {
+        const anchor = decodeURIComponent(window.location.hash.slice(1));
+        if (!anchor) return;
+        const perspective = panelByAnchor.get(anchor);
+        if (perspective) {
+          setPerspective(perspective);
+          window.requestAnimationFrame(() => {
+            document.getElementById(anchor)?.scrollIntoView();
+          });
+        }
+      }
+
+      applyHashPerspective();
+      window.addEventListener("hashchange", applyHashPerspective);
+    })();
+
     (() => {
       const player = document.querySelector("#matchPlayer");
       const status = document.querySelector("#videoStatus");

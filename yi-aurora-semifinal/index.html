@@ -440,6 +440,55 @@
       line-height: 1.45;
     }
 
+    .perspective-switch {
+      position: sticky;
+      top: 18px;
+      z-index: 18;
+      margin: 0 0 26px;
+      padding: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 44px rgba(25, 39, 31, 0.13);
+    }
+
+    .perspective-switch.perspective-switch-mobile {
+      display: none;
+    }
+
+    .perspective-tab {
+      appearance: none;
+      min-height: 48px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 850;
+    }
+
+    .perspective-tab:hover,
+    .perspective-tab:focus {
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .perspective-tab.active {
+      background: var(--green-dark);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(22, 64, 44, 0.18);
+    }
+
+    .perspective-panel[hidden],
+    [data-perspective-nav][hidden] {
+      display: none;
+    }
+
     .watch-card {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto auto;
@@ -690,19 +739,36 @@
       .topbar {
         position: sticky;
         top: 0;
-        left: auto;
-        width: auto;
-        max-height: none;
-        overflow: visible;
+        width: 100%;
+        max-height: min(76vh, 640px);
+        overflow: auto;
+        z-index: 25;
         border: 0;
         border-bottom: 1px solid rgba(223, 231, 221, 0.88);
         border-radius: 0;
-        background: rgba(245, 247, 242, 0.93);
-        box-shadow: none;
+        background: rgba(245, 247, 242, 0.96);
+        box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
       }
 
       .topbar .media {
-        display: none;
+        display: block;
+        margin: 0;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+      }
+
+      .topbar .video-toolbar {
+        gap: 8px;
+        padding: 4px 12px;
+      }
+
+      .topbar .video-status,
+      .topbar .video-open {
+        font-size: 11px;
+        line-height: 1.15;
       }
 
       .nav {
@@ -710,12 +776,34 @@
         margin: 0 auto;
         align-items: start;
         flex-direction: column;
-        padding: 12px 0;
+        padding: 6px 0 7px;
       }
 
       .brand {
-        padding-bottom: 0;
-        border-bottom: 0;
+        display: none;
+      }
+
+      .perspective-switch-desktop {
+        display: none;
+      }
+
+      .perspective-switch.perspective-switch-mobile {
+        position: static;
+        width: min(var(--max), calc(100% - 40px));
+        min-height: 0;
+        margin: 3px auto 2px;
+        padding: 2px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px;
+        box-shadow: 0 6px 16px rgba(25, 39, 31, 0.07);
+      }
+
+      .perspective-switch.perspective-switch-mobile .perspective-tab {
+        min-height: 30px;
+        border-radius: 5px;
+        font-size: 12px;
+        line-height: 1;
       }
 
       .links {
@@ -731,6 +819,10 @@
         width: min(var(--max), calc(100% - 40px));
         margin: 0 auto;
         padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
       }
 
       .links a {
@@ -796,6 +888,10 @@
         min-width: 180px;
       }
 
+      .perspective-switch-mobile {
+        width: min(100% - 28px, var(--max));
+      }
+
       .backtop {
         display: none;
       }
@@ -812,7 +908,7 @@
         <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 5P</li>
         <li>对局：战争女神（希维尔/极光） VS 无极剑圣（林川）</li>
         <li>结果：林川 2:1 晋级决赛</li>
-        <li>视角：中速剑圣如何打极光</li>
+        <li>视角：默认剑圣玩家视角，可切换希维尔极光玩家视角</li>
       </ul>
     </div>
   </header>
@@ -829,9 +925,13 @@
         </div>
         <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
       </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-yi-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-yi" data-perspective-target="yi">剑圣玩家视角</button>
+        <button class="perspective-tab" id="tab-aurora-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-aurora" data-perspective-target="aurora">极光玩家视角</button>
+      </div>
       <nav class="nav" aria-label="页面导航">
-        <div class="brand">剑圣打极光方法</div>
-        <div class="links">
+        <div class="brand">半决赛双视角方法</div>
+        <div class="links" data-perspective-nav="yi">
           <a href="#principles">核心结论</a>
           <a href="#video">关键片段</a>
           <a href="#framework">对局框架</a>
@@ -841,10 +941,26 @@
           <a href="#checklist">练习清单</a>
           <a href="#mistakes">常见错误</a>
         </div>
+        <div class="links" data-perspective-nav="aurora" hidden>
+          <a href="#aurora-principles">核心结论</a>
+          <a href="#aurora-video">关键片段</a>
+          <a href="#aurora-framework">对局框架</a>
+          <a href="#aurora-game-one">第一局</a>
+          <a href="#aurora-game-two">第二局</a>
+          <a href="#aurora-game-three">决胜局</a>
+          <a href="#aurora-checklist">练习清单</a>
+          <a href="#aurora-mistakes">常见错误</a>
+        </div>
       </nav>
     </aside>
 
     <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-yi" type="button" role="tab" aria-selected="true" aria-controls="panel-yi" data-perspective-target="yi">剑圣玩家视角</button>
+        <button class="perspective-tab" id="tab-aurora" type="button" role="tab" aria-selected="false" aria-controls="panel-aurora" data-perspective-target="aurora">希维尔极光玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-yi" role="tabpanel" aria-labelledby="tab-yi" data-perspective-panel="yi">
       <section id="principles">
         <div class="section-head">
           <div>
@@ -1227,11 +1343,388 @@
       <div class="footer">
         <p>这场半决赛对剑圣玩家最有价值的地方，是它证明了极光并不是只能硬吃。你要把它拆成几个问题：谁先拿信息，谁先处理阿克尚，谁能保住 8 费据为己有，以及卑鄙之喉能不能在最后一个窗口穿过去。</p>
       </div>
+      </div>
+
+      <div class="perspective-panel" id="panel-aurora" role="tabpanel" aria-labelledby="tab-aurora" data-perspective-panel="aurora" hidden>
+        <section id="aurora-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>极光视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这场不是“极光胡了也会输”的简单结论。字幕里反复出现的真正问题，是极光玩家在优势手牌下仍要把启动顺序、阿克尚处理、据为己有的 8 费窗口和远古龙落点算清楚。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>有极光时不要空转</h3>
+              <p>第二局解说明确说“该打极光还是要打极光”。你越拖，剑圣越有时间摸到暗中破坏、魅惑、阿克尚和卑鄙之喉。</p>
+            </article>
+            <article class="insight">
+              <h3>远古龙才是最大杀招</h3>
+              <p>第一局复盘里解说点明，极光打剑圣最大的杀招是远古龙一次点掉两个到三个单位，而不是只去控一两张手牌。</p>
+            </article>
+            <article class="insight">
+              <h3>阿克尚必须立刻回答</h3>
+              <p>决胜局阿克尚把闪耀极光变成剑圣资源。只要让它多活几回合，极光翻牌就会持续帮对手制造频率。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>据为己有要留满 8 费</h3>
+              <p>第二局它偷走卑鄙之喉赢下法术对决；决胜局少留 1 费，只剩 7 费，就无法在关键回合复制上一局的胜法。</p>
+            </article>
+            <article class="insight">
+              <h3>别只怕反制</h3>
+              <p>第二局极光因为忌惮极速反制而慢一回合。解说的判断是：你不消耗对面的反制，对面就永远有反制。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="aurora-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>从极光视角重看关键窗口</h2>
+            </div>
+            <div class="time">P5 半决赛全场</div>
+          </div>
+          <p class="lead">这些时间点对应的是极光侧的决策压力：什么时候该启动、什么时候该处理阿克尚、什么时候必须为据为己有保留开放费用。</p>
+          <div class="jump-grid" aria-label="极光视角关键片段跳转">
+            <button class="jump-card" type="button" data-time="356" data-label="05:56 第一局跳费开局">
+              <span>05:56</span>
+              <strong>先跳费找标准路线</strong>
+              <em>罡风拖慢河道蟹后，极光侧要继续找闪耀极光。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1243" data-label="20:43 第一局极光复盘">
+              <span>20:43</span>
+              <strong>第一局复盘</strong>
+              <em>最大杀招是远古龙，不是只控手牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1458" data-label="24:18 第二局双极光上手">
+              <span>24:18</span>
+              <strong>双极光防暗中破坏</strong>
+              <em>备牌局保两张极光，是为了抵抗剑圣的针对牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1824" data-label="30:24 第二局该拍极光">
+              <span>30:24</span>
+              <strong>该拍极光</strong>
+              <em>不要因为怕反制，就拖慢自己的极光轮次。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2802" data-label="46:42 据为己有偷卑鄙之喉">
+              <span>46:42</span>
+              <strong>据为己有成功</strong>
+              <em>偷走卑鄙之喉，直接把第二局握在手里。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3460" data-label="57:40 阿克尚登场">
+              <span>57:40</span>
+              <strong>阿克尚必须处理</strong>
+              <em>这回合如果不解决，极光会反向喂给剑圣频率。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3539" data-label="58:59 据为己有选择点">
+              <span>58:59</span>
+              <strong>找解还是拿据为己有</strong>
+              <em>解说认为找决斗或极光可能比拿据为己有更关键。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3794" data-label="63:14 留 7 费的代价">
+              <span>63:14</span>
+              <strong>少留 1 费</strong>
+              <em>拍希维尔后只剩 7 费，据为己有错过最强窗口。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4038" data-label="67:18 赛后复盘">
+              <span>67:18</span>
+              <strong>赛后复盘</strong>
+              <em>一个疏忽就会把优势对局扭转过来。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="aurora-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>极光框架：先启动，再守住关键解</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">极光打剑圣不能只想着“我牌更大”。剑圣会用信息牌拆你的手牌，用阿克尚偷你的极光，用卑鄙之喉绕过玄龙。你要把每个回合拆成启动、处理威胁、保留开放费用三件事。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先把极光轮次打出来</h3>
+              <p>手里有极光时，不要被极速反制吓到空转。反制不被消耗，就永远挡在你面前。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>远古龙优先清频率</h3>
+              <p>剑圣单位不多，远古龙一次点掉两个到三个单位，就是你减轻压力的最高收益。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>阿克尚当回合处理</h3>
+              <p>决胜局如果给阿克尚活过启动回合，极光翻牌会变成剑圣的额外频率。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>据为己有只吃关键牌</h3>
+              <p>它最好的目标是卑鄙之喉这种突破牌。既然选择相信它，就必须留下 8 费。</p>
+            </li>
+          </ol>
+          <div class="note">
+            <p><strong>一句话记法：</strong>极光不是每回合都要做最多操作，而是要在剑圣有卑鄙之喉和阿克尚的回合，保住能真正改变战斗结果的回答。</p>
+          </div>
+        </section>
+
+        <section id="aurora-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：没摸到极光，更要靠排序减少损失</h2>
+            </div>
+            <div class="time">05:56 - 21:40</div>
+          </div>
+          <p class="lead">第一局极光侧最大问题是核心没有上手。字幕里说得很直接：极光这套卡组太依赖闪耀极光，一旦摸不上来，中长盘就没有足够压制力。</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>05:56 继续跳费</td>
+                <td>罡风吹走河道蟹后，极光侧仍然要靠跳费和过牌去找闪耀极光。标准开局没完成，后面就只能被动接招。</td>
+              </tr>
+              <tr>
+                <td>20:43 赛后复盘</td>
+                <td>解说指出，第一局有些排序值得商榷。尤其是玄龙、暗中破坏和魅惑的先后，会影响玄龙能不能活过下一回合。</td>
+              </tr>
+              <tr>
+                <td>远古龙优先级</td>
+                <td>复盘结论是极光打剑圣最大杀招还是远古龙。与其过度控手牌，不如想办法让远古龙落地减员。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">20:43 起</span>
+              <span class="watch-title">第一局极光侧复盘</span>
+              <p>解说明确说，极光玩家最大的对手是自己；这一局不是只怪没摸到核心，排序也有提升空间。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1243" data-label="20:43 第一局极光复盘">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=1243" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>没摸到极光时，极光侧也不能只空过等牌。你要用排序、玄龙和远古龙压力尽量逼剑圣交资源，否则中速剑圣会慢慢把场面和信息都拿回来。</p>
+          </div>
+        </section>
+
+        <section id="aurora-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：据为己有证明自己，但极光启动晚了一拍</h2>
+            </div>
+            <div class="time">24:18 - 47:35</div>
+          </div>
+          <p class="lead">第二局极光侧拿了两张极光防暗中破坏，这个意识是对的。但中段因为忌惮极速反制，没有在更早窗口拍出极光，让剑圣多拿了一回合信息和准备。</p>
+          <div class="grid-2">
+            <div class="watch-card">
+              <div>
+                <span class="watch-time">30:24 起</span>
+                <span class="watch-title">该拍极光时就拍</span>
+                <p>字幕里解说直接判断：如果手上有极光，九费十费通常没有别的选项。拖慢一回合就是给剑圣找答案。</p>
+              </div>
+              <button class="watch-button" type="button" data-time="1824" data-label="30:24 第二局该拍极光">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=1824" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+            <div class="watch-card">
+              <div>
+                <span class="watch-time">46:42 起</span>
+                <span class="watch-title">据为己有的正确样子</span>
+                <p>八费偷走卑鄙之喉，赢下法术对决。它不是普通解牌，而是把剑圣突破计划反过来收为己用。</p>
+              </div>
+              <button class="watch-button" type="button" data-time="2802" data-label="46:42 据为己有偷卑鄙之喉">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=2802" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>两张极光上手</td>
+                <td>这是备牌局面对暗中破坏的正确保险。被拆一张，仍能维持启动轮次。</td>
+              </tr>
+              <tr>
+                <td>忌惮反制</td>
+                <td>有反制当然要算，但不能因为害怕而完全不启动。极光多翻一只大单位，收益往往比空转更高。</td>
+              </tr>
+              <tr>
+                <td>据为己有</td>
+                <td>这张牌要留给卑鄙之喉、阿克尚这类真正改变局面的目标，而不是提前消耗在低价值交换里。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <p><strong>第二局结论：</strong>极光侧赢下这一局，靠的是最后据为己有吃到了最高价值目标；但如果中段更早启动极光，可能不用把胜负拖到这么极限的法术对决。</p>
+          </div>
+        </section>
+
+        <section id="aurora-game-three">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>决胜局：手牌豪华，但两个细节把优势交出去</h2>
+            </div>
+            <div class="time">54:20 - 68:30</div>
+          </div>
+          <p class="lead">决胜局极光侧有罡风、催化石和极光，字幕里甚至说这手牌“太豪华”。问题出在后半段：阿克尚没有被当回合处理，据为己有没有保留 8 费窗口。</p>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">55:25</div>
+              <p>极光侧开局极顺：罡风跳费、催化石、极光都在。这是极光玩家最想看到的节奏。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">57:40</div>
+              <p>阿克尚登场后，解说认为这个回合是最好解决阿克尚的回合。没有处理掉，就让剑圣安全拿到极光资源。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">58:59</div>
+              <p>据为己有上手，但当时更关键的可能是用卡牌骗术找决斗、极光或其他能处理阿克尚的牌。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">63:14</div>
+              <p>为了拍希维尔只剩 7 费。字幕复盘明确指出：既然选择相信据为己有，就不能只留 7 费。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">67:18</div>
+              <p>赛后总结说，这局就是一两个小疏忽把原本优势的对局扭转了。</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="watch-card">
+              <div>
+                <span class="watch-time">57:40 起</span>
+                <span class="watch-title">阿克尚不能放活</span>
+                <p>极光如果不能当回合处理阿克尚，后续每次翻牌都有可能变成剑圣的频率。</p>
+              </div>
+              <button class="watch-button" type="button" data-time="3460" data-label="57:40 阿克尚登场">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=3460" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+            <div class="watch-card">
+              <div>
+                <span class="watch-time">63:14 起</span>
+                <span class="watch-title">只留 7 费的代价</span>
+                <p>上一局据为己有能赢，是因为留了 8 费。决胜局只剩 7 费，卑鄙之喉就成了极光处理不了的突破口。</p>
+              </div>
+              <button class="watch-button" type="button" data-time="3794" data-label="63:14 留 7 费的代价">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=3794" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+          <div class="warning">
+            <p><strong>决胜局结论：</strong>极光手牌再豪华，也不能忽视对手明牌威胁。阿克尚和卑鄙之喉都不是普通单位，它们要求你当回合回答，并且为据为己有保留完整费用。</p>
+          </div>
+        </section>
+
+        <section id="aurora-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>极光玩家可以照着练的清单</h2>
+            </div>
+          </div>
+          <h3>每回合先问这六个问题</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我手里有极光时，这回合不拍的理由是否足够强？还是只是怕反制？</span></div>
+            <div class="check"><span class="box"></span><span>远古龙落地能点掉几个剑圣单位？能否直接削掉对手频率？</span></div>
+            <div class="check"><span class="box"></span><span>阿克尚是否已经在场？如果在场，我有没有当回合处理它的牌？</span></div>
+            <div class="check"><span class="box"></span><span>据为己有是否需要保留 8 费？我现在花费后还剩几费？</span></div>
+            <div class="check"><span class="box"></span><span>我是在找解牌、找下一张极光，还是只是无目标过牌？</span></div>
+            <div class="check"><span class="box"></span><span>对手明牌卑鄙之喉时，我的玄龙站位和远古龙落点能不能承受？</span></div>
+          </div>
+        </section>
+
+        <section id="aurora-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>极光侧最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>手里有极光却继续空转，让剑圣多一回合找针对牌。</li>
+            <li>只想控手牌，忘了远古龙点单位才是打剑圣最大的杀招。</li>
+            <li>看到极速反制就完全不启动，没有逼对手先交答案。</li>
+            <li>阿克尚登场后没有当回合处理，导致极光资源被剑圣利用。</li>
+            <li>据为己有没有留满 8 费，错过偷卑鄙之喉的关键窗口。</li>
+            <li>用卡牌骗术时没有明确目标，没去找决斗、极光或能解阿克尚的牌。</li>
+            <li>只看当前分数领先，没算卑鄙之喉和场下单位能否直接突破。</li>
+            <li>把第二局的成功经验记成“据为己有很强”，却忘了强在正确时点和正确费用。</li>
+          </ul>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">67:18 起</span>
+              <span class="watch-title">赛后复盘：优势对局也会被细节翻转</span>
+              <p>解说总结这三局都落在一两个小疏忽上。极光侧最该复盘的，就是阿克尚和据为己有两个窗口。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="4038" data-label="67:18 赛后复盘">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=5&t=4038" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+        </section>
+
+        <div class="footer">
+          <p>这场半决赛对希维尔极光玩家最有价值的地方，是它说明“强启动”不等于自动胜利。极光要赢剑圣，必须主动启动、处理阿克尚、为据为己有留下 8 费，并把远古龙用在真正能减少频率的地方。</p>
+        </div>
+      </div>
     </main>
   </div>
 
   <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
   <script>
+    (() => {
+      const tabs = [...document.querySelectorAll("[data-perspective-target]")];
+      const panels = [...document.querySelectorAll("[data-perspective-panel]")];
+      const navGroups = [...document.querySelectorAll("[data-perspective-nav]")];
+      const panelByAnchor = new Map();
+
+      panels.forEach((panel) => {
+        panel.querySelectorAll("[id]").forEach((node) => {
+          panelByAnchor.set(node.id, panel.dataset.perspectivePanel);
+        });
+      });
+
+      function setPerspective(name, shouldFocus = false) {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.perspectiveTarget === name;
+          tab.classList.toggle("active", active);
+          tab.setAttribute("aria-selected", String(active));
+          if (active && shouldFocus) tab.focus();
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.perspectivePanel !== name;
+        });
+
+        navGroups.forEach((group) => {
+          group.hidden = group.dataset.perspectiveNav !== name;
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          setPerspective(tab.dataset.perspectiveTarget, true);
+        });
+      });
+
+      function applyHashPerspective() {
+        const anchor = decodeURIComponent(window.location.hash.slice(1));
+        if (!anchor) return;
+        const perspective = panelByAnchor.get(anchor);
+        if (perspective) {
+          setPerspective(perspective);
+          window.requestAnimationFrame(() => {
+            document.getElementById(anchor)?.scrollIntoView();
+          });
+        }
+      }
+
+      applyHashPerspective();
+      window.addEventListener("hashchange", applyHashPerspective);
+    })();
+
     (() => {
       const player = document.querySelector("#matchPlayer");
       const status = document.querySelector("#videoStatus");
