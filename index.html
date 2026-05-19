@@ -359,14 +359,33 @@
         font-size: 28px;
       }
 
-      .season-tabs,
       .season-panel-head {
         display: block;
       }
 
+      .season-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-right: -14px;
+        margin-left: -14px;
+        padding: 6px 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .season-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
       .season-tab {
-        width: 100%;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
         text-align: left;
+        white-space: nowrap;
       }
 
       .season-count {
@@ -379,20 +398,12 @@
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <div class="eyebrow">符文战场 TCG · 视频复盘目录</div>
       <h1>符文战场-比赛精华汇总</h1>
       <p>把公开赛和区域赛里的关键对局整理成能直接复盘、练习和对照视频观看的打法页面。</p>
     </div>
   </header>
 
   <main>
-    <div class="section-head">
-      <div>
-        <h2>当前已有 4 篇</h2>
-        <p>按赛季分类查看，每篇都保留固定播放器、章节导航、片段跳转和反馈入口。</p>
-      </div>
-    </div>
-
     <div class="season-tabs" role="tablist" aria-label="赛季分类">
       <button class="season-tab active" id="tab-season-3" type="button" role="tab" aria-selected="true" aria-controls="panel-season-3" data-season="season-3">第三赛季-破限</button>
       <button class="season-tab" id="tab-season-2" type="button" role="tab" aria-selected="false" aria-controls="panel-season-2" data-season="season-2">第二赛季-铸魂淬炼</button>
@@ -440,7 +451,6 @@
             <ul class="meta">
               <li>无极剑圣 VS 刀锋舞者</li>
               <li>第三赛季苏州站 DAY2 第 6P</li>
-              <li>视角：刀妹玩家</li>
             </ul>
             <span class="open">打开复盘</span>
           </div>
@@ -455,7 +465,6 @@
             <ul class="meta">
               <li>战争女神 VS 无极剑圣</li>
               <li>第三赛季苏州站 DAY2 第 5P</li>
-              <li>视角：中速剑圣</li>
             </ul>
             <span class="open">打开复盘</span>
           </div>
@@ -470,7 +479,6 @@
             <ul class="meta">
               <li>战争女神 VS 刀锋舞者</li>
               <li>第三赛季苏州站 DAY2 第 4P</li>
-              <li>视角：刀妹抗极光</li>
             </ul>
             <span class="open">打开复盘</span>
           </div>
