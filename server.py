@@ -2,12 +2,16 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import mimetypes
 import os
+import re
+import secrets
 import threading
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
+from http import cookies
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
@@ -17,32 +21,63 @@ ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 FEEDBACK_FILE = DATA_DIR / "feedback.jsonl"
 EMAIL_ERROR_FILE = DATA_DIR / "email-errors.jsonl"
+VISITS_FILE = DATA_DIR / "visits.jsonl"
+ANALYTICS_SECRET_FILE = DATA_DIR / "analytics-secret"
 MAX_BODY_BYTES = 16 * 1024
 FEEDBACK_LOCK = threading.Lock()
+VISIT_LOCK = threading.Lock()
 PRIVATE_PREFIXES = ("/.git", "/data")
 PRIVATE_FILES = {"/server.py", "/runeterra-guide.service"}
 ALLOWED_FEEDBACK_TYPES = {"", "功能建议", "bug/报错", "其他"}
 EMAIL_GATEWAY_URL = "http://169.254.169.254/gateway/email/send"
 FEEDBACK_EMAIL_TO = os.environ.get("FEEDBACK_EMAIL_TO", "chenpiao@jihuanshe.com")
+VISITOR_COOKIE_NAME = "rg_visitor_id"
+VISITOR_COOKIE_MAX_AGE = 60 * 60 * 24 * 395
+VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{24,96}$")
+BOT_USER_AGENT_KEYWORDS = (
+    "bot",
+    "crawler",
+    "spider",
+    "curl",
+    "wget",
+    "python-requests",
+    "uptime",
+    "monitor",
+    "headless",
+    "httpclient",
+)
+_ANALYTICS_SECRET = None
 
 
 class GuideHandler(SimpleHTTPRequestHandler):
     server_version = "RuneterraGuide/1.0"
 
     def __init__(self, *args, **kwargs):
+        self.visitor_cookie_to_set = None
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
     def end_headers(self):
+        if self.visitor_cookie_to_set:
+            self.send_header(
+                "Set-Cookie",
+                (
+                    f"{VISITOR_COOKIE_NAME}={self.visitor_cookie_to_set}; "
+                    f"Max-Age={VISITOR_COOKIE_MAX_AGE}; Path=/; "
+                    "SameSite=Lax; HttpOnly"
+                ),
+            )
         self.send_header("X-Content-Type-Options", "nosniff")
         super().end_headers()
 
     def do_GET(self):
-        if self.path == "/healthz":
+        parsed = urlparse(self.path)
+        if parsed.path == "/healthz":
             self.send_json(200, {"ok": True})
             return
         if self.is_private_path():
             self.send_json(404, {"ok": False, "error": "not_found"})
             return
+        self.record_page_view_if_needed(parsed.path)
         super().do_GET()
 
     def do_HEAD(self):
@@ -126,6 +161,78 @@ class GuideHandler(SimpleHTTPRequestHandler):
             for prefix in PRIVATE_PREFIXES
         )
 
+    def record_page_view_if_needed(self, request_path: str):
+        page_path = self.canonical_page_path(request_path)
+        if not page_path:
+            return
+
+        visitor_id, is_new_visitor = self.get_or_create_visitor_id()
+        if is_new_visitor:
+            self.visitor_cookie_to_set = visitor_id
+
+        user_agent = self.headers.get("User-Agent", "")[:500]
+        record = {
+            "createdAt": datetime.now(timezone.utc).isoformat(),
+            "pagePath": page_path,
+            "visitorId": visitor_id,
+            "isNewVisitor": is_new_visitor,
+            "ipHash": hash_ip(self.get_client_ip()),
+            "userAgent": user_agent,
+            "isBot": is_probable_bot(user_agent),
+            "referer": self.headers.get("Referer", "")[:500],
+        }
+        DATA_DIR.mkdir(exist_ok=True)
+        with VISIT_LOCK:
+            with VISITS_FILE.open("a", encoding="utf-8") as f:
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+    def canonical_page_path(self, request_path: str) -> str | None:
+        local_path = Path(self.translate_path(request_path)).resolve()
+        try:
+            relative_path = local_path.relative_to(ROOT)
+        except ValueError:
+            return None
+
+        if local_path.is_file() and local_path.suffix == ".html":
+            page_path = "/" + relative_path.as_posix()
+            return "/" if page_path == "/index.html" else page_path
+
+        if request_path.endswith("/") and local_path.is_dir():
+            index_path = local_path / "index.html"
+            if index_path.is_file():
+                if relative_path.as_posix() == ".":
+                    return "/"
+                return "/" + relative_path.as_posix().rstrip("/") + "/"
+
+        return None
+
+    def get_or_create_visitor_id(self) -> tuple[str, bool]:
+        visitor_id = ""
+        raw_cookie = self.headers.get("Cookie", "")
+        if raw_cookie:
+            parsed_cookie = cookies.SimpleCookie()
+            try:
+                parsed_cookie.load(raw_cookie)
+            except cookies.CookieError:
+                parsed_cookie = cookies.SimpleCookie()
+            morsel = parsed_cookie.get(VISITOR_COOKIE_NAME)
+            if morsel and VISITOR_ID_PATTERN.match(morsel.value):
+                visitor_id = morsel.value
+
+        if visitor_id:
+            return visitor_id, False
+
+        return secrets.token_urlsafe(32), True
+
+    def get_client_ip(self) -> str:
+        forwarded_for = self.headers.get("X-Forwarded-For", "")
+        if forwarded_for:
+            return forwarded_for.split(",", 1)[0].strip()
+        real_ip = self.headers.get("X-Real-IP", "")
+        if real_ip:
+            return real_ip.strip()
+        return self.client_address[0]
+
     def send_json(self, status: int, body: dict):
         encoded = json.dumps(body, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
@@ -191,6 +298,37 @@ def format_feedback_email(record: dict) -> str:
         f"浏览器: {record.get('userAgent') or '未知'}",
         f"Referer: {record.get('referer') or '无'}",
     ])
+
+
+def hash_ip(ip_address: str) -> str:
+    if not ip_address:
+        return ""
+    secret = get_analytics_secret()
+    return hashlib.sha256(f"{secret}:{ip_address}".encode("utf-8")).hexdigest()[:24]
+
+
+def get_analytics_secret() -> str:
+    global _ANALYTICS_SECRET
+    if _ANALYTICS_SECRET:
+        return _ANALYTICS_SECRET
+
+    DATA_DIR.mkdir(exist_ok=True)
+    if ANALYTICS_SECRET_FILE.exists():
+        _ANALYTICS_SECRET = ANALYTICS_SECRET_FILE.read_text(encoding="utf-8").strip()
+    else:
+        _ANALYTICS_SECRET = secrets.token_urlsafe(32)
+        ANALYTICS_SECRET_FILE.write_text(_ANALYTICS_SECRET + "\n", encoding="utf-8")
+        try:
+            ANALYTICS_SECRET_FILE.chmod(0o600)
+        except OSError:
+            pass
+
+    return _ANALYTICS_SECRET
+
+
+def is_probable_bot(user_agent: str) -> bool:
+    normalized = user_agent.lower()
+    return any(keyword in normalized for keyword in BOT_USER_AGENT_KEYWORDS)
 
 
 def main():

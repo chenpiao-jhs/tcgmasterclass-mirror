@@ -33,3 +33,37 @@ data/feedback.jsonl
 ```
 
 这个目录不会提交到 Git，也不会被网页直接访问。
+
+## 访问统计
+
+服务端会把页面访问记录追加保存到服务器本地：
+
+```text
+data/visits.jsonl
+```
+
+只统计 HTML 页面访问，不统计图片、CSS、JS、健康检查和反馈接口。统计会使用匿名浏览器 Cookie 识别独立访客，并保存哈希后的 IP 辅助排查，不保存明文 IP。
+
+查看最近 7 天访问次数和独立访客：
+
+```bash
+python3 analytics.py
+```
+
+查看今天：
+
+```bash
+python3 analytics.py --days 1
+```
+
+查看全部历史：
+
+```bash
+python3 analytics.py --days 0
+```
+
+默认会排除常见机器人和命令行请求。如果要一起看：
+
+```bash
+python3 analytics.py --include-bots
+```
