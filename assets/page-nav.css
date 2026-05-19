@@ -1,0 +1,15 @@
+.nav .links a {
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.nav .links a[aria-current="location"] {
+  color: #fff;
+  background: var(--green-dark, #16402c);
+  box-shadow: 0 8px 18px rgba(22, 64, 44, 0.18);
+}
+
+.nav .links a[aria-current="location"]:hover,
+.nav .links a[aria-current="location"]:focus {
+  color: #fff;
+  background: var(--green-dark, #16402c);
+}

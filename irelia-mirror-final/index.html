@@ -697,6 +697,13 @@
       font-weight: 800;
     }
 
+    @media (min-width: 901px) and (max-width: 1250px) {
+      .page-shell {
+        width: min(1180px, calc(100% - 32px));
+        grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+        gap: 24px;
+      }
+    }
 
     @media (max-width: 900px) {
       .hero {
@@ -720,19 +727,36 @@
       .topbar {
         position: sticky;
         top: 0;
-        left: auto;
-        width: auto;
-        max-height: none;
-        overflow: visible;
+        width: 100%;
+        max-height: min(76vh, 640px);
+        overflow: auto;
+        z-index: 25;
         border: 0;
         border-bottom: 1px solid rgba(223, 231, 221, 0.88);
         border-radius: 0;
-        background: rgba(245, 247, 242, 0.93);
-        box-shadow: none;
+        background: rgba(245, 247, 242, 0.96);
+        box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
       }
 
       .topbar .media {
-        display: none;
+        display: block;
+        margin: 0;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: var(--paper);
+        box-shadow: none;
+      }
+
+      .topbar .video-toolbar {
+        gap: 8px;
+        padding: 4px 12px;
+      }
+
+      .topbar .video-status,
+      .topbar .video-open {
+        font-size: 11px;
+        line-height: 1.15;
       }
 
       .nav {
@@ -740,12 +764,11 @@
         margin: 0 auto;
         align-items: start;
         flex-direction: column;
-        padding: 12px 0;
+        padding: 6px 0 7px;
       }
 
       .brand {
-        padding-bottom: 0;
-        border-bottom: 0;
+        display: none;
       }
 
       .links {
@@ -761,6 +784,10 @@
         width: min(var(--max), calc(100% - 40px));
         margin: 0 auto;
         padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
       }
 
       .links a {
@@ -831,6 +858,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../assets/page-nav.css">
 </head>
 <body id="top">
   <header class="hero">
@@ -1309,6 +1337,7 @@
   </div>
 
   <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script src="../assets/page-nav.js"></script>
   <script>
     (() => {
       const player = document.querySelector("#matchPlayer");

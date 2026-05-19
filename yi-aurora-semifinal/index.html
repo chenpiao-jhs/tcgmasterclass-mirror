@@ -717,6 +717,14 @@
     }
 
 
+    @media (min-width: 901px) and (max-width: 1250px) {
+      .page-shell {
+        width: min(1180px, calc(100% - 32px));
+        grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+        gap: 24px;
+      }
+    }
+
     @media (max-width: 900px) {
       .hero {
         min-height: 470px;
@@ -897,6 +905,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../assets/page-nav.css">
 </head>
 <body id="top">
   <header class="hero">
@@ -1672,58 +1681,8 @@
   </div>
 
   <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script src="../assets/page-nav.js"></script>
   <script>
-    (() => {
-      const tabs = [...document.querySelectorAll("[data-perspective-target]")];
-      const panels = [...document.querySelectorAll("[data-perspective-panel]")];
-      const navGroups = [...document.querySelectorAll("[data-perspective-nav]")];
-      const panelByAnchor = new Map();
-
-      panels.forEach((panel) => {
-        panel.querySelectorAll("[id]").forEach((node) => {
-          panelByAnchor.set(node.id, panel.dataset.perspectivePanel);
-        });
-      });
-
-      function setPerspective(name, shouldFocus = false) {
-        tabs.forEach((tab) => {
-          const active = tab.dataset.perspectiveTarget === name;
-          tab.classList.toggle("active", active);
-          tab.setAttribute("aria-selected", String(active));
-          if (active && shouldFocus) tab.focus();
-        });
-
-        panels.forEach((panel) => {
-          panel.hidden = panel.dataset.perspectivePanel !== name;
-        });
-
-        navGroups.forEach((group) => {
-          group.hidden = group.dataset.perspectiveNav !== name;
-        });
-      }
-
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          setPerspective(tab.dataset.perspectiveTarget, true);
-        });
-      });
-
-      function applyHashPerspective() {
-        const anchor = decodeURIComponent(window.location.hash.slice(1));
-        if (!anchor) return;
-        const perspective = panelByAnchor.get(anchor);
-        if (perspective) {
-          setPerspective(perspective);
-          window.requestAnimationFrame(() => {
-            document.getElementById(anchor)?.scrollIntoView();
-          });
-        }
-      }
-
-      applyHashPerspective();
-      window.addEventListener("hashchange", applyHashPerspective);
-    })();
-
     (() => {
       const player = document.querySelector("#matchPlayer");
       const status = document.querySelector("#videoStatus");
