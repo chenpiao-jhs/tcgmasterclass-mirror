@@ -138,7 +138,7 @@ class GuideHandler(SimpleHTTPRequestHandler):
         subject_type = record["type"] or "未分类"
         payload = {
             "to": FEEDBACK_EMAIL_TO,
-            "subject": f"刀妹内战网页反馈：{subject_type}",
+            "subject": f"符文比赛精华：{subject_type}",
             "body": format_feedback_email(record),
         }
         request = urllib.request.Request(
