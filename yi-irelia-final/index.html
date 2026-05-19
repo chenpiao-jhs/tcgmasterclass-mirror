@@ -156,30 +156,6 @@
       box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
     }
 
-    .topbar .media {
-      margin: 0;
-      border: 0;
-      border-bottom: 1px solid var(--line);
-      border-radius: var(--radius) var(--radius) 0 0;
-      box-shadow: none;
-    }
-
-    .topbar .media figcaption {
-      display: none;
-    }
-
-    .topbar .video-toolbar {
-      padding: 10px 12px;
-    }
-
-    .topbar .video-status {
-      font-size: 13px;
-    }
-
-    .topbar .video-open {
-      font-size: 13px;
-    }
-
     .decklist-panel {
       display: grid;
       gap: 10px;
@@ -392,75 +368,12 @@
       background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
     }
 
-    .media {
-      margin: 24px 0 28px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--paper);
-      box-shadow: var(--shadow);
-    }
-
-    .media img {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #152017;
-    }
-
-    .media figcaption {
-      padding: 12px 16px;
-      color: var(--muted);
-      font-size: 14px;
-      border-top: 1px solid var(--line);
-      background: var(--paper-soft);
-    }
-
-    .video-hub {
-      overflow: hidden;
-    }
-
-    .video-screen {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      background: #101712;
-    }
-
-    .video-screen iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #101712;
-    }
-
-    .video-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 12px 16px;
-      border-top: 1px solid var(--line);
-      background: var(--paper-soft);
-    }
-
-    .video-status {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .video-open,
     .watch-link {
       color: var(--green-dark);
       font-weight: 800;
       text-decoration: none;
     }
 
-    .video-open:hover,
-    .video-open:focus,
     .watch-link:hover,
     .watch-link:focus {
       color: var(--green);
@@ -932,27 +845,6 @@
         box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
       }
 
-      .topbar .media {
-        display: block;
-        margin: 0;
-        border: 0;
-        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
-        border-radius: 0;
-        background: var(--paper);
-        box-shadow: none;
-      }
-
-      .topbar .video-toolbar {
-        gap: 8px;
-        padding: 4px 12px;
-      }
-
-      .topbar .video-status,
-      .topbar .video-open {
-        font-size: 11px;
-        line-height: 1.15;
-      }
-
       .nav {
         width: min(var(--max), calc(100% - 40px));
         margin: 0 auto;
@@ -1133,6 +1025,7 @@
     }
   </style>
   <link rel="stylesheet" href="../assets/page-nav.css">
+  <link rel="stylesheet" href="../assets/video-hub.css">
 </head>
 <body id="top">
   <header class="hero">
@@ -1150,7 +1043,7 @@
 
   <div class="page-shell">
     <aside class="topbar" aria-label="固定视频与页面导航">
-      <figure class="media video-hub">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=6&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6">
         <div class="video-screen">
           <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=6&autoplay=0&t=145" title="第三赛季区域公开赛苏州站 DAY2 第 6P：无极剑圣 VS 刀锋舞者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
         </div>
@@ -2089,34 +1982,8 @@
     </div>
   </div>
   <script src="../assets/page-nav.js"></script>
+  <script src="../assets/video-hub.js"></script>
   <script>
-    (() => {
-      const player = document.querySelector("#matchPlayer");
-      const status = document.querySelector("#videoStatus");
-      const openLink = document.querySelector("#videoOpen");
-      const jumps = [...document.querySelectorAll(".jump-card")];
-      const controls = [...document.querySelectorAll("[data-time][data-label]")];
-      const basePlayer = "https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=6&autoplay=1";
-      const basePage = "https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=6";
-
-      function setVideo(time, label) {
-        if (!player) return;
-        player.src = `${basePlayer}&t=${time}`;
-        if (status) status.textContent = `当前：${label}`;
-        if (openLink) openLink.href = `${basePage}&t=${time}`;
-
-        jumps.forEach((jump) => {
-          jump.classList.toggle("active", jump.dataset.time === String(time));
-        });
-      }
-
-      controls.forEach((control) => {
-        control.addEventListener("click", () => {
-          setVideo(control.dataset.time, control.dataset.label);
-        });
-      });
-    })();
-
     (() => {
       const modal = document.querySelector("#deckModal");
       const image = document.querySelector("#deckModalImage");
