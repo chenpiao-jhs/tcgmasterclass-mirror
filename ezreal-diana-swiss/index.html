@@ -1,0 +1,1503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>伊泽瑞尔打皎月：控制套牌如何拆掉节奏发动机</title>
+  <style>
+    :root {
+      --bg: #f4f6f1;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --red: #9f3d36;
+      --blue: #285f8f;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 530px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.88), rgba(8, 18, 13, 0.62) 48%, rgba(8, 18, 13, 0.16)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 880px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 820px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .page-shell {
+      width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 86px;
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      width: auto;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      z-index: 10;
+      border: 1px solid rgba(223, 231, 221, 0.92);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
+    }
+
+    .media {
+      margin: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .video-screen {
+      aspect-ratio: 16 / 9;
+      background: #101712;
+    }
+
+    .video-screen iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
+
+    .video-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+    }
+
+    .video-status {
+      min-width: 0;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .video-open,
+    .watch-link,
+    .watch-button {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      background: var(--green-dark);
+      color: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 10px 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .watch-link {
+      background: #edf4ee;
+      color: var(--green-dark);
+    }
+
+    figcaption {
+      padding: 0 12px 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 860px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2,
+    .jump-grid,
+    .watch-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2,
+    .watch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .watch-card,
+    .note-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    .insight,
+    .note-box {
+      padding: 18px;
+    }
+
+    .insight h3,
+    .watch-card h3,
+    .note-box h3 {
+      color: var(--green-dark);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .watch-card p,
+    .note-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .jump-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: inherit;
+      cursor: pointer;
+      padding: 14px;
+      text-align: left;
+      min-height: 138px;
+      display: grid;
+      align-content: start;
+      gap: 6px;
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      outline: none;
+      border-color: rgba(47, 111, 78, 0.42);
+      background: #edf4ee;
+    }
+
+    .jump-card span {
+      color: var(--gold);
+      font-weight: 850;
+      font-size: 14px;
+    }
+
+    .jump-card strong {
+      color: var(--green-dark);
+      font-size: 18px;
+      line-height: 1.22;
+    }
+
+    .jump-card em {
+      color: var(--muted);
+      font-style: normal;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .perspective-switch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+      margin-bottom: 24px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .perspective-switch.perspective-switch-mobile {
+      display: none;
+    }
+
+    .perspective-tab {
+      appearance: none;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 850;
+      min-height: 40px;
+      padding: 0 12px;
+    }
+
+    .perspective-tab:hover,
+    .perspective-tab:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    .perspective-tab.active {
+      color: #fff;
+      background: var(--green-dark);
+    }
+
+    .perspective-panel[hidden],
+    [data-perspective-nav][hidden] {
+      display: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      width: 190px;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .method-flow {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .method-flow h3 {
+      font-size: 18px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .watch-card {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .watch-time {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #35443a;
+    }
+
+    .watch-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--green);
+      margin-top: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), #3f5d3d);
+    }
+
+    .footer p {
+      margin: 0;
+      max-width: 860px;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--green-dark);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 470px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .page-shell {
+        width: 100%;
+        display: block;
+        padding: 0 0 86px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        max-height: min(76vh, 640px);
+        overflow: auto;
+        z-index: 25;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: rgba(245, 247, 242, 0.96);
+        box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
+      }
+
+      .topbar .video-toolbar {
+        gap: 8px;
+        padding: 4px 12px;
+      }
+
+      .topbar .video-status,
+      .topbar .video-open {
+        font-size: 11px;
+        line-height: 1.15;
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        align-items: start;
+        flex-direction: column;
+        padding: 6px 0 7px;
+      }
+
+      .brand {
+        display: none;
+      }
+
+      .perspective-switch-desktop {
+        display: none;
+      }
+
+      .perspective-switch.perspective-switch-mobile {
+        position: static;
+        width: min(var(--max), calc(100% - 40px));
+        min-height: 0;
+        margin: 3px auto 2px;
+        padding: 2px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px;
+        box-shadow: 0 6px 16px rgba(25, 39, 31, 0.07);
+      }
+
+      .perspective-switch.perspective-switch-mobile .perspective-tab {
+        min-height: 30px;
+        border-radius: 5px;
+        font-size: 12px;
+        line-height: 1;
+      }
+
+      .links {
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 0 0 2px;
+        width: 100%;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
+      }
+
+      .section-head,
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .mistakes,
+      .jump-grid,
+      .watch-grid,
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .watch-button,
+      .watch-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 苏州站瑞士轮第十轮复盘</div>
+      <h1>伊泽瑞尔打皎月：控制套牌如何拆掉节奏发动机</h1>
+      <p class="summary">把第 3P “伊泽瑞尔 VS 皎月女神”拆成可执行方法：高远的控制 EZ 怎样用回手、直伤、弃牌和双罡风，把钟宇皎月最关键的蓝皎月与薇古丝路线逐步压掉。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛苏州站 DAY2 第 3P</li>
+        <li>对局：伊泽瑞尔（高远） VS 皎月女神（钟宇）</li>
+        <li>结果：伊泽瑞尔 2:0</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=3&autoplay=0&t=340" title="第三赛季区域公开赛苏州站 DAY2 第 3P：伊泽瑞尔 VS 皎月女神" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：05:40 对局与优劣判断</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=340" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-ezreal-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-ezreal" data-perspective-target="ezreal">伊泽瑞尔视角</button>
+        <button class="perspective-tab" id="tab-diana-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+      </div>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">EZ打皎月双视角</div>
+        <div class="links" data-perspective-nav="ezreal">
+          <a href="#principles">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#framework">对局框架</a>
+          <a href="#game-one">第一局</a>
+          <a href="#game-two">第二局</a>
+          <a href="#checklist">练习清单</a>
+          <a href="#mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="diana" hidden>
+          <a href="#diana-principles">核心结论</a>
+          <a href="#diana-video">关键片段</a>
+          <a href="#diana-framework">破局思路</a>
+          <a href="#diana-game-one">第一局</a>
+          <a href="#diana-game-two">第二局</a>
+          <a href="#diana-checklist">练习清单</a>
+          <a href="#diana-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-ezreal" type="button" role="tab" aria-selected="true" aria-controls="panel-ezreal" data-perspective-target="ezreal">伊泽瑞尔玩家视角</button>
+        <button class="perspective-tab" id="tab-diana" type="button" role="tab" aria-selected="false" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-ezreal" role="tabpanel" aria-labelledby="tab-ezreal" data-perspective-panel="ezreal">
+        <section id="principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>先记住这场对局的五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这场最适合学习控制 EZ 的“拆发动机”方法：不用急着和皎月打战斗，只要让蓝皎月、薇古丝和后续单位无法稳定留场，皎月手里的移动与加战力法术就会变成低效资源。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>皎月怕的不是大怪，是法术密度</h3>
+              <p>解说开局就判断 EZ 优势，原因是皎月抗法系卡组很差。她想靠单位进场和移动触发价值，但 EZ 可以直接点后场或回手。</p>
+            </article>
+            <article class="insight">
+              <h3>蓝皎月就是发动机</h3>
+              <p>第一局皎月能拖到 7 分，关键是蓝皎月没有被早早处理。第二局 EZ 明确改成优先拆发动机，局面就直接倾斜。</p>
+            </article>
+            <article class="insight">
+              <h3>罡风不是只防守</h3>
+              <p>第二局双罡风让皎月的强买强卖没有按预期赚到节奏，反而让 EZ 在对手回合完成得分，这就是控制牌转成分数的窗口。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>魅惑之灵是本场 K 牌</h3>
+              <p>赛后给到的全场 K 牌是魅惑之灵。皎月手牌被压到三张左右时，每一次弃牌都会逼她交掉关键互动。</p>
+            </article>
+            <article class="insight">
+              <h3>控制套牌领先后可以空转</h3>
+              <p>第二局 EZ 先取得大分差后，不需要每回合都争分。只要继续养费、过牌、清场，皎月就很难靠肉搏追回节奏。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照方法</h2>
+            </div>
+            <div class="time">P3 瑞士轮第十轮</div>
+          </div>
+          <p class="lead">左侧固定播放器会一直跟随页面。点击任一时间点或正文里的“播放这一段”，左侧播放器会切到对应比赛片段，页面滚动位置保持不动。</p>
+          <div class="jump-grid" aria-label="关键片段跳转">
+            <button class="jump-card active" type="button" data-time="340" data-label="05:40 对局与优劣判断">
+              <span>05:40</span>
+              <strong>对局判断</strong>
+              <em>伊泽瑞尔翻出，皎月登场，解说直接点出 EZ 对法抗低的皎月有优势。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="795" data-label="13:15 第一局后场清理">
+              <span>13:15</span>
+              <strong>先清后场</strong>
+              <em>EZ 用法术清掉后场单位，开始把皎月节奏拆散。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2129" data-label="35:29 千尾与第一局收口">
+              <span>35:29</span>
+              <strong>第一局收口</strong>
+              <em>皎月抢到 7 分，但手牌与单位被控空，EZ 拿下第一局。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2297" data-label="38:17 第一局复盘">
+              <span>38:17</span>
+              <strong>明确发动机</strong>
+              <em>复盘指出第二局要更早处理蓝皎月，不能让皎月资源滚起来。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2580" data-label="43:00 第二局薇古丝落场">
+              <span>43:00</span>
+              <strong>薇古丝落场</strong>
+              <em>皎月用法盾单位试图稳住，但 EZ 选择付出资源主动拆掉。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2674" data-label="44:34 强买强卖与双罡风">
+              <span>44:34</span>
+              <strong>双罡风窗口</strong>
+              <em>皎月摸到强买强卖，但 EZ 两张罡风把互动改写成自己得分。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2748" data-label="45:48 华彩点掉蓝皎月">
+              <span>45:48</span>
+              <strong>拆蓝皎月</strong>
+              <em>抽到华彩后直接处理蓝皎月，第二局进入 EZ 控制节奏。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3315" data-label="55:15 皎月被迫露手牌">
+              <span>55:15</span>
+              <strong>手牌压力</strong>
+              <em>皎月为阻止第八分只能持续交资源，EZ 反而掌握信息。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3675" data-label="61:15 战斗胜率与法术伤害">
+              <span>61:15</span>
+              <strong>赛后数据</strong>
+              <em>皎月战斗胜率高，但进不了战场；EZ 法术伤害打出 19 点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3720" data-label="62:00 全场 K 牌魅惑之灵">
+              <span>62:00</span>
+              <strong>K牌魅惑之灵</strong>
+              <em>魅惑之灵把皎月手牌压低，让每张牌都变成痛点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3957" data-label="65:57 高手视角复盘">
+              <span>65:57</span>
+              <strong>高手视角</strong>
+              <em>复盘解释为什么高远要先解薇古丝，而不是贪 EZ 过牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4065" data-label="67:45 第二局分差来源">
+              <span>67:45</span>
+              <strong>分差来源</strong>
+              <em>薇古丝被处理后，皎月的月之降临无法变成有效击杀，EZ 反而先得分。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>EZ 的对局框架：让皎月没有“可结算单位”</h2>
+            </div>
+          </div>
+          <p class="lead">皎月的牌不缺战斗文本，但她需要有单位、能移动、能把法术变成战斗优势。控制 EZ 的目标不是每次都赚最大牌差，而是让皎月的发动机无法连续工作。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先识别发动机</h3>
+              <p>蓝皎月、薇古丝、能把月之降临变成击杀的单位，优先级高于普通分数交换。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>用回手拖节奏</h3>
+              <p>罡风和造化弄人不是单纯保命，它们让皎月重复付费用，减少有效回合。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>用直伤定点拆</h3>
+              <p>华彩、敲诈等解牌要用在会改变节奏的单位上，而不是看见单位就交。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>领先后养费过牌</h3>
+              <p>一旦 EZ 先拿分，后续可以空转铺垫，让皎月必须主动交资源追分。</p>
+            </li>
+          </ol>
+          <table>
+            <thead>
+              <tr>
+                <th>局面</th>
+                <th>EZ 应该想什么</th>
+                <th>这场的对应片段</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>皎月早期有后场单位</td>
+                <td>判断它是不是月之降临的目标。会威胁 EZ 本体或蓝皎月滚资源的单位，要提前拆。</td>
+                <td>第二局 43:00 到 45:48，先解薇古丝，再用华彩处理蓝皎月。</td>
+              </tr>
+              <tr>
+                <td>皎月有强买强卖</td>
+                <td>不要只看一张罡风能不能被无效化，要算第二张罡风和撤离后的分数。</td>
+                <td>44:34 后，双罡风把皎月的反制窗口变成 EZ 的得分窗口。</td>
+              </tr>
+              <tr>
+                <td>自己分数领先</td>
+                <td>不急着强行结束。继续养费、过牌、压手牌，让皎月每次进场都要付出更多资源。</td>
+                <td>赛后复盘说明 EZ 领先后甚至可以整回合做费用和场面铺垫。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：赢了，但风险来自蓝皎月处理偏慢</h2>
+            </div>
+            <div class="time">35:29 - 38:17</div>
+          </div>
+          <p class="lead">第一局 EZ 最终把皎月手牌和单位控空，但皎月已经抢到 7 分。这个局面说明控制优势存在，但如果前期没有足够快地处理蓝皎月，皎月仍然可能靠中盘连续进场逼出终结窗口。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">35:29 - 37:16</span>
+              <h3>不要被“赢了”掩盖风险</h3>
+              <p>解说明确说第一局打得紧张：皎月只差一个御风类抽牌就可能结束比赛。控制套牌不是无脑拖，前期费用和解牌顺序都要有规划。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2129" data-label="35:29 千尾与第一局收口">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=2129" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">38:17 - 39:10</span>
+              <h3>第二局的调整来自第一局复盘</h3>
+              <p>第一局后解说直接指出：如果蓝皎月早一点被华彩这类法术处理，皎月后续资源量会跟不上。第二局高远就是按这个思路打的。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2297" data-label="38:17 第一局复盘">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=2297" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">05:40</div>
+              <p>双方翻出伊泽瑞尔与皎月女神，解说判断皎月对法术控制抗性低，EZ 先天更舒服。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">13:15</div>
+              <p>EZ 开始用法术清后场，皎月的连续进场与移动收益被迫放慢。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">35:29</div>
+              <p>皎月已经抢到 7 分，但手牌和场面被控空，最后一分很难兑现。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">37:16</div>
+              <p>第一局结束，EZ 先拿一城；复盘重点转向“蓝皎月要更早处理”。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">38:17</div>
+              <p>解说明确指出蓝皎月是皎月发动机，第二局 EZ 应该更早用华彩等解牌处理。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：先拆薇古丝，再用双罡风把反制变成得分</h2>
+            </div>
+            <div class="time">43:00 - 67:45</div>
+          </div>
+          <p class="lead">第二局的关键不是“解牌多”，而是高远愿意为了未来回合先付资源解薇古丝。这个选择让皎月后续月之降临不能稳定击杀 EZ，双罡风又把皎月的强买强卖窗口改写成 EZ 得分。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">65:57 - 67:45</span>
+              <h3>薇古丝有法盾也要算清威胁</h3>
+              <p>当时看起来解薇古丝很亏，但如果放着不管，皎月可以用月之降临把 EZ 拉上去击杀。赛后复盘认可了这个提前解的选择。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3957" data-label="65:57 高手视角复盘">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=3957" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">44:34 - 45:48</span>
+              <h3>双罡风是全局转折</h3>
+              <p>皎月以为强买强卖能让罡风无效化，结果 EZ 刚好有第二张罡风。皎月资源交掉、单位被吹、EZ 还拿分，局势从这里开始明显倾斜。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2674" data-label="44:34 强买强卖与双罡风">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=2674" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">43:00</div>
+              <p>皎月沉淀薇古丝，尝试用法盾单位逼 EZ 解牌。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">44:34</div>
+              <p>强买强卖遇到双罡风，皎月没有把反制转成节奏，EZ 反而拿到分数。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">45:48</div>
+              <p>EZ 抽到华彩后点掉蓝皎月，皎月发动机被拆，局面进入控制节奏。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">55:15</div>
+              <p>皎月为了阻止 EZ 第八分被迫交资源，手牌结构也被对手看清。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">61:15</div>
+              <p>赛后数据显示皎月战斗胜率高，但 EZ 用法术伤害绕开了战斗本身。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">62:00</div>
+              <p>全场 K 牌给到魅惑之灵，它持续压低皎月手牌，让每张牌都变成痛点。</p>
+            </div>
+          </div>
+          <div class="note-box">
+            <h3>本场 K 牌：魅惑之灵</h3>
+            <p>赛后 K 牌给到魅惑之灵，因为它让皎月的手牌数量一直处于危险线。弃牌效果在对手手牌多时未必致命，但当皎月已经被回手、直伤和费用压缩后，每丢一张都可能丢掉下一轮唯一的行动。</p>
+          </div>
+        </section>
+
+        <section id="checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>EZ 玩家练习清单</h2>
+            </div>
+          </div>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>看到皎月后，先标记蓝皎月、薇古丝、能触发月之降临击杀的单位，而不是只盯当前分数。</span></div>
+            <div class="check"><span class="box"></span><span>每次交华彩、敲诈前，问自己：这张解牌是在拆发动机，还是只是在清一个普通单位。</span></div>
+            <div class="check"><span class="box"></span><span>罡风使用前多算一层：被强买强卖无效化后，是否还有第二个回手或撤离路线。</span></div>
+            <div class="check"><span class="box"></span><span>领先后不要急。优先养费、过牌、压手牌，让皎月必须连续进场才能追上。</span></div>
+            <div class="check"><span class="box"></span><span>复盘时记录每回合费用是否紧缺。第一局的风险主要来自中期费用捉襟见肘。</span></div>
+          </div>
+        </section>
+
+        <section id="mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Avoid</div>
+              <h2>EZ 玩家常见错误</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>以为对局优势就可以慢慢拖，结果让蓝皎月连续触发资源。</li>
+            <li>把直伤交给普通单位，后面真正的发动机落场时没有答案。</li>
+            <li>只把罡风当防守牌，没有计算回手后自己能不能反拿分。</li>
+            <li>领先后贪终结，忘了控制套牌的优势是费用、手牌和时间。</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-diana" role="tabpanel" aria-labelledby="tab-diana" data-perspective-panel="diana" hidden>
+        <section id="diana-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>皎月玩家先记住这五件事</h2>
+            </div>
+          </div>
+          <p class="lead">这是一组明显难打的对局。皎月战斗胜率可以很高，但控制 EZ 不一定跟你战斗。你的重点是把能持续制造威胁的单位留下来，并且逼 EZ 在最不舒服的时机交解。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>不能只靠肉搏强度</h3>
+              <p>赛后数据里皎月战斗获胜率达到 71%，但没法稳定进场。强战斗牌在没有单位站场时不会自动赢。</p>
+            </article>
+            <article class="insight">
+              <h3>蓝皎月必须被保护</h3>
+              <p>她是资源和节奏发动机。第一局能抢到 7 分，正是因为蓝皎月没有过早离场。</p>
+            </article>
+            <article class="insight">
+              <h3>强买强卖要防第二层</h3>
+              <p>第二局强买强卖没有解决罡风链，反而被双罡风翻成 EZ 得分。对控制套牌不能只算第一张互动。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>法盾单位是诱饵也是威胁</h3>
+              <p>薇古丝让 EZ 不想解，但只要她能配合月之降临击杀 EZ，就必须被视为真正威胁。</p>
+            </article>
+            <article class="insight">
+              <h3>弱势对局需要备牌计划</h3>
+              <p>解说提到这个对局甚至需要纳什男爵这类单卡才可能对抗 EZ。皎月要明确自己是在补弱点还是强化强项。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="diana-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>从皎月视角看关键窗口</h2>
+            </div>
+            <div class="time">P3 瑞士轮第十轮</div>
+          </div>
+          <p class="lead">皎月视角的复盘重点不是“这把被克制”，而是识别哪些回合还能把 EZ 逼进战斗，哪些回合已经只能止损。</p>
+          <div class="jump-grid" aria-label="皎月关键片段跳转">
+            <button class="jump-card active" type="button" data-time="340" data-label="05:40 对局与优劣判断">
+              <span>05:40</span>
+              <strong>劣势确认</strong>
+              <em>解说点出皎月对法术控制抗性低，开局就要按弱势局来规划。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="805" data-label="13:25 后场单位被清">
+              <span>13:25</span>
+              <strong>后场被清</strong>
+              <em>EZ 用解牌清后场，皎月需要判断是否继续投入发动机。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2129" data-label="35:29 第一局抢到七分">
+              <span>35:29</span>
+              <strong>抢到七分</strong>
+              <em>第一局皎月已经接近胜利，但最后手牌和单位被控空。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2580" data-label="43:00 薇古丝落场">
+              <span>43:00</span>
+              <strong>薇古丝试探</strong>
+              <em>法盾单位上场，测试 EZ 是否愿意付资源提前解。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2674" data-label="44:34 强买强卖与双罡风">
+              <span>44:34</span>
+              <strong>反制失败</strong>
+              <em>强买强卖碰到第二张罡风，皎月资源被迫交掉。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3315" data-label="55:15 被迫露手牌">
+              <span>55:15</span>
+              <strong>被迫止损</strong>
+              <em>为了不让 EZ 拿到第八分，皎月只能交造化弄人等资源拖延。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3675" data-label="61:15 战斗胜率与法术伤害">
+              <span>61:15</span>
+              <strong>赛后数据</strong>
+              <em>战斗赢了很多，但 EZ 用 19 点法术伤害绕开战斗。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3957" data-label="65:57 高手视角复盘">
+              <span>65:57</span>
+              <strong>复盘关键</strong>
+              <em>如果 EZ 没先解薇古丝，皎月有机会用月之降临处理 EZ。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="diana-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>皎月破局思路：逼 EZ 交错解牌</h2>
+            </div>
+          </div>
+          <p class="lead">皎月不能期待 EZ 主动进战场。你要让每个单位都同时具备“现在能拿分”和“下回合会威胁 EZ”的价值，迫使对手在费用不舒服时交解。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先保发动机</h3>
+              <p>蓝皎月比普通进攻单位重要。没有发动机，手里的移动和战斗法术会越打越空。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>让法盾有后续威胁</h3>
+              <p>薇古丝落场不是为了单纯拿一分，而是为了让月之降临变成击杀路线。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>互动要算两层</h3>
+              <p>强买强卖打出去前，必须确认对面还有没有第二张罡风或其他回手。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>备牌补控制抗性</h3>
+              <p>如果环境里控制 EZ 多，皎月需要额外的抗法术、补资源或单卡终结手段。</p>
+            </li>
+          </ol>
+        </section>
+
+        <section id="diana-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：抢到 7 分，说明胜路存在</h2>
+            </div>
+            <div class="time">35:29 - 38:17</div>
+          </div>
+          <p class="lead">第一局对皎月最有价值的复盘点是：即便是劣势对局，只要蓝皎月能多活几个回合，EZ 中期费用紧张时仍然会被逼到危险分数。问题是最后一段皎月手牌与单位都被控空，没能完成最后一分。</p>
+          <div class="watch-card">
+            <span class="watch-time">35:29 - 37:16</span>
+            <h3>这个局面要记住两件事</h3>
+            <p>第一，早期发动机真的能把 EZ 逼到危险线；第二，如果没有第二波资源补充，7 分也可能被控制套牌慢慢压回去。</p>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="2129" data-label="35:29 第一局抢到七分">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=2129" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">13:15</div>
+              <p>EZ 清后场后，皎月需要决定是否继续投入发动机，还是先保资源等下一轮。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">35:29</div>
+              <p>皎月抢到 7 分，说明弱势局并非完全没有胜路。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">37:16</div>
+              <p>最后一张救命抽牌没有接上，皎月输在单位和手牌都被控空。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">38:17</div>
+              <p>复盘指出蓝皎月是发动机，这也是皎月视角最需要保护的资源点。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="diana-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：薇古丝路线被识破后，分差迅速扩大</h2>
+            </div>
+            <div class="time">43:00 - 45:48</div>
+          </div>
+          <p class="lead">第二局皎月用薇古丝尝试制造法盾压力，但高远选择用华彩加敲诈提前拆掉。这个选择让皎月后续无法稳定用月之降临击杀 EZ，双罡风又让强买强卖没有换到想要的节奏。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">43:00 - 44:20</span>
+              <h3>法盾单位不能只当防守</h3>
+              <p>如果薇古丝不能在下一轮逼出击杀或关键得分，她被解掉后皎月会亏掉太多节奏。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2580" data-label="43:00 薇古丝落场">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=2580" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">44:34 - 45:48</span>
+              <h3>强买强卖要留给确定窗口</h3>
+              <p>这张牌本来想让罡风无效化，但没算到第二张罡风。对控制套牌，反制牌最好在确认对方没有第二层互动时再交。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2674" data-label="44:34 强买强卖与双罡风">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3&t=2674" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">43:00</div>
+              <p>薇古丝落场，皎月尝试利用法盾制造 EZ 不好解的压力点。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">44:34</div>
+              <p>强买强卖没有解决罡风链，皎月反制牌被迫交掉。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">45:48</div>
+              <p>蓝皎月被华彩点掉后，皎月失去持续过牌和节奏发动机。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">55:15</div>
+              <p>皎月已经是在被迫止损，阻止第八分的同时继续暴露手牌信息。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="diana-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>皎月玩家练习清单</h2>
+            </div>
+          </div>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>开局识别自己是在劣势局，不要用普通肉搏局的节奏去打控制 EZ。</span></div>
+            <div class="check"><span class="box"></span><span>蓝皎月落场前，先想好她被华彩、敲诈、回手处理后的下一步。</span></div>
+            <div class="check"><span class="box"></span><span>薇古丝和法盾单位要带着后续击杀路线落场，不能只是“看起来不好解”。</span></div>
+            <div class="check"><span class="box"></span><span>强买强卖、造化弄人这类互动，交之前至少算到对方第二张罡风。</span></div>
+            <div class="check"><span class="box"></span><span>复盘备牌时明确：是补抗法术，补资源，还是补一个能绕过 EZ 控制的终结点。</span></div>
+          </div>
+        </section>
+
+        <section id="diana-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Avoid</div>
+              <h2>皎月玩家常见错误</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把高战斗胜率误认为对局优势，忽略 EZ 可以完全绕开战斗。</li>
+            <li>蓝皎月没有保护计划，导致发动机被拆后手牌变成低效法术。</li>
+            <li>反制牌只算第一张互动，没算对手第二张罡风或回手。</li>
+            <li>被迫阻止 EZ 第八分时连续露手牌，让控制套牌掌握全部信息。</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="footer">
+        <p>这场第十轮给两个方向的玩家都很有价值：EZ 玩家看如何把控制牌转成分数，皎月玩家看弱势对局里发动机、法盾和反制牌到底要承担什么任务。</p>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script>
+    (() => {
+      const tabs = [...document.querySelectorAll("[data-perspective-target]")];
+      const panels = [...document.querySelectorAll("[data-perspective-panel]")];
+      const navGroups = [...document.querySelectorAll("[data-perspective-nav]")];
+      const panelByAnchor = new Map();
+
+      panels.forEach((panel) => {
+        panel.querySelectorAll("[id]").forEach((node) => {
+          panelByAnchor.set(node.id, panel.dataset.perspectivePanel);
+        });
+      });
+
+      function setPerspective(name, shouldFocus = false) {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.perspectiveTarget === name;
+          tab.classList.toggle("active", active);
+          tab.setAttribute("aria-selected", String(active));
+          if (active && shouldFocus) tab.focus();
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.perspectivePanel !== name;
+        });
+
+        navGroups.forEach((group) => {
+          group.hidden = group.dataset.perspectiveNav !== name;
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          setPerspective(tab.dataset.perspectiveTarget, true);
+        });
+      });
+
+      function applyHashPerspective() {
+        const anchor = decodeURIComponent(window.location.hash.slice(1));
+        if (!anchor) return;
+        const perspective = panelByAnchor.get(anchor);
+        if (perspective) {
+          setPerspective(perspective);
+          window.requestAnimationFrame(() => {
+            document.getElementById(anchor)?.scrollIntoView();
+          });
+        }
+      }
+
+      applyHashPerspective();
+      window.addEventListener("hashchange", applyHashPerspective);
+    })();
+
+    (() => {
+      const player = document.querySelector("#matchPlayer");
+      const status = document.querySelector("#videoStatus");
+      const openLink = document.querySelector("#videoOpen");
+      const jumps = [...document.querySelectorAll(".jump-card")];
+      const controls = [...document.querySelectorAll("[data-time][data-label]")];
+      const basePlayer = "https://player.bilibili.com/player.html?bvid=BV1ZfLJ6tEWc&page=3&autoplay=1";
+      const basePage = "https://www.bilibili.com/video/BV1ZfLJ6tEWc?p=3";
+
+      function setVideo(time, label) {
+        if (!player) return;
+        player.src = `${basePlayer}&t=${time}`;
+        if (status) status.textContent = `当前：${label}`;
+        if (openLink) openLink.href = `${basePage}&t=${time}`;
+
+        jumps.forEach((jump) => {
+          jump.classList.toggle("active", jump.dataset.time === String(time));
+        });
+      }
+
+      controls.forEach((control) => {
+        control.addEventListener("click", () => {
+          setVideo(control.dataset.time, control.dataset.label);
+        });
+      });
+    })();
+  </script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
