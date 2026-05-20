@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>访问统计</title>
+  <link rel="stylesheet" href="../assets/analytics-dashboard.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Runeterra Guide</p>
+        <h1>访问统计</h1>
+      </div>
+      <div class="actions">
+        <label class="range-control">
+          <span>范围</span>
+          <select id="daysSelect" aria-label="统计范围">
+            <option value="7">最近 7 天</option>
+            <option value="14" selected>最近 14 天</option>
+            <option value="30">最近 30 天</option>
+            <option value="90">最近 90 天</option>
+          </select>
+        </label>
+        <button id="refreshButton" type="button">刷新</button>
+      </div>
+    </header>
+
+    <section class="status-line" aria-live="polite">
+      <span id="refreshStatus">正在加载...</span>
+      <span id="latestVisit">最新访问：-</span>
+    </section>
+
+    <section class="metrics" aria-label="总览">
+      <article class="metric">
+        <span>访问次数</span>
+        <strong id="totalViews">-</strong>
+      </article>
+      <article class="metric">
+        <span>独立访客</span>
+        <strong id="totalVisitors">-</strong>
+      </article>
+      <article class="metric">
+        <span>独立 IP</span>
+        <strong id="totalIps">-</strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>每日趋势</h2>
+          <p>按北京时间统计每日访问次数和独立访客</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>访问次数</th>
+              <th>独立访客</th>
+              <th>独立 IP</th>
+            </tr>
+          </thead>
+          <tbody id="dailyRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>页面访问</h2>
+          <p>查看不同页面的访问次数和人数</p>
+        </div>
+      </div>
+      <div id="pageRows" class="page-list"></div>
+    </section>
+  </main>
+
+  <script src="../assets/analytics-dashboard.js"></script>
+</body>
+</html>

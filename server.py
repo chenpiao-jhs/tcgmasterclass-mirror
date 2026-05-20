@@ -10,11 +10,12 @@ import secrets
 import threading
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from collections import defaultdict
+from datetime import datetime, timedelta, timezone
 from http import cookies
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 
 ROOT = Path(__file__).resolve().parent
@@ -27,12 +28,22 @@ MAX_BODY_BYTES = 16 * 1024
 FEEDBACK_LOCK = threading.Lock()
 VISIT_LOCK = threading.Lock()
 PRIVATE_PREFIXES = ("/.git", "/data")
-PRIVATE_FILES = {"/server.py", "/runeterra-guide.service"}
+PRIVATE_FILES = {"/analytics.py", "/server.py", "/runeterra-guide.service"}
 ALLOWED_FEEDBACK_TYPES = {"", "功能建议", "bug/报错", "其他"}
 EMAIL_GATEWAY_URL = "http://169.254.169.254/gateway/email/send"
 FEEDBACK_EMAIL_TO = os.environ.get("FEEDBACK_EMAIL_TO", "chenpiao@jihuanshe.com")
 VISITOR_COOKIE_NAME = "rg_visitor_id"
 VISITOR_COOKIE_MAX_AGE = 60 * 60 * 24 * 395
+ANALYTICS_TIMEZONE = timezone(timedelta(hours=8))
+ANALYTICS_DASHBOARD_PREFIX = "/analytics"
+PAGE_TITLES = {
+    "/": "首页",
+    "/ezreal-diana-swiss/": "伊泽瑞尔 VS 皎月女神",
+    "/irelia-mirror-final/": "刀锋舞者内战决赛",
+    "/sivir-irelia-quarterfinal/": "战争女神 VS 刀锋舞者",
+    "/yi-aurora-semifinal/": "无极剑圣 VS 欧若拉",
+    "/yi-irelia-final/": "无极剑圣 VS 刀锋舞者",
+}
 VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{24,96}$")
 BOT_USER_AGENT_KEYWORDS = (
     "bot",
@@ -73,6 +84,9 @@ class GuideHandler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path == "/healthz":
             self.send_json(200, {"ok": True})
+            return
+        if parsed.path == "/api/analytics":
+            self.send_json(200, build_analytics_summary(parsed.query))
             return
         if self.is_private_path():
             self.send_json(404, {"ok": False, "error": "not_found"})
@@ -162,6 +176,9 @@ class GuideHandler(SimpleHTTPRequestHandler):
         )
 
     def record_page_view_if_needed(self, request_path: str):
+        if request_path == ANALYTICS_DASHBOARD_PREFIX or request_path.startswith(f"{ANALYTICS_DASHBOARD_PREFIX}/"):
+            return
+
         page_path = self.canonical_page_path(request_path)
         if not page_path:
             return
@@ -298,6 +315,148 @@ def format_feedback_email(record: dict) -> str:
         f"浏览器: {record.get('userAgent') or '未知'}",
         f"Referer: {record.get('referer') or '无'}",
     ])
+
+
+def build_analytics_summary(query: str) -> dict:
+    params = parse_qs(query)
+    days = clamp_int(params.get("days", ["14"])[0], default=14, minimum=1, maximum=90)
+    include_bots = params.get("includeBots", ["0"])[0] in {"1", "true", "yes"}
+    now = datetime.now(ANALYTICS_TIMEZONE)
+    start_day = (now - timedelta(days=days - 1)).date()
+    start_at = datetime.combine(start_day, datetime.min.time(), tzinfo=ANALYTICS_TIMEZONE)
+    records = [
+        record
+        for record in load_visit_records(start_at)
+        if include_bots or not record.get("isBot")
+    ]
+
+    daily = {
+        (start_day + timedelta(days=index)).isoformat(): {
+            "date": (start_day + timedelta(days=index)).isoformat(),
+            "pageViews": 0,
+            "uniqueVisitors": 0,
+            "uniqueIpHashes": 0,
+            "_visitors": set(),
+            "_ipHashes": set(),
+        }
+        for index in range(days)
+    }
+    pages: dict[str, dict] = defaultdict(lambda: {
+        "pagePath": "",
+        "title": "",
+        "pageViews": 0,
+        "uniqueVisitors": 0,
+        "_visitors": set(),
+    })
+    visitors = set()
+    ip_hashes = set()
+    latest_at = None
+
+    for record in records:
+        created_at = parse_visit_datetime(record)
+        if not created_at:
+            continue
+        local_created_at = created_at.astimezone(ANALYTICS_TIMEZONE)
+        date_key = local_created_at.date().isoformat()
+        visitor_id = record.get("visitorId")
+        ip_hash = record.get("ipHash")
+        page_path = record.get("pagePath") or "unknown"
+
+        if date_key in daily:
+            daily_record = daily[date_key]
+            daily_record["pageViews"] += 1
+            if visitor_id:
+                daily_record["_visitors"].add(visitor_id)
+            if ip_hash:
+                daily_record["_ipHashes"].add(ip_hash)
+
+        page_record = pages[page_path]
+        page_record["pagePath"] = page_path
+        page_record["title"] = PAGE_TITLES.get(page_path, page_path)
+        page_record["pageViews"] += 1
+        if visitor_id:
+            page_record["_visitors"].add(visitor_id)
+
+        if visitor_id:
+            visitors.add(visitor_id)
+        if ip_hash:
+            ip_hashes.add(ip_hash)
+        if latest_at is None or local_created_at > latest_at:
+            latest_at = local_created_at
+
+    daily_rows = []
+    for daily_record in daily.values():
+        daily_rows.append({
+            "date": daily_record["date"],
+            "pageViews": daily_record["pageViews"],
+            "uniqueVisitors": len(daily_record["_visitors"]),
+            "uniqueIpHashes": len(daily_record["_ipHashes"]),
+        })
+
+    page_rows = []
+    for page_record in pages.values():
+        page_rows.append({
+            "pagePath": page_record["pagePath"],
+            "title": page_record["title"],
+            "pageViews": page_record["pageViews"],
+            "uniqueVisitors": len(page_record["_visitors"]),
+        })
+    page_rows.sort(key=lambda item: (-item["pageViews"], item["pagePath"]))
+
+    return {
+        "ok": True,
+        "generatedAt": now.isoformat(),
+        "latestVisitAt": latest_at.isoformat() if latest_at else None,
+        "timezone": "Asia/Shanghai",
+        "days": days,
+        "includeBots": include_bots,
+        "summary": {
+            "pageViews": len(records),
+            "uniqueVisitors": len(visitors),
+            "uniqueIpHashes": len(ip_hashes),
+        },
+        "daily": daily_rows,
+        "pages": page_rows,
+    }
+
+
+def clamp_int(raw_value: str, default: int, minimum: int, maximum: int) -> int:
+    try:
+        value = int(raw_value)
+    except (TypeError, ValueError):
+        return default
+    return max(minimum, min(maximum, value))
+
+
+def load_visit_records(start_at: datetime) -> list[dict]:
+    if not VISITS_FILE.exists():
+        return []
+
+    records = []
+    with VISIT_LOCK:
+        with VISITS_FILE.open(encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    record = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                created_at = parse_visit_datetime(record)
+                if created_at and created_at.astimezone(ANALYTICS_TIMEZONE) >= start_at:
+                    records.append(record)
+    return records
+
+
+def parse_visit_datetime(record: dict) -> datetime | None:
+    raw_value = record.get("createdAt")
+    if not raw_value:
+        return None
+    try:
+        return datetime.fromisoformat(raw_value)
+    except ValueError:
+        return None
 
 
 def hash_ip(ip_address: str) -> str:
