@@ -369,15 +369,28 @@
     }
 
     .watch-link {
-      color: var(--green-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      min-width: 72px;
+      padding: 0 4px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 14px;
       font-weight: 800;
+      line-height: 1;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .watch-link:hover,
     .watch-link:focus {
-      color: var(--green);
+      color: var(--green-dark);
       outline: none;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     .jump-grid {
@@ -483,50 +496,82 @@
     }
 
     .watch-card {
+      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-columns: minmax(0, 1fr) minmax(112px, 132px);
       align-items: center;
-      gap: 12px;
+      column-gap: 16px;
+      row-gap: 2px;
       margin: 24px 0 28px;
-      padding: 16px;
+      padding: 18px;
       border: 1px solid var(--line);
-      border-left: 5px solid var(--green);
       border-radius: var(--radius);
-      background: var(--paper);
-      box-shadow: 0 12px 38px rgba(25, 39, 31, 0.08);
+      background: linear-gradient(135deg, var(--paper) 0%, var(--paper-soft) 100%);
+      box-shadow: 0 14px 38px rgba(25, 39, 31, 0.09);
+      overflow: hidden;
+    }
+
+    .watch-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--green), var(--gold));
+    }
+
+    .watch-card > div {
+      grid-row: 1 / 3;
+      min-width: 0;
+      padding-left: 2px;
     }
 
     .watch-card p {
-      margin: 4px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
+      line-height: 1.62;
     }
 
     .watch-time {
-      display: inline-block;
-      margin-bottom: 4px;
-      color: var(--gold);
-      font-size: 13px;
-      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(184, 137, 46, 0.12);
+      color: #8a641d;
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.1;
     }
 
     .watch-title {
       display: block;
       color: var(--green-dark);
-      font-weight: 800;
+      font-size: 17px;
+      font-weight: 850;
+      line-height: 1.35;
     }
 
     .watch-button {
       appearance: none;
+      display: inline-flex;
+      grid-column: 2;
+      grid-row: 1;
+      align-items: center;
+      align-self: end;
+      justify-content: center;
+      min-height: 40px;
       border: 0;
       border-radius: 7px;
       background: var(--green-dark);
       color: #fff;
       cursor: pointer;
       font: inherit;
+      font-size: 14px;
       font-weight: 800;
       line-height: 1;
       min-width: 112px;
-      padding: 11px 14px;
+      padding: 0 14px;
       white-space: nowrap;
     }
 
@@ -534,6 +579,43 @@
     .watch-button:focus {
       background: var(--green);
       outline: none;
+    }
+
+    .watch-card .watch-link {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: start;
+      width: 100%;
+      min-height: 22px;
+      min-width: 0;
+    }
+
+    @media (min-width: 901px) and (max-width: 1500px) {
+      .watch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 1250px) {
+      .watch-card {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .watch-card > div {
+        grid-column: 1 / -1;
+        grid-row: auto;
+      }
+
+      .watch-button,
+      .watch-link {
+        align-self: stretch;
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+        min-width: 0;
+      }
     }
 
     table {
@@ -962,9 +1044,13 @@
         grid-template-columns: 1fr;
       }
 
-      .watch-button,
-      .watch-link {
+      .watch-card .watch-button,
+      .watch-card .watch-link {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        align-self: stretch;
         width: 100%;
+        min-width: 0;
         text-align: center;
       }
 
@@ -1027,6 +1113,7 @@
   <link rel="stylesheet" href="../assets/page-nav.css">
   <link rel="stylesheet" href="../assets/detail-layout.css">
   <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/watch-card.css">
 </head>
 <body id="top">
   <header class="hero">
@@ -1319,7 +1406,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="grid-2">
+      <div class="grid-2 watch-grid">
         <div class="watch-card">
           <div>
             <span class="watch-time">15:58</span>

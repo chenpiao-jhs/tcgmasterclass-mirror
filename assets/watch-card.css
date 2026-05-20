@@ -1,0 +1,222 @@
+.watch-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(112px, 132px);
+  align-items: center;
+  column-gap: 16px;
+  row-gap: 2px;
+  margin: 24px 0 28px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 0;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--paper) 0%, var(--paper-soft, var(--paper)) 100%);
+  box-shadow: 0 14px 38px rgba(25, 39, 31, 0.09);
+  overflow: hidden;
+}
+
+.watch-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--green), var(--gold));
+}
+
+.watch-card > div:not(.watch-actions) {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  min-width: 0;
+  padding-left: 2px;
+}
+
+.watch-card > .watch-time,
+.watch-card > .watch-title,
+.watch-card > h3,
+.watch-card > p {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.watch-card > .watch-time {
+  justify-self: start;
+}
+
+.watch-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.watch-time {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(184, 137, 46, 0.12);
+  color: #8a641d;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+.watch-title,
+.watch-card h3 {
+  display: block;
+  margin: 0;
+  color: var(--green-dark);
+  font-size: 17px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.watch-button {
+  appearance: none;
+  display: inline-flex;
+  grid-column: 2;
+  grid-row: 1;
+  align-items: center;
+  align-self: end;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 112px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--green-dark);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.watch-button:hover,
+.watch-button:focus {
+  background: var(--green);
+  outline: none;
+}
+
+.watch-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 72px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.watch-link:hover,
+.watch-link:focus {
+  color: var(--green-dark);
+  outline: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.watch-card > .watch-link {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  width: 100%;
+  min-height: 22px;
+  min-width: 0;
+}
+
+.watch-actions {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  min-width: 112px;
+  max-width: 132px;
+  width: 100%;
+}
+
+.watch-actions .watch-button,
+.watch-actions .watch-link {
+  grid-column: auto;
+  grid-row: auto;
+  width: 100%;
+  min-width: 0;
+}
+
+.watch-actions .watch-link {
+  min-height: 22px;
+}
+
+@media (min-width: 901px) and (max-width: 1500px) {
+  .watch-grid,
+  .grid-2:has(.watch-card) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1250px) {
+  .watch-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .watch-card > div:not(.watch-actions),
+  .watch-card > .watch-time,
+  .watch-card > .watch-title,
+  .watch-card > h3,
+  .watch-card > p {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .watch-card > .watch-button,
+  .watch-card > .watch-link {
+    align-self: stretch;
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .watch-actions {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .watch-card {
+    grid-template-columns: 1fr;
+  }
+
+  .watch-card > .watch-button,
+  .watch-card > .watch-link,
+  .watch-actions {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    text-align: center;
+  }
+
+  .watch-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

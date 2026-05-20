@@ -24,6 +24,19 @@ git pull
 
 服务文件是 `runeterra-guide.service`，由 `server.py` 提供静态网页和反馈接口。
 
+## 比赛详情页组件
+
+所有比赛详情页需要加载共享样式：
+
+```html
+<link rel="stylesheet" href="../assets/page-nav.css">
+<link rel="stylesheet" href="../assets/detail-layout.css">
+<link rel="stylesheet" href="../assets/video-hub.css">
+<link rel="stylesheet" href="../assets/watch-card.css">
+```
+
+正文里的视频片段统一使用 `.watch-card`、`.watch-button`、`.watch-link`。如果按钮外层需要包裹，用 `.watch-actions`。PC 宽屏会把操作放在右侧上下排列，移动端会自动恢复为卡片底部上下排列。
+
 ## 反馈数据
 
 用户提交的反馈会追加保存到服务器本地：
