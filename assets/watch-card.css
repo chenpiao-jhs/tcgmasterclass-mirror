@@ -201,6 +201,18 @@
 @media (max-width: 900px) {
   .watch-card {
     grid-template-columns: 1fr;
+    margin: 14px 0;
+    padding: 14px;
+  }
+
+  .watch-grid,
+  .grid-2:has(.watch-card) {
+    gap: 12px;
+  }
+
+  .watch-grid > .watch-card,
+  .grid-2:has(.watch-card) > .watch-card {
+    margin: 0;
   }
 
   .watch-card > .watch-button,

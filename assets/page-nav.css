@@ -13,3 +13,9 @@
   color: #fff;
   background: var(--green-dark, #16402c);
 }
+
+@media (max-width: 900px) {
+  section[id] {
+    scroll-margin-top: calc(var(--page-nav-sticky-offset, 360px) + 12px);
+  }
+}

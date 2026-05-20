@@ -27,9 +27,21 @@
       return navGroups.find((group) => !group.hidden);
     }
 
+    function updateStickyOffsetVar() {
+      if (!window.matchMedia("(max-width: 900px)").matches) {
+        document.documentElement.style.removeProperty("--page-nav-sticky-offset");
+        return;
+      }
+
+      const topbarHeight = Math.ceil(topbar?.getBoundingClientRect().height || 0);
+      if (topbarHeight) {
+        document.documentElement.style.setProperty("--page-nav-sticky-offset", `${topbarHeight}px`);
+      }
+    }
+
     function getStickyOffset() {
       if (window.matchMedia("(max-width: 900px)").matches) {
-        return (topbar?.getBoundingClientRect().height || 0) + 28;
+        return (topbar?.getBoundingClientRect().height || 0) + 12;
       }
 
       const switchVisible = desktopSwitch && getComputedStyle(desktopSwitch).display !== "none";
@@ -43,7 +55,8 @@
 
       const topbarBottom = topbar?.getBoundingClientRect().bottom || 0;
       const visibleContentHeight = Math.max(0, window.innerHeight - topbarBottom);
-      return topbarBottom + Math.min(340, visibleContentHeight * 0.65);
+      const mobileOffset = Math.min(120, Math.max(44, visibleContentHeight * 0.35));
+      return topbarBottom + mobileOffset;
     }
 
     function revealActiveLink(link) {
@@ -54,6 +67,31 @@
       group.scrollTo({
         left: Math.max(0, targetLeft),
         behavior: "smooth",
+      });
+    }
+
+    function getScrollTop() {
+      return document.scrollingElement?.scrollTop || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
+
+    function scrollToAnchor(anchor, behavior = "smooth") {
+      const target = document.getElementById(anchor);
+      if (!target) return;
+
+      updateStickyOffsetVar();
+      const top = Math.max(0, getScrollTop() + target.getBoundingClientRect().top - getStickyOffset());
+      if (typeof window.scrollTo === "function") {
+        window.scrollTo({ top, behavior });
+        return;
+      }
+
+      const root = document.scrollingElement || document.documentElement || document.body;
+      root.scrollTop = top;
+    }
+
+    function afterLayout(callback) {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(callback);
       });
     }
 
@@ -90,7 +128,7 @@
 
       anchors.forEach((id) => {
         const rect = document.getElementById(id).getBoundingClientRect();
-        if (rect.top <= activationLine) {
+        if (rect.top <= activationLine + 2) {
           active = id;
         }
       });
@@ -134,6 +172,7 @@
       });
 
       currentAnchor = "";
+      updateStickyOffsetVar();
       scheduleActiveNavUpdate(false);
     }
 
@@ -147,11 +186,29 @@
       group.addEventListener("click", (event) => {
         const link = event.target.closest('a[href^="#"]');
         if (!link) return;
-        setActiveNav(getAnchorId(link));
+
+        const anchor = getAnchorId(link);
+        if (!anchor || !document.getElementById(anchor)) return;
+
+        event.preventDefault();
+        const perspective = panelByAnchor.get(anchor);
+        if (perspective) setPerspective(perspective);
+
+        if (window.history?.pushState) {
+          window.history.pushState(null, "", `#${encodeURIComponent(anchor)}`);
+        } else {
+          window.location.hash = anchor;
+        }
+
+        afterLayout(() => {
+          scrollToAnchor(anchor);
+          setActiveNav(anchor);
+        });
       });
     });
 
     function applyHashPerspective() {
+      updateStickyOffsetVar();
       const anchor = decodeURIComponent(window.location.hash.slice(1));
       if (!anchor) {
         scheduleActiveNavUpdate(false);
@@ -161,15 +218,16 @@
       const perspective = panelByAnchor.get(anchor);
       if (perspective) {
         setPerspective(perspective);
-        window.requestAnimationFrame(() => {
-          document.getElementById(anchor)?.scrollIntoView();
+        afterLayout(() => {
+          scrollToAnchor(anchor, "auto");
           setActiveNav(anchor);
         });
         return;
       }
 
-      window.requestAnimationFrame(() => {
+      afterLayout(() => {
         if (document.getElementById(anchor)) {
+          scrollToAnchor(anchor, "auto");
           setActiveNav(anchor);
         } else {
           scheduleActiveNavUpdate(false);
@@ -177,10 +235,31 @@
       });
     }
 
+    updateStickyOffsetVar();
     applyHashPerspective();
     window.addEventListener("hashchange", applyHashPerspective);
+    window.addEventListener("popstate", applyHashPerspective);
     window.addEventListener("scroll", () => scheduleActiveNavUpdate(), { passive: true });
-    window.addEventListener("resize", () => scheduleActiveNavUpdate(false));
+    window.addEventListener("resize", () => {
+      updateStickyOffsetVar();
+      scheduleActiveNavUpdate(false);
+    });
+    window.addEventListener("load", () => {
+      updateStickyOffsetVar();
+      if (window.location.hash) {
+        applyHashPerspective();
+      } else {
+        scheduleActiveNavUpdate(false);
+      }
+    });
+    window.setTimeout(() => {
+      updateStickyOffsetVar();
+      if (window.location.hash) {
+        applyHashPerspective();
+      } else {
+        scheduleActiveNavUpdate(false);
+      }
+    }, 250);
     scheduleActiveNavUpdate(false);
   }
 
