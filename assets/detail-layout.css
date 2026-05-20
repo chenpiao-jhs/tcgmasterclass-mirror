@@ -22,6 +22,57 @@
   box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
 }
 
+.perspective-switch {
+  position: sticky;
+  top: 18px;
+  z-index: 18;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0 0 26px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 44px rgba(25, 39, 31, 0.13);
+}
+
+.perspective-switch.perspective-switch-mobile {
+  display: none;
+}
+
+.perspective-tab {
+  appearance: none;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 850;
+}
+
+.perspective-tab:hover,
+.perspective-tab:focus {
+  color: var(--green-dark);
+  background: var(--mint, rgba(47, 111, 78, 0.08));
+  outline: none;
+}
+
+.perspective-tab.active {
+  color: #fff;
+  background: var(--green-dark);
+  box-shadow: 0 10px 24px rgba(22, 64, 44, 0.18);
+}
+
+.perspective-panel[hidden],
+[data-perspective-nav][hidden] {
+  display: none;
+}
+
 @media (min-width: 901px) and (max-width: 1250px) {
   .page-shell {
     width: min(1180px, calc(100% - 32px));
@@ -49,5 +100,29 @@
     border-radius: 0;
     background: rgba(245, 247, 242, 0.96);
     box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
+  }
+
+  .perspective-switch-desktop {
+    display: none;
+  }
+
+  .perspective-switch.perspective-switch-mobile {
+    position: static;
+    width: min(var(--max), calc(100% - 40px));
+    min-height: 0;
+    margin: 3px auto 2px;
+    padding: 2px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    box-shadow: 0 6px 16px rgba(25, 39, 31, 0.07);
+  }
+
+  .perspective-switch.perspective-switch-mobile .perspective-tab {
+    min-height: 30px;
+    padding: 0 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1;
   }
 }
