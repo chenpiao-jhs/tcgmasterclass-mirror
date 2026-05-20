@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>双面薇古丝焚决：P1 卡组解析页</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --violet: #5b3d7d;
+      --violet-soft: #ece4f4;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.9), var(--bg) 560px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 530px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.88), rgba(24, 22, 40, 0.66) 50%, rgba(8, 18, 13, 0.16)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 118px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 78px 0 104px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 820;
+    }
+
+    .hero .summary {
+      max-width: 780px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .page-shell {
+      width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 86px;
+      display: grid;
+      grid-template-columns: 45% minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      width: auto;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      z-index: 10;
+      border: 1px solid rgba(223, 231, 221, 0.92);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 50px rgba(25, 39, 31, 0.1);
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--green-dark);
+      font-weight: 820;
+      line-height: 1.25;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .links a {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 820;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      color: var(--green-dark);
+      font-size: 34px;
+    }
+
+    .time {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .lead {
+      max-width: 850px;
+      margin-bottom: 22px;
+      color: #35443a;
+      font-size: 18px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning,
+    .media-card,
+    .deck-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight.violet {
+      border-top-color: var(--violet);
+    }
+
+    .insight.gold {
+      border-top-color: var(--gold);
+    }
+
+    .insight h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 20px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      margin: 20px 0;
+      padding: 18px 20px;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .source-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      min-height: 122px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      margin-bottom: 5px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .media-card {
+      overflow: hidden;
+    }
+
+    .media-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #101712;
+    }
+
+    .media-card figcaption {
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    table {
+      width: 100%;
+      margin: 22px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf4ee;
+      color: var(--green-dark);
+      font-weight: 820;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      width: 190px;
+      color: var(--green-dark);
+      font-weight: 780;
+    }
+
+    .deck-list {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .deck-card {
+      padding: 16px;
+    }
+
+    .deck-card h3 {
+      margin-bottom: 10px;
+      color: var(--green-dark);
+      font-size: 18px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pill-list li {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #edf4ee;
+      color: #35443a;
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .method-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .method-flow li {
+      min-height: 156px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 820;
+    }
+
+    .method-flow h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 18px;
+    }
+
+    .method-flow p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 820;
+    }
+
+    .timeline-item p {
+      color: #35443a;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--green-dark), var(--violet));
+      color: #fff;
+    }
+
+    .footer p {
+      max-width: 860px;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-weight: 820;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+
+    @media (min-width: 901px) and (max-width: 1250px) {
+      .page-shell {
+        width: min(1180px, calc(100% - 32px));
+        grid-template-columns: 45% minmax(0, 1fr);
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 480px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .page-shell {
+        width: 100%;
+        display: block;
+        padding: 0 0 86px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        max-height: min(76vh, 640px);
+        overflow: auto;
+        z-index: 25;
+        border: 0;
+        border-bottom: 1px solid rgba(223, 231, 221, 0.88);
+        border-radius: 0;
+        background: rgba(245, 247, 242, 0.96);
+        box-shadow: 0 12px 34px rgba(25, 39, 31, 0.14);
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding: 6px 0 7px;
+      }
+
+      .brand {
+        display: none;
+      }
+
+      .links {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 4px;
+        padding-bottom: 2px;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 34px;
+        font-size: 14px;
+        line-height: 1.62;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
+        margin-top: 38px;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 13px;
+        padding-bottom: 11px;
+      }
+
+      .section-kicker {
+        font-size: 11px;
+      }
+
+      .section-head h2 {
+        font-size: 25px;
+      }
+
+      .lead {
+        margin-bottom: 14px;
+        font-size: 14px;
+        line-height: 1.58;
+      }
+
+      .grid-3,
+      .grid-2,
+      .jump-grid,
+      .media-grid,
+      .method-flow,
+      .mistakes {
+        grid-template-columns: 1fr;
+      }
+
+      .insight,
+      .jump-card,
+      .method-flow li,
+      .timeline-item,
+      .mistakes li {
+        padding: 12px;
+      }
+
+      .insight h3,
+      .method-flow h3 {
+        font-size: 16px;
+      }
+
+      .method-flow p,
+      .jump-card em,
+      .media-card figcaption {
+        font-size: 13px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      th,
+      td {
+        padding: 10px 12px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      main {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .section-head h2 {
+        font-size: 21px;
+      }
+
+      .lead {
+        font-size: 13px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css">
+  <link rel="stylesheet" href="../assets/detail-layout.css">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/watch-card.css">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · P1 卡组焚决</div>
+      <h1>双面薇古丝焚决：一套用刀妹体系托起薇古丝强度的 16 强构筑</h1>
+      <p class="summary">基于 B 站 P1 公开章节和画面整理。视频没有提供公开视频字幕，播放器接口也没有返回字幕文件，所以这里不是逐字稿，而是把可确认的章节、牌表和讲解结构转成可复盘的详情页。</p>
+      <ul class="hero-meta">
+        <li>视频：BV1iGLB6kEnb · P1 双面薇古斯焚决</li>
+        <li>时长：23:17</li>
+        <li>UP：卡牌狂魔张老伯</li>
+        <li>素材来源说明：感谢录制 @DataPTCG</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1iGLB6kEnb&page=1&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1iGLB6kEnb?p=1">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1iGLB6kEnb&page=1&autoplay=0&t=0" title="双面薇古丝焚决 P1" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：00:00 引言</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1iGLB6kEnb?p=1&t=0" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定 P1 播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">双面薇古丝焚决 · P1 本地解析</div>
+        <div class="links">
+          <a href="#takeaways">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#deck">牌表结构</a>
+          <a href="#cards">单卡选择</a>
+          <a href="#field">场地配合</a>
+          <a href="#sideboard">备牌计划</a>
+          <a href="#practice">练习清单</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="takeaways">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Core</div>
+            <h2>P1 先记住这六个判断</h2>
+          </div>
+          <div class="time">00:00 - 23:17</div>
+        </div>
+        <p class="lead">这期 P1 的主题不是单纯展示薇古丝强，而是解释一套“薇古丝 + 刀妹组件”的构筑为什么能打到 16 强：主轴靠刀妹体系给频率、保护和进攻压力，薇古丝提供另一套资源与控制角度，战场和备牌负责把后手局面补齐。</p>
+
+        <div class="grid-3">
+          <article class="insight violet">
+            <h3>双面薇古丝不是双倍英雄</h3>
+            <p>牌表同时带 Vex, Gloomist（薇古丝，愁云使者）与 Vex, Apathetic（薇古丝，冷眼旁观），但各 1 张。它更像两种局面工具，而不是围绕薇古丝堆满数量。</p>
+          </article>
+          <article class="insight">
+            <h3>刀妹组件承担主节奏</h3>
+            <p>Irelia, Fervent（刀妹）、En Garde、Defy、Discipline、Edge of Night 等牌组成了进攻和保护骨架，负责把水手、鼠人和薇古丝的资源转成压力。</p>
+          </article>
+          <article class="insight gold">
+            <h3>构筑重点在补后手</h3>
+            <p>章节标题直接把后半段放在场地配合和备牌计划上，说明这套牌最需要解决的不是上限，而是不同对局里能否平稳进入自己的强回合。</p>
+          </article>
+        </div>
+
+        <div class="grid-3">
+          <article class="insight">
+            <h3>废弃大厅是爆发接口</h3>
+            <p>废弃大厅让多单位、多法术的轮次更容易转成分数压力，是刀妹体系中最像“强回合开关”的战场。</p>
+          </article>
+          <article class="insight violet">
+            <h3>备牌不是泛用答案堆</h3>
+            <p>Bewitching Spirit、Disarming Rake、Mindsplitter 都偏向针对对手关键手牌、装备或核心单位，目的在于让后手计划有明确突破点。</p>
+          </article>
+          <article class="insight gold">
+            <h3>牌名先按画面保留</h3>
+            <p>P1 没有公开视频字幕；牌表来自章节画面，英文牌名按画面保留，避免把卡名翻译错后影响实战检索。</p>
+          </article>
+        </div>
+
+        <div class="warning">
+          <p><strong>资料限制：</strong>B 站公开接口显示 P1 字幕列表为空，播放器接口也返回 “need_login_subtitle”。本页内容基于公开元数据、章节标题、章节截图和可见牌表，不包含未验证的逐字字幕。</p>
+        </div>
+      </section>
+
+      <section id="video">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Watch</div>
+            <h2>P1 五段式观看路线</h2>
+          </div>
+          <div class="time">官方章节</div>
+        </div>
+        <p class="lead">公开视频返回了五个 P1 章节。这个页面的正文也按这五段展开：先交代问题，再看牌表选择，再看战场和备牌如何服务实战计划。</p>
+
+        <div class="jump-grid" aria-label="P1 章节跳转">
+          <button class="jump-card active" type="button" data-time="0" data-label="00:00 引言">
+            <span>00:00</span>
+            <strong>引言</strong>
+            <em>视频开场，交代这套 16 强构筑和讨论对象。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="63" data-label="01:03 提出问题">
+            <span>01:03</span>
+            <strong>提出问题</strong>
+            <em>先问这套牌为什么成立，以及薇古丝在体系里承担什么角色。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="270" data-label="04:30 单卡选择">
+            <span>04:30</span>
+            <strong>单卡选择</strong>
+            <em>画面进入牌表，重点看主牌、战场、符文和备牌结构。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="516" data-label="08:36 场地配合">
+            <span>08:36</span>
+            <strong>场地配合</strong>
+            <em>说明战场牌如何让水手、刀妹、薇古丝发挥完整实力。</em>
+          </button>
+          <button class="jump-card" type="button" data-time="903" data-label="15:03 备牌计划">
+            <span>15:03</span>
+            <strong>备牌计划</strong>
+            <em>进入后手游戏计划，讨论 Bewitching Spirit 等备牌用途。</em>
+          </button>
+        </div>
+
+        <div class="media-grid" aria-label="章节画面">
+          <figure class="media-card">
+            <img src="chapter-question.jpg" alt="P1 提出问题章节截图">
+            <figcaption>01:03 提出问题：先把“为什么这套牌能打出成绩”作为讨论入口。</figcaption>
+          </figure>
+          <figure class="media-card">
+            <img src="chapter-deck.jpg" alt="P1 单卡选择章节中的牌表截图">
+            <figcaption>04:30 单卡选择：牌表显示薇古丝双形态、刀妹组件、3 个战场和 8 张备牌。</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="deck">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Deck</div>
+            <h2>牌表结构：薇古丝做轴，刀妹负责把轴转成分数</h2>
+          </div>
+          <div class="time">04:30 起</div>
+        </div>
+        <p class="lead">从画面可见，这套牌并没有把所有空间都让给薇古丝，而是用一套完整的刀妹式进攻组件包住薇古丝。它的结构更像“主节奏是刀妹，薇古丝提供另一条资源和控制路线”。</p>
+
+        <div class="deck-list">
+          <article class="deck-card">
+            <h3>Legend / Champion</h3>
+            <ul class="pill-list">
+              <li>1x Vex, Gloomist（薇古丝，愁云使者）</li>
+              <li>1x Vex, Apathetic（薇古丝，冷眼旁观）</li>
+            </ul>
+          </article>
+          <article class="deck-card">
+            <h3>Main Deck 39/39</h3>
+            <ul class="pill-list">
+              <li>3x Boots of Swiftness</li>
+              <li>2x Charm</li>
+              <li>3x Defy</li>
+              <li>3x Discipline</li>
+              <li>3x Edge of Night</li>
+              <li>3x En Garde</li>
+              <li>3x Evelynn, Entrancing</li>
+              <li>3x Irelia, Fervent（刀妹）</li>
+              <li>1x Last Rites</li>
+              <li>3x Mutated Mouser</li>
+              <li>3x Sneaky Deckhand（水手）</li>
+              <li>1x Stacked Deck</li>
+              <li>3x Switcheroo</li>
+              <li>1x Teemo, Scout</li>
+              <li>3x Tidetumer</li>
+              <li>1x Zhonya's Hourglass</li>
+            </ul>
+          </article>
+          <article class="deck-card">
+            <h3>Battlefields / Runes / Sideboard</h3>
+            <ul class="pill-list">
+              <li>1x 废弃大厅</li>
+              <li>1x 强化阵地</li>
+              <li>1x 星尖峰</li>
+              <li>5x Calm Rune</li>
+              <li>7x Chaos Rune</li>
+              <li>3x Bewitching Spirit</li>
+              <li>2x Disarming Rake</li>
+              <li>3x Mindsplitter</li>
+            </ul>
+          </article>
+        </div>
+
+        <table>
+          <tbody>
+            <tr>
+              <td>主牌定位</td>
+              <td>不是纯慢速薇古丝，也不是纯刀妹快攻。主牌用刀妹组件制造交换和保护窗口，再把薇古丝、Evelynn、Tidetumer 等牌转成持续资源。</td>
+            </tr>
+            <tr>
+              <td>符文结构</td>
+              <td>5 Calm + 7 Chaos 说明这套牌需要同时保留稳定防守和进攻爆发，不是只押单一速度。</td>
+            </tr>
+            <tr>
+              <td>单张工具</td>
+              <td>Last Rites、Stacked Deck、Teemo, Scout、Zhonya's Hourglass 都是 1 张，说明它们更像局面解法或特定窗口工具，不是每局都要抽到的核心件。</td>
+            </tr>
+            <tr>
+              <td>三张战场</td>
+              <td>废弃大厅、强化阵地、星尖峰覆盖爆发、站场和延展三种需求，让同一套主牌能在不同对局里切换姿态。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">04:30 起</span>
+            <span class="watch-title">牌表全貌与单卡选择</span>
+            <p>这段是本页最关键的依据。先把主牌、战场、符文和备牌看清楚，再理解后面为什么讨论场地和后手计划。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="270" data-label="04:30 单卡选择">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1iGLB6kEnb?p=1&t=270" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </section>
+
+      <section id="cards">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Cards</div>
+            <h2>单卡选择：别把刀妹包当成附属件</h2>
+          </div>
+          <div class="time">04:30 - 08:36</div>
+        </div>
+        <p class="lead">这套牌能成立，关键不在于“带了薇古丝所以强”，而在于它有一套完整的主动交换逻辑。刀妹组件让对手必须处理你的频率，薇古丝才有空间发挥控制和资源优势。</p>
+
+        <ol class="method-flow">
+          <li>
+            <span class="num">1</span>
+            <h3>先确认进攻频率</h3>
+            <p>Sneaky Deckhand（水手）、Mutated Mouser、Irelia, Fervent（刀妹）、En Garde 这些牌让你不是被动等薇古丝启动，而是持续制造必须回应的攻击。</p>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <h3>再保护关键单位</h3>
+            <p>Defy、Discipline、Edge of Night 与 Zhonya's Hourglass 让核心单位不容易被一张答案打穿，尤其适合保护刀妹式进攻窗口。</p>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <h3>用薇古丝改变解题方式</h3>
+            <p>双面薇古丝让对手不能只按常规刀妹防守；控制、弃牌或资源压力会迫使对手提前交出关键手牌。</p>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <h3>用工具牌补结算细节</h3>
+            <p>Charm、Switcheroo、Stacked Deck、Last Rites 等牌解决的是具体结算顺序和关键轮次，而不是简单堆数值。</p>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><strong>实战理解：</strong>如果你只把它当薇古丝牌组，会错过刀妹组件带来的主动权；如果只把它当刀妹快攻，又会低估薇古丝和备牌带来的后手调整空间。</p>
+        </div>
+      </section>
+
+      <section id="field">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Battlefields</div>
+            <h2>场地配合：让水手和关键回合发挥完整实力</h2>
+          </div>
+          <div class="time">08:36 - 15:03</div>
+        </div>
+        <p class="lead">视频章节把 08:36 到 15:03 标成“场地配合”。结合牌表看，这里要解决的是：同一套主牌如何根据战场把速度、站场和资源转成不同的取胜线。</p>
+
+        <div class="media-grid">
+          <figure class="media-card">
+            <img src="chapter-field.jpg" alt="场地配合章节截图">
+            <figcaption>08:36 场地配合章节：字幕画面提到“让水手发挥出百分百的实力”。</figcaption>
+          </figure>
+          <figure class="media-card">
+            <img src="chapter-sideboard.jpg" alt="备牌计划章节截图">
+            <figcaption>15:03 备牌计划章节：画面聚焦 Bewitching Spirit，说明后手局要主动干扰对手手牌。</figcaption>
+          </figure>
+        </div>
+
+        <table>
+          <tbody>
+            <tr>
+              <td>废弃大厅</td>
+              <td>更偏向爆发和连续行动。适合把刀妹频率、En Garde 和保护牌集中在一个强回合里转成分数。</td>
+            </tr>
+            <tr>
+              <td>强化阵地</td>
+              <td>更偏向站场和防守，让中小单位在交换中更难被白吃，适合你需要先稳住场面再展开薇古丝时使用。</td>
+            </tr>
+            <tr>
+              <td>星尖峰</td>
+              <td>更偏向延展和资源，适合对局拖长时让薇古丝、Evelynn 和功能牌有更多发挥空间。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">08:36 起</span>
+            <span class="watch-title">场地为什么不是随便带三张</span>
+            <p>这套牌的战场不是装饰位。不同战场决定你这局是先抢分、先站场，还是先拉长资源。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="516" data-label="08:36 场地配合">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1iGLB6kEnb?p=1&t=516" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </section>
+
+      <section id="sideboard">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Sideboard</div>
+            <h2>备牌计划：后手局不是等死，而是换成干扰计划</h2>
+          </div>
+          <div class="time">15:03 - 23:17</div>
+        </div>
+        <p class="lead">备牌 8 张集中在三类：手牌干扰、装备/单位处理、节奏压制。它们的共同目标不是“什么都防一点”，而是让后手游戏里你能先破坏对手关键计划，再用刀妹和薇古丝重新拿回主动权。</p>
+
+        <div class="grid-3">
+          <article class="insight violet">
+            <h3>Bewitching Spirit</h3>
+            <p>画面显示 3 张，是备牌计划的重点之一。它偏向针对手牌和计划，后手时可以先削掉对手最关键的响应。</p>
+          </article>
+          <article class="insight">
+            <h3>Disarming Rake</h3>
+            <p>2 张更像对特定装备或关键单位的补充答案。数量不满，说明它不是泛用主轴，而是面对特定对局才需要。</p>
+          </article>
+          <article class="insight gold">
+            <h3>Mindsplitter</h3>
+            <p>3 张负责把对局拖入对手不舒服的节奏。面对依赖关键手牌或单点爆发的牌组时，它能让薇古丝计划更有效。</p>
+          </article>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="stamp">先看对手速度</div>
+            <p>如果对手比你快，换备目标是让前两三个交换回合更稳，不要只想着把上限牌塞满。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">再看关键手牌</div>
+            <p>如果对手依赖单张爆发或关键响应，Bewitching Spirit 和 Mindsplitter 的价值会上升。</p>
+          </div>
+          <div class="timeline-item">
+            <div class="stamp">最后重排战场</div>
+            <p>后手局通常更需要强化阵地或资源战场；如果你能确认对手解牌少，再回到废弃大厅的爆发线。</p>
+          </div>
+        </div>
+
+        <div class="watch-card">
+          <div>
+            <span class="watch-time">15:03 起</span>
+            <span class="watch-title">后手游戏计划与备牌选择</span>
+            <p>这一段决定这套牌在 BO3 中是否可靠。只看主牌会觉得它上限高，看完备牌才知道它怎么处理后手局。</p>
+          </div>
+          <button class="watch-button" type="button" data-time="903" data-label="15:03 备牌计划">播放这一段</button>
+          <a class="watch-link" href="https://www.bilibili.com/video/BV1iGLB6kEnb?p=1&t=903" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </section>
+
+      <section id="practice">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Practice</div>
+            <h2>照着练的复盘清单</h2>
+          </div>
+        </div>
+
+        <h3>起手和战场选择先问这六个问题</h3>
+        <div class="checklist">
+          <div class="check"><span class="box"></span><span>这一局我是靠废弃大厅抢爆发，还是靠强化阵地先稳场？</span></div>
+          <div class="check"><span class="box"></span><span>我的第一波进攻有没有 Irelia, Fervent（刀妹）或 En Garde 这种能逼响应的牌？</span></div>
+          <div class="check"><span class="box"></span><span>Defy、Discipline、Edge of Night 是保护关键单位，还是被我提前用在小交换里？</span></div>
+          <div class="check"><span class="box"></span><span>薇古丝上场后，我是在制造资源差，还是只是多拍一个单位？</span></div>
+          <div class="check"><span class="box"></span><span>后手局有没有把备牌换成真实干扰，而不是只保留主牌惯性？</span></div>
+          <div class="check"><span class="box"></span><span>对手关键回合前，我有没有用 Bewitching Spirit 或 Mindsplitter 先破坏他的计划？</span></div>
+        </div>
+
+        <h3>最容易犯的错</h3>
+        <ul class="mistakes">
+          <li>只记住“薇古丝 16 强”，却忽略刀妹组件才是主节奏来源。</li>
+          <li>把三张战场当固定配置，不根据先后手和对手速度调整取胜线。</li>
+          <li>保护牌交太早，导致真正的刀妹或薇古丝回合没有防护。</li>
+          <li>后手局没有明确换备目标，只是把看起来强的牌塞进去。</li>
+          <li>面对关键手牌牌组时不先干扰，等对手完成计划后再被动解场。</li>
+          <li>把 1 张工具牌当成每局计划核心，导致起手和调度方向跑偏。</li>
+        </ul>
+
+        <div class="footer">
+          <p>这页的实战结论是：这套“双面薇古丝”不是靠某一张英雄单卡赢，而是靠刀妹频率、薇古丝资源、战场选择和备牌干扰拼成一套可调整的 BO3 计划。练这套牌时，先练“什么时候切换计划”，再练具体单卡结算。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script src="../assets/page-nav.js"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/article-return-home.js"></script>
+</body>
+</html>
