@@ -1,0 +1,1266 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>剑姬打妖姬：资源承载、决斗窗口与加时分差</title>
+  <style>
+    :root {
+      --bg: #f4f6f1;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --red: #9f3d36;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 530px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.9), rgba(8, 18, 13, 0.64) 48%, rgba(8, 18, 13, 0.2)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 820px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .watch-link,
+    .watch-button {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      background: var(--green-dark);
+      color: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      padding: 10px 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .watch-link {
+      background: #edf4ee;
+      color: var(--green-dark);
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--green-dark);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      color: var(--green-dark);
+      font-size: 34px;
+    }
+
+    .time {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .lead {
+      max-width: 860px;
+      margin: 0 0 22px;
+      color: #35443a;
+      font-size: 18px;
+    }
+
+    .grid-3,
+    .grid-2,
+    .jump-grid,
+    .watch-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2,
+    .watch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .watch-card,
+    .note-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    .insight,
+    .note-box {
+      padding: 18px;
+    }
+
+    .insight h3,
+    .watch-card h3,
+    .note-box h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 20px;
+    }
+
+    .insight p,
+    .watch-card p,
+    .note-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .jump-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .jump-card {
+      appearance: none;
+      min-height: 138px;
+      display: grid;
+      align-content: start;
+      gap: 6px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.42);
+      background: #edf4ee;
+      outline: none;
+    }
+
+    .jump-card span {
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .jump-card strong {
+      color: var(--green-dark);
+      font-size: 18px;
+      line-height: 1.22;
+    }
+
+    .jump-card em {
+      color: var(--muted);
+      font-style: normal;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    table {
+      width: 100%;
+      margin: 22px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf4ee;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      width: 190px;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .method-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .method-flow .num {
+      width: 30px;
+      height: 30px;
+      display: inline-grid;
+      place-items: center;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .method-flow h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 18px;
+    }
+
+    .method-flow p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .watch-card {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .watch-time {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .watch-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .timeline-item .stamp {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #35443a;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+    }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .clean {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 0;
+      padding-left: 22px;
+      color: #35443a;
+    }
+
+    .clean li {
+      padding-left: 4px;
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 24px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--green-dark), #3f5d3d);
+    }
+
+    .footer p {
+      max-width: 860px;
+      margin: 0;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 42px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 470px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      .nav {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        align-items: start;
+        flex-direction: column;
+        padding: 6px 0 7px;
+      }
+
+      .brand {
+        display: none;
+      }
+
+      .links {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 0 0 2px;
+      }
+
+      .links a {
+        padding: 7px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
+      }
+
+      .section-head,
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .mistakes,
+      .jump-grid,
+      .watch-grid,
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .watch-button,
+      .watch-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .nav,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 苏州站 DAY1 瑞士轮第七轮复盘</div>
+      <h1>剑姬打妖姬：资源承载、决斗窗口与加时分差</h1>
+      <p class="summary">这篇把诡术妖姬 VS 无双剑姬拆成玩家能直接练的判断：妖姬怎样让手牌变成连续站场，剑姬怎样用排序、决斗和击退把资源套牌打成空转。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛苏州站 DAY1 第 8P</li>
+        <li>对局：诡术妖姬（Yankim1） VS 无双剑姬（雷汐）</li>
+        <li>结果：雷汐获胜</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1WoL56sEXc&page=8&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1WoL56sEXc&page=8&autoplay=0&t=173" title="第三赛季区域公开赛苏州站 DAY1 第 8P：诡术妖姬 VS 无双剑姬" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：02:53 对局翻出</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=173" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-leblanc-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-leblanc" data-perspective-target="leblanc">妖姬视角</button>
+        <button class="perspective-tab" id="tab-fiora-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-fiora" data-perspective-target="fiora">剑姬视角</button>
+      </div>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">妖姬打剑姬双视角</div>
+        <div class="links" data-perspective-nav="leblanc">
+          <a href="#principles">核心结论</a>
+          <a href="#video">关键片段</a>
+          <a href="#framework">对局框架</a>
+          <a href="#game-one">第一局</a>
+          <a href="#sideboard">后两局</a>
+          <a href="#checklist">练习清单</a>
+          <a href="#mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="fiora" hidden>
+          <a href="#fiora-principles">核心结论</a>
+          <a href="#fiora-video">关键片段</a>
+          <a href="#fiora-framework">制胜框架</a>
+          <a href="#fiora-game-one">第一局</a>
+          <a href="#fiora-game-three">第三局</a>
+          <a href="#fiora-checklist">练习清单</a>
+          <a href="#fiora-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-leblanc" type="button" role="tab" aria-selected="true" aria-controls="panel-leblanc" data-perspective-target="leblanc">妖姬玩家视角</button>
+        <button class="perspective-tab" id="tab-fiora" type="button" role="tab" aria-selected="false" aria-controls="panel-fiora" data-perspective-target="fiora">剑姬玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-leblanc" role="tabpanel" aria-labelledby="tab-leblanc" data-perspective-panel="leblanc">
+        <section id="principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>先记住这场对局的五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这不是一场“剑姬数值大所以赢”的比赛。妖姬三局都有资源爆发点，真正决定胜负的是资源能不能落到单位上、关键单位能不能避开决斗窗口、备牌能不能在正确费用回合变成场面。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>资源牌先找承载点</h3>
+              <p>艾克、峡谷先锋、千尾和映像不是“抽到就强”。先问场上有没有单位能承接收益，没有承载点时，手牌再多也只是待结算资源。</p>
+            </article>
+            <article class="insight">
+              <h3>别把艾克卖成一次性牌</h3>
+              <p>艾克加牺牲是能连续滚资源的组合。为了当回合小交换过早交掉艾克，后面就会变成有牺牲却没有稳定目标。</p>
+            </article>
+            <article class="insight">
+              <h3>关键单位别后置到决斗窗口</h3>
+              <p>妖姬最容易误判的是“我最后落艾克很安全”。只要剑姬还有费用和时点，后置关键单位反而会被决斗抓掉。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>备牌要先排落地回合</h3>
+              <p>和平卫士不是“抽到就完成针对”。它要在剑姬还没把分差和装备压力固定前落地，否则只会变成手牌里的正确答案。</p>
+            </article>
+            <article class="insight">
+              <h3>加时前按两分差规划</h3>
+              <p>瑞士轮进入加时时，领先两分才能直接获胜。妖姬玩家要提前两回合算追分路线，不能到最后才临时找一分。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照决策点</h2>
+            </div>
+            <div class="time">P8 瑞士轮第七轮</div>
+          </div>
+          <p class="lead">这些时间点覆盖了三局里最关键的分歧：妖姬的发动机、剑姬的排序、第二局的形态调整，以及第三局加时前的压力。</p>
+          <div class="jump-grid" aria-label="关键片段跳转">
+            <button class="jump-card active" type="button" data-time="173" data-label="02:53 对局翻出">
+              <span>02:53</span>
+              <strong>先定对局矛盾</strong>
+              <em>翻出双方英雄后，先判断妖姬怕什么：回手、决斗和装备分差。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="340" data-label="05:40 艾克加牺牲">
+              <span>05:40</span>
+              <strong>识别资源引擎</strong>
+              <em>艾克加牺牲不是单次配合，要从这里开始计划后续承载单位。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="948" data-label="15:48 剑姬排序">
+              <span>15:48</span>
+              <strong>看对手怎样封窗口</strong>
+              <em>剑姬先处理单位再决斗，妖姬玩家要反推哪些单位不能暴露。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1486" data-label="24:46 中盘复盘">
+              <span>24:46</span>
+              <strong>复盘艾克价值</strong>
+              <em>这里适合暂停自问：这张艾克是在换当前分，还是在支撑后续三回合。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1764" data-label="29:24 决斗窗口">
+              <span>29:24</span>
+              <strong>练决斗窗口判断</strong>
+              <em>艾克后置被抓，妖姬玩家要学会先算对手剩余时点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2091" data-label="34:51 第二局换形态">
+              <span>34:51</span>
+              <strong>备牌后换赢法</strong>
+              <em>第二局改走黄色妖姬、提灯和聚首，重点是降低单点被解的损失。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2884" data-label="48:04 第三局先攻">
+              <span>48:04</span>
+              <strong>重算先攻压力</strong>
+              <em>第三局剑姬先攻，妖姬要把追分窗口提前，而不是等加时才动。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3592" data-label="59:52 和平卫士卡手">
+              <span>59:52</span>
+              <strong>备牌落地失败</strong>
+              <em>和平卫士有针对性，但没有在正确费用回合落地，信息差无法兑现。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3884" data-label="64:44 加时规则">
+              <span>64:44</span>
+              <strong>按规则重排目标</strong>
+              <em>领先两分才获胜，妖姬要从“拿一分”改成“连续追两分”。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4591" data-label="76:31 比赛收口">
+              <span>76:31</span>
+              <strong>看收口条件</strong>
+              <em>雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>不是单靠大怪收口，而是让妖姬没有完整回合。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4821" data-label="80:21 赛后数据">
+              <span>80:21</span>
+              <strong>用数据反推打法</strong>
+              <em>妖姬靠法术和映像，剑姬靠战斗与武装；复盘时按这两条赢法拆。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>打法框架：先保承载点，再把资源爆发打成连续回合</h2>
+            </div>
+          </div>
+          <p class="lead">妖姬打剑姬的核心不是“这回合能不能抽很多牌”，而是先保住承载资源的单位，再决定艾克、牺牲、峡谷先锋、千尾和聚首要在哪个回合一起结算。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先数承载单位</h3>
+              <p>每回合开始先数场上和手里能承接资源的单位。少于两个时，不要轻易把艾克或高质量单位卖进小交换。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>再算决斗窗口</h3>
+              <p>关键单位落场前，先问剑姬还剩几费、有没有最后行动时点。不能只看自己这一手舒服。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>把备牌排进费用曲线</h3>
+              <p>和平卫士这类针对牌要提前安排落地回合。等对手已经领先并装备成形，针对牌再正确也太慢。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>用两回合规划追分</h3>
+              <p>加时规则要求两分差。妖姬要提前准备连续两个得分回合，而不是把全部希望压在最后一张千尾上。</p>
+            </li>
+          </ol>
+          <h3>妖姬每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>我现在的资源牌有几个可承载目标？如果目标被决斗，下一回合还能不能继续发动？</li>
+            <li>剑姬这回合有没有费用打决斗、击退或回手？我是不是把关键单位放进了最危险的时点？</li>
+            <li>我这一分是必须现在拿，还是应该先把和平卫士、提灯或聚首排进下个回合？</li>
+          </ul>
+          <table>
+            <thead>
+              <tr>
+                <th>训练情境</th>
+                <th>妖姬应该怎么判断</th>
+                <th>对应片段</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>手里有艾克加牺牲</td>
+                <td>把它当三回合资源引擎，不要只算当回合换牌。先确认艾克退场后还有没有第二个目标。</td>
+                <td>05:40 到 06:16，妖姬早期组合成形。</td>
+              </tr>
+              <tr>
+                <td>剑姬手里有决斗可能</td>
+                <td>关键单位不要后置到对手最后窗口。宁愿提前逼对手交牌，也不要让对手用最省费用的方式处理。</td>
+                <td>29:24 附近，艾克后置被决斗惩罚。</td>
+              </tr>
+              <tr>
+                <td>进入第三局与加时</td>
+                <td>备牌不是抽到就够，要能在费用允许的回合落地。和平卫士卡住时，要立刻改成追两分路线。</td>
+                <td>59:52 到 65:15，和平卫士没能形成预期的节奏断点。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：资源够多时，更要保护发动机</h2>
+            </div>
+            <div class="time">05:40 - 29:24</div>
+          </div>
+          <p class="lead">第一局最适合练“手牌优势怎么落地”。Yankim1<span class="player-tag" data-player-side="诡术妖姬方玩家">选手</span>开局有艾克加牺牲，后面又通过暮色玫瑰实验室补起手牌；但雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>持续处理承载单位后，妖姬手牌没有稳定转成连续得分。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">15:48 - 16:19</span>
+              <h3>把这段当成反面训练</h3>
+              <p>剑姬先把能产生时点的部分处理掉，再用决斗结算。妖姬玩家复盘时要反问：我能否提前留下另一个承载点，避免这一轮后场归零？</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="948" data-label="15:48 剑姬排序">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=948" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">24:46 - 25:14</span>
+              <h3>艾克不是普通交换资源</h3>
+              <p>这里要暂停算一次：艾克如果活到下一回合，牺牲和后续资源能多赚几张牌；如果现在卖掉，后续牌会不会变成没有目标。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1486" data-label="24:46 中盘复盘">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=1486" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">05:40</div>
+              <p>看到艾克加牺牲时，先把它标成“发动机”，不要当成普通换牌组合。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">08:25</div>
+              <p>暮色玫瑰实验室复制黄色妖姬后，Yankim1<span class="player-tag" data-player-side="诡术妖姬方玩家">选手</span>手牌变多，但下一步要立刻找承载单位。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">15:48</div>
+              <p>雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>通过排序让妖姬后场缺单位；妖姬玩家要复盘自己是否能提前保第二目标。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">29:24</div>
+              <p>艾克后置被决斗处理，说明“最后落关键单位”不是默认安全线，要先看剑姬时点。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="sideboard">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Games 2-3</div>
+              <h2>后两局：备牌不是答案，能落地的备牌才是答案</h2>
+            </div>
+            <div class="time">34:51 - 76:31</div>
+          </div>
+          <p class="lead">第二局妖姬换到黄色妖姬、提灯和聚首路线，方向是对的：降低单点被解的损失，增加持续站场。但第三局的问题也很典型：和平卫士这种针对牌如果没有在费用最舒服的回合落地，就不能阻止剑姬把分差变成规则优势。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">34:51 - 35:14</span>
+              <h3>换形态的目的：减少单点风险</h3>
+              <p>没有万象归宗，转向黄色妖姬、提灯和聚首。妖姬玩家可以学的是：对手决斗和回手多时，胜路要从单点爆发切到连续资源。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2091" data-label="34:51 第二局换形态">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=2091" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">59:52 - 60:19</span>
+              <h3>和平卫士要提前排进曲线</h3>
+              <p>如果早一回合落地，和平卫士可以惩罚剑姬的前排规划；卡在手里时，它只是“理论上正确”的备牌。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3592" data-label="59:52 和平卫士卡手">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=3592" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="note-box">
+            <h3>赛后数据要拿来反推训练重点</h3>
+            <p>Yankim1<span class="player-tag" data-player-side="诡术妖姬方玩家">选手</span>法术伤害总量 12、映像打出总数 8，说明妖姬确实打出了资源与法术路线；雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>战斗获胜率 75%、武装装配总数 12，说明剑姬把比赛拖进了自己擅长的战斗和装备维度。复盘时不要只看谁赢，要看自己有没有把对局拉到自己的维度。</p>
+          </div>
+        </section>
+
+        <section id="checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>妖姬玩家练习清单</h2>
+            </div>
+          </div>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>每回合开始先数承载点：场上和手里至少要有两个能接资源的单位，再考虑艾克、牺牲和千尾。</span></div>
+            <div class="check"><span class="box"></span><span>后置关键单位前先报一遍：剑姬剩余费用、可能的决斗、击退和回手时点。</span></div>
+            <div class="check"><span class="box"></span><span>备牌局把和平卫士这类针对牌写进费用曲线，确认它应该在哪一回合落地，而不是抽到后临时找机会。</span></div>
+            <div class="check"><span class="box"></span><span>进入加时前两回合就开始算两分差，避免最后只剩一张千尾或一个不完整追分窗口。</span></div>
+          </div>
+        </section>
+
+        <section id="mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Avoid</div>
+              <h2>妖姬玩家常见错误</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把手牌数量当优势，没有检查这些牌有没有单位可以承载。</li>
+            <li>把艾克当成普通交换牌，忽略它对后续牺牲和复制的发动机价值。</li>
+            <li>关键单位后置时只看自己舒服，没有先算剑姬最后行动窗口。</li>
+            <li>备牌选对了，但没有设计落地回合，导致针对牌卡在手里。</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-fiora" role="tabpanel" aria-labelledby="tab-fiora" data-perspective-panel="fiora" hidden>
+        <section id="fiora-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>剑姬视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>这场赢得不像单纯“剑姬身材更大”。真正值得剑姬玩家学的是：先逼妖姬把资源交到不舒服的位置，再用决斗和击退切断承载点，最后把领先分差守到加时规则生效。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>妖姬怕的不是亏牌，是没目标</h3>
+              <p>对资源套牌，不一定要把每张牌都赚回来。只要让对手没有单位承载资源，抽牌和映像就会延迟成低效手牌。</p>
+            </article>
+            <article class="insight">
+              <h3>决斗要打在最后可控窗口</h3>
+              <p>先处理能创造时点的单位，再交决斗。这样不是为了好看，而是为了让妖姬不能用费用和反应把场面救回来。</p>
+            </article>
+            <article class="insight">
+              <h3>击退是限制器，不只是防守牌</h3>
+              <p>击退能约束妖姬专法、暗刃和关键互动。你保留它，对手就不能放心把资源全部压在一条线上。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>装备是为了逼资源错位</h3>
+              <p>暴风大剑和武装装配的价值，不只是战力变大，而是逼妖姬把解牌、映像和单位交在你能处理的位置。</p>
+            </article>
+            <article class="insight">
+              <h3>领先后别给连续追分</h3>
+              <p>第三局进入加时前，领先方最怕的不是被拿一分，而是给妖姬连续两次追分窗口。守路线比贪扩大优势重要。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="fiora-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>从剑姬视角看关键窗口</h2>
+            </div>
+            <div class="time">P8 瑞士轮第七轮</div>
+          </div>
+          <p class="lead">这套时间线按剑姬决策排列：先建立装备压力，再用排序和决斗切断妖姬承载点，最后用击退和分差规则守住终局。</p>
+          <div class="jump-grid" aria-label="剑姬关键片段跳转">
+            <button class="jump-card active" type="button" data-time="376" data-label="06:16 剑姬起手">
+              <span>06:16</span>
+              <strong>起手压力</strong>
+              <em>无名英雄加大剑不是只为战斗，是为了逼妖姬尽早交答案。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="948" data-label="15:48 排序封窗口">
+              <span>15:48</span>
+              <strong>排序封窗口</strong>
+              <em>先处理再决斗，把妖姬能反应的窗口压到最少。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1201" data-label="20:01 大装备和击退">
+              <span>20:01</span>
+              <strong>装备加击退</strong>
+              <em>装备制造战斗压力，击退限制妖姬把资源压到同一条线。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1764" data-label="29:24 决斗抓艾克">
+              <span>29:24</span>
+              <strong>决斗抓艾克</strong>
+              <em>妖姬后置艾克，剑姬抓住最后窗口处理发动机。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3884" data-label="64:44 加时规则">
+              <span>64:44</span>
+              <strong>加时规则</strong>
+              <em>领先两分才获胜，剑姬要从“继续抢分”切到“不给连追”。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4203" data-label="70:03 防反讨论">
+              <span>70:03</span>
+              <strong>防反讨论</strong>
+              <em>击退、坚毅不倒和妖姬没有沙炮，决定剑姬后段能守哪些路线。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4498" data-label="74:58 妖姬最后尝试">
+              <span>74:58</span>
+              <strong>最后尝试</strong>
+              <em>妖姬尝试千尾和和平卫士，剑姬要确认不给完整二连追分。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4821" data-label="80:21 赛后数据">
+              <span>80:21</span>
+              <strong>赛后数据</strong>
+              <em>战斗胜率 75%、武装装配 12，说明剑姬成功把比赛拉进装备战。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="fiora-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>防守框架：先逼资源错位，再用决斗和击退封路线</h2>
+            </div>
+          </div>
+          <p class="lead">剑姬打妖姬不能只想着“我这一刀能不能赢战斗”。更稳的路线是先用装备逼妖姬交资源，再用决斗处理承载单位，用击退约束关键法术，最后守住两分差。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先逼对手交资源</h3>
+              <p>装备和高战力单位的目的，是让妖姬不能只舒服过牌，必须先交解牌、映像或承载单位。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>再切承载点</h3>
+              <p>妖姬一旦把资源落到艾克、峡谷先锋或后场单位上，决斗要打在它能继续滚资源之前。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>保留击退约束法术</h3>
+              <p>击退不一定马上交。它在手里时，妖姬每次投入专法、暗刃和关键互动都要多承担一层风险。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>领先后守路线</h3>
+              <p>加时规则下，领先方更重要的是关掉对手连续追分路线，而不是每回合都追求最大收益。</p>
+            </li>
+          </ol>
+          <h3>剑姬每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>妖姬现在真正能承载资源的单位是哪一个？我能不能用排序或决斗先处理它？</li>
+            <li>我手里的击退是必须交，还是留着就能让妖姬不敢全压关键法术？</li>
+            <li>如果已经领先，我这回合是在扩大优势，还是在冒险给妖姬连续追分窗口？</li>
+          </ul>
+        </section>
+
+        <section id="fiora-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：别和妖姬比手牌，去处理它的承载单位</h2>
+            </div>
+            <div class="time">15:48 - 29:24</div>
+          </div>
+          <p class="lead">第一局雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>最值得学的不是“抽到决斗”，而是决斗前后的顺序。妖姬手牌多时，剑姬不需要每张都应对，只要处理掉能让这些牌变成场面的单位。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">15:48 - 16:19</span>
+              <h3>这一段要逐步拆排序</h3>
+              <p>先处理能创造时点的部分，再交决斗。剑姬玩家练习时不要只记结果，要复盘“如果顺序反过来，妖姬会多出哪一次行动”。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="948" data-label="15:48 排序封窗口">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=948" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">29:24 - 30:36</span>
+              <h3>艾克后置就是惩罚窗口</h3>
+              <p>妖姬后置艾克时，看起来是在保护发动机；但只要剑姬还握有决斗和时点，这反而是最干净的处理机会。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1764" data-label="29:24 决斗抓艾克">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=1764" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="fiora-game-three">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>第三局：领先时不要给妖姬连续追分路线</h2>
+            </div>
+            <div class="time">59:52 - 76:31</div>
+          </div>
+          <p class="lead">第三局进入后段时，Yankim1<span class="player-tag" data-player-side="诡术妖姬方玩家">选手</span>需要连续找追分窗口；雷汐<span class="player-tag" data-player-side="无双剑姬方玩家">选手</span>要做的是把比赛从“谁能再拿一分”改成“妖姬能不能连续追两分”。这就是领先方的规则优势。</p>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">64:44 - 65:15</span>
+              <h3>领先方要守的不是一分，是连续窗口</h3>
+              <p>瑞士轮加时需要领先两分才能获胜。剑姬已经领先时，每一张防守牌都要优先问：它能不能阻止妖姬连追？</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3884" data-label="64:44 加时规则">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=3884" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">74:58 - 76:31</span>
+              <h3>最后别给完整回合</h3>
+              <p>千尾和和平卫士都能制造变化，但它们需要费用、承载点和后续回合。剑姬收口时要拆的就是这三个条件。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="4498" data-label="74:58 妖姬最后尝试">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1WoL56sEXc/?p=8&t=4498" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>训练观察</th>
+                <th>妖姬方</th>
+                <th>剑姬方</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>战斗获胜率</td>
+                <td>25%</td>
+                <td>75%：剑姬成功把对局拉进战斗维度。</td>
+              </tr>
+              <tr>
+                <td>法术伤害总量</td>
+                <td>12：妖姬有法术输出，但没有稳定转成连续分差。</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>武装装配总数</td>
+                <td>0</td>
+                <td>12：装备持续逼妖姬交资源。</td>
+              </tr>
+              <tr>
+                <td>映像打出总数</td>
+                <td>8：资源动作很多，关键是是否有承载点。</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="fiora-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>剑姬玩家练习清单</h2>
+            </div>
+          </div>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>妖姬手牌多时，先数它场上能承载资源的单位，不要被手牌数量吓到。</span></div>
+            <div class="check"><span class="box"></span><span>每次决斗前先排顺序：先断能创造时点的单位，再处理真正发动机。</span></div>
+            <div class="check"><span class="box"></span><span>击退能不交就先不交，留在手里本身就会限制妖姬专法和暗刃。</span></div>
+            <div class="check"><span class="box"></span><span>加时领先时，所有防守都围绕“不给连续追两分”展开，而不是单纯守当前一分。</span></div>
+          </div>
+        </section>
+
+        <section id="fiora-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Avoid</div>
+              <h2>剑姬玩家常见错误</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>只堆装备，不处理妖姬真正能承载资源的后场单位。</li>
+            <li>决斗顺序太急，反而给妖姬留下费用或时点补救。</li>
+            <li>看到妖姬手牌多就急着抢分，忘了没有场面时这些牌很难兑现。</li>
+            <li>加时领先后继续贪扩大优势，给对手留下连续追分窗口。</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="footer">
+        <p>这场第七轮最适合拿来练两个基本功：妖姬玩家练“资源必须有承载点”，剑姬玩家练“不要和资源套牌比手牌，要处理它的承载单位”。能把这两件事看清，这场比赛就不只是结果复盘，而是一套可以带回牌桌的对局训练。</p>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
