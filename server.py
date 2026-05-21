@@ -40,6 +40,8 @@ PAGE_TITLES = {
     "/": "首页",
     "/ezreal-diana-swiss/": "伊泽瑞尔 VS 皎月女神",
     "/irelia-mirror-final/": "刀锋舞者内战决赛",
+    "/reksai-lillia-swiss/": "虚空遁地兽 VS 含羞蓓蕾",
+    "/sivir-garen-swiss/": "战争女神 VS 德玛西亚之力",
     "/sivir-irelia-quarterfinal/": "战争女神 VS 刀锋舞者",
     "/yi-aurora-semifinal/": "无极剑圣 VS 欧若拉",
     "/yi-irelia-final/": "无极剑圣 VS 刀锋舞者",
