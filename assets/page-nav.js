@@ -8,6 +8,12 @@
     const topbar = document.querySelector(".topbar");
     const desktopSwitch = document.querySelector(".perspective-switch-desktop");
     const panelByAnchor = new Map();
+    const perspectiveNames = new Set(panels.map((panel) => panel.dataset.perspectivePanel).filter(Boolean));
+    const defaultPerspective =
+      tabs.find((tab) => tab.classList.contains("active"))?.dataset.perspectiveTarget ||
+      panels.find((panel) => !panel.hidden)?.dataset.perspectivePanel ||
+      panels[0]?.dataset.perspectivePanel ||
+      "";
     let activeNavFrame = 0;
     let currentAnchor = "";
 
@@ -25,6 +31,52 @@
 
     function getVisibleNavGroup() {
       return navGroups.find((group) => !group.hidden);
+    }
+
+    function getHashAnchor() {
+      return decodeURIComponent(window.location.hash.slice(1));
+    }
+
+    function getUrlPerspective() {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("perspective") || params.get("view") || "";
+      return perspectiveNames.has(name) ? name : "";
+    }
+
+    function hasPerspectiveParam() {
+      const params = new URLSearchParams(window.location.search);
+      return params.has("perspective") || params.has("view");
+    }
+
+    function getVisiblePerspective() {
+      const group = getVisibleNavGroup();
+      if (group?.dataset.perspectiveNav) return group.dataset.perspectiveNav;
+
+      const activeTab = tabs.find((tab) => tab.classList.contains("active"));
+      return activeTab?.dataset.perspectiveTarget || "";
+    }
+
+    function updateUrlState({ perspective, anchor, replace = false } = {}) {
+      if (!window.history?.pushState) return;
+
+      const url = new URL(window.location.href);
+      const normalizedPerspective = perspectiveNames.has(perspective) ? perspective : "";
+      if (normalizedPerspective) {
+        url.searchParams.set("perspective", normalizedPerspective);
+      } else if (perspective === "") {
+        url.searchParams.delete("perspective");
+      }
+      url.searchParams.delete("view");
+
+      if (anchor !== undefined) {
+        url.hash = anchor || "";
+      }
+
+      const next = `${url.pathname}${url.search}${url.hash}`;
+      const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      if (next === current) return;
+
+      window.history[replace ? "replaceState" : "pushState"](null, "", next);
     }
 
     function updateStickyOffsetVar() {
@@ -178,7 +230,11 @@
 
     tabs.forEach((tab) => {
       tab.addEventListener("click", () => {
-        setPerspective(tab.dataset.perspectiveTarget, true);
+        const perspective = tab.dataset.perspectiveTarget;
+        if (!perspective) return;
+
+        setPerspective(perspective, true);
+        updateUrlState({ perspective, anchor: "" });
       });
     });
 
@@ -194,8 +250,9 @@
         const perspective = panelByAnchor.get(anchor);
         if (perspective) setPerspective(perspective);
 
+        const nextPerspective = perspective || getVisiblePerspective();
         if (window.history?.pushState) {
-          window.history.pushState(null, "", `#${encodeURIComponent(anchor)}`);
+          updateUrlState({ perspective: nextPerspective, anchor });
         } else {
           window.location.hash = anchor;
         }
@@ -207,21 +264,22 @@
       });
     });
 
-    function applyHashPerspective() {
+    function applyUrlState() {
       updateStickyOffsetVar();
-      const anchor = decodeURIComponent(window.location.hash.slice(1));
-      if (!anchor) {
-        scheduleActiveNavUpdate(false);
-        return;
-      }
+      const anchor = getHashAnchor();
+      const anchorPerspective = anchor ? panelByAnchor.get(anchor) : "";
+      const urlPerspective = getUrlPerspective();
+      const perspective = anchorPerspective || urlPerspective || defaultPerspective;
 
-      const perspective = panelByAnchor.get(anchor);
       if (perspective) {
         setPerspective(perspective);
-        afterLayout(() => {
-          scrollToAnchor(anchor, "auto");
-          setActiveNav(anchor);
-        });
+        if (anchorPerspective || urlPerspective || hasPerspectiveParam()) {
+          updateUrlState({ perspective, anchor: anchor || undefined, replace: true });
+        }
+      }
+
+      if (!anchor) {
+        scheduleActiveNavUpdate(false);
         return;
       }
 
@@ -236,9 +294,9 @@
     }
 
     updateStickyOffsetVar();
-    applyHashPerspective();
-    window.addEventListener("hashchange", applyHashPerspective);
-    window.addEventListener("popstate", applyHashPerspective);
+    applyUrlState();
+    window.addEventListener("hashchange", applyUrlState);
+    window.addEventListener("popstate", applyUrlState);
     window.addEventListener("scroll", () => scheduleActiveNavUpdate(), { passive: true });
     window.addEventListener("resize", () => {
       updateStickyOffsetVar();
@@ -246,16 +304,16 @@
     });
     window.addEventListener("load", () => {
       updateStickyOffsetVar();
-      if (window.location.hash) {
-        applyHashPerspective();
+      if (window.location.hash || getUrlPerspective()) {
+        applyUrlState();
       } else {
         scheduleActiveNavUpdate(false);
       }
     });
     window.setTimeout(() => {
       updateStickyOffsetVar();
-      if (window.location.hash) {
-        applyHashPerspective();
+      if (window.location.hash || getUrlPerspective()) {
+        applyUrlState();
       } else {
         scheduleActiveNavUpdate(false);
       }

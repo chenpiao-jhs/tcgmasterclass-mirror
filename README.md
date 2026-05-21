@@ -36,7 +36,7 @@ git pull
 <link rel="stylesheet" href="../assets/detail-content.css">
 ```
 
-`page-nav.css` / `page-nav.js` 负责目录高亮和移动端锚点偏移，会根据 sticky 视频导航区域动态定位。`detail-content.css` 负责移动端正文密度、表格、时间点卡片和常用内容块间距。正文里的视频片段统一使用 `.watch-card`、`.watch-button`、`.watch-link`。如果按钮外层需要包裹，用 `.watch-actions`。PC 宽屏会把操作放在右侧上下排列，移动端会自动恢复为卡片底部上下排列。
+`page-nav.css` / `page-nav.js` 负责目录高亮、视角切换和移动端锚点偏移，会根据 sticky 视频导航区域动态定位。双视角页面可用 `?perspective=视角ID` 直接打开指定视角，视角 ID 来自 `data-perspective-target` / `data-perspective-panel`，例如 `?perspective=yi`。`detail-content.css` 负责移动端正文密度、表格、时间点卡片和常用内容块间距。正文里的视频片段统一使用 `.watch-card`、`.watch-button`、`.watch-link`。如果按钮外层需要包裹，用 `.watch-actions`。PC 宽屏会把操作放在右侧上下排列，移动端会自动恢复为卡片底部上下排列。
 
 ## 反馈数据
 
