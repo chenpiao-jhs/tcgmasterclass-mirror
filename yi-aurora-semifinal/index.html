@@ -821,6 +821,7 @@
   <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
   <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
   <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260522b">
 </head>
 <body id="top">
   <header class="hero">
@@ -852,6 +853,7 @@
         <button class="perspective-tab active" id="tab-yi-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-yi" data-perspective-target="yi">剑圣玩家视角</button>
         <button class="perspective-tab" id="tab-aurora-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-aurora" data-perspective-target="aurora">极光玩家视角</button>
       </div>
+      <section id="decklistMount"></section>
       <nav class="nav" aria-label="页面导航">
         <div class="brand">半决赛双视角方法</div>
         <div class="links" data-perspective-nav="yi">
@@ -1666,6 +1668,19 @@
   <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
   <script src="../assets/video-hub.js"></script>
   <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/suzhou-decklists.js?v=suzhou-decklists-20260522b"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgSuzhouDecklists.byKey,
+      decks: [
+        { sourceKey: "cangbao-sivir" },
+        { sourceKey: "linchuan-yi" }
+      ]
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260522b"></script>
   <script src="../assets/article-return-home.js"></script>
   <script src="../assets/feedback-widget.js"></script>
 </body>
