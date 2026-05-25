@@ -80,6 +80,11 @@
     }).filter((section) => section.cards.length > 0 || section.keepEmpty);
   }
 
+  function hasTextDeck(deck) {
+    if (!deck) return false;
+    return [...(deck.main || []), ...(deck.side || [])].length > 0;
+  }
+
   function createModal() {
     const modal = document.createElement("div");
     modal.className = "deck-modal";
@@ -174,12 +179,18 @@
       if (tabName === "image" && activeDeck && !activeDeck.image) {
         tabName = "text";
       }
+      if (tabName === "text" && activeDeck && !hasTextDeck(activeDeck) && activeDeck.image) {
+        tabName = "image";
+      }
       const isText = tabName === "text";
       tabs.forEach((tab) => {
         const active = tab.dataset.deckTab === tabName;
         tab.classList.toggle("is-active", active);
         tab.setAttribute("aria-selected", String(active));
         tab.hidden = tab.dataset.deckTab === "image" && activeDeck && !activeDeck.image;
+        if (tab.dataset.deckTab === "text" && activeDeck && !hasTextDeck(activeDeck)) {
+          tab.hidden = true;
+        }
       });
       if (imagePanel) imagePanel.hidden = isText;
       if (textPanel) textPanel.hidden = !isText;

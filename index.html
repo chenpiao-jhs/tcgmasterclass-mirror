@@ -203,6 +203,32 @@
       gap: 18px;
     }
 
+    .station-group {
+      margin-top: 26px;
+    }
+
+    .station-group:first-of-type {
+      margin-top: 0;
+    }
+
+    .station-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 14px;
+      color: var(--green-dark);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .station-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
     .guide-card {
       min-height: 100%;
       display: flex;
@@ -273,6 +299,12 @@
       background-image:
         linear-gradient(180deg, rgba(8, 18, 13, 0.08), rgba(8, 18, 13, 0.12)),
         url("leblanc-fiora-swiss/hero.jpg");
+    }
+
+    .thumb.azir {
+      background-image:
+        linear-gradient(180deg, rgba(8, 18, 13, 0.08), rgba(8, 18, 13, 0.12)),
+        url("azir-diana-xian-final/hero.jpg");
     }
 
     .card-body {
@@ -383,6 +415,10 @@
         font-size: 28px;
       }
 
+      .station-title {
+        font-size: 18px;
+      }
+
       .season-panel-head {
         display: block;
       }
@@ -461,109 +497,131 @@
     <section class="season-panel" id="panel-season-3" role="tabpanel" aria-labelledby="tab-season-3" data-season-panel="season-3">
       <div class="season-panel-head">
         <div>
-          <p>苏州站淘汰赛与进阶瑞士轮复盘，集中看剑圣、刀妹、极光和快攻体系之间的攻防方法。</p>
+          <p>苏州站与西安站淘汰赛、进阶瑞士轮复盘，集中看剑圣、刀妹、极光、沙皇和快攻体系之间的攻防方法。</p>
         </div>
-        <span class="season-count">7 篇复盘</span>
+        <span class="season-count">8 篇复盘</span>
       </div>
-      <div class="guide-grid" aria-label="第三赛季复盘页面列表">
-        <a class="guide-card" href="yi-irelia-final/">
-          <div class="thumb irelia"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站决赛 · 刀妹打剑圣</div>
-            <h3>刀妹打剑圣：决赛里最该学会的安全进攻法</h3>
-            <p>把无极剑圣 VS 刀锋舞者决赛拆成刀妹玩家能用的安全窗口、排序、巨破和废弃大厅方法。</p>
-            <ul class="meta">
-              <li>无极剑圣 VS 刀锋舞者</li>
-              <li>第三赛季苏州站 DAY2 第 6P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
+      <section class="station-group" aria-labelledby="season-3-xian">
+        <h2 class="station-title" id="season-3-xian">区域公开赛-西安站</h2>
+        <div class="guide-grid" aria-label="第三赛季西安站复盘页面列表">
+          <a class="guide-card" href="azir-diana-xian-final/">
+            <div class="thumb azir"></div>
+            <div class="card-body">
+              <div class="tagline">西安站决赛 · 沙皇打皎月</div>
+              <h3>沙皇打皎月：装备压力、费用断点与最后的沙兵现身</h3>
+              <p>复盘沙漠皇帝 VS 皎月女神决赛，重点看拆装备压力、灭世窗口、菲兹复用和沙兵现身收局。</p>
+              <ul class="meta">
+                <li>沙漠皇帝 VS 皎月女神</li>
+                <li>第三赛季西安站 DAY2 第 6P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
+        </div>
+      </section>
 
-        <a class="guide-card" href="yi-aurora-semifinal/">
-          <div class="thumb aurora"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站半决赛 · 剑圣打极光</div>
-            <h3>剑圣打极光：半决赛里的反打与收口思路</h3>
-            <p>复盘战争女神（希维尔/极光）VS 无极剑圣，重点看河道蟹、阿克尚、据为己有和卑鄙之喉。</p>
-            <ul class="meta">
-              <li>战争女神 VS 无极剑圣</li>
-              <li>第三赛季苏州站 DAY2 第 5P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
+      <section class="station-group" aria-labelledby="season-3-suzhou">
+        <h2 class="station-title" id="season-3-suzhou">区域公开赛-苏州站</h2>
+        <div class="guide-grid" aria-label="第三赛季苏州站复盘页面列表">
+          <a class="guide-card" href="yi-irelia-final/">
+            <div class="thumb irelia"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站决赛 · 刀妹打剑圣</div>
+              <h3>刀妹打剑圣：决赛里最该学会的安全进攻法</h3>
+              <p>把无极剑圣 VS 刀锋舞者决赛拆成刀妹玩家能用的安全窗口、排序、巨破和废弃大厅方法。</p>
+              <ul class="meta">
+                <li>无极剑圣 VS 刀锋舞者</li>
+                <li>第三赛季苏州站 DAY2 第 6P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
 
-        <a class="guide-card" href="sivir-irelia-quarterfinal/">
-          <div class="thumb sivir"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站 8 进 4 · 刀妹打希维尔极光</div>
-            <h3>刀妹打希维尔极光：用针对牌和聚首抢下窗口</h3>
-            <p>复盘战争女神（希维尔极光）VS 刀锋舞者，重点看自适应机器人、远古龙处理和两局聚首收口。</p>
-            <ul class="meta">
-              <li>战争女神 VS 刀锋舞者</li>
-              <li>第三赛季苏州站 DAY2 第 4P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
+          <a class="guide-card" href="yi-aurora-semifinal/">
+            <div class="thumb aurora"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站半决赛 · 剑圣打极光</div>
+              <h3>剑圣打极光：半决赛里的反打与收口思路</h3>
+              <p>复盘战争女神（希维尔/极光）VS 无极剑圣，重点看河道蟹、阿克尚、据为己有和卑鄙之喉。</p>
+              <ul class="meta">
+                <li>战争女神 VS 无极剑圣</li>
+                <li>第三赛季苏州站 DAY2 第 5P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
 
-        <a class="guide-card" href="ezreal-diana-swiss/">
-          <div class="thumb ezreal"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站瑞士轮 · 控制 EZ 打皎月</div>
-            <h3>伊泽瑞尔打皎月：控制套牌如何拆掉节奏发动机</h3>
-            <p>复盘伊泽瑞尔 VS 皎月女神，重点看控制 EZ 如何用回手、直伤、弃牌和双罡风压掉皎月发动机。</p>
-            <ul class="meta">
-              <li>伊泽瑞尔 VS 皎月女神</li>
-              <li>第三赛季苏州站 DAY2 第 3P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
+          <a class="guide-card" href="sivir-irelia-quarterfinal/">
+            <div class="thumb sivir"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站 8 进 4 · 刀妹打希维尔极光</div>
+              <h3>刀妹打希维尔极光：用针对牌和聚首抢下窗口</h3>
+              <p>复盘战争女神（希维尔极光）VS 刀锋舞者，重点看自适应机器人、远古龙处理和两局聚首收口。</p>
+              <ul class="meta">
+                <li>战争女神 VS 刀锋舞者</li>
+                <li>第三赛季苏州站 DAY2 第 4P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
 
-        <a class="guide-card" href="reksai-lillia-swiss/">
-          <div class="thumb reksai"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站瑞士轮 · 雷克塞打莉莉娅</div>
-            <h3>雷克塞打莉莉娅：快攻内战里最该算清的轮次差</h3>
-            <p>复盘虚空遁地兽 VS 含羞蓓蕾，重点看凤凰循环、灭世收口、先攻场漏发和卑鄙之喉终结。</p>
-            <ul class="meta">
-              <li>虚空遁地兽 VS 含羞蓓蕾</li>
-              <li>第三赛季苏州站 DAY2 第 2P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
+          <a class="guide-card" href="ezreal-diana-swiss/">
+            <div class="thumb ezreal"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站瑞士轮 · 控制 EZ 打皎月</div>
+              <h3>伊泽瑞尔打皎月：控制套牌如何拆掉节奏发动机</h3>
+              <p>复盘伊泽瑞尔 VS 皎月女神，重点看控制 EZ 如何用回手、直伤、弃牌和双罡风压掉皎月发动机。</p>
+              <ul class="meta">
+                <li>伊泽瑞尔 VS 皎月女神</li>
+                <li>第三赛季苏州站 DAY2 第 3P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
 
-        <a class="guide-card" href="sivir-garen-swiss/">
-          <div class="thumb garen"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站瑞士轮 · 盖伦打希维尔极光</div>
-            <h3>盖伦打希维尔极光：圣裁之刻怎样赢下极光内战</h3>
-            <p>复盘战争女神 VS 德玛西亚之力，重点看未来熔炉回收、暗中破坏互拆、圣裁之刻和盖伦传奇抽牌。</p>
-            <ul class="meta">
-              <li>战争女神 VS 德玛西亚之力</li>
-              <li>第三赛季苏州站 DAY2 第 1P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
+          <a class="guide-card" href="reksai-lillia-swiss/">
+            <div class="thumb reksai"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站瑞士轮 · 雷克塞打莉莉娅</div>
+              <h3>雷克塞打莉莉娅：快攻内战里最该算清的轮次差</h3>
+              <p>复盘虚空遁地兽 VS 含羞蓓蕾，重点看凤凰循环、灭世收口、先攻场漏发和卑鄙之喉终结。</p>
+              <ul class="meta">
+                <li>虚空遁地兽 VS 含羞蓓蕾</li>
+                <li>第三赛季苏州站 DAY2 第 2P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
 
-        <a class="guide-card" href="leblanc-fiora-swiss/">
-          <div class="thumb leblanc"></div>
-          <div class="card-body">
-            <div class="tagline">苏州站瑞士轮 · 剑姬打妖姬</div>
-            <h3>剑姬打妖姬：资源承载、决斗窗口与加时分差</h3>
-            <p>把诡术妖姬 VS 无双剑姬整理成可练习的方法：资源承载、决斗排序、和平卫士备牌和加时分差。</p>
-            <ul class="meta">
-              <li>诡术妖姬 VS 无双剑姬</li>
-              <li>第三赛季苏州站 DAY1 第 8P</li>
-            </ul>
-            <span class="open">打开复盘</span>
-          </div>
-        </a>
-      </div>
+          <a class="guide-card" href="sivir-garen-swiss/">
+            <div class="thumb garen"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站瑞士轮 · 盖伦打希维尔极光</div>
+              <h3>盖伦打希维尔极光：圣裁之刻怎样赢下极光内战</h3>
+              <p>复盘战争女神 VS 德玛西亚之力，重点看未来熔炉回收、暗中破坏互拆、圣裁之刻和盖伦传奇抽牌。</p>
+              <ul class="meta">
+                <li>战争女神 VS 德玛西亚之力</li>
+                <li>第三赛季苏州站 DAY2 第 1P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
+
+          <a class="guide-card" href="leblanc-fiora-swiss/">
+            <div class="thumb leblanc"></div>
+            <div class="card-body">
+              <div class="tagline">苏州站瑞士轮 · 剑姬打妖姬</div>
+              <h3>剑姬打妖姬：资源承载、决斗窗口与加时分差</h3>
+              <p>把诡术妖姬 VS 无双剑姬整理成可练习的方法：资源承载、决斗排序、和平卫士备牌和加时分差。</p>
+              <ul class="meta">
+                <li>诡术妖姬 VS 无双剑姬</li>
+                <li>第三赛季苏州站 DAY1 第 8P</li>
+              </ul>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
+        </div>
+      </section>
     </section>
 
   </main>

@@ -38,6 +38,14 @@ git pull
 
 `page-nav.css` / `page-nav.js` 负责目录高亮、视角切换和移动端锚点偏移，会根据 sticky 视频导航区域动态定位。双视角页面可用 `?perspective=视角ID` 直接打开指定视角，视角 ID 来自 `data-perspective-target` / `data-perspective-panel`，例如 `?perspective=yi`。`detail-content.css` 负责移动端正文密度、表格、时间点卡片和常用内容块间距。正文里的视频片段统一使用 `.watch-card`、`.watch-button`、`.watch-link`。如果按钮外层需要包裹，用 `.watch-actions`。PC 宽屏会把操作放在右侧上下排列，移动端会自动恢复为卡片底部上下排列。
 
+目录组件只保留一份 DOM：每个详情页在 `.topbar` 内写一个 `<nav class="nav">`，PC 竖排和移动端横向胶囊滚动都由 `assets/page-nav.css` 统一控制，不要在单个页面的移动端 media query 里重复定义 `.nav`、`.brand`、`.links` 或 `.links a` 的目录布局。新增或修改比赛页后运行：
+
+```bash
+python3 tools/check_page_nav.py
+```
+
+并在本地浏览器分别检查 PC 和移动端目录：只有一份目录、移动端目录横向滚动、点击目录后 hash 和高亮同步，正文标题不被固定视频区域遮住。
+
 ## 反馈数据
 
 用户提交的反馈会追加保存到服务器本地：

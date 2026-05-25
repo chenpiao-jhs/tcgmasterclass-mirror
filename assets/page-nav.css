@@ -15,6 +15,33 @@
 }
 
 @media (max-width: 900px) {
+  .topbar .nav {
+    width: min(var(--max), calc(100% - 40px));
+    margin: 0 auto;
+    align-items: start;
+    flex-direction: column;
+    padding: 6px 0 7px;
+  }
+
+  .topbar .brand {
+    display: none;
+  }
+
+  .topbar .links {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 0 0 2px;
+  }
+
+  .topbar .links a {
+    padding: 7px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
   section[id] {
     scroll-margin-top: calc(var(--page-nav-sticky-offset, 360px) + 12px);
   }

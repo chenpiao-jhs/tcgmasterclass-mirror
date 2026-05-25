@@ -46,6 +46,7 @@ PAGE_TITLES = {
     "/sivir-irelia-quarterfinal/": "战争女神 VS 刀锋舞者",
     "/yi-aurora-semifinal/": "无极剑圣 VS 欧若拉",
     "/yi-irelia-final/": "无极剑圣 VS 刀锋舞者",
+    "/azir-diana-xian-final/": "沙漠皇帝 VS 皎月女神",
 }
 VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{24,96}$")
 BOT_USER_AGENT_KEYWORDS = (

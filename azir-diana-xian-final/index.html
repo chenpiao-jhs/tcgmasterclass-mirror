@@ -1,0 +1,1444 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>沙皇打皎月：西安站决赛复盘</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 840px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      font-size: 20px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      min-height: 118px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      font-weight: 760;
+      color: var(--green-dark);
+      width: 190px;
+    }
+
+    .method-flow,
+    .timeline,
+    .mistakes,
+    .clean {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .method-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li,
+    .timeline-item,
+    .mistakes li,
+    .clean li,
+    .check {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.05);
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 850;
+      margin-bottom: 12px;
+    }
+
+    .method-flow h3 {
+      color: var(--green-dark);
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .stamp {
+      color: var(--gold);
+      font-weight: 850;
+      line-height: 1.4;
+    }
+
+    .timeline-item p,
+    .mistakes li,
+    .clean li {
+      color: var(--muted);
+    }
+
+    .mistakes,
+    .clean {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mistakes li,
+    .clean li {
+      padding: 14px 16px;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0 28px;
+    }
+
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      color: var(--muted);
+    }
+
+    .box {
+      flex: none;
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      border: 2px solid rgba(47, 111, 78, 0.38);
+      border-radius: 4px;
+      background: #f7faf6;
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--green-dark);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 12px 28px rgba(22, 64, 44, 0.22);
+    }
+
+    @media (max-width: 1250px) {
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .jump-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 430px;
+      }
+
+      .hero-inner {
+        width: min(100% - 28px, var(--max));
+        padding: 68px 0 86px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero .summary {
+        font-size: 16px;
+      }
+
+      main {
+        width: min(100% - 28px, var(--max));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      .time {
+        display: inline-flex;
+        margin-top: 10px;
+      }
+
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .section-head h2 {
+        font-size: 21px;
+      }
+
+      .lead {
+        font-size: 13px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260525">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260522b">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 西安站决赛复盘</div>
+      <h1>沙皇打皎月：装备压力、费用断点与最后的沙兵现身</h1>
+      <p class="summary">把 Ai.po.tu 2:1 放逐之刃的沙漠皇帝 VS 皎月女神决赛，整理成沙皇玩家和皎月玩家都能对照练习的打法页面。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛西安站 DAY2 第 6P</li>
+        <li>对局：沙漠皇帝（Ai.po.tu） VS 皎月女神（放逐之刃）</li>
+        <li>结果：Ai.po.tu 2:1 夺冠</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=6&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1mVGE68EMg?p=6">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=6&autoplay=0&t=130" title="第三赛季区域公开赛西安站 DAY2 第 6P：沙漠皇帝 VS 皎月女神" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：02:10 皎月牌表</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=130" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-azir-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-azir" data-perspective-target="azir">沙皇玩家视角</button>
+        <button class="perspective-tab" id="tab-diana-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+      </div>
+      <section id="decklistMount"></section>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">西安决赛双视角</div>
+        <div class="links" data-perspective-nav="azir">
+          <a href="#azir-principles">核心结论</a>
+          <a href="#azir-video">关键片段</a>
+          <a href="#azir-deck">牌表与对局</a>
+          <a href="#azir-framework">沙皇框架</a>
+          <a href="#azir-game-one">第一局</a>
+          <a href="#azir-game-two">第二局</a>
+          <a href="#azir-game-three">决胜局</a>
+          <a href="#azir-checklist">清单</a>
+          <a href="#azir-mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="diana" hidden>
+          <a href="#diana-principles">核心结论</a>
+          <a href="#diana-video">关键片段</a>
+          <a href="#diana-deck">牌表与对局</a>
+          <a href="#diana-framework">皎月框架</a>
+          <a href="#diana-game-one">第一局</a>
+          <a href="#diana-game-two">第二局</a>
+          <a href="#diana-game-three">决胜局</a>
+          <a href="#diana-checklist">清单</a>
+          <a href="#diana-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-azir" type="button" role="tab" aria-selected="true" aria-controls="panel-azir" data-perspective-target="azir">沙皇玩家视角</button>
+        <button class="perspective-tab" id="tab-diana" type="button" role="tab" aria-selected="false" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-azir" role="tabpanel" aria-labelledby="tab-azir" data-perspective-panel="azir">
+        <section id="azir-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>沙皇视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这场决赛不是“沙皇无脑拍装备”赢下来。Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>面对的是连主带备大量拆装备、还能用菲兹反复复用拆装节奏的皎月。真正的胜负点在于：装备被拆以后，沙皇还能不能继续把费用、武装和沙兵压力接上。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>装备要有第二层库存</h3>
+              <p>皎月会用化为灰烬、折戟再战和菲兹反复打装备。沙皇不能只靠第一把武装，要准备连续补装的节奏。</p>
+            </article>
+            <article class="insight">
+              <h3>皎月卡手时必须压分</h3>
+              <p>第一局皎月费用和单位都不顺，沙皇靠装备不断给战场压力，逼皎月只能拆却很难反推。</p>
+            </article>
+            <article class="insight">
+              <h3>灭世要留给法术链</h3>
+              <p>解说赛前就点出绿色灭世能反制皎月关键法术。决胜局最后灭世压住对手最后机会，才有沙兵现身收局。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>沙兵现身不是唯一赢法</h3>
+              <p>第一局和第二局前段都反复说明：沙皇可以靠沙皇本体、沙兵带刀和装备基本功抢分，不必每局都等大招。</p>
+            </article>
+            <article class="insight">
+              <h3>领先时不要乱交资源</h3>
+              <p>决胜局后段，放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>手牌枯竭，沙皇要做的是保留灭世和最后的沙兵现身，而不是给对手新的交换窗口。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="azir-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照沙皇方法</h2>
+            </div>
+            <div class="time">P6 决赛全场</div>
+          </div>
+          <p class="lead">这条时间线按沙皇的决策难点排列：赛前先看拆装压力，再看第一局如何压住卡手皎月，第二局为什么被理想皎月扳回，最后看决胜局怎样从装备被拆干净打到灭世加沙兵现身收尾。</p>
+          <div class="jump-grid" aria-label="沙皇视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="130" data-label="02:10 皎月牌表">
+              <span>02:10</span>
+              <strong>皎月五拆压力</strong>
+              <em>解说点明皎月主备有大量拆装备，沙皇压力很大。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="157" data-label="02:37 沙皇牌表">
+              <span>02:37</span>
+              <strong>沙皇主动构筑</strong>
+              <em>和平卫士和进攻牌让沙皇不只等沙兵现身。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3388" data-label="56:28 第一局结束">
+              <span>56:28</span>
+              <strong>第一局拿下</strong>
+              <em>读到皎月资源不足，装备压力没有断。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4356" data-label="72:36 第二局开打">
+              <span>72:36</span>
+              <strong>第二局沙皇基本功</strong>
+              <em>换出部分大招思路后，沙皇回到装备和本体压力。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="6472" data-label="107:52 皎月扳回">
+              <span>107:52</span>
+              <strong>皎月扳回一城</strong>
+              <em>理想展开的皎月能用回手和资源链稳住局面。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="7336" data-label="122:16 决胜局连拆">
+              <span>122:16</span>
+              <strong>装备被连拆</strong>
+              <em>菲兹和折戟再战把早期武装拆空。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="7879" data-label="131:19 化为灰烬">
+              <span>131:19</span>
+              <strong>化为灰烬继续拆</strong>
+              <em>沙皇王之宝库被洗劫，但皎月也开始缺手牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="8720" data-label="145:20 沙兵现身收局">
+              <span>145:20</span>
+              <strong>灭世加沙兵现身</strong>
+              <em>最后一张灭世压住机会，沙兵现身结束比赛。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="azir-deck">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Deckbuilding</div>
+              <h2>牌表与对局：沙皇要把“武装密度”打成连续压力</h2>
+            </div>
+            <div class="time">02:10 - 04:10</div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">02:10 - 04:10</span>
+              <span class="watch-title">双方牌表与赛前判断</span>
+              <p>皎月有主备五拆、菲兹和化为灰烬，沙皇有更主动的进攻包和和平卫士。沙皇玩家要先接受：这不是“装备挂上就结束”的对局。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="130" data-label="02:10 皎月牌表">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=130" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>观察点</th>
+                <th>沙皇侧</th>
+                <th>皎月侧</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>主轴</td>
+                <td>装备、沙皇本体、沙兵带刀和沙兵现身形成连续进攻。</td>
+                <td>拆装备、菲兹复用、皎月核心和回手链拖慢沙皇节奏。</td>
+              </tr>
+              <tr>
+                <td>第一目标</td>
+                <td>用低费武装和单位先把皎月费用压紧，逼对手拆完也没法反推。</td>
+                <td>优先断掉装备和沙兵现身的收益，让沙皇手牌变成低效武装。</td>
+              </tr>
+              <tr>
+                <td>风险</td>
+                <td>单次装备被连续拆空后，沙兵现身和沙兵本体都会失去爆发效率。</td>
+                <td>拆装法术交太多，单位密度和手牌续航不足，容易被沙皇第二波压死。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <p><strong>沙皇牌表自检：</strong>你不是只要有武装就能赢皎月。你需要足够多的低费武装、能逼资源的单位，以及至少一张能在关键法术链里保护终局的反制牌。</p>
+          </div>
+        </section>
+
+        <section id="azir-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>沙皇框架：让皎月拆不完，也接不住</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">沙皇打皎月的目标不是保护每一件装备，而是让皎月每次拆装都付出费用、手牌和节奏。只要下一件装备、下一个沙兵或下一次沙兵现身还能接上，拆装就不是终点。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先压费用</h3>
+              <p>皎月慢、单位少。前两回合不要只存资源，先把她逼到每回合都要拆装或补单位。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>装备分批交</h3>
+              <p>不要把所有武装堆在同一条线。对手有菲兹和化为灰烬时，分散压力比单点爆发更稳。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>把灭世写进曲线</h3>
+              <p>皎月的关键法术链会围绕减战力、拆装和回手展开。灭世要留给能改变整回合结算的位置。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>最后再交收局牌</h3>
+              <p>领先时不要提前亮沙兵现身。等皎月手牌少、费用紧或最后一张牌被灭世压住，再收口。</p>
+            </li>
+          </ol>
+          <h3>沙皇每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>这件装备被拆以后，我下一回合还有没有装备、沙兵或英雄本体继续给压力？</li>
+            <li>皎月现在拆装是在解决问题，还是只是被迫延缓我的分数？</li>
+            <li>我手里的灭世是不是唯一能挡住皎月下一条法术链的牌？</li>
+          </ul>
+        </section>
+
+        <section id="azir-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：读到皎月费用卡住，就把装备压力打满</h2>
+            </div>
+            <div class="time">09:00 - 56:33</div>
+          </div>
+          <p class="lead">第一局的核心不是沙皇抽到某一张神牌，而是 Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>很早读到皎月资源和费用都不够顺。解说赛后也点出，他感受到皎月中期节奏匮乏，所以一直给进攻压力。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">56:28 - 57:10</span>
+              <span class="watch-title">沙皇先拿第一局</span>
+              <p>这段赛后总结很关键：第一局不是皎月没有拆，而是拆装没有转成场面反推，沙皇费用和装备接续更舒服。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="3388" data-label="56:28 第一局结束">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=3388" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>皎月有拆装牌压力，但早期单位和费用不够顺，沙皇可以主动把战场节奏推上去。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>装备没有断，沙皇本体和沙兵持续给分。皎月即使拆到装备，也很难同时处理分数和后场。</td>
+              </tr>
+              <tr>
+                <td>资源标准</td>
+                <td>沙皇不要为了防拆而停手。只要你有第二件装备和下一波单位，拆装就是对手的费用消耗。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>回看第一局时，重点记录每一次皎月拆装后，沙皇是否还能马上补上下一段压力。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>皎月的拆装牌不是绝对答案。她如果没有单位和费用承接，沙皇就要把每一次拆装都变成“你拆了，但还是要掉分”。</p>
+          </div>
+        </section>
+
+        <section id="azir-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：理想皎月能稳住，沙皇要避免只剩单线进攻</h2>
+            </div>
+            <div class="time">72:36 - 107:56</div>
+          </div>
+          <p class="lead">第二局放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>展开顺畅，有关键战场和足够回应，最终用回手和组合完成扳平。沙皇视角要学的是：当皎月能同时拆装、补单位和回手时，单线装备压力会被慢慢吞掉。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">72:36 - 73:40</span>
+              <span class="watch-title">第二局开局与换备思路</span>
+              <p>沙皇一度回到“基本功”打法，甚至围绕对手针对沙兵现身的预期做调整；但皎月这局有更完整的资源链。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="4356" data-label="72:36 第二局开打">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=4356" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">107:52 - 108:00</span>
+              <span class="watch-title">皎月扳回一城</span>
+              <p>解说判断放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>已经非常稳健，说明皎月一旦进入完整资源循环，沙皇很难只靠装备本体抢回来。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="6472" data-label="107:52 皎月扳回">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=6472" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>皎月有更顺的战场、单位和回手资源，沙皇不能只期待对方卡手。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>皎月有强买强卖、造化弄人和足够费用时，能把沙皇压力转成自己的稳定收局。</td>
+              </tr>
+              <tr>
+                <td>沙皇复盘点</td>
+                <td>如果你主动换出或弱化沙兵现身路线，就必须确认本体和装备线足够结实，否则后期会少一个收口角度。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warning">
+            <p><strong>第二局结论：</strong>皎月顺起来以后，沙皇要把比赛拖回多线威胁：装备、本体、沙兵、灭世和最后的大招都要让对手顾不过来。</p>
+          </div>
+        </section>
+
+        <section id="azir-game-three">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>决胜局：装备被拆空以后，靠灭世和沙兵现身收尾</h2>
+            </div>
+            <div class="time">118:10 - 145:11</div>
+          </div>
+          <p class="lead">决胜局最适合沙皇玩家练“装备被拆以后怎么继续打”。放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>用菲兹、折戟再战和化为灰烬把早期装备拆得非常干净，但皎月为此也消耗了大量手牌。Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>后面没有急，等到灭世和沙兵现身都能决定胜负时再交。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">122:16 - 123:05</span>
+              <span class="watch-title">菲兹加折戟再战连拆装备</span>
+              <p>这里皎月做得很好，沙皇早期装备被拆空。沙皇玩家要看的是拆完以后，自己是否还有费用和牌能重新建立压力。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="7336" data-label="122:16 决胜局连拆">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=7336" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">122:16</div>
+              <p>皎月用菲兹和折戟再战连拆两件装备。沙皇不能把这理解成崩盘，只要后续装备和沙兵还能接上，皎月也在交资源。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">131:19</div>
+              <p>化为灰烬继续拆装，解说形容沙皇的宝库被洗劫一空。但同一段也提醒：皎月手牌数已经不多。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">140:30</div>
+              <p>皎月继续交专属法术，沙皇开始考虑灭世。这里不是为了小赚，而是为了让皎月最后一条线无法通过。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">145:07</div>
+              <p>沙兵现身游戏结束。收局牌等到对手手牌、费用和战场都被压到最低时才交，价值最大。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">145:04 - 145:11</span>
+              <span class="watch-title">沙兵现身结束比赛</span>
+              <p>最后一段是这场沙皇的完整答案：不是装备没被拆，而是拆完以后仍能用灭世守住窗口，再用沙兵现身收掉冠军点。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="8704" data-label="145:04 沙兵现身游戏结束">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=8704" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="note">
+            <p><strong>决胜局结论：</strong>沙皇打拆装皎月，要练的是抗压后的第二轮和第三轮。装备被拆空不可怕，可怕的是你拆完以后没有新威胁、没有灭世、也没有收局牌。</p>
+          </div>
+        </section>
+
+        <section id="azir-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>沙皇玩家可以直接照着练的清单</h2>
+            </div>
+          </div>
+          <h3>每回合都做的四个判断</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>皎月这回合拆我装备，会不会因此失去补单位或抢分的费用？</span></div>
+            <div class="check"><span class="box"></span><span>我下一件装备、下一只沙兵或下一张补强牌在哪里？</span></div>
+            <div class="check"><span class="box"></span><span>灭世现在交是为了保小优势，还是为了封住对手关键法术链？</span></div>
+            <div class="check"><span class="box"></span><span>沙兵现身如果现在打，收益够不够；如果等一回合，皎月还能不能处理？</span></div>
+          </div>
+
+          <h3>关键牌使用规则</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>低费武装</td>
+                <td>把它当作连续压力，不要当作一次性爆发。皎月拆第一件时，你要能马上补第二件。</td>
+              </tr>
+              <tr>
+                <td>沙皇本体</td>
+                <td>皎月缺费用或缺单位时可以主动顶上去压分；皎月手牌充足时要防专属法术和拆装链。</td>
+              </tr>
+              <tr>
+                <td>和平卫士 / 主动单位</td>
+                <td>用于提前制造战场压力，让皎月不能只把全部费用留给拆装备。</td>
+              </tr>
+              <tr>
+                <td>灭世</td>
+                <td>留给皎月关键法术链，尤其是对方试图用最后一张牌争回战场或压住沙兵现身时。</td>
+              </tr>
+              <tr>
+                <td>沙兵现身</td>
+                <td>不要因为手里有就早打。等对手拆装资源、单位和手牌都被压低，再作为最后收口。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="azir-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>沙皇玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把皎月的拆装理解成“不能打装备”，导致自己先停手。</li>
+            <li>同一回合把装备堆得太集中，被菲兹和化为灰烬一串拆完。</li>
+            <li>领先时急着交灭世或沙兵现身，给皎月留下最后一轮回手和反打空间。</li>
+            <li>只算沙兵现身的峰值，不算装备被拆以后沙兵还有多少实际战力。</li>
+            <li>看到皎月手牌少却不敢继续压分，让对手用过牌慢慢补回资源。</li>
+          </ul>
+          <div class="footer">
+            <p>这场对沙皇玩家最有价值的地方，是它展示了被针对时的赢法：你会被拆装备，但只要装备、费用、反制和沙兵现身能形成连续压力，皎月仍然会被迫先耗尽资源。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-diana" role="tabpanel" aria-labelledby="tab-diana" data-perspective-panel="diana" hidden>
+        <section id="diana-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>皎月视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>的皎月牌表非常明确：用大量拆装备、菲兹复用和回手链去拆沙皇武装。但这场也说明了皎月的代价：如果只拆不铺、只解不补牌，沙皇会用下一轮装备和沙兵继续压分。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>拆装不是胜利条件</h3>
+              <p>拆掉装备只是把沙皇速度降下来。你还要有单位、战场和后续手牌，才能把比赛转成自己的节奏。</p>
+            </article>
+            <article class="insight">
+              <h3>菲兹是资源引擎</h3>
+              <p>菲兹配合折戟再战、化为灰烬能连续拆装，但也会消耗手牌和费用。用它之前要算下一回合还能不能补场。</p>
+            </article>
+            <article class="insight">
+              <h3>强买强卖要压灭世窗口</h3>
+              <p>第二局和第三局都能看到，皎月需要让沙皇没法舒服地开灭世。否则关键专属法术会被一张牌挡住。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>单位密度决定能不能活过中期</h3>
+              <p>决胜局皎月拆得漂亮，但单位数量和手牌都很紧，最后只能看着沙皇重新组织收局。</p>
+            </article>
+            <article class="insight">
+              <h3>扳回一城靠的是完整资源链</h3>
+              <p>第二局不是单张牌赢，而是战场、回手、强买强卖和单位都到位，才让沙皇压力变得可处理。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="diana-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>皎月玩家要重点看的片段</h2>
+            </div>
+            <div class="time">P6 决赛全场</div>
+          </div>
+          <p class="lead">皎月玩家要重点看两类片段：一类是拆装成功以后有没有接上场面，另一类是自己的关键法术有没有绕开沙皇灭世。</p>
+          <div class="jump-grid" aria-label="皎月视角关键片段跳转">
+            <button class="jump-card" type="button" data-time="130" data-label="02:10 皎月牌表">
+              <span>02:10</span>
+              <strong>五拆构筑</strong>
+              <em>主备大量拆装备，目标是让沙兵现身变弱。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3388" data-label="56:28 第一局结束">
+              <span>56:28</span>
+              <strong>第一局问题</strong>
+              <em>拆装没有转成反推，费用和单位都跟不上。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="6472" data-label="107:52 皎月扳回">
+              <span>107:52</span>
+              <strong>第二局扳回</strong>
+              <em>手牌、费用和回手链都到位时，皎月能稳住。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="7336" data-label="122:16 决胜局连拆">
+              <span>122:16</span>
+              <strong>菲兹连拆</strong>
+              <em>漂亮的拆装窗口，但也开始暴露单位不足。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="7879" data-label="131:19 化为灰烬">
+              <span>131:19</span>
+              <strong>化为灰烬继续拆</strong>
+              <em>装备全被捏掉，但皎月手牌也快见底。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="8430" data-label="140:30 灭世窗口">
+              <span>140:30</span>
+              <strong>灭世窗口</strong>
+              <em>专属法术再交时，沙皇开始有灭世回应。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="diana-deck">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Deckbuilding</div>
+              <h2>牌表与对局：皎月要把拆装转成节奏，而不只是止损</h2>
+            </div>
+            <div class="time">02:10 - 04:10</div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">02:10 - 03:50</span>
+              <span class="watch-title">赛前就点明皎月的拆装计划</span>
+              <p>解说提到主备五张拆装备，并特别说菲兹可以复制墓地里的化为灰烬。皎月玩家要把这理解成计划，而不是看到装备就立刻乱拆。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="130" data-label="02:10 皎月牌表">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=130" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>观察点</th>
+                <th>皎月侧打法</th>
+                <th>沙皇侧威胁</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>拆装密度</td>
+                <td>化为灰烬、折戟再战和菲兹复用可以连续压低沙皇武装质量。</td>
+                <td>沙皇装备多，拆一轮不代表后续没有新的武装。</td>
+              </tr>
+              <tr>
+                <td>中期需求</td>
+                <td>必须同时补单位和补牌，否则拆装只是延缓分差。</td>
+                <td>沙皇会用英雄本体、沙兵和低费装备持续给分。</td>
+              </tr>
+              <tr>
+                <td>终局风险</td>
+                <td>如果手牌打干，最后专属法术或回手很容易被灭世压住。</td>
+                <td>沙皇一旦等到你零手牌或低费用，沙兵现身就很难再处理。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <p><strong>皎月牌表自检：</strong>你的拆装备牌能不能和单位曲线一起出现？如果不能，你只是让沙皇慢一点，并没有真正把比赛抢回来。</p>
+          </div>
+        </section>
+
+        <section id="diana-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>皎月框架：拆装备以后，立刻补场和补牌</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">皎月打沙皇的好牌很多，但每张都很吃窗口。拆装要绑定费用压制、单位落点和后续回手，否则就会像第一局和决胜局一样，拆得很漂亮，却没能阻止沙皇下一波。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先看沙皇下一波</h3>
+              <p>拆掉当前装备前，先问他是否还有低费武装、沙兵现身或沙皇本体能继续给分。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>拆装绑定单位</h3>
+              <p>只拆不下单位，沙皇会继续压战场。每次拆装后至少要能补一个挡分或抢分节点。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>压住灭世费用</h3>
+              <p>强买强卖这类牌的价值在于让沙皇不能舒服地保灭世。关键专属法术不要裸交进反制窗口。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>给沙兵现身留答案</h3>
+              <p>前期拆装可以积极，但最后必须留牌处理沙兵现身。手牌打干后，皎月很难接收局。</p>
+            </li>
+          </ol>
+          <h3>皎月每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>我这次拆装之后，场上有没有单位接住沙皇下一波分数？</li>
+            <li>我现在交菲兹或化为灰烬，会不会导致下一回合没手牌补场？</li>
+            <li>沙皇是否留着灭世？如果留着，我的关键法术能不能先逼出它？</li>
+          </ul>
+        </section>
+
+        <section id="diana-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：拆装不够，皎月还需要费用和单位</h2>
+            </div>
+            <div class="time">09:00 - 56:33</div>
+          </div>
+          <p class="lead">第一局放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>没有把五拆构筑的优势完全打出来。解说赛后总结，Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>读到皎月中期节奏匮乏，于是一直给进攻压力。皎月玩家要复盘的不是“拆哪件装备”，而是拆完以后为什么没有反推。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">56:28 - 57:10</span>
+              <span class="watch-title">第一局输在中期节奏匮乏</span>
+              <p>这一段明确说皎月费用一直缓不过来。拆装备如果没有转成战场节奏，就只是让沙皇晚一点拿分。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="3388" data-label="56:28 第一局结束">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=3388" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>牌表有拆装优势，但开局和中期费用不够顺，单位承接也不足。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>沙皇装备不断，皎月拆掉一部分压力后，没有把节奏转成自己的场面。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>每次拆装备都要回看：拆完以后这一回合有没有补单位、抢分或逼沙皇交灭世？</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>皎月不能把拆装备当作唯一任务。对沙皇这种持续进攻套牌，拆装后必须立刻接单位和分数，否则只是拖慢失败。</p>
+          </div>
+        </section>
+
+        <section id="diana-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：资源链完整时，皎月能把沙皇拖回自己节奏</h2>
+            </div>
+            <div class="time">72:36 - 107:56</div>
+          </div>
+          <p class="lead">第二局是皎月玩家应该反复看的正面教材。放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>有更稳定的战场、回手和资源链，最后用造化弄人等牌完成扳平。这里的关键不是单张牌，而是每张牌都能回应沙皇下一步。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">107:17 - 107:56</span>
+              <span class="watch-title">强买强卖到位，造化弄人收局</span>
+              <p>解说说“每张牌都很有回应”。这就是皎月理想局：拆装、回手、保单位和抢分全部接上。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="6437" data-label="107:17 第二局收尾">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=6437" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>皎月手牌和费用更顺，可以从防守拆装转入主动组织。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>强买强卖、造化弄人和单位都能接上，沙皇不再能靠下一件装备持续推进。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>皎月每次回应后都要问：我是不是同时保住了手牌、单位和下一回合费用？</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warning">
+            <p><strong>第二局结论：</strong>皎月赢沙皇的形状是“拆装加补场加回手”，不是单纯把装备拆掉。三件事同时发生，沙皇才会真正停下来。</p>
+          </div>
+        </section>
+
+        <section id="diana-game-three">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>决胜局：拆得再漂亮，也要留下接沙兵现身的手牌</h2>
+            </div>
+            <div class="time">118:10 - 145:11</div>
+          </div>
+          <p class="lead">决胜局皎月的前半段非常亮眼：菲兹、折戟再战和化为灰烬连续清掉装备，一度让沙兵现身威力下降。但同一段也暴露了皎月最危险的问题：拆装投入太多以后，单位和手牌都不够，最后沙皇重新组织起灭世加沙兵现身的收口。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">122:16 - 123:05</span>
+              <span class="watch-title">菲兹加折戟再战连拆两个装备</span>
+              <p>这一段是皎月该学的上限操作：用墓地和菲兹把拆装价值最大化。但它不是终点，后面仍要补单位。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="7336" data-label="122:16 决胜局连拆">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=7336" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">131:19 - 132:25</span>
+              <span class="watch-title">化为灰烬继续拆，但手牌开始见底</span>
+              <p>解说一边说装备被拆空，一边提醒皎月手牌数也不多了。皎月玩家要把这两句话放在一起看。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="7879" data-label="131:19 化为灰烬">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=6&t=7879" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">122:16</div>
+              <p>菲兹和折戟再战连续拆装备，沙皇早期武装压力被成功压低。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">131:19</div>
+              <p>化为灰烬继续拆装，沙皇一度没有装备，但皎月手牌也快见底。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">140:30</div>
+              <p>皎月再交专属法术时，沙皇已经可以考虑灭世。关键法术没有避开反制窗口。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">145:07</div>
+              <p>沙兵现身结束比赛。皎月前面拆得再好，如果最后没有手牌和单位，仍然接不住收局。</p>
+            </div>
+          </div>
+          <div class="note">
+            <p><strong>决胜局结论：</strong>皎月要练的是“拆完以后还有什么”。拆装能让沙皇慢下来，但能不能赢，取决于你是否还留着单位、手牌和处理沙兵现身的最后答案。</p>
+          </div>
+        </section>
+
+        <section id="diana-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>皎月玩家可以直接照着练的清单</h2>
+            </div>
+          </div>
+          <h3>每回合都做的四个判断</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我这次拆装之后，能不能补单位或抢一个战场分？</span></div>
+            <div class="check"><span class="box"></span><span>菲兹复用拆装牌以后，我下一回合还有几张手牌可以继续打？</span></div>
+            <div class="check"><span class="box"></span><span>沙皇是否留着灭世？我的关键法术能不能先骗出或避开它？</span></div>
+            <div class="check"><span class="box"></span><span>我有没有为最后的沙兵现身保留答案，而不是把所有资源用在前中期？</span></div>
+          </div>
+
+          <h3>关键牌使用规则</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>化为灰烬</td>
+                <td>优先拆会改变沙兵现身收益或沙皇本体战力的装备。不要只为止损而拆，最好同时制造反推窗口。</td>
+              </tr>
+              <tr>
+                <td>菲兹</td>
+                <td>用来复用关键拆装或保护节奏。常见误用是过早投入，结果只拆了装备却没有单位承接。</td>
+              </tr>
+              <tr>
+                <td>折戟再战</td>
+                <td>适合和菲兹组成连续拆装回合，但要提前算手牌和费用，避免后续无法补场。</td>
+              </tr>
+              <tr>
+                <td>强买强卖</td>
+                <td>最好的窗口是压住沙皇灭世或关键回应费用，让自己的专属法术和回手链能通过。</td>
+              </tr>
+              <tr>
+                <td>造化弄人</td>
+                <td>第二局的收口牌。不要只当保命回手，要用来把已经稳定的场面转成胜势。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="diana-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>皎月玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>看到装备就拆，但拆完没有补单位，导致沙皇下一回合继续压分。</li>
+            <li>菲兹和化为灰烬投入太早，换来装备消失，却把自己的手牌打空。</li>
+            <li>没有把强买强卖写进曲线，让关键法术直接撞进沙皇灭世。</li>
+            <li>只防沙皇本体，不给沙兵现身预留最后答案。</li>
+            <li>为了前中期止损交光回手，真正需要造化弄人收局时没有资源。</li>
+          </ul>
+          <div class="footer">
+            <p>这场对皎月玩家最有价值的地方，是它同时展示了拆装构筑的强度和代价。你能把沙皇装备拆空，但只有拆装、单位、手牌和终局答案同时在线，才能真正赢下沙皇。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260525"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgXianDecklists.byKey,
+      decks: [
+        {
+          sourceKey: "aipotu-azir",
+          image: "deck-aipotu-azir.jpg",
+          alt: "Ai.po.tu 的沙皇牌表截图"
+        },
+        {
+          sourceKey: "fangzhu-diana",
+          image: "deck-fangzhu-diana.jpg",
+          alt: "放逐之刃的皎月牌表截图"
+        }
+      ]
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260525"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
