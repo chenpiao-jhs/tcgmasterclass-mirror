@@ -54,8 +54,8 @@
       content: "";
       position: absolute;
       inset: auto 0 0;
-      height: 110px;
-      background: linear-gradient(180deg, transparent, var(--bg));
+      height: 104px;
+      background: linear-gradient(180deg, rgba(244, 246, 241, 0.01) 36%, rgba(244, 246, 241, 0.74) 74%, var(--bg) 88%, var(--bg));
       pointer-events: none;
     }
 
@@ -134,7 +134,7 @@
       padding: 6px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.86);
+      background: var(--paper);
       box-shadow: 0 10px 32px rgba(25, 39, 31, 0.06);
     }
 
@@ -227,6 +227,17 @@
       flex: 1;
       height: 1px;
       background: var(--line);
+    }
+
+    .station-review-count {
+      flex: none;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #edf4ee;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
     }
 
     .guide-card {
@@ -507,14 +518,8 @@
     </section>
 
     <section class="season-panel" id="panel-season-3" role="tabpanel" aria-labelledby="tab-season-3" data-season-panel="season-3">
-      <div class="season-panel-head">
-        <div>
-          <p>苏州站与西安站淘汰赛、进阶瑞士轮复盘，集中看剑圣、刀妹、极光、沙皇和快攻体系之间的攻防方法。</p>
-        </div>
-        <span class="season-count">10 篇复盘</span>
-      </div>
       <section class="station-group" aria-labelledby="season-3-xian">
-        <h2 class="station-title" id="season-3-xian">区域公开赛-西安站</h2>
+        <h2 class="station-title" id="season-3-xian">区域公开赛-西安站 <span class="station-review-count" data-review-count>3 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季西安站复盘页面列表">
           <a class="guide-card" href="azir-diana-xian-final/">
             <div class="thumb azir"></div>
@@ -561,7 +566,7 @@
       </section>
 
       <section class="station-group" aria-labelledby="season-3-suzhou">
-        <h2 class="station-title" id="season-3-suzhou">区域公开赛-苏州站</h2>
+        <h2 class="station-title" id="season-3-suzhou">区域公开赛-苏州站 <span class="station-review-count" data-review-count>7 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季苏州站复盘页面列表">
           <a class="guide-card" href="yi-irelia-final/">
             <div class="thumb irelia"></div>
@@ -669,6 +674,7 @@
     (() => {
       const tabs = [...document.querySelectorAll(".season-tab")];
       const panels = [...document.querySelectorAll(".season-panel")];
+      const stationGroups = [...document.querySelectorAll(".station-group")];
 
       function setSeason(nextSeason) {
         tabs.forEach((tab) => {
@@ -684,6 +690,12 @@
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => setSeason(tab.dataset.season));
+      });
+
+      stationGroups.forEach((group) => {
+        const count = group.querySelectorAll(".guide-card").length;
+        const countLabel = group.querySelector("[data-review-count]");
+        if (countLabel) countLabel.textContent = `${count} 篇复盘`;
       });
     })();
   </script>
