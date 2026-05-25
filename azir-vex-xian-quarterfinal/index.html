@@ -1,0 +1,1342 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>沙皇打薇古丝：西安站 8 进 4 复盘</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("hero.jpg") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 110px;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 840px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      font-size: 20px;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .insight p,
+    .note p,
+    .warning p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    .warning {
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.82), #fff 44%);
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .jump-card {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      min-height: 118px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 22px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(25, 39, 31, 0.07);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 800;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      font-weight: 760;
+      color: var(--green-dark);
+      width: 190px;
+    }
+
+    .method-flow,
+    .timeline,
+    .mistakes,
+    .clean {
+      margin: 24px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .method-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .method-flow li,
+    .timeline-item,
+    .mistakes li,
+    .clean li,
+    .check {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.05);
+    }
+
+    .method-flow li {
+      min-height: 150px;
+      padding: 18px;
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 850;
+      margin-bottom: 12px;
+    }
+
+    .method-flow h3 {
+      color: var(--green-dark);
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .method-flow p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .stamp {
+      color: var(--gold);
+      font-weight: 850;
+      line-height: 1.4;
+    }
+
+    .timeline-item p,
+    .mistakes li,
+    .clean li {
+      color: var(--muted);
+    }
+
+    .mistakes,
+    .clean {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mistakes li,
+    .clean li {
+      padding: 14px 16px;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0 28px;
+    }
+
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      color: var(--muted);
+    }
+
+    .box {
+      flex: none;
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      border: 2px solid rgba(47, 111, 78, 0.38);
+      border-radius: 4px;
+      background: #f7faf6;
+    }
+
+    .footer {
+      margin-top: 58px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--green-dark);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .backtop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 12px 28px rgba(22, 64, 44, 0.22);
+    }
+
+    @media (max-width: 1250px) {
+      .grid-3,
+      .grid-2,
+      .method-flow,
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .jump-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 430px;
+      }
+
+      .hero-inner {
+        width: min(100% - 28px, var(--max));
+        padding: 68px 0 86px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero .summary {
+        font-size: 16px;
+      }
+
+      main {
+        width: min(100% - 28px, var(--max));
+        margin: 0 auto;
+        padding-top: 44px;
+      }
+
+      section {
+        scroll-margin-top: min(76vh, 640px);
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      .time {
+        display: inline-flex;
+        margin-top: 10px;
+      }
+
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .section-head h2 {
+        font-size: 21px;
+      }
+
+      .lead {
+        font-size: 13px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260525">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">符文战场 TCG · 西安站 8 进 4 复盘</div>
+      <h1>沙皇打薇古丝：装备复用、沙兵逼迫与不让聚首启动</h1>
+      <p class="summary">把 Ai.po.tu 2:0 Noob清柒(神切) 的沙漠皇帝 VS 愁云使者，整理成沙皇玩家和薇古丝玩家都能对照练习的打法页面。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛西安站 DAY2 第 4P</li>
+        <li>对局：沙漠皇帝（Ai.po.tu） VS 愁云使者（Noob清柒(神切)）</li>
+        <li>结果：Ai.po.tu 2:0 晋级四强</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=4&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1mVGE68EMg?p=4">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=4&autoplay=0&t=214" title="第三赛季区域公开赛西安站 DAY2 第 4P：沙漠皇帝 VS 愁云使者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：03:34 选手介绍</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=214" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-azir-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-azir" data-perspective-target="azir">沙皇玩家视角</button>
+        <button class="perspective-tab" id="tab-vex-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-vex" data-perspective-target="vex">薇古丝玩家视角</button>
+      </div>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">西安 8 进 4 双视角</div>
+        <div class="links" data-perspective-nav="azir">
+          <a href="#azir-principles">核心结论</a>
+          <a href="#azir-video">关键片段</a>
+          <a href="#azir-plan">对局计划</a>
+          <a href="#azir-framework">沙皇框架</a>
+          <a href="#azir-game-one">第一局</a>
+          <a href="#azir-game-two">第二局</a>
+          <a href="#azir-checklist">清单</a>
+          <a href="#azir-mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="vex" hidden>
+          <a href="#vex-principles">核心结论</a>
+          <a href="#vex-video">关键片段</a>
+          <a href="#vex-plan">对局计划</a>
+          <a href="#vex-framework">薇古丝框架</a>
+          <a href="#vex-game-one">第一局</a>
+          <a href="#vex-game-two">第二局</a>
+          <a href="#vex-checklist">清单</a>
+          <a href="#vex-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-azir" type="button" role="tab" aria-selected="true" aria-controls="panel-azir" data-perspective-target="azir">沙皇玩家视角</button>
+        <button class="perspective-tab" id="tab-vex" type="button" role="tab" aria-selected="false" aria-controls="panel-vex" data-perspective-target="vex">薇古丝玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-azir" role="tabpanel" aria-labelledby="tab-azir" data-perspective-panel="azir">
+        <section id="azir-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>沙皇视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这场不是沙皇等到后期再靠沙兵现身收局。Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>把沙皇打成主动压迫牌组：每回合用装备和沙兵逼薇古丝必须上场回应，让 Noob清柒(神切)<span class="player-tag" data-player-side="薇古丝方玩家">选手</span>的聚首、地流之灵和英雄效果几乎都没有完整启动。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>不要给薇古丝站住的回合</h3>
+              <p>薇古丝需要单位在战场上发挥效果。沙皇的目标是持续逼战场，让对手只能处理当前沙兵，而没有时间沉淀资源。</p>
+            </article>
+            <article class="insight">
+              <h3>装备要被重复利用</h3>
+              <p>两局下来沙皇的武装装配次数远高于实际装备张数，说明关键不是抽很多装备，而是让每件装备多次变成战力。</p>
+            </article>
+            <article class="insight">
+              <h3>黄沙士兵是主角</h3>
+              <p>第二局官方关键牌给到黄沙士兵，原因很直接：沙兵不断带装备突破三四个中型防守单位。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>第一局要敢于换掉慢牌</h3>
+              <p>开局把沙兵现身换下去，说明这局先要找互动和 trick。薇古丝前期不顺时，沙皇要马上压分。</p>
+            </article>
+            <article class="insight">
+              <h3>第二局可以爆费换节奏</h3>
+              <p>关键回合沙皇爆掉三四费也要清场，因为只要把薇古丝聚首窗口拆掉，后续沙兵现身会自然接管比赛。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="azir-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照沙皇方法</h2>
+            </div>
+            <div class="time">P4 8 进 4 主赛段</div>
+          </div>
+          <p class="lead">这条时间线只取本场沙皇对薇古丝的主赛段。第 4P 后半段接了另一桌刀妹内战的第三局，本页不混入那场内容。</p>
+          <div class="jump-grid" aria-label="沙皇视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="214" data-label="03:34 选手介绍">
+              <span>03:34</span>
+              <strong>Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>登场</strong>
+              <em>画面确认沙皇方选手名，字幕也提到他曾拿过福州区域赛冠军。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="385" data-label="06:25 第一局开局">
+              <span>06:25</span>
+              <strong>第一局正式打响</strong>
+              <em>薇古丝先攻，但沙皇每回合都在利用传奇效果制造压力。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1026" data-label="17:06 训练有素压垮资源">
+              <span>17:06</span>
+              <strong>训练有素让手牌差拉开</strong>
+              <em>解说判断薇古丝已经绝望，沙皇靠主动交互拿下第一局。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1290" data-label="21:30 第二局换备后开局">
+              <span>21:30</span>
+              <strong>传奇殿堂对地流之灵</strong>
+              <em>沙皇换入关键场地，薇古丝试图靠地流之灵和聚首追资源。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1743" data-label="29:03 卡兹克防守压力">
+              <span>29:03</span>
+              <strong>卡兹克迫使沙皇重算突破</strong>
+              <em>薇古丝的恐怖机变卡兹克是少数真正烧掉沙皇资源的牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2408" data-label="40:08 沙皇清空三大防守">
+              <span>40:08</span>
+              <strong>爆费也要把场面铲空</strong>
+              <em>沙皇付出大量费用清掉薇古丝三四个中型单位，阻断聚首。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2712" data-label="45:12 灭世锁住最后机会">
+              <span>45:12</span>
+              <strong>灭世封死御风路线</strong>
+              <em>薇古丝最后的移动和聚首机会被灭世压住，比赛基本结束。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2830" data-label="47:10 Ai.po.tu 晋级">
+              <span>47:10</span>
+              <strong>Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>晋级四强</strong>
+              <em>Noob清柒(神切)<span class="player-tag" data-player-side="薇古丝方玩家">选手</span>碰拳认负，沙皇 2:0 晋级。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="azir-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>对局计划：沙皇要把薇古丝拖进只解不赚的循环</h2>
+            </div>
+            <div class="time">06:25 - 19:33</div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">06:25 - 08:40</span>
+              <span class="watch-title">第一局开局，沙皇每回合都在触发传奇</span>
+              <p>解说点出沙皇每回合都在利用传奇效果，而薇古丝的聚首还没有用上。沙皇玩家要在这里学习：先让自己每回合都有动作，再逼对手跟着你的节奏走。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="385" data-label="06:25 第一局开局">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=385" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>观察点</th>
+                <th>沙皇侧</th>
+                <th>薇古丝侧</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>前期目标</td>
+                <td>用装备和沙兵持续逼上场，不让薇古丝舒服地站住聚首场地。</td>
+                <td>需要一边能稳定聚首，才有费用和手牌一起领先的机会。</td>
+              </tr>
+              <tr>
+                <td>交互重点</td>
+                <td>优先处理能改变战斗的中型单位，比如伊芙琳、琴女、卡兹克和薇古丝本体。</td>
+                <td>不要只解沙兵，必须让解牌同时换到时间或资源。</td>
+              </tr>
+              <tr>
+                <td>胜负标准</td>
+                <td>薇古丝两局都没有完整触发英雄和场地资源时，沙皇已经完成主要计划。</td>
+                <td>只要陷入每回合被迫报废、防守、再沉淀的循环，就会被沙兵现身收掉。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <p><strong>牌表先不展示：</strong>按当前数据库状态，这场 8 进 4 的文字牌表还没有更新；页面暂不接入公开牌表入口，避免错误绑定。</p>
+          </div>
+        </section>
+
+        <section id="azir-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>沙皇框架：装备复用不是贪，是压缩对手行动</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">沙皇打薇古丝时，不要把装备当成单次加战力。正确用法是让一件装备在多个沙兵身上连续参与交换，迫使薇古丝每回合都必须把单位、手牌和费用交给当前战场。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先把慢牌换成互动</h3>
+              <p>第一局 Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>起手换下沙兵现身，说明他判断前期更需要 trick 和交互。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>每回合都产出压力</h3>
+              <p>沙兵、装备、传奇效果要连起来。只沉淀不进攻，会给薇古丝地流之灵和聚首的时间。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>看到卡兹克要一起上</h3>
+              <p>恐怖机变卡兹克会惩罚一个一个进场。进攻前先计算是否要同时推进，避免把它养大。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>爆费清场也能接受</h3>
+              <p>第二局沙皇爆费突破三四个单位，短期亏费，长期换来薇古丝无法启动的局面。</p>
+            </li>
+          </ol>
+          <h3>沙皇每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>这一件装备能不能通过沙兵或武装复用，至少影响两个战场动作？</li>
+            <li>如果我这回合不逼上场，薇古丝是否会获得地流之灵、聚首或英雄抽牌窗口？</li>
+            <li>对手的卡兹克、琴女或薇古丝本体是否会让我下一轮突破成本更高？</li>
+          </ul>
+        </section>
+
+        <section id="azir-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：薇古丝还没聚首，沙皇已经把资源差打出来</h2>
+            </div>
+            <div class="time">06:25 - 19:33</div>
+          </div>
+          <p class="lead">第一局的教学点很清楚：薇古丝先攻，但 Noob清柒(神切)<span class="player-tag" data-player-side="薇古丝方玩家">选手</span>没有顺利把聚首和英雄效果转成资源。Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>用更主动的沙皇构筑压住战场，最后让薇古丝在手牌差明显时果断投降。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">17:06 - 17:33</span>
+              <span class="watch-title">训练有素让薇古丝很难继续交换</span>
+              <p>解说说训练有素在拉锯战里能加战力又不亏牌，随后薇古丝果断投降。沙皇第一局赢在前期持续主动，而不是拖到大后期。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1026" data-label="17:06 训练有素压垮资源">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=1026" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>薇古丝先攻，但沙皇每回合都有装备、沙兵或互动动作，薇古丝聚首没有转起来。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>中期沙皇用训练有素等 trick 保持战力和手牌效率，薇古丝场面被击溃后很难回去。</td>
+              </tr>
+              <tr>
+                <td>资源标准</td>
+                <td>沙皇不要只看当回合是否多得一分，要看是否让薇古丝下一回合必须继续被动防守。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>回看第一局时，记录薇古丝的聚首和英雄效果实际触发了几次；如果答案接近零，沙皇计划就是成功的。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>沙皇打薇古丝要敢于在前期就进攻。薇古丝一旦没有场面，手里的魅惑和慢资源都很难变成反推。</p>
+          </div>
+        </section>
+
+        <section id="azir-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：传奇殿堂让每个沙兵都变成重复压力</h2>
+            </div>
+            <div class="time">21:30 - 47:16</div>
+          </div>
+          <p class="lead">第二局 Noob清柒(神切)<span class="player-tag" data-player-side="薇古丝方玩家">选手</span>换备后试图用地流之灵和更多中期单位打回来，卡兹克也确实烧掉沙皇不少费用。但 Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>靠传奇殿堂不断产沙兵，把每一件装备都复用到极限。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">29:03 - 32:09</span>
+              <span class="watch-title">卡兹克让沙皇必须谨慎推进</span>
+              <p>解说反复提醒不能一个一个上，否则卡兹克会越打越大。沙皇玩家要从这里练进攻排序，而不是只看当前战力。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1743" data-label="29:03 卡兹克防守压力">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=1743" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">40:08 - 41:15</span>
+              <span class="watch-title">爆费清空防线，阻断薇古丝聚首</span>
+              <p>沙皇这一波进攻全解完，薇古丝只能沉淀。解说也点出 Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>这局打得很极限。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="2408" data-label="40:08 沙皇清空三大防守">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=2408" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">21:30</div>
+              <p>沙皇换出传奇殿堂，薇古丝用地流之灵试图扩张资源，双方都在抢自己的长期引擎。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">29:03</div>
+              <p>卡兹克防守让沙皇不能随便单推，进攻排序成为第二局中段最重要的技术点。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">40:08</div>
+              <p>沙皇爆费清掉三个四费级别的防守，短期看亏费，实际把薇古丝聚首窗口彻底拆散。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">45:12</div>
+              <p>薇古丝想靠御风和最后手牌找机会，沙皇用灭世封住，后续七费沙兵现身已经足够收局。</p>
+            </div>
+          </div>
+          <div class="note">
+            <p><strong>第二局结论：</strong>传奇殿堂加沙兵让沙皇拥有连续压迫能力。面对薇古丝，不要舍不得爆费；只要把对方的聚首和英雄抽牌回合打断，比赛会自然进入沙皇的收口区。</p>
+          </div>
+        </section>
+
+        <section id="azir-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>沙皇玩家可以直接照着练的清单</h2>
+            </div>
+          </div>
+          <h3>每回合都做的四个判断</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我这回合有没有让装备至少产生一次额外价值，而不是只装一次打一次？</span></div>
+            <div class="check"><span class="box"></span><span>如果我沉淀不打，薇古丝是否能在地流之灵或英雄效果上补资源？</span></div>
+            <div class="check"><span class="box"></span><span>面对卡兹克时，我是一起推进、换目标，还是会被它连续成长？</span></div>
+            <div class="check"><span class="box"></span><span>这一波爆费清场后，对手是否真的失去下一轮反推能力？</span></div>
+          </div>
+
+          <h3>关键牌使用规则</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>黄沙士兵</td>
+                <td>把它当装备载体，而不是临时小单位。每个沙兵都要尽量逼出对手一张牌或一个防守动作。</td>
+              </tr>
+              <tr>
+                <td>残暴之力</td>
+                <td>第二局的突破关键。最好配合沙兵和先锋之眼一起使用，避免被单个防守单位拖住。</td>
+              </tr>
+              <tr>
+                <td>先锋之眼</td>
+                <td>既是装备，也是重新制造沙兵位置的工具。面对卡兹克时，先算移动和进场触发顺序。</td>
+              </tr>
+              <tr>
+                <td>训练有素</td>
+                <td>拉锯战里用于保战力并保持手牌效率。第一局薇古丝手牌差拉开后，这张牌价值很高。</td>
+              </tr>
+              <tr>
+                <td>灭世</td>
+                <td>不要只当保护牌。第二局 45 分钟附近用来封住御风和最后聚首窗口，直接锁住胜局。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="azir-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>沙皇玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把薇古丝当慢牌组处理，前期沉淀过多，让对手先站住聚首场地。</li>
+            <li>装备只用于单次战斗，没有通过沙兵和武装复用把战力转换成多次压力。</li>
+            <li>面对卡兹克一个一个进场，给它连续成长和白吃沙兵的机会。</li>
+            <li>过度节省费用，不愿意在关键回合爆费清场，导致薇古丝下回合重新抽牌和聚首。</li>
+            <li>沙兵现身留得太死，忘了第一局这种快局更需要前期互动和 trick。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给沙皇玩家的核心课是：主动权不是靠最后一张沙兵现身拿到的，而是靠每回合的装备复用和沙兵逼迫，把薇古丝的资源引擎压到无法启动。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-vex" role="tabpanel" aria-labelledby="tab-vex" data-perspective-panel="vex" hidden>
+        <section id="vex-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>薇古丝视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">Noob清柒(神切)<span class="player-tag" data-player-side="薇古丝方玩家">选手</span>这场不是没有牌能打。问题在于薇古丝的好牌大多需要站上战场才有价值，而 Ai.po.tu<span class="player-tag" data-player-side="沙皇方玩家">选手</span>一直用沙兵和装备逼你先防守，导致聚首、地流之灵和薇古丝效果都来不及连起来。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>聚首必须提前规划</h3>
+              <p>薇古丝不能等到被沙兵逼上去后才想聚首。上场前就要确认这回合能否拿分、抽牌或守住场地。</p>
+            </article>
+            <article class="insight">
+              <h3>别只处理白来的沙兵</h3>
+              <p>解沙兵如果没有顺带破坏装备复用或拿到资源，沙皇下回合还会继续产出同样压力。</p>
+            </article>
+            <article class="insight">
+              <h3>卡兹克是防守核心</h3>
+              <p>第二局卡兹克一度让沙皇很难突破。薇古丝要围绕它制造沙皇不敢单推的局面。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>拆装要赶在战斗前</h3>
+              <p>斩浪剑客来得太晚时，沙皇已经完成武装复用。拆装备要阻断下一波，而不是只处理残局。</p>
+            </article>
+            <article class="insight">
+              <h3>资源牌要变成行动</h3>
+              <p>琴女、地流之灵、御风而行和薇古丝本体都需要具体战场目标。只拿在手里会被沙皇逼到无处可用。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="vex-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>薇古丝玩家要重点看的片段</h2>
+            </div>
+            <div class="time">P4 8 进 4 主赛段</div>
+          </div>
+          <p class="lead">薇古丝视角要重点看自己每一次“差一点启动”的位置：第一局英雄和聚首没有运作；第二局卡兹克、琴女和御风都有机会，但沙皇用爆费清场和灭世把窗口连续关掉。</p>
+          <div class="jump-grid" aria-label="薇古丝视角关键片段跳转">
+            <button class="jump-card" type="button" data-time="250" data-label="04:10 传奇介绍">
+              <span>04:10</span>
+              <strong>沙皇 VS 愁云使者</strong>
+              <em>对局和双方英雄确认，薇古丝需要靠站场资源和聚首展开。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="514" data-label="08:34 聚首还没启动">
+              <span>08:34</span>
+              <strong>沙皇每回合触发，薇古丝还没聚首</strong>
+              <em>这正是薇古丝最怕的节奏差。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1045" data-label="17:25 第一局投降">
+              <span>17:25</span>
+              <strong>第一局资源差过大</strong>
+              <em>手牌差和场面差同时出现，薇古丝只能认第一局。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1298" data-label="21:38 地流之灵开局">
+              <span>21:38</span>
+              <strong>第二局换备后找资源场地</strong>
+              <em>地流之灵给薇古丝反打希望，但必须真的完成聚首。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1743" data-label="29:03 卡兹克防守">
+              <span>29:03</span>
+              <strong>卡兹克逼沙皇重算</strong>
+              <em>这是薇古丝全场最值得保留和复用的防守点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2554" data-label="42:34 双魅惑解场">
+              <span>42:34</span>
+              <strong>双魅惑清沙兵</strong>
+              <em>薇古丝终于逼沙皇必须再组织进攻，但仍要防下一张沙兵现身。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2712" data-label="45:12 最后机会被灭世">
+              <span>45:12</span>
+              <strong>最后的御风窗口被封</strong>
+              <em>薇古丝只剩一张手牌，沙皇用灭世关掉翻盘线。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2897" data-label="48:17 赛后复盘">
+              <span>48:17</span>
+              <strong>为什么被沙兵突破</strong>
+              <em>解说总结沙皇如何用武装复用突破三个四费级别单位。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="vex-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>对局计划：薇古丝要让解沙兵变成资源收益</h2>
+            </div>
+            <div class="time">06:25 - 19:33</div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">08:34 - 09:10</span>
+              <span class="watch-title">聚首没有启动，节奏差已经出现</span>
+              <p>解说说沙皇每回合都在利用传奇效果，但薇古丝的聚首还没有用上。薇古丝玩家要从这里反省：防守动作必须同时服务聚首。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="514" data-label="08:34 聚首还没启动">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=514" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>观察点</th>
+                <th>薇古丝侧</th>
+                <th>沙皇侧</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>第一目标</td>
+                <td>先找一片能稳定聚首的战场，让地流之灵或英雄效果转成手牌和费用。</td>
+                <td>会不断用沙兵和装备逼你上场，阻止你舒服地站住。</td>
+              </tr>
+              <tr>
+                <td>防守方式</td>
+                <td>用卡兹克、琴女这类单位惩罚沙皇单推，而不是只用魅惑解掉临时沙兵。</td>
+                <td>会通过一起推进、装备复用和灭世绕开单点防守。</td>
+              </tr>
+              <tr>
+                <td>换备方向</td>
+                <td>拆装和回手要提前影响战斗。太晚拆守护天使或先锋之眼，沙皇已经赚完装备价值。</td>
+                <td>只要装备已经多次结算，被拆一件也不一定影响胜局。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            <p><strong>薇古丝牌表先不展示：</strong>当前数据库还没有这场 8 进 4 的文字牌表，页面暂不接入公开牌表入口；这篇先只基于真实字幕和视频画面做打法复盘。</p>
+          </div>
+        </section>
+
+        <section id="vex-framework">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>薇古丝框架：先固定一片战场，再谈资源循环</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">薇古丝打沙皇的难点是：你处理的很多单位都是白来的沙兵。如果每次处理都只是让本回合少掉一点压力，沙皇下回合会继续复制同样的问题。你要让防守变成聚首、抽牌、拆装或下一回合反推。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <h3>先保护聚首场地</h3>
+              <p>没有聚首，薇古丝的费用和手牌优势就不会出现。任何防守都要问是否能保住下一次聚首。</p>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <h3>卡兹克逼排序</h3>
+              <p>卡兹克能让沙皇不敢一个一个推进。它是防守节奏牌，要配合其他单位制造连锁压力。</p>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <h3>魅惑不要只换沙兵</h3>
+              <p>双魅惑解场后，如果没有接上抽牌或反推，沙皇只需要下一轮再产沙兵。</p>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <h3>御风要接资源点</h3>
+              <p>第二局御风留得很巧妙，但被灭世封住。使用前要确认是否还有第二层保护或替代路线。</p>
+            </li>
+          </ol>
+          <h3>薇古丝每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>我这回合处理沙兵以后，是否能拿到聚首、抽牌或下一回合主动权？</li>
+            <li>我的卡兹克、琴女和薇古丝本体是正在制造压力，还是只是在帮我被动防守？</li>
+            <li>沙皇的装备已经结算几次？现在拆装还能阻断未来，还是只是在清残局？</li>
+          </ul>
+        </section>
+
+        <section id="vex-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：先攻没有变成聚首，薇古丝被沙皇拖走节奏</h2>
+            </div>
+            <div class="time">06:25 - 19:33</div>
+          </div>
+          <p class="lead">第一局 Noob清柒(神切)<span class="player-tag" data-player-side="薇古丝方玩家">选手</span>先攻，但薇古丝没有把先攻转成稳定聚首。字幕里解说多次提到沙皇每回合都在运作，薇古丝却还没有用上聚首，这就是第一局输得很快的根本原因。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">17:25 - 19:33</span>
+              <span class="watch-title">手牌差明显，第一局只能放掉</span>
+              <p>解说总结薇古丝场面被击溃后很难回去，沙皇的后续手段比薇古丝想象中更多。薇古丝第一局的复盘重点是：前期每个防守动作有没有带来资源。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1045" data-label="17:25 第一局投降">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=1045" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>薇古丝先攻，但早期没有稳定聚首和英雄效果；沙皇连续产出沙兵和装备压力。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>薇古丝用资源处理当前战场，却没有把处理转成抽牌或费用领先，手牌差逐渐明显。</td>
+              </tr>
+              <tr>
+                <td>薇古丝复盘点</td>
+                <td>如果第一片战场无法站住，就要尽早切换到拖慢装备复用，而不是继续被沙兵牵着走。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>薇古丝不能只靠防守等沙皇变慢。沙皇一旦用装备复用压住你，薇古丝必须主动找聚首或拆装回合。</p>
+          </div>
+        </section>
+
+        <section id="vex-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：卡兹克给了机会，但薇古丝没有接上持续资源</h2>
+            </div>
+            <div class="time">21:30 - 47:16</div>
+          </div>
+          <p class="lead">第二局薇古丝的内容更丰富：地流之灵、琴女、卡兹克、艾瑞莉娅和御风都出现了。问题是这些点没有连成一条完整资源线，沙皇每次付出高费用突破后，薇古丝仍然没有足够手牌和场面反打。</p>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">29:03 - 32:09</span>
+              <span class="watch-title">卡兹克让沙皇突破成本变高</span>
+              <p>解说把卡兹克称为当前环境不错的对策卡。薇古丝玩家要学习这类防守点如何迫使沙皇一起推进或额外烧费。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="1743" data-label="29:03 卡兹克防守">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=1743" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">42:34 - 43:18</span>
+              <span class="watch-title">双魅惑清场后仍然缺少反推</span>
+              <p>薇古丝用双魅惑清掉沙皇单位，看起来有机会靠御风和地流之灵补资源。但沙皇下一波仍然能用灭世和沙兵现身继续压住。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="2554" data-label="42:34 双魅惑解场">播放这一段</button>
+            <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=4&t=2554" target="_blank" rel="noreferrer">B站打开</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="stamp">21:38</div>
+              <p>薇古丝换出地流之灵，思路正确：必须从场地和聚首上找资源，而不是只防沙兵。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">29:03</div>
+              <p>卡兹克让沙皇突破变难，但薇古丝需要把这个防守点接成抽牌或下一回合进攻。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">42:34</div>
+              <p>双魅惑清场后，薇古丝短暂看到希望；但后续手牌和费用不足，无法连续反推。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">45:12</div>
+              <p>御风路线被灭世封住，薇古丝只剩一张手牌，翻盘窗口关闭。</p>
+            </div>
+          </div>
+          <div class="note">
+            <p><strong>第二局结论：</strong>薇古丝可以用卡兹克和中型单位拖住沙皇，但拖住不等于赢。每次拖住以后都要马上接聚首、抽牌或拆装，否则沙皇下一轮还会用沙兵继续问同一道题。</p>
+          </div>
+        </section>
+
+        <section id="vex-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>薇古丝玩家可以直接照着练的清单</h2>
+            </div>
+          </div>
+          <h3>每回合都做的四个判断</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我这次防守之后，是否能完成聚首或让地流之灵补资源？</span></div>
+            <div class="check"><span class="box"></span><span>我处理的是装备复用链，还是只处理了一个白来的沙兵？</span></div>
+            <div class="check"><span class="box"></span><span>卡兹克是否迫使沙皇改变进攻排序，还是被单独换掉了？</span></div>
+            <div class="check"><span class="box"></span><span>我的御风、魅惑和拆装是否能连成两回合计划，而不是各交各的？</span></div>
+          </div>
+
+          <h3>关键牌使用规则</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>薇古丝本体</td>
+                <td>不要只当难解单位。她要配合聚首或回合外法术产生资源，否则会被沙皇逼成普通防守点。</td>
+              </tr>
+              <tr>
+                <td>地流之灵</td>
+                <td>第二局换备思路正确，但必须保证它真的带来聚首和抽牌，不能只是摆在场上等沙皇进攻。</td>
+              </tr>
+              <tr>
+                <td>恐怖机变卡兹克</td>
+                <td>专门惩罚沙皇单推。尽量让它和其他单位一起构成防线，迫使沙皇爆费或改变路线。</td>
+              </tr>
+              <tr>
+                <td>魅惑</td>
+                <td>不要只解当前沙兵。最好用在能同时阻断装备复用、保护聚首或逼沙皇交灭世的位置。</td>
+              </tr>
+              <tr>
+                <td>御风而行</td>
+                <td>用于保留最后的聚首路线，但必须预判灭世。没有第二层保护时，御风很容易被沙皇收口牌封死。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="vex-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>薇古丝玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把先攻当成自然优势，却没有在前两轮把聚首或场地资源建立起来。</li>
+            <li>用多张牌处理沙兵后，没有接上抽牌、聚首或反推，导致沙皇下回合继续重复压力。</li>
+            <li>卡兹克只作为单次防守，没有利用它逼沙皇改变整条进攻排序。</li>
+            <li>拆装备太晚，沙皇已经通过沙兵和武装复用赚完数值。</li>
+            <li>最后一攻只看到御风能过，没有同步检查沙皇是否保留灭世。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给薇古丝玩家的核心课是：防住沙兵只是第一步。真正要练的是把防守变成聚首、抽牌和拆装节奏，否则你会一直在回答沙皇重复抛出的同一道题。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
