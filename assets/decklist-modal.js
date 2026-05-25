@@ -24,6 +24,10 @@
     return Array.isArray(card) ? card[1] || 0 : card.count || 0;
   }
 
+  function getCardImage(card) {
+    return Array.isArray(card) ? card[3] || "" : card.image || "";
+  }
+
   function escapeHtml(value) {
     return String(value)
       .replaceAll("&", "&amp;")
@@ -45,8 +49,13 @@
     return cards.map((card) => {
       const meta = formatCardMeta(getCardMeta(card), rarityTags);
       const metaHtml = meta ? `<span class="deck-card-meta">${escapeHtml(meta)}</span>` : "";
+      const image = getCardImage(card);
+      const imageHtml = image
+        ? `<img class="deck-card-image" src="${escapeHtml(image)}" alt="${escapeHtml(getCardName(card))} 卡图" loading="lazy">`
+        : `<span class="deck-card-image deck-card-image-empty" aria-hidden="true"></span>`;
       return `
         <li>
+          ${imageHtml}
           <span class="deck-card-count">x${escapeHtml(getCardCount(card))}</span>
           <span>
             <span class="deck-card-name">${escapeHtml(getCardName(card))}</span>

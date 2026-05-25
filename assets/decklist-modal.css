@@ -224,7 +224,7 @@ body.deck-modal-open {
 
 .deck-card-list li {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-columns: 42px 38px minmax(0, 1fr);
   gap: 10px;
   align-items: start;
   padding: 10px 14px;
@@ -236,12 +236,31 @@ body.deck-modal-open {
 }
 
 .deck-card-count {
+  padding-top: 3px;
   color: var(--gold);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
 }
 
+.deck-card-image {
+  display: block;
+  width: 42px;
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid rgba(223, 231, 221, 0.9);
+  border-radius: 4px;
+  background: #eef2eb;
+  box-shadow: 0 5px 12px rgba(25, 39, 31, 0.12);
+}
+
+.deck-card-image-empty {
+  box-shadow: none;
+}
+
 .deck-card-name {
+  display: block;
+  padding-top: 3px;
   color: var(--green-dark);
   font-weight: 800;
   line-height: 1.35;
