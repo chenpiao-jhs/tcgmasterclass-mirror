@@ -47,18 +47,23 @@
 
   function renderCardList(cards, rarityTags) {
     return cards.map((card) => {
+      const name = getCardName(card);
       const meta = formatCardMeta(getCardMeta(card), rarityTags);
       const metaHtml = meta ? `<span class="deck-card-meta">${escapeHtml(meta)}</span>` : "";
       const image = getCardImage(card);
       const imageHtml = image
-        ? `<img class="deck-card-image" src="${escapeHtml(image)}" alt="${escapeHtml(getCardName(card))} 卡图" loading="lazy">`
+        ? `
+          <button class="deck-card-thumb" type="button" data-card-image="${escapeHtml(image)}" data-card-name="${escapeHtml(name)}" aria-label="查看 ${escapeHtml(name)} 卡图大图">
+            <img class="deck-card-image" src="${escapeHtml(image)}" alt="${escapeHtml(name)} 卡图" loading="lazy">
+          </button>
+        `
         : `<span class="deck-card-image deck-card-image-empty" aria-hidden="true"></span>`;
       return `
         <li>
           ${imageHtml}
           <span class="deck-card-count">x${escapeHtml(getCardCount(card))}</span>
           <span>
-            <span class="deck-card-name">${escapeHtml(getCardName(card))}</span>
+            <span class="deck-card-name">${escapeHtml(name)}</span>
             ${metaHtml}
           </span>
         </li>
@@ -108,19 +113,46 @@
           <button class="deck-close" type="button" data-deck-close>关闭</button>
         </div>
         <div class="deck-tabs" role="tablist" aria-label="牌表展示方式">
-          <button class="deck-tab is-active" id="deckTabImage" type="button" role="tab" aria-selected="true" aria-controls="deckPanelImage" data-deck-tab="image">图片版</button>
-          <button class="deck-tab" id="deckTabText" type="button" role="tab" aria-selected="false" aria-controls="deckPanelText" data-deck-tab="text">文字版</button>
+          <button class="deck-tab is-active" id="deckTabText" type="button" role="tab" aria-selected="true" aria-controls="deckPanelText" data-deck-tab="text">列表版</button>
+          <button class="deck-tab" id="deckTabImage" type="button" role="tab" aria-selected="false" aria-controls="deckPanelImage" data-deck-tab="image">图片版</button>
         </div>
-        <div class="deck-panel deck-image-wrap" id="deckPanelImage" role="tabpanel" aria-labelledby="deckTabImage">
-          <img id="deckModalImage" src="" alt="">
-        </div>
-        <div class="deck-panel deck-text-wrap" id="deckPanelText" role="tabpanel" aria-labelledby="deckTabText" hidden>
+        <div class="deck-panel deck-text-wrap" id="deckPanelText" role="tabpanel" aria-labelledby="deckTabText">
           <div class="deck-text-grid" id="deckTextList"></div>
+        </div>
+        <div class="deck-panel deck-image-wrap" id="deckPanelImage" role="tabpanel" aria-labelledby="deckTabImage" hidden>
+          <img id="deckModalImage" src="" alt="">
         </div>
       </div>
     `;
     document.body.append(modal);
     return modal;
+  }
+
+  function createHoverPreview() {
+    const preview = document.createElement("div");
+    preview.className = "deck-card-hover-preview";
+    preview.hidden = true;
+    preview.innerHTML = `
+      <img alt="">
+      <p></p>
+    `;
+    document.body.append(preview);
+    return preview;
+  }
+
+  function createImageLightbox() {
+    const lightbox = document.createElement("div");
+    lightbox.className = "deck-card-lightbox";
+    lightbox.hidden = true;
+    lightbox.innerHTML = `
+      <div class="deck-card-lightbox-dialog" role="dialog" aria-modal="true" aria-label="卡牌大图预览">
+        <button class="deck-card-lightbox-close" type="button" data-card-preview-close>关闭</button>
+        <img alt="">
+        <p></p>
+      </div>
+    `;
+    document.body.append(lightbox);
+    return lightbox;
   }
 
   function renderEntrypoints(mount, decks, label) {
@@ -167,21 +199,31 @@
     const textPanel = modal.querySelector("#deckPanelText");
     const textList = modal.querySelector("#deckTextList");
     const closeButton = modal.querySelector("[data-deck-close]");
+    const hoverPreview = document.querySelector(".deck-card-hover-preview") || createHoverPreview();
+    const hoverPreviewImage = hoverPreview.querySelector("img");
+    const hoverPreviewTitle = hoverPreview.querySelector("p");
+    const lightbox = document.querySelector(".deck-card-lightbox") || createImageLightbox();
+    const lightboxImage = lightbox.querySelector("img");
+    const lightboxTitle = lightbox.querySelector("p");
+    const lightboxClose = lightbox.querySelector("[data-card-preview-close]");
     let lastTrigger = null;
     let activeDeck = null;
+    let activePreviewTrigger = null;
+    let lastImageTrigger = null;
+    let lightboxPointerStartY = null;
 
     renderEntrypoints(mount, decks, label);
 
     function renderTextDeck() {
       if (!textList) return;
       if (!activeDeck) {
-        textList.innerHTML = "<p>暂无文字版牌表。</p>";
+        textList.innerHTML = "<p>暂无列表版牌表。</p>";
         return;
       }
       const sections = getSections(activeDeck, sectionConfig);
       textList.innerHTML = sections.length > 0
         ? sections.map((section) => renderDeckSection(section.title, section.cards, rarityTags)).join("")
-        : "<p>暂无文字版牌表。</p>";
+        : "<p>暂无列表版牌表。</p>";
     }
 
     function setDeckTab(tabName) {
@@ -206,6 +248,61 @@
       if (isText) renderTextDeck();
     }
 
+    function setPreviewImage(target, titleTarget, trigger) {
+      if (!target || !titleTarget || !trigger?.dataset.cardImage) return;
+      target.src = trigger.dataset.cardImage;
+      target.alt = `${trigger.dataset.cardName || "卡牌"} 卡图`;
+      titleTarget.textContent = trigger.dataset.cardName || "";
+    }
+
+    function positionHoverPreview(event, trigger) {
+      if (!hoverPreview || hoverPreview.hidden) return;
+      const rect = trigger.getBoundingClientRect();
+      const pointerX = event?.clientX || rect.right;
+      const pointerY = event?.clientY || rect.top + rect.height / 2;
+      const previewWidth = hoverPreview.offsetWidth || 220;
+      const previewHeight = hoverPreview.offsetHeight || 320;
+      const gap = 16;
+      let left = pointerX + gap;
+      if (left + previewWidth + gap > window.innerWidth) {
+        left = pointerX - previewWidth - gap;
+      }
+      left = Math.max(gap, Math.min(left, window.innerWidth - previewWidth - gap));
+      const top = Math.max(gap, Math.min(pointerY - previewHeight / 2, window.innerHeight - previewHeight - gap));
+      hoverPreview.style.left = `${left}px`;
+      hoverPreview.style.top = `${top}px`;
+    }
+
+    function showHoverPreview(trigger, event) {
+      if (!trigger?.dataset.cardImage || window.matchMedia("(hover: none)").matches) return;
+      activePreviewTrigger = trigger;
+      setPreviewImage(hoverPreviewImage, hoverPreviewTitle, trigger);
+      hoverPreview.hidden = false;
+      positionHoverPreview(event, trigger);
+    }
+
+    function hideHoverPreview() {
+      activePreviewTrigger = null;
+      if (hoverPreview) hoverPreview.hidden = true;
+    }
+
+    function openCardImage(trigger) {
+      if (!trigger?.dataset.cardImage || !lightbox || !lightboxImage || !lightboxTitle) return;
+      hideHoverPreview();
+      lastImageTrigger = trigger;
+      setPreviewImage(lightboxImage, lightboxTitle, trigger);
+      lightbox.hidden = false;
+      lightboxClose?.focus();
+    }
+
+    function closeCardImage() {
+      if (!lightbox || !lightboxImage) return;
+      lightbox.hidden = true;
+      lightboxImage.removeAttribute("src");
+      lightboxPointerStartY = null;
+      lastImageTrigger?.focus();
+    }
+
     function openDeck(button) {
       activeDeck = deckByKey.get(button.dataset.deckKey);
       if (!activeDeck || !modal || !image || !title || !player) return;
@@ -219,7 +316,7 @@
       }
       image.alt = activeDeck.alt || title.textContent;
       renderTextDeck();
-      setDeckTab(activeDeck.image ? "image" : "text");
+      setDeckTab(hasTextDeck(activeDeck) ? "text" : "image");
       modal.hidden = false;
       document.body.classList.add("deck-modal-open");
       closeButton?.focus();
@@ -231,6 +328,8 @@
       document.body.classList.remove("deck-modal-open");
       image.removeAttribute("src");
       if (textList) textList.innerHTML = "";
+      hideHoverPreview();
+      closeCardImage();
       lastTrigger?.focus();
     }
 
@@ -243,14 +342,77 @@
       tab.addEventListener("click", () => setDeckTab(tab.dataset.deckTab || "image"));
     });
 
+    textList?.addEventListener("pointerover", (event) => {
+      const trigger = event.target.closest(".deck-card-thumb");
+      if (!trigger || trigger === activePreviewTrigger) return;
+      showHoverPreview(trigger, event);
+    });
+
+    textList?.addEventListener("pointermove", (event) => {
+      const trigger = event.target.closest(".deck-card-thumb");
+      if (trigger && trigger === activePreviewTrigger) {
+        positionHoverPreview(event, trigger);
+      }
+    });
+
+    textList?.addEventListener("pointerout", (event) => {
+      const trigger = event.target.closest(".deck-card-thumb");
+      if (trigger && !trigger.contains(event.relatedTarget)) {
+        hideHoverPreview();
+      }
+    });
+
+    textList?.addEventListener("focusin", (event) => {
+      const trigger = event.target.closest(".deck-card-thumb");
+      if (trigger) showHoverPreview(trigger);
+    });
+
+    textList?.addEventListener("focusout", (event) => {
+      const trigger = event.target.closest(".deck-card-thumb");
+      if (trigger) hideHoverPreview();
+    });
+
+    textList?.addEventListener("click", (event) => {
+      const trigger = event.target.closest(".deck-card-thumb");
+      if (trigger) openCardImage(trigger);
+    });
+
+    textPanel?.addEventListener("scroll", hideHoverPreview, { passive: true });
+
     modal.addEventListener("click", (event) => {
       if (event.target === modal || event.target.closest("[data-deck-close]")) {
         closeDeck();
       }
     });
 
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox || event.target === lightboxImage || event.target.closest("[data-card-preview-close]")) {
+        closeCardImage();
+      }
+    });
+
+    lightbox.addEventListener("wheel", (event) => {
+      if (!lightbox.hidden && event.deltaY > 18) {
+        event.preventDefault();
+        closeCardImage();
+      }
+    }, { passive: false });
+
+    lightbox.addEventListener("pointerdown", (event) => {
+      lightboxPointerStartY = event.clientY;
+    });
+
+    lightbox.addEventListener("pointerup", (event) => {
+      if (lightboxPointerStartY !== null && event.clientY - lightboxPointerStartY > 48) {
+        closeCardImage();
+      }
+      lightboxPointerStartY = null;
+    });
+
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !modal.hidden) {
+      if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+        closeCardImage();
+      } else if (event.key === "Escape" && !modal.hidden) {
         closeDeck();
       }
     });
