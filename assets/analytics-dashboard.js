@@ -63,6 +63,7 @@
           <div class="bar" aria-hidden="true"><span style="width: ${width}%"></span></div>
           <div class="page-number">${formatNumber(row.pageViews)} 次</div>
           <div class="page-number">${formatNumber(row.uniqueVisitors)} 人</div>
+          <div class="page-number">${formatNumber(row.uniqueIpHashes)} IP</div>
         </div>
       `;
     }).join("");

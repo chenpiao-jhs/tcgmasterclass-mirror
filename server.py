@@ -352,7 +352,9 @@ def build_analytics_summary(query: str) -> dict:
         "title": "",
         "pageViews": 0,
         "uniqueVisitors": 0,
+        "uniqueIpHashes": 0,
         "_visitors": set(),
+        "_ipHashes": set(),
     })
     visitors = set()
     ip_hashes = set()
@@ -382,6 +384,8 @@ def build_analytics_summary(query: str) -> dict:
         page_record["pageViews"] += 1
         if visitor_id:
             page_record["_visitors"].add(visitor_id)
+        if ip_hash:
+            page_record["_ipHashes"].add(ip_hash)
 
         if visitor_id:
             visitors.add(visitor_id)
@@ -406,6 +410,7 @@ def build_analytics_summary(query: str) -> dict:
             "title": page_record["title"],
             "pageViews": page_record["pageViews"],
             "uniqueVisitors": len(page_record["_visitors"]),
+            "uniqueIpHashes": len(page_record["_ipHashes"]),
         })
     page_rows.sort(key=lambda item: (-item["pageViews"], item["pagePath"]))
 
