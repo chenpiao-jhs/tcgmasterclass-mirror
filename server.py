@@ -83,6 +83,10 @@ class GuideHandler(SimpleHTTPRequestHandler):
                     "SameSite=Lax; HttpOnly"
                 ),
             )
+        if self.is_no_store_path():
+            self.send_header("Cache-Control", "no-store, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
         self.send_header("X-Content-Type-Options", "nosniff")
         super().end_headers()
 
@@ -101,6 +105,13 @@ class GuideHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_HEAD(self):
+        parsed = urlparse(self.path)
+        if parsed.path == "/api/analytics":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
         if self.is_private_path():
             self.send_response(404)
             self.end_headers()
@@ -179,6 +190,18 @@ class GuideHandler(SimpleHTTPRequestHandler):
         return path in PRIVATE_FILES or any(
             path == prefix or path.startswith(f"{prefix}/")
             for prefix in PRIVATE_PREFIXES
+        )
+
+    def is_no_store_path(self) -> bool:
+        path = urlparse(self.path).path
+        return (
+            path == "/api/analytics"
+            or path == ANALYTICS_DASHBOARD_PREFIX
+            or path.startswith(f"{ANALYTICS_DASHBOARD_PREFIX}/")
+            or path in {
+                "/assets/analytics-dashboard.css",
+                "/assets/analytics-dashboard.js",
+            }
         )
 
     def record_page_view_if_needed(self, request_path: str):
