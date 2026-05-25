@@ -344,6 +344,15 @@ def build_analytics_summary(query: str) -> dict:
             "uniqueIpHashes": 0,
             "_visitors": set(),
             "_ipHashes": set(),
+            "_pages": defaultdict(lambda: {
+                "pagePath": "",
+                "title": "",
+                "pageViews": 0,
+                "uniqueVisitors": 0,
+                "uniqueIpHashes": 0,
+                "_visitors": set(),
+                "_ipHashes": set(),
+            }),
         }
         for index in range(days)
     }
@@ -377,6 +386,14 @@ def build_analytics_summary(query: str) -> dict:
                 daily_record["_visitors"].add(visitor_id)
             if ip_hash:
                 daily_record["_ipHashes"].add(ip_hash)
+            daily_page_record = daily_record["_pages"][page_path]
+            daily_page_record["pagePath"] = page_path
+            daily_page_record["title"] = PAGE_TITLES.get(page_path, page_path)
+            daily_page_record["pageViews"] += 1
+            if visitor_id:
+                daily_page_record["_visitors"].add(visitor_id)
+            if ip_hash:
+                daily_page_record["_ipHashes"].add(ip_hash)
 
         page_record = pages[page_path]
         page_record["pagePath"] = page_path
@@ -396,11 +413,22 @@ def build_analytics_summary(query: str) -> dict:
 
     daily_rows = []
     for daily_record in daily.values():
+        daily_page_rows = []
+        for daily_page_record in daily_record["_pages"].values():
+            daily_page_rows.append({
+                "pagePath": daily_page_record["pagePath"],
+                "title": daily_page_record["title"],
+                "pageViews": daily_page_record["pageViews"],
+                "uniqueVisitors": len(daily_page_record["_visitors"]),
+                "uniqueIpHashes": len(daily_page_record["_ipHashes"]),
+            })
+        daily_page_rows.sort(key=lambda item: (-item["pageViews"], item["pagePath"]))
         daily_rows.append({
             "date": daily_record["date"],
             "pageViews": daily_record["pageViews"],
             "uniqueVisitors": len(daily_record["_visitors"]),
             "uniqueIpHashes": len(daily_record["_ipHashes"]),
+            "pages": daily_page_rows,
         })
 
     page_rows = []

@@ -10,6 +10,8 @@
   const pageRows = document.getElementById("pageRows");
   const formatter = new Intl.NumberFormat("zh-CN");
   let refreshTimer = null;
+  let expandedDates = new Set();
+  let latestDailyRows = [];
 
   function formatNumber(value) {
     return formatter.format(value || 0);
@@ -34,15 +36,76 @@
   }
 
   function renderDaily(rows) {
+    latestDailyRows = rows;
     const reversedRows = [...rows].reverse();
-    dailyRows.innerHTML = reversedRows.map((row) => `
-      <tr>
-        <td>${row.date}</td>
+    dailyRows.innerHTML = reversedRows.map((row) => renderDailyRow(row)).join("");
+  }
+
+  function renderDailyRow(row) {
+    const isExpanded = expandedDates.has(row.date);
+    const pageCount = row.pages ? row.pages.length : 0;
+    const detailRow = isExpanded ? renderDailyDetailRow(row) : "";
+    return `
+      <tr class="daily-row ${isExpanded ? "expanded" : ""}" data-date="${row.date}" tabindex="0" aria-expanded="${isExpanded}">
+        <td>
+          <span class="expand-mark" aria-hidden="true">${isExpanded ? "-" : "+"}</span>
+          <span>${row.date}</span>
+          <span class="page-count">${pageCount} 页</span>
+        </td>
         <td>${formatNumber(row.pageViews)}</td>
         <td>${formatNumber(row.uniqueVisitors)}</td>
         <td>${formatNumber(row.uniqueIpHashes)}</td>
       </tr>
-    `).join("");
+      ${detailRow}
+    `;
+  }
+
+  function renderDailyDetailRow(row) {
+    if (!row.pages || !row.pages.length) {
+      return `
+        <tr class="daily-detail-row">
+          <td colspan="4">
+            <div class="daily-detail empty-state">这一天还没有页面访问数据。</div>
+          </td>
+        </tr>
+      `;
+    }
+
+    const maxViews = Math.max(...row.pages.map((page) => page.pageViews), 1);
+    const pageRowsHtml = row.pages.map((page) => {
+      const width = Math.max(4, Math.round((page.pageViews / maxViews) * 100));
+      return `
+        <div class="daily-page-row">
+          <div class="page-title">
+            <strong>${page.title}</strong>
+            <span>${page.pagePath}</span>
+          </div>
+          <div class="bar" aria-hidden="true"><span style="width: ${width}%"></span></div>
+          <div class="page-number">${formatNumber(page.pageViews)} 次</div>
+          <div class="page-number">${formatNumber(page.uniqueVisitors)} 人</div>
+          <div class="page-number">${formatNumber(page.uniqueIpHashes)} IP</div>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <tr class="daily-detail-row">
+        <td colspan="4">
+          <div class="daily-detail">
+            ${pageRowsHtml}
+          </div>
+        </td>
+      </tr>
+    `;
+  }
+
+  function toggleDailyRow(date) {
+    if (expandedDates.has(date)) {
+      expandedDates.delete(date);
+    } else {
+      expandedDates.add(date);
+    }
+    renderDaily(latestDailyRows);
   }
 
   function renderPages(rows) {
@@ -104,6 +167,24 @@
 
   refreshButton.addEventListener("click", loadAnalytics);
   daysSelect.addEventListener("change", loadAnalytics);
+  dailyRows.addEventListener("click", (event) => {
+    const row = event.target.closest(".daily-row");
+    if (!row) {
+      return;
+    }
+    toggleDailyRow(row.dataset.date);
+  });
+  dailyRows.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+    const row = event.target.closest(".daily-row");
+    if (!row) {
+      return;
+    }
+    event.preventDefault();
+    toggleDailyRow(row.dataset.date);
+  });
   loadAnalytics();
   scheduleRefresh();
 })();
