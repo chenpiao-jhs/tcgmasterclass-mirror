@@ -294,7 +294,7 @@ body.deck-modal-open {
 .deck-card-hover-preview {
   position: fixed;
   z-index: 130;
-  width: min(240px, calc(100vw - 32px));
+  width: min(340px, calc(100vw - 32px));
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 8px;
@@ -311,6 +311,9 @@ body.deck-modal-open {
 .deck-card-hover-preview img {
   display: block;
   width: 100%;
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+  object-position: top center;
   border-radius: 6px;
 }
 
