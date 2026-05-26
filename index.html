@@ -204,40 +204,46 @@
     }
 
     .station-group {
-      margin-top: 26px;
+      margin-top: 36px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(95, 107, 99, 0.2);
     }
 
     .station-group:first-of-type {
-      margin-top: 0;
+      margin-top: 20px;
+      padding-top: 24px;
     }
 
     .station-title {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin: 0 0 14px;
+      gap: 8px;
+      margin: 0 0 18px;
       color: var(--green-dark);
-      font-size: 22px;
+      font-size: 26px;
       line-height: 1.2;
       font-weight: 850;
     }
 
-    .station-title::after {
+    .station-title::before {
       content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--line);
+      display: none;
     }
 
     .station-review-count {
-      flex: none;
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: #edf4ee;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
       color: var(--green-dark);
-      font-size: 13px;
-      font-weight: 850;
+      font-size: 16px;
+      font-weight: 500;
       white-space: nowrap;
+    }
+
+    .station-review-count::before {
+      content: "·";
+      color: var(--green-dark);
+      font-weight: 500;
     }
 
     .guide-card {
@@ -439,7 +445,11 @@
       }
 
       .station-title {
-        font-size: 18px;
+        font-size: 22px;
+      }
+
+      .station-review-count {
+        font-size: 14px;
       }
 
       .season-panel-head {
