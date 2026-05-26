@@ -537,6 +537,616 @@ window.tcgXianDecklists = {
           "cardVersionId": 501749
         }
       ]
+    },
+    "sdubby-irelia": {
+      "key": "sdubby-irelia",
+      "deckId": 5098510,
+      "playerId": 392303,
+      "publicCode": "putnuhcerg",
+      "player": "紫禁麻袋Sdubby",
+      "databasePlayer": "紫禁·麻袋·Sdubby",
+      "rank": 4,
+      "deckName": "抱佛脚",
+      "deckCategory": "艾瑞莉娅-刀锋舞者",
+      "title": "紫禁麻袋Sdubby 的刀妹牌表",
+      "buttonLabel": "刀妹牌表",
+      "main": [
+        {
+          "name": "刀锋舞者",
+          "count": 1,
+          "meta": "传奇｜绿/紫｜Promo",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/620-20260105190509.jpg",
+          "cardId": 620,
+          "cardVersionId": 501159
+        },
+        {
+          "name": "艾瑞莉娅, 虔心承志",
+          "count": 1,
+          "meta": "英雄单位｜绿｜5费｜4力量｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/421-sc-1764067012.jpg",
+          "cardId": 500004,
+          "cardVersionId": 500486
+        },
+        {
+          "name": "距破之舞",
+          "count": 3,
+          "meta": "专属法术｜绿/紫｜1费｜史诗",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/415-sc-1764067045.jpg",
+          "cardId": 500008,
+          "cardVersionId": 500457
+        },
+        {
+          "name": "菲兹, 捣蛋鬼",
+          "count": 1,
+          "meta": "英雄单位｜紫｜3费｜3力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/519-sc-1764298878.jpg",
+          "cardId": 500098,
+          "cardVersionId": 500550
+        },
+        {
+          "name": "迅捷蟹",
+          "count": 3,
+          "meta": "单位｜绿｜2费｜0力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260325fd30ef1984e05adca8aff02bce953b0e.jpg",
+          "cardId": 500499,
+          "cardVersionId": 501929
+        },
+        {
+          "name": "天角牧者",
+          "count": 3,
+          "meta": "单位｜绿｜4费｜3力量｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/513-sc-1764298873.jpg",
+          "cardId": 500095,
+          "cardVersionId": 500546
+        },
+        {
+          "name": "自适应机器人",
+          "count": 1,
+          "meta": "单位｜绿｜4费｜3力量｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/162-sc-1764067030.jpg",
+          "cardId": 230,
+          "cardVersionId": 254
+        },
+        {
+          "name": "控潮者",
+          "count": 2,
+          "meta": "单位｜紫｜2费｜2力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/344-sc-1764067074.jpg",
+          "cardId": 511,
+          "cardVersionId": 543
+        },
+        {
+          "name": "造化弄人",
+          "count": 2,
+          "meta": "法术｜紫｜3费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/764-sc-1773975711.jpg",
+          "cardId": 500392,
+          "cardVersionId": 501749
+        },
+        {
+          "name": "极速反制",
+          "count": 2,
+          "meta": "法术｜绿｜2费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/512-sc-1764298870.jpg",
+          "cardId": 500100,
+          "cardVersionId": 500554
+        },
+        {
+          "name": "魅惑妖术",
+          "count": 2,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/120-cvx-20250609231831.jpg",
+          "cardId": 115,
+          "cardVersionId": 120
+        },
+        {
+          "name": "蔑视",
+          "count": 3,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/122-cvx-20250609231831.jpg",
+          "cardId": 117,
+          "cardVersionId": 122
+        },
+        {
+          "name": "决斗架势",
+          "count": 2,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/123-cvx-20250609231831.jpg",
+          "cardId": 118,
+          "cardVersionId": 123
+        },
+        {
+          "name": "训练有素",
+          "count": 3,
+          "meta": "法术｜绿｜2费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/127-cvx-20250609231831.jpg",
+          "cardId": 122,
+          "cardVersionId": 127
+        },
+        {
+          "name": "罡风",
+          "count": 1,
+          "meta": "法术｜紫｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/169-cvx-20250609231833.jpg",
+          "cardId": 155,
+          "cardVersionId": 169
+        },
+        {
+          "name": "驭风而行",
+          "count": 2,
+          "meta": "法术｜紫｜2费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/327-sc-1764067066.jpg",
+          "cardId": 500,
+          "cardVersionId": 532
+        },
+        {
+          "name": "卡牌骗术",
+          "count": 2,
+          "meta": "法术｜紫｜1费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/328-sc-1764067067.jpg",
+          "cardId": 504,
+          "cardVersionId": 536
+        },
+        {
+          "name": "守护天使",
+          "count": 3,
+          "meta": "装备｜绿｜2费｜1力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/405-sc-1764067011.jpg",
+          "cardId": 624,
+          "cardVersionId": 948
+        },
+        {
+          "name": "轻灵之靴",
+          "count": 2,
+          "meta": "装备｜紫｜3费｜2力量｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/451-sc-1764067026.jpg",
+          "cardId": 500025,
+          "cardVersionId": 500451
+        },
+        {
+          "name": "夜之锋刃",
+          "count": 1,
+          "meta": "装备｜紫｜3费｜2力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/625-sc-1764817295.jpg",
+          "cardId": 500127,
+          "cardVersionId": 500721
+        },
+        {
+          "name": "中娅沙漏",
+          "count": 1,
+          "meta": "装备｜绿｜2费｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/133-cvx-20250609231832.jpg",
+          "cardId": 126,
+          "cardVersionId": 133
+        },
+        {
+          "name": "废弃大厅",
+          "count": 1,
+          "meta": "战场｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/2026032605ff16d1d57027f79f5df0f487b68a54.jpg",
+          "cardId": 500534,
+          "cardVersionId": 501966
+        },
+        {
+          "name": "沉没神庙",
+          "count": 1,
+          "meta": "战场｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/647-sc-1769680685.jpg",
+          "cardId": 500151,
+          "cardVersionId": 500729
+        },
+        {
+          "name": "巨神峰之巅",
+          "count": 1,
+          "meta": "战场｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/289-sc-1769680679.jpg",
+          "cardId": 530,
+          "cardVersionId": 562
+        },
+        {
+          "name": "翠意符文",
+          "count": 6,
+          "meta": "符文｜绿｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/119-cvx-20250609231831.jpg",
+          "cardId": 114,
+          "cardVersionId": 119
+        },
+        {
+          "name": "混沌符文",
+          "count": 6,
+          "meta": "符文｜紫｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/168-cvx-20250609231833.jpg",
+          "cardId": 154,
+          "cardVersionId": 168
+        }
+      ],
+      "side": [
+        {
+          "name": "薇古丝, 冷眼旁观",
+          "count": 1,
+          "meta": "英雄单位｜紫｜4费｜4力量｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202603272131d52d08d37e8db2ed6dc98958b047.jpg",
+          "cardId": 500523,
+          "cardVersionId": 501955
+        },
+        {
+          "name": "薇古丝, 郁郁",
+          "count": 2,
+          "meta": "英雄单位｜紫｜5费｜5力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/520-sc-1764298880.jpg",
+          "cardId": 500094,
+          "cardVersionId": 500545
+        },
+        {
+          "name": "自适应机器人",
+          "count": 1,
+          "meta": "单位｜绿｜4费｜3力量｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/162-sc-1764067030.jpg",
+          "cardId": 230,
+          "cardVersionId": 254
+        },
+        {
+          "name": "造化弄人",
+          "count": 1,
+          "meta": "法术｜紫｜3费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/764-sc-1773975711.jpg",
+          "cardId": 500392,
+          "cardVersionId": 501749
+        },
+        {
+          "name": "紧急召回",
+          "count": 1,
+          "meta": "法术｜紫｜1费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/623-sc-1764817298.jpg",
+          "cardId": 500165,
+          "cardVersionId": 500746
+        },
+        {
+          "name": "罡风",
+          "count": 1,
+          "meta": "法术｜紫｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/169-cvx-20250609231833.jpg",
+          "cardId": 155,
+          "cardVersionId": 169
+        },
+        {
+          "name": "玄冰之心",
+          "count": 1,
+          "meta": "装备｜绿｜3费｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/588-sc-1764817279.jpg",
+          "cardId": 500200,
+          "cardVersionId": 500796
+        }
+      ]
+    },
+    "qingqi-vex": {
+      "key": "qingqi-vex",
+      "deckId": 5098676,
+      "playerId": 388376,
+      "publicCode": "baaknuwtum",
+      "player": "Noob清柒(神切)",
+      "databasePlayer": "卡殿.Noob清柒（神切）",
+      "rank": 5,
+      "deckName": "熬夜清柒",
+      "deckCategory": "薇古丝-愁云使者",
+      "title": "Noob清柒(神切) 的薇古丝牌表",
+      "buttonLabel": "薇古丝牌表",
+      "main": [
+        {
+          "name": "愁云使者",
+          "count": 1,
+          "meta": "传奇｜绿/紫｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260325e889e5b8e5a5bb93e05749248399a514.jpg",
+          "cardId": 500417,
+          "cardVersionId": 501987
+        },
+        {
+          "name": "薇古丝, 冷眼旁观",
+          "count": 1,
+          "meta": "英雄单位｜紫｜4费｜4力量｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202603272131d52d08d37e8db2ed6dc98958b047.jpg",
+          "cardId": 500523,
+          "cardVersionId": 501955
+        },
+        {
+          "name": "走开",
+          "count": 2,
+          "meta": "法术｜绿｜3费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/838-sc-1774062091.jpg",
+          "cardId": 500357,
+          "cardVersionId": 501729
+        },
+        {
+          "name": "造化弄人",
+          "count": 2,
+          "meta": "法术｜紫｜3费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/764-sc-1773975711.jpg",
+          "cardId": 500392,
+          "cardVersionId": 501749
+        },
+        {
+          "name": "换换乐",
+          "count": 2,
+          "meta": "法术｜紫｜2费｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/453-sc-1764067025.jpg",
+          "cardId": 500032,
+          "cardVersionId": 500467
+        },
+        {
+          "name": "强买强卖",
+          "count": 1,
+          "meta": "法术｜紫｜2费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/555-sc-1764471679.jpg",
+          "cardId": 500060,
+          "cardVersionId": 500507
+        },
+        {
+          "name": "魅惑妖术",
+          "count": 2,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/120-cvx-20250609231831.jpg",
+          "cardId": 115,
+          "cardVersionId": 120
+        },
+        {
+          "name": "蔑视",
+          "count": 3,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/122-cvx-20250609231831.jpg",
+          "cardId": 117,
+          "cardVersionId": 122
+        },
+        {
+          "name": "训练有素",
+          "count": 3,
+          "meta": "法术｜绿｜2费｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/127-cvx-20250609231831.jpg",
+          "cardId": 122,
+          "cardVersionId": 127
+        },
+        {
+          "name": "罡风",
+          "count": 1,
+          "meta": "法术｜紫｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/169-cvx-20250609231833.jpg",
+          "cardId": 155,
+          "cardVersionId": 169
+        },
+        {
+          "name": "轻灵之靴",
+          "count": 2,
+          "meta": "装备｜紫｜3费｜2力量｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/451-sc-1764067026.jpg",
+          "cardId": 500025,
+          "cardVersionId": 500451
+        },
+        {
+          "name": "夜之锋刃",
+          "count": 3,
+          "meta": "装备｜紫｜3费｜2力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/625-sc-1764817295.jpg",
+          "cardId": 500127,
+          "cardVersionId": 500721
+        },
+        {
+          "name": "临终仪式",
+          "count": 1,
+          "meta": "装备｜紫｜3费｜2力量｜史诗",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/456-sc-1764067027.jpg",
+          "cardId": 500036,
+          "cardVersionId": 500475
+        },
+        {
+          "name": "中娅沙漏",
+          "count": 2,
+          "meta": "装备｜绿｜2费｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/133-cvx-20250609231832.jpg",
+          "cardId": 126,
+          "cardVersionId": 133
+        },
+        {
+          "name": "变异猫咪",
+          "count": 1,
+          "meta": "单位｜绿｜2费｜1力量｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260401604cc7570e991e1173d78ea92f5501af.jpg",
+          "cardId": 500363,
+          "cardVersionId": 501825
+        },
+        {
+          "name": "迅捷蟹",
+          "count": 1,
+          "meta": "单位｜绿｜2费｜0力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260325fd30ef1984e05adca8aff02bce953b0e.jpg",
+          "cardId": 500499,
+          "cardVersionId": 501929
+        },
+        {
+          "name": "狂热粉丝",
+          "count": 2,
+          "meta": "单位｜紫｜2费｜2力量｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/411-sc-1764067025.jpg",
+          "cardId": 617,
+          "cardVersionId": 941
+        },
+        {
+          "name": "控潮者",
+          "count": 2,
+          "meta": "单位｜紫｜2费｜2力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/344-sc-1764067074.jpg",
+          "cardId": 511,
+          "cardVersionId": 543
+        },
+        {
+          "name": "卡兹克, 恐怖畸变",
+          "count": 2,
+          "meta": "英雄单位｜紫｜4费｜4力量｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/869-sc-1774148521.jpg",
+          "cardId": 500399,
+          "cardVersionId": 501760
+        },
+        {
+          "name": "伊芙琳, 摄人心魄",
+          "count": 2,
+          "meta": "英雄单位｜紫｜2费｜2力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260326cff09b8f703f74e4cbed67cd109f4021.jpg",
+          "cardId": 500513,
+          "cardVersionId": 501943
+        },
+        {
+          "name": "德莱文, 艺高胆大",
+          "count": 1,
+          "meta": "英雄单位｜紫｜6费｜6力量｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/455-sc-1764067027.jpg",
+          "cardId": 500048,
+          "cardVersionId": 500492
+        },
+        {
+          "name": "娑娜, 清心谐律",
+          "count": 2,
+          "meta": "英雄单位｜绿｜4费｜4力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/156-sc-1764067033.jpg",
+          "cardId": 223,
+          "cardVersionId": 247
+        },
+        {
+          "name": "鬼祟的水手",
+          "count": 1,
+          "meta": "单位｜紫｜3费｜2力量｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/243-sc-1764067066.jpg",
+          "cardId": 318,
+          "cardVersionId": 339
+        },
+        {
+          "name": "斩剑浪客",
+          "count": 1,
+          "meta": "单位｜绿｜3费｜2力量｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/577-sc-1764817272.jpg",
+          "cardId": 500137,
+          "cardVersionId": 500775
+        },
+        {
+          "name": "帝柳之林",
+          "count": 1,
+          "meta": "战场｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/284-sc-1769680681.jpg",
+          "cardId": 525,
+          "cardVersionId": 557
+        },
+        {
+          "name": "星尖峰",
+          "count": 1,
+          "meta": "战场｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/226-sc-1769680674.jpg",
+          "cardId": 327,
+          "cardVersionId": 348
+        },
+        {
+          "name": "荣耀竞技场",
+          "count": 1,
+          "meta": "战场｜不凡",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/177-sc-1769680680.jpg",
+          "cardId": 262,
+          "cardVersionId": 279
+        },
+        {
+          "name": "翠意符文",
+          "count": 5,
+          "meta": "符文｜绿｜Promo",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/706-sc-1766631697.jpg",
+          "cardId": 114,
+          "cardVersionId": 501105
+        },
+        {
+          "name": "混沌符文",
+          "count": 1,
+          "meta": "符文｜紫｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/2026040341da9314131b76d17294772dbc598f3e.jpg",
+          "cardId": 154,
+          "cardVersionId": 502274
+        },
+        {
+          "name": "混沌符文",
+          "count": 2,
+          "meta": "符文｜紫｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/701-sc-1764855446.jpg",
+          "cardId": 154,
+          "cardVersionId": 500846
+        },
+        {
+          "name": "混沌符文",
+          "count": 1,
+          "meta": "符文｜紫｜Promo",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/709-sc-1766631700.jpg",
+          "cardId": 154,
+          "cardVersionId": 501103
+        },
+        {
+          "name": "混沌符文",
+          "count": 3,
+          "meta": "符文｜紫｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/393-sc-1764067066.jpg",
+          "cardId": 154,
+          "cardVersionId": 827
+        }
+      ],
+      "side": [
+        {
+          "name": "斩剑浪客",
+          "count": 1,
+          "meta": "单位｜绿｜3费｜2力量｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/577-sc-1764817272.jpg",
+          "cardId": 500137,
+          "cardVersionId": 500775
+        },
+        {
+          "name": "辟心玄龙",
+          "count": 2,
+          "meta": "单位｜紫｜7费｜7力量｜稀有",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/278-sc-1764067071.jpg",
+          "cardId": 446,
+          "cardVersionId": 477
+        },
+        {
+          "name": "魅惑妖术",
+          "count": 1,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/120-cvx-20250609231831.jpg",
+          "cardId": 115,
+          "cardVersionId": 120
+        },
+        {
+          "name": "艾瑞莉娅, 虔心承志",
+          "count": 1,
+          "meta": "英雄单位｜绿｜5费｜4力量｜异画",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/436-sc-1764067046.jpg",
+          "cardId": 500004,
+          "cardVersionId": 500442
+        },
+        {
+          "name": "决斗架势",
+          "count": 1,
+          "meta": "法术｜绿｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/123-cvx-20250609231831.jpg",
+          "cardId": 118,
+          "cardVersionId": 123
+        },
+        {
+          "name": "罡风",
+          "count": 1,
+          "meta": "法术｜紫｜1费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/169-cvx-20250609231833.jpg",
+          "cardId": 155,
+          "cardVersionId": 169
+        },
+        {
+          "name": "驭风而行",
+          "count": 1,
+          "meta": "法术｜紫｜2费｜普通",
+          "image": "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/327-sc-1764067066.jpg",
+          "cardId": 500,
+          "cardVersionId": 532
+        }
+      ]
     }
   }
 };

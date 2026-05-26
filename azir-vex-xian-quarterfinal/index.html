@@ -609,6 +609,7 @@
   <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260525">
   <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
   <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260525e">
   <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
   <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
   <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
@@ -643,6 +644,7 @@
         <button class="perspective-tab active" id="tab-azir-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-azir" data-perspective-target="azir">沙皇玩家视角</button>
         <button class="perspective-tab" id="tab-vex-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-vex" data-perspective-target="vex">薇古丝玩家视角</button>
       </div>
+      <section id="decklistMount"></section>
       <nav class="nav" aria-label="页面导航">
         <div class="brand">西安 8 进 4 双视角</div>
         <div class="links" data-perspective-nav="azir">
@@ -806,7 +808,7 @@
             </tbody>
           </table>
           <div class="note">
-            <p><strong>牌表先不展示：</strong>按当前数据库状态，这场 8 进 4 的文字牌表还没有更新；页面暂不接入公开牌表入口，避免错误绑定。</p>
+            <p><strong>沙皇牌表自检：</strong>这套沙皇的重点不是单张装备爆发，而是低费武装、沙兵现身和持续单位压力能否一轮接一轮逼薇古丝先防守。</p>
           </div>
         </section>
 
@@ -1136,7 +1138,7 @@
             </tbody>
           </table>
           <div class="note">
-            <p><strong>薇古丝牌表先不展示：</strong>当前数据库还没有这场 8 进 4 的文字牌表，页面暂不接入公开牌表入口；这篇先只基于真实字幕和视频画面做打法复盘。</p>
+            <p><strong>薇古丝牌表自检：</strong>这套薇古丝要同时检查聚首资源、拆装回手和中期单位密度。只解沙兵不够，防守必须能转成下一轮资源。</p>
           </div>
         </section>
 
@@ -1336,6 +1338,19 @@
   <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
   <script src="../assets/video-hub.js"></script>
   <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260526b"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgXianDecklists.byKey,
+      decks: [
+        { sourceKey: "aipotu-azir" },
+        { sourceKey: "qingqi-vex" }
+      ]
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260525e"></script>
   <script src="../assets/article-return-home.js"></script>
   <script src="../assets/feedback-widget.js"></script>
 </body>

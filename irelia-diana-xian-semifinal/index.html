@@ -609,6 +609,7 @@
   <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260525">
   <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
   <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260525e">
   <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
   <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
   <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
@@ -618,10 +619,10 @@
     <div class="hero-inner">
       <div class="eyebrow">符文战场 TCG · 西安站半决赛复盘</div>
       <h1>皎月打刀妹：专法、回手与废弃大厅的资源逼迫课</h1>
-      <p class="summary">把放逐之刃 2:0 紫禁群英Stubby 的皎月女神 VS 刀锋舞者半决赛，整理成皎月玩家和刀妹玩家都能对照练习的打法页面。</p>
+      <p class="summary">把放逐之刃 2:0 紫禁麻袋Sdubby 的皎月女神 VS 刀锋舞者半决赛，整理成皎月玩家和刀妹玩家都能对照练习的打法页面。</p>
       <ul class="hero-meta">
         <li>比赛：第三赛季区域公开赛西安站 DAY2 第 5P</li>
-        <li>对局：刀锋舞者（紫禁群英Stubby） VS 皎月女神（放逐之刃）</li>
+        <li>对局：刀锋舞者（紫禁麻袋Sdubby） VS 皎月女神（放逐之刃）</li>
         <li>结果：放逐之刃 2:0 晋级决赛</li>
       </ul>
     </div>
@@ -643,6 +644,7 @@
         <button class="perspective-tab active" id="tab-diana-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
         <button class="perspective-tab" id="tab-irelia-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-irelia" data-perspective-target="irelia">刀妹玩家视角</button>
       </div>
+      <section id="decklistMount"></section>
       <nav class="nav" aria-label="页面导航">
         <div class="brand">西安半决赛双视角</div>
         <div class="links" data-perspective-nav="diana">
@@ -722,7 +724,7 @@
             <button class="jump-card active" type="button" data-time="125" data-label="02:05 四进二开场">
               <span>02:05</span>
               <strong>四强对阵与选手名</strong>
-              <em>放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>使用皎月，紫禁群英Stubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>使用刀妹。</em>
+              <em>放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>使用皎月，紫禁麻袋Sdubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>使用刀妹。</em>
             </button>
             <button class="jump-card" type="button" data-time="165" data-label="02:45 皎月难点">
               <span>02:45</span>
@@ -811,7 +813,7 @@
             </tbody>
           </table>
           <div class="note">
-            <p><strong>皎月牌表先不展示：</strong>当前数据库还没有这场半决赛的文字牌表，页面暂不接入公开牌表入口；这篇先只基于真实字幕和视频画面做打法复盘。</p>
+            <p><strong>皎月牌表自检：</strong>这套皎月的拆装和回手必须和单位曲线一起出现。只把刀妹送回手还不够，后续要能继续铺场或补资源。</p>
           </div>
         </section>
 
@@ -862,7 +864,7 @@
             </div>
             <div class="time">09:50 - 32:29</div>
           </div>
-          <p class="lead">第一局紫禁群英Stubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>的刀妹在 6 费回合落地，表面上还有一费保护和灭世护航，但放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>手里正好有强买强卖。这个窗口告诉皎月玩家：专法不是越早越好，而是要在对手只能保护一层时交。</p>
+          <p class="lead">第一局紫禁麻袋Sdubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>的刀妹在 6 费回合落地，表面上还有一费保护和灭世护航，但放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>手里正好有强买强卖。这个窗口告诉皎月玩家：专法不是越早越好，而是要在对手只能保护一层时交。</p>
           <div class="watch-card">
             <div>
               <span class="watch-time">10:05 - 11:55</span>
@@ -914,7 +916,7 @@
             </div>
             <div class="time">36:10 - 78:16</div>
           </div>
-          <p class="lead">第二局刀妹先攻翻出废弃大厅，紫禁群英Stubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>终于拿到更理想的战场。但放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>没有把比赛变成单纯比战力，而是通过烟雾弹、御风、菲兹和造化弄人一层层测试资源，最终让刀妹回到手牌。</p>
+          <p class="lead">第二局刀妹先攻翻出废弃大厅，紫禁麻袋Sdubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>终于拿到更理想的战场。但放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>没有把比赛变成单纯比战力，而是通过烟雾弹、御风、菲兹和造化弄人一层层测试资源，最终让刀妹回到手牌。</p>
           <div class="watch-card">
             <div>
               <span class="watch-time">36:10 - 37:25</span>
@@ -1035,7 +1037,7 @@
               <h2>刀妹视角先记住这五句话</h2>
             </div>
           </div>
-          <p class="lead">紫禁群英Stubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>两局都不是没有赢点。问题在于，放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>把刀妹的装备、移动和保护费拆得非常细。刀妹玩家要学的是：废弃大厅很强，但如果核心被月之降临或造化弄人反复送走，场地加成也不能替你结算胜利。</p>
+          <p class="lead">紫禁麻袋Sdubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>两局都不是没有赢点。问题在于，放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>把刀妹的装备、移动和保护费拆得非常细。刀妹玩家要学的是：废弃大厅很强，但如果核心被月之降临或造化弄人反复送走，场地加成也不能替你结算胜利。</p>
           <div class="grid-3">
             <article class="insight">
               <h3>核心落地前先垫容错</h3>
@@ -1159,7 +1161,7 @@
             </tbody>
           </table>
           <div class="note">
-            <p><strong>刀妹牌表先不展示：</strong>当前数据库还没有这场半决赛的文字牌表，页面暂不接入公开牌表入口；这篇先只基于真实字幕和视频画面做打法复盘。</p>
+            <p><strong>刀妹牌表自检：</strong>这套刀妹的核心是保护费、位移和废弃大厅节奏。面对皎月时，先保证核心站得住，再追求增益爆发。</p>
           </div>
         </section>
 
@@ -1210,7 +1212,7 @@
             </div>
             <div class="time">09:05 - 32:29</div>
           </div>
-          <p class="lead">第一局刀妹的问题不是开局完全崩掉，而是核心落地时的防线太薄。紫禁群英Stubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>手里有灭世，但只剩一费保护；放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>的强买强卖刚好让这张灭世变成无效交换。</p>
+          <p class="lead">第一局刀妹的问题不是开局完全崩掉，而是核心落地时的防线太薄。紫禁麻袋Sdubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>手里有灭世，但只剩一费保护；放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>的强买强卖刚好让这张灭世变成无效交换。</p>
           <div class="watch-card">
             <div>
               <span class="watch-time">09:05 - 10:00</span>
@@ -1258,7 +1260,7 @@
             </div>
             <div class="time">36:05 - 78:16</div>
           </div>
-          <p class="lead">第二局刀妹拿到先攻废弃大厅，这是紫禁群英Stubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>最需要的战场。但比赛没有变成刀妹熟悉的正面数值题，因为放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>一直在用回手和减战力改变结算方式。</p>
+          <p class="lead">第二局刀妹拿到先攻废弃大厅，这是紫禁麻袋Sdubby<span class="player-tag" data-player-side="刀妹方玩家">选手</span>最需要的战场。但比赛没有变成刀妹熟悉的正面数值题，因为放逐之刃<span class="player-tag" data-player-side="皎月方玩家">选手</span>一直在用回手和减战力改变结算方式。</p>
           <div class="watch-card">
             <div>
               <span class="watch-time">36:05 - 36:25</span>
@@ -1368,6 +1370,19 @@
   <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
   <script src="../assets/video-hub.js"></script>
   <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260526b"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgXianDecklists.byKey,
+      decks: [
+        { sourceKey: "fangzhu-diana" },
+        { sourceKey: "sdubby-irelia" }
+      ]
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260525e"></script>
   <script src="../assets/article-return-home.js"></script>
   <script src="../assets/feedback-widget.js"></script>
 </body>
