@@ -726,6 +726,7 @@
   <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260525">
   <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
   <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260528-cardlinks-all">
   <link rel="stylesheet" href="../assets/watch-card.css?v=detail-mobile-20260520c">
   <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
   <link rel="stylesheet" href="../assets/detail-content.css?v=detail-mobile-20260520c">
@@ -1210,6 +1211,19 @@
   <script src="../assets/page-nav.js?v=detail-mobile-20260520c"></script>
   <script src="../assets/video-hub.js"></script>
   <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/suzhou-decklists.js?v=suzhou-decklists-20260525e"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260526b"></script>
+  <script>
+    window.tcgArticleCardLinkConfig = {
+      root: "main",
+      dataSources: [
+        window.tcgSuzhouDecklists.byKey,
+        window.tcgXianDecklists.byKey
+      ],
+      exclude: ["刀妹", "薇古丝"]
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260528-cardlinks-all"></script>
   <script src="../assets/article-return-home.js"></script>
   <script src="../assets/feedback-widget.js"></script>
 </body>
