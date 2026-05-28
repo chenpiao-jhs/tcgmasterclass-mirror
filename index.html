@@ -268,6 +268,131 @@
       aspect-ratio: 16 / 9;
       background: #101712 center / cover no-repeat;
       border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thumb.has-duel-cover {
+      background-image: none !important;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(184, 137, 46, 0.16), transparent 42%),
+        #101712;
+    }
+
+    .duel-cover {
+      --duel-panel-width: 62.5%;
+      --duel-right-start: 37.5%;
+      --duel-left-cut-top: 70.4%;
+      --duel-left-cut-bottom: 89.6%;
+      --duel-right-cut-top: 10.4%;
+      --duel-right-cut-bottom: 29.6%;
+      --duel-image-width: 89.6%;
+      position: absolute;
+      inset: 0;
+      display: block;
+      overflow: hidden;
+      background: #101712;
+    }
+
+    .duel-cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.1), transparent 28%, transparent 72%, rgba(8, 18, 13, 0.16)),
+        linear-gradient(180deg, transparent 72%, rgba(8, 18, 13, 0.34));
+      pointer-events: none;
+    }
+
+    .duel-mask {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: var(--duel-panel-width);
+      overflow: hidden;
+      background: #101712;
+    }
+
+    .duel-mask.is-left {
+      left: 0;
+      clip-path: polygon(0 0, var(--duel-left-cut-top) 0, var(--duel-left-cut-bottom) 100%, 0 100%);
+      z-index: 2;
+    }
+
+    .duel-mask.is-right {
+      left: var(--duel-right-start);
+      clip-path: polygon(var(--duel-right-cut-top) 0, 100% 0, 100% 100%, var(--duel-right-cut-bottom) 100%);
+      z-index: 1;
+    }
+
+    .duel-mask::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.16), transparent 36%, rgba(8, 18, 13, 0.18)),
+        radial-gradient(circle at 50% 34%, transparent, rgba(8, 18, 13, 0.24) 74%);
+      pointer-events: none;
+    }
+
+    .duel-mask.is-left::before {
+      content: "";
+      position: absolute;
+      top: -12%;
+      right: 20%;
+      width: 2px;
+      height: 132%;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.48), transparent);
+      transform: rotate(-12deg);
+      transform-origin: center;
+      z-index: 3;
+    }
+
+    .duel-image-plane {
+      position: absolute;
+      left: 0;
+      top: -4.17%;
+      width: var(--duel-image-width);
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .duel-mask.is-right .duel-image-plane {
+      left: var(--duel-right-cut-top);
+    }
+
+    .duel-art {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: saturate(1.1) contrast(1.04);
+      max-width: 100%;
+    }
+
+    .duel-name {
+      position: absolute;
+      bottom: 10px;
+      max-width: 42%;
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 6px;
+      background: rgba(8, 18, 13, 0.64);
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .duel-name.is-left {
+      left: 10px;
+    }
+
+    .duel-name.is-right {
+      right: 10px;
+      text-align: right;
     }
 
     .thumb.mirror {
@@ -485,6 +610,13 @@
         display: inline-flex;
         margin-top: 12px;
       }
+
+      .duel-name {
+        bottom: 8px;
+        max-width: 44%;
+        padding: 4px 7px;
+        font-size: 11px;
+      }
     }
   </style>
 </head>
@@ -510,7 +642,7 @@
         <span class="season-count">1 篇复盘</span>
       </div>
       <div class="guide-grid" aria-label="第二赛季复盘页面列表">
-        <a class="guide-card" href="irelia-mirror-final/">
+        <a class="guide-card" href="irelia-mirror-final/" data-deck-source="suzhou" data-decks="oak-irelia,oak-irelia">
           <div class="thumb mirror"></div>
           <div class="card-body">
             <div class="tagline">公开赛决赛桌 · 刀妹内战</div>
@@ -531,7 +663,7 @@
       <section class="station-group" aria-labelledby="season-3-xian">
         <h2 class="station-title" id="season-3-xian">区域公开赛-西安站 <span class="station-review-count" data-review-count>3 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季西安站复盘页面列表">
-          <a class="guide-card" href="azir-diana-xian-final/">
+          <a class="guide-card" href="azir-diana-xian-final/" data-deck-source="xian" data-decks="aipotu-azir,fangzhu-diana">
             <div class="thumb azir"></div>
             <div class="card-body">
               <div class="tagline">西安站DAY2 · 决赛</div>
@@ -545,7 +677,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="irelia-diana-xian-semifinal/">
+          <a class="guide-card" href="irelia-diana-xian-semifinal/" data-deck-source="xian" data-decks="fangzhu-diana,sdubby-irelia">
             <div class="thumb xian-irelia-diana"></div>
             <div class="card-body">
               <div class="tagline">西安站DAY2 · 半决赛</div>
@@ -559,7 +691,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="azir-vex-xian-quarterfinal/">
+          <a class="guide-card" href="azir-vex-xian-quarterfinal/" data-deck-source="xian" data-decks="aipotu-azir,qingqi-vex">
             <div class="thumb xian-azir-vex"></div>
             <div class="card-body">
               <div class="tagline">西安站DAY2 · 8进4</div>
@@ -578,7 +710,7 @@
       <section class="station-group" aria-labelledby="season-3-suzhou">
         <h2 class="station-title" id="season-3-suzhou">区域公开赛-苏州站 <span class="station-review-count" data-review-count>7 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季苏州站复盘页面列表">
-          <a class="guide-card" href="yi-irelia-final/">
+          <a class="guide-card" href="yi-irelia-final/" data-deck-source="suzhou" data-decks="oak-irelia,linchuan-yi">
             <div class="thumb irelia"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY2 · 决赛</div>
@@ -592,7 +724,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="yi-aurora-semifinal/">
+          <a class="guide-card" href="yi-aurora-semifinal/" data-deck-source="suzhou" data-decks="linchuan-yi,cangbao-sivir">
             <div class="thumb aurora"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY2 · 半决赛</div>
@@ -606,7 +738,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="sivir-irelia-quarterfinal/">
+          <a class="guide-card" href="sivir-irelia-quarterfinal/" data-deck-source="suzhou" data-decks="oak-irelia,duoguan-sivir">
             <div class="thumb sivir"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY2 · 8进4</div>
@@ -620,7 +752,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="ezreal-diana-swiss/">
+          <a class="guide-card" href="ezreal-diana-swiss/" data-deck-source="suzhou" data-decks="gaoyuan-ezreal,zhongyu-diana">
             <div class="thumb ezreal"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY2 · 瑞士轮第十轮</div>
@@ -634,7 +766,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="reksai-lillia-swiss/">
+          <a class="guide-card" href="reksai-lillia-swiss/" data-deck-source="suzhou" data-decks="tqw-reksai,xinyun-lillia">
             <div class="thumb reksai"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY2 · 瑞士轮第九轮</div>
@@ -648,7 +780,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="sivir-garen-swiss/">
+          <a class="guide-card" href="sivir-garen-swiss/" data-deck-source="suzhou" data-decks="fool-garen,fsw-sivir">
             <div class="thumb garen"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY2 · 瑞士轮第八轮</div>
@@ -662,7 +794,7 @@
             </div>
           </a>
 
-          <a class="guide-card" href="leblanc-fiora-swiss/">
+          <a class="guide-card" href="leblanc-fiora-swiss/" data-deck-source="suzhou" data-decks="leixi-fiora,yankim1-leblanc">
             <div class="thumb leblanc"></div>
             <div class="card-body">
               <div class="tagline">苏州站DAY1 · 瑞士轮第七轮</div>
@@ -680,11 +812,65 @@
     </section>
 
   </main>
+  <script src="assets/xian-decklists.js?v=index-duel-cover-20260527"></script>
+  <script src="assets/suzhou-decklists.js?v=index-duel-cover-20260527"></script>
   <script>
     (() => {
       const tabs = [...document.querySelectorAll(".season-tab")];
       const panels = [...document.querySelectorAll(".season-panel")];
       const stationGroups = [...document.querySelectorAll(".station-group")];
+      const sourceByName = {
+        xian: window.tcgXianDecklists?.byKey || {},
+        suzhou: window.tcgSuzhouDecklists?.byKey || {}
+      };
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function getLegend(deck) {
+        return (deck?.main || []).find((card) => String(card.meta || "").startsWith("传奇"));
+      }
+
+      function getLegendName(card) {
+        return String(card?.name || "传奇").replace(/[，,]\s*入门$/, "");
+      }
+
+      function renderDuelCover(card) {
+        const source = sourceByName[card.dataset.deckSource] || {};
+        const legends = String(card.dataset.decks || "")
+          .split(",")
+          .map((key) => getLegend(source[key.trim()]))
+          .filter(Boolean);
+        const thumb = card.querySelector(".thumb");
+        if (!thumb || legends.length !== 2 || thumb.querySelector(".duel-cover")) return;
+
+        const leftName = getLegendName(legends[0]);
+        const rightName = getLegendName(legends[1]);
+        thumb.classList.add("has-duel-cover");
+        thumb.setAttribute("aria-label", `${leftName} VS ${rightName}`);
+        thumb.innerHTML = `
+          <span class="duel-cover" aria-hidden="true">
+            <span class="duel-mask duel-side is-left">
+              <span class="duel-image-plane">
+                <img class="duel-art" src="${escapeHtml(legends[0].image || "")}" alt="" loading="lazy">
+              </span>
+            </span>
+            <span class="duel-mask duel-side is-right">
+              <span class="duel-image-plane">
+                <img class="duel-art" src="${escapeHtml(legends[1].image || "")}" alt="" loading="lazy">
+              </span>
+            </span>
+            <span class="duel-name is-left">${escapeHtml(leftName)}</span>
+            <span class="duel-name is-right">${escapeHtml(rightName)}</span>
+          </span>
+        `;
+      }
 
       function setSeason(nextSeason) {
         tabs.forEach((tab) => {
@@ -701,6 +887,8 @@
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => setSeason(tab.dataset.season));
       });
+
+      document.querySelectorAll(".guide-card").forEach(renderDuelCover);
 
       stationGroups.forEach((group) => {
         const count = group.querySelectorAll(".guide-card").length;
