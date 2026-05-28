@@ -287,11 +287,13 @@
       --duel-right-cut-top: 5.6%;
       --duel-right-cut-bottom: 34.4%;
       --duel-image-width: 100%;
+      --duel-slash-side: 14%;
       position: absolute;
       inset: 0;
       display: block;
       overflow: hidden;
       background: #101712;
+      container-type: inline-size;
     }
 
     .duel-cover::after {
@@ -302,6 +304,7 @@
         linear-gradient(90deg, rgba(8, 18, 13, 0.1), transparent 28%, transparent 72%, rgba(8, 18, 13, 0.16)),
         linear-gradient(180deg, transparent 72%, rgba(8, 18, 13, 0.34));
       pointer-events: none;
+      z-index: 3;
     }
 
     .duel-mask {
@@ -370,7 +373,7 @@
       line-height: 1.2;
       overflow-wrap: anywhere;
       pointer-events: none;
-      z-index: 4;
+      z-index: 7;
     }
 
     .duel-name.is-left {
@@ -380,6 +383,54 @@
     .duel-name.is-right {
       right: 10px;
       text-align: right;
+    }
+
+    .duel-slash {
+      position: absolute;
+      top: -3.06%;
+      right: var(--duel-slash-side);
+      bottom: -3.06%;
+      left: var(--duel-slash-side);
+      background: url("assets/vs-diagonal-fire-slash.svg") center / 100% 100% no-repeat;
+      opacity: 0.95;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .duel-vs {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: grid;
+      place-items: center;
+      width: 33.6%;
+      aspect-ratio: 430 / 330;
+      transform: translate(-50%, -50%);
+      filter:
+        drop-shadow(0 0 10px rgba(255, 209, 90, 0.42))
+        drop-shadow(0 0 24px rgba(255, 61, 0, 0.56));
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .duel-vs::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("assets/vs-fire-badge.svg") center / 100% 100% no-repeat;
+    }
+
+    .duel-vs-text {
+      position: relative;
+      display: block;
+      width: 68%;
+      aspect-ratio: 292 / 228;
+      overflow: hidden;
+      background: url("assets/vs-text-stack.svg") center / contain no-repeat;
+      color: transparent;
+      text-indent: 100%;
+      white-space: nowrap;
+      z-index: 1;
     }
 
     .thumb.mirror {
@@ -853,6 +904,8 @@
                 <img class="duel-art" src="${escapeHtml(legends[1].image || "")}" alt="" loading="lazy">
               </span>
             </span>
+            <span class="duel-slash"></span>
+            <span class="duel-vs"><span class="duel-vs-text">VS</span></span>
             <span class="duel-name is-left">${escapeHtml(leftName)}</span>
             <span class="duel-name is-right">${escapeHtml(rightName)}</span>
           </span>

@@ -1,0 +1,37 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 430 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="flame burst and diamond badge">
+<path id="Vector" d="M215 294C316.068 294 398 238.931 398 171C398 103.069 316.068 48 215 48C113.932 48 32 103.069 32 171C32 238.931 113.932 294 215 294Z" fill="url(#paint0_radial_0_18)"/>
+<path id="Vector_2" opacity="0.9" d="M44 180C80 156 107 164 127 183C107 136 129 108 161 88C178 77 179 45 194 20C203 52 232 71 238 103C263 78 300 93 303 130C348 129 383 167 371 208C361 242 328 260 294 257C271 297 215 312 166 286C133 268 110 249 103 224C78 225 55 211 44 180Z" fill="url(#paint1_linear_0_18)"/>
+<path id="Vector_3" opacity="0.92" d="M145 218C129 182 151 156 176 137C190 126 195 97 200 72C214 103 247 117 245 151C266 140 288 158 284 185C311 184 328 211 314 234C293 267 242 279 206 264C175 252 154 239 145 218Z" fill="url(#paint2_linear_0_18)"/>
+<path id="Vector_4" opacity="0.86" d="M60 132L8 150L73 163L33 194L123 171L60 132Z" fill="var(--fill-0, #FFE66D)"/>
+<path id="Vector_5" opacity="0.78" d="M370 133L422 151L357 164L397 195L307 172L370 133Z" fill="var(--fill-0, #FF7A00)"/>
+<path id="Vector_6" opacity="0.62" d="M82 245L133 221L119 276L82 245Z" fill="var(--fill-0, #FF5A00)"/>
+<path id="Vector_7" opacity="0.62" d="M348 246L297 221L311 276L348 246Z" fill="var(--fill-0, #FFE66D)"/>
+<g id="Vector_8" opacity="0.72">
+<path d="M92 78L138 99Z" fill="var(--fill-0, black)"/>
+<path d="M92 78L138 99" stroke="var(--stroke-0, #FFD35A)" stroke-width="7" stroke-linecap="round"/>
+</g>
+<g id="Vector_9" opacity="0.72">
+<path d="M338 78L292 99Z" fill="var(--fill-0, black)"/>
+<path d="M338 78L292 99" stroke="var(--stroke-0, #FF3D00)" stroke-width="7" stroke-linecap="round"/>
+</g>
+</g>
+<defs>
+<radialGradient id="paint0_radial_0_18" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(215 175.92) scale(201.3 135.3)">
+<stop stop-color="#FFE978" stop-opacity="0.48"/>
+<stop offset="0.45" stop-color="#FF5A00" stop-opacity="0.28"/>
+<stop offset="1" stop-color="#FF0000" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint1_linear_0_18" x1="109.876" y1="20" x2="257.379" y2="320.314" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFE95C"/>
+<stop offset="0.32" stop-color="#FF7A00"/>
+<stop offset="0.72" stop-color="#D01700"/>
+<stop offset="1" stop-color="#5B0700"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_18" x1="202.371" y1="87.8708" x2="281.082" y2="264.911" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.34" stop-color="#FFE66D"/>
+<stop offset="1" stop-color="#FF5C00"/>
+</linearGradient>
+</defs>
+</svg>
