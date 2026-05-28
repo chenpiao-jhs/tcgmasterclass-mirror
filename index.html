@@ -41,16 +41,16 @@
       color: inherit;
     }
 
-    .hero {
+    .cover {
       color: #fff;
       background:
         linear-gradient(90deg, rgba(8, 18, 13, 0.88), rgba(8, 18, 13, 0.58) 52%, rgba(8, 18, 13, 0.28)),
-        url("yi-aurora-semifinal/cover.jpg?v=result-covers-20260526") center / cover no-repeat;
+        url("irelia-mirror-final/cover.jpg?v=result-covers-20260526") center / cover no-repeat;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::after {
+    .cover::after {
       content: "";
       position: absolute;
       inset: auto 0 0;
@@ -59,7 +59,7 @@
       pointer-events: none;
     }
 
-    .hero-inner {
+    .cover-inner {
       width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
       padding: 84px 0 120px;
@@ -93,7 +93,7 @@
       font-weight: 850;
     }
 
-    .hero p {
+    .cover p {
       max-width: 760px;
       margin-top: 22px;
       color: rgba(255, 255, 255, 0.88);
@@ -531,12 +531,12 @@
     }
 
     @media (max-width: 560px) {
-      .hero-inner,
+      .cover-inner,
       main {
         width: min(100% - 28px, var(--max));
       }
 
-      .hero-inner {
+      .cover-inner {
         padding: 68px 0 108px;
       }
 
@@ -544,7 +544,7 @@
         font-size: 34px;
       }
 
-      .hero p {
+      .cover p {
         font-size: 17px;
       }
 
@@ -608,8 +608,8 @@
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-inner">
+  <header class="cover">
+    <div class="cover-inner">
       <h1>符文战场-比赛精华汇总</h1>
       <p>把公开赛和区域赛里的关键对局整理成能直接复盘、练习和对照视频观看的打法页面。</p>
     </div>
