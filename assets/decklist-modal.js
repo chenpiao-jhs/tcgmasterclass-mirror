@@ -6,13 +6,27 @@
     "和平卫士": "蔚, 和平卫士",
     "剑圣": "无极剑圣, 入门",
     "靴子": "轻灵之靴",
+    "游走鞋": "轻灵之靴",
     "复活甲": "守护天使",
+    "中亚": "中娅沙漏",
     "中亚沙漏": "中娅沙漏",
     "魅惑": "魅惑妖术",
+    "距破": "距破之舞",
     "巨破": "距破之舞",
     "巨破之舞": "距破之舞",
     "御风": "驭风而行",
     "灭世": "蔑视",
+    "河道蟹": "迅捷蟹",
+    "狮子狗": "雷恩加尔, 异兽猎手",
+    "凤凰": "不朽凤凰",
+    "玄龙": "辟心玄龙",
+    "远古龙": "远古巨龙",
+    "大厅": "废弃大厅",
+    "妖姬": "诡术妖姬",
+    "剑姬": "无双剑姬",
+    "花朵": "占卜花朵",
+    "贝壳": "占卜贝壳",
+    "花康": "极速反制",
     "水手": "鬼祟的水手",
     "鼠人": "变异猫咪",
     "Vex, Gloomist": "愁云使者",
@@ -34,6 +48,11 @@
     "Calm Rune": "翠意符文",
     "Chaos Rune": "混沌符文",
     "Mindsplitter": "辟心玄龙"
+  };
+  const defaultArticleCardCorrections = {
+    "巨破": "距破",
+    "巨破之舞": "距破之舞",
+    "灭世": "蔑视"
   };
   const defaultSections = [
     { title: "传奇", match: (meta) => meta.startsWith("传奇") },
@@ -285,18 +304,32 @@
     index.set(term, { name, image });
   }
 
-  function applyConfiguredCardAliases(index, aliases = {}) {
+  function getCorrectedCardLinkText(corrections, alias, card) {
+    const corrected = corrections[alias];
+    if (corrected === true) return card.name;
+    return typeof corrected === "string" ? corrected : "";
+  }
+
+  function applyConfiguredCardAliases(index, aliases = {}, corrections = {}) {
     Object.entries(aliases).forEach(([alias, target]) => {
       if (!alias) return;
       if (typeof target === "string") {
         const card = index.get(target);
-        if (card && !index.has(alias)) index.set(alias, card);
+        if (card && !index.has(alias)) {
+          const correctedText = getCorrectedCardLinkText(corrections, alias, card);
+          index.set(alias, correctedText ? { ...card, displayText: correctedText } : card);
+        }
         return;
       }
       if (target?.image) {
-        index.set(alias, {
+        const card = {
           name: target.name || alias,
           image: target.image
+        };
+        const correctedText = target.displayText || getCorrectedCardLinkText(corrections, alias, card);
+        index.set(alias, {
+          ...card,
+          ...(correctedText ? { displayText: correctedText } : {})
         });
       }
     });
@@ -305,6 +338,11 @@
   function buildArticleCardIndex(decks, config = {}) {
     const index = new Map();
     const excluded = new Set(config.exclude || []);
+    const corrections = {
+      ...defaultArticleCardCorrections,
+      ...(config.corrections || {}),
+      ...(config.correctedAliases || {})
+    };
     decks.forEach((deck) => {
       [...(deck.main || []), ...(deck.side || [])].forEach((card) => {
         getCardAliasTerms(card, config)
@@ -312,7 +350,7 @@
           .forEach((term) => addCardLinkTerm(index, term, card));
       });
     });
-    applyConfiguredCardAliases(index, { ...defaultArticleCardAliases, ...(config.aliases || {}) });
+    applyConfiguredCardAliases(index, { ...defaultArticleCardAliases, ...(config.aliases || {}) }, corrections);
 
     const terms = [...index.keys()]
       .filter((term) => !excluded.has(term))
@@ -328,6 +366,30 @@
     const parent = node.parentElement;
     if (!parent || !node.nodeValue?.trim()) return true;
     return Boolean(parent.closest(skipSelector));
+  }
+
+  function createArticleCardTrigger(node, term, card) {
+    const isInsideButton = Boolean(node.parentElement?.closest("button,[role='button']"));
+    const trigger = document.createElement(isInsideButton ? "b" : "a");
+    trigger.className = `${articleCardLinkClass} article-card-link`;
+    if (isInsideButton) {
+      trigger.setAttribute("role", "link");
+      trigger.tabIndex = 0;
+    } else {
+      trigger.href = card.image;
+      trigger.target = "_blank";
+      trigger.rel = "noreferrer";
+    }
+    trigger.dataset.cardImage = card.image;
+    trigger.dataset.cardName = card.name;
+    trigger.setAttribute("aria-label", `查看 ${card.name} 卡图`);
+    if (card.displayText && card.displayText !== term) {
+      trigger.dataset.cardMatchedText = term;
+      trigger.dataset.cardCorrectedText = card.displayText;
+      trigger.title = `${term} -> ${card.displayText}`;
+    }
+    trigger.textContent = card.displayText || term;
+    return trigger;
   }
 
   function linkArticleTextNode(node, cardIndex) {
@@ -346,16 +408,7 @@
       if (match.index > lastIndex) {
         fragment.append(document.createTextNode(text.slice(lastIndex, match.index)));
       }
-      const link = document.createElement("a");
-      link.className = `${articleCardLinkClass} article-card-link`;
-      link.href = card.image;
-      link.target = "_blank";
-      link.rel = "noreferrer";
-      link.dataset.cardImage = card.image;
-      link.dataset.cardName = card.name;
-      link.setAttribute("aria-label", `查看 ${card.name} 卡图`);
-      link.textContent = term;
-      fragment.append(link);
+      fragment.append(createArticleCardTrigger(node, term, card));
       linkedCount += 1;
       lastIndex = pattern.lastIndex;
     }
@@ -376,7 +429,7 @@
     if (!cardIndex) return null;
     const skipSelector = config.skipSelector || [
       "a",
-      "button",
+      articleCardLinkSelector,
       "script",
       "style",
       "textarea",
@@ -505,8 +558,17 @@
       const trigger = event.target.closest(articleCardLinkSelector);
       if (!trigger || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
+      event.stopPropagation();
       openCardImage(trigger);
-    });
+    }, true);
+
+    root.addEventListener("keydown", (event) => {
+      const trigger = event.target.closest(articleCardLinkSelector);
+      if (!trigger || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      openCardImage(trigger);
+    }, true);
 
     lightbox.addEventListener("click", (event) => {
       if (event.target === lightbox || event.target === lightboxImage || event.target.closest("[data-card-preview-close]")) {
@@ -798,8 +860,17 @@
       const trigger = event.target.closest(articleCardLinkSelector);
       if (!trigger || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
+      event.stopPropagation();
       openCardImage(trigger);
-    });
+    }, true);
+
+    articleCardRoot?.addEventListener("keydown", (event) => {
+      const trigger = event.target.closest(articleCardLinkSelector);
+      if (!trigger || !["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      openCardImage(trigger);
+    }, true);
 
     textPanel?.addEventListener("scroll", hideHoverPreview, { passive: true });
 
