@@ -740,6 +740,11 @@
       text-decoration: none;
       box-shadow: var(--shadow);
       font-weight: 800;
+      z-index: 40;
+    }
+
+    .backtop[hidden] {
+      display: none;
     }
 
     @media (min-width: 901px) and (max-width: 1250px) {
@@ -884,7 +889,9 @@
       }
 
       .backtop {
-        display: none;
+        right: calc(18px + env(safe-area-inset-right));
+        bottom: calc(18px + env(safe-area-inset-bottom));
+        display: inline-grid;
       }
     }
   </style>
@@ -1825,7 +1832,47 @@
     </main>
   </div>
 
-  <a class="backtop" href="#top" aria-label="回到顶部">↑</a>
+  <a class="backtop" href="#top" aria-label="回到顶部" hidden>↑</a>
+  <script>
+    (() => {
+      const backtop = document.querySelector(".backtop");
+      const desktopSwitch = document.querySelector(".perspective-switch-desktop");
+      const topbar = document.querySelector(".topbar");
+      const mobileQuery = window.matchMedia("(max-width: 900px)");
+      let backtopFrame = 0;
+
+      if (!backtop) return;
+
+      function getStickyTop(node) {
+        const top = Number.parseFloat(window.getComputedStyle(node).top);
+        return Number.isFinite(top) ? top : 0;
+      }
+
+      function isPinned(node) {
+        if (!node || window.getComputedStyle(node).display === "none") return false;
+        return node.getBoundingClientRect().top <= getStickyTop(node) + 1;
+      }
+
+      function shouldShowBacktop() {
+        return mobileQuery.matches ? isPinned(topbar) : isPinned(desktopSwitch);
+      }
+
+      function updateBacktop() {
+        backtopFrame = 0;
+        backtop.hidden = !shouldShowBacktop();
+      }
+
+      function scheduleBacktopUpdate() {
+        if (backtopFrame) return;
+        backtopFrame = window.requestAnimationFrame(updateBacktop);
+      }
+
+      updateBacktop();
+      window.addEventListener("scroll", scheduleBacktopUpdate, { passive: true });
+      window.addEventListener("resize", scheduleBacktopUpdate);
+      window.addEventListener("load", scheduleBacktopUpdate);
+    })();
+  </script>
   <script src="../assets/page-nav.js?v=detail-perspective-20260521"></script>
   <script src="../assets/video-hub.js"></script>
   <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
