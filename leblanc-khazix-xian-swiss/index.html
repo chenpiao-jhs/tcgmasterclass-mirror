@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>妖姬 VS 卡兹克：映像压力、蔚收口与卡兹克防线</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --red: #9f3d36;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.92), var(--bg) 520px), var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("cover.jpg?v=result-covers-20260529") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 126px;
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.01), rgba(245, 247, 242, 0.88) 70%, var(--bg) 86%, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--green-dark);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .links a {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      color: var(--green-dark);
+      font-size: 34px;
+    }
+
+    .time {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .lead {
+      max-width: 840px;
+      margin-bottom: 22px;
+      color: #35443a;
+      font-size: 18px;
+    }
+
+    .grid-3,
+    .grid-2,
+    .watch-grid {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2,
+    .watch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning,
+    .watch-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3,
+    .note h3,
+    .warning h3,
+    .watch-card h3,
+    .watch-title {
+      color: var(--green-dark);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .insight p,
+    .note p,
+    .warning p,
+    .watch-card p {
+      margin-top: 10px;
+      color: #405148;
+    }
+
+    .note,
+    .warning {
+      margin-top: 20px;
+      padding: 18px;
+    }
+
+    .warning {
+      border-left: 4px solid var(--red);
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .jump-card {
+      appearance: none;
+      min-height: 142px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+    }
+
+    .jump-card span,
+    .watch-time {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .jump-card strong {
+      color: var(--green-dark);
+      font-size: 17px;
+    }
+
+    .jump-card em {
+      color: var(--muted);
+      font-style: normal;
+      line-height: 1.55;
+    }
+
+    .jump-card.active,
+    .jump-card:hover,
+    .jump-card:focus {
+      border-color: rgba(47, 111, 78, 0.36);
+      background: #eef6f0;
+      outline: none;
+    }
+
+    .watch-card {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .watch-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .watch-button,
+    .watch-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border-radius: 7px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .watch-button {
+      border: 0;
+      background: var(--green-dark);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .watch-link {
+      border: 1px solid var(--line);
+      background: var(--paper-soft);
+      color: var(--green-dark);
+    }
+
+    table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+      font-weight: 850;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .method-flow {
+      display: grid;
+      gap: 14px;
+      margin: 22px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .method-flow li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-weight: 850;
+    }
+
+    .clean,
+    .mistakes {
+      margin: 16px 0 0;
+      padding-left: 22px;
+    }
+
+    .clean li,
+    .mistakes li {
+      margin: 8px 0;
+      color: #35443a;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 16px 0 24px;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      margin-top: 5px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: var(--radius);
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero-inner {
+        width: min(100% - 28px, var(--max));
+        padding: 64px 0 88px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .section-head,
+      .grid-3,
+      .grid-2,
+      .watch-grid,
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        width: min(100% - 28px, var(--max));
+        margin: 34px auto 0;
+      }
+
+      section {
+        margin-top: 46px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260529-floating-actions">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260529-floating-desktop-large">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">西安站DAY2 · 瑞士轮第十轮</div>
+      <h1>妖姬 VS 卡兹克：映像压力、蔚收口与卡兹克防线</h1>
+      <p class="summary">把 DWT-阿龙 2:0 Zugo 的进阶瑞士轮第十轮，整理成妖姬玩家和卡兹克玩家都能对照练习的打法页面。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛西安站 DAY2 第 3P</li>
+        <li>对局：诡术妖姬（DWT-阿龙） VS 虚空掠夺者（Zugo）</li>
+        <li>结果：DWT-阿龙 2:0 获胜</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=3&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1mVGE68EMg?p=3">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=3&autoplay=0&t=180" title="第三赛季区域公开赛西安站 DAY2 第 3P：诡术妖姬 VS 虚空掠夺者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：03:00 对局信息</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=180" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-leblanc-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-leblanc" data-perspective-target="leblanc">妖姬玩家视角</button>
+        <button class="perspective-tab" id="tab-khazix-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-khazix" data-perspective-target="khazix">卡兹克玩家视角</button>
+      </div>
+      <section id="decklistMount"></section>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">西安瑞士轮双视角</div>
+        <div class="links" data-perspective-nav="leblanc">
+          <a href="#leblanc-principles">核心结论</a>
+          <a href="#leblanc-video">关键片段</a>
+          <a href="#leblanc-plan">对局计划</a>
+          <a href="#leblanc-game-one">第一局</a>
+          <a href="#leblanc-game-two">第二局</a>
+          <a href="#leblanc-checklist">清单</a>
+          <a href="#leblanc-mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="khazix" hidden>
+          <a href="#khazix-principles">核心结论</a>
+          <a href="#khazix-video">关键片段</a>
+          <a href="#khazix-plan">防守框架</a>
+          <a href="#khazix-game-one">第一局</a>
+          <a href="#khazix-game-two">第二局</a>
+          <a href="#khazix-checklist">清单</a>
+          <a href="#khazix-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-leblanc" type="button" role="tab" aria-selected="true" aria-controls="panel-leblanc" data-perspective-target="leblanc">妖姬玩家视角</button>
+        <button class="perspective-tab" id="tab-khazix" type="button" role="tab" aria-selected="false" aria-controls="panel-khazix" data-perspective-target="khazix">卡兹克玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-leblanc" role="tabpanel" aria-labelledby="tab-leblanc" data-perspective-panel="leblanc">
+        <section id="leblanc-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>妖姬视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">这场 DWT-阿龙<span class="player-tag" data-player-side="妖姬方玩家">选手</span>赢在连续压力，而不是单次爆发。赛后数据页显示妖姬方映像打出 10 次，官方全场 KEY 牌给到蔚，和平卫士；这两个画面合起来说明，妖姬真正的胜路是先用映像和场地把回合滚起来，再用蔚这种高质量单位把卡兹克防线压穿。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>映像不是装饰，是回合长度</h3>
+              <p>妖姬方映像次数明显领先，意味着每一轮都在多创造交换点。练这套牌时，不要把映像只当复制战力，而要当成延长完整回合的资源。</p>
+            </article>
+            <article class="insight">
+              <h3>场地先把资源接住</h3>
+              <p>暮色玫瑰实验室和希拉娜修道院都出现在对局信息里。妖姬要先让资源有落点，再谈击杀和追分，否则手牌会停在手里。</p>
+            </article>
+            <article class="insight">
+              <h3>卡兹克在场时别单点送</h3>
+              <p>卡兹克方最强的防守价值，是迫使妖姬不能一个一个给它成长机会。妖姬进攻前要把同轮多点压力算好。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>蔚负责把优势结算掉</h3>
+              <p>全场 KEY 牌给到蔚，和平卫士，不是因为她只赢了某一次战斗，而是因为她把妖姬前面积累的映像和节奏优势变成最终比分。</p>
+            </article>
+            <article class="insight">
+              <h3>比分咬住时别急着收</h3>
+              <p>第一局中后段比分一度很紧，妖姬要做的是继续逼卡兹克分配防守，而不是把所有资源压在一条能被反应牌打断的路线里。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="leblanc-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照妖姬方法</h2>
+            </div>
+            <div class="time">P3 瑞士轮第十轮</div>
+          </div>
+          <p class="lead">这组时间点都来自本分 P 的可见画面：开局信息、两局关键中盘、赛后结果、数据页和 KEY 牌页。没有字幕轨道时，优先用这些画面证据来定位复盘。</p>
+          <div class="jump-grid" aria-label="妖姬视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="180" data-label="03:00 对局信息">
+              <span>03:00</span>
+              <strong>先确认场地和牌组方向</strong>
+              <em>画面展示妖姬与卡兹克的代表牌和场地，先把胜路定成资源回合对防守回合。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="330" data-label="05:30 第一局开局">
+              <span>05:30</span>
+              <strong>第一局正式进入实战</strong>
+              <em>从这里开始看 DWT-阿龙<span class="player-tag" data-player-side="妖姬方玩家">选手</span>怎样让每轮都有映像或单位压力。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="930" data-label="15:30 中盘资源交换">
+              <span>15:30</span>
+              <strong>中盘不要只看当前分</strong>
+              <em>比分还没拉开时，妖姬要判断下一轮是不是还能继续接映像和单位。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1560" data-label="26:00 第一局末段">
+              <span>26:00</span>
+              <strong>第一局进入紧分拉扯</strong>
+              <em>6:7 的画面适合练习：落后一分或领先一分时，妖姬是否仍有连续回合。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1980" data-label="33:00 第二局开局">
+              <span>33:00</span>
+              <strong>第二局重新铺资源点</strong>
+              <em>重开时不要沿用上一局的情绪，先把场地和手牌落点重新安排。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2400" data-label="40:00 卡兹克防线">
+              <span>40:00</span>
+              <strong>卡兹克防线考验进攻排序</strong>
+              <em>看妖姬怎样避免单点送成长，而是让卡兹克同时面对多个问题。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3300" data-label="55:00 赛后结果">
+              <span>55:00</span>
+              <strong>DWT-阿龙<span class="player-tag" data-player-side="妖姬方玩家">选手</span> 2:0 获胜</strong>
+              <em>结果页明确显示妖姬方胜利，Zugo<span class="player-tag" data-player-side="卡兹克方玩家">选手</span>落败。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3510" data-label="58:30 全场 KEY 牌">
+              <span>58:30</span>
+              <strong>全场 KEY 牌：蔚，和平卫士</strong>
+              <em>用这张牌复盘妖姬如何从资源领先转成最终结算。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="leblanc-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>对局计划：妖姬要把卡兹克拖进多点选择题</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">卡兹克擅长惩罚单点推进。妖姬要赢，就不能每回合只丢一个目标让对手舒服处理，而是要用映像、场地和高质量单位把防守压力拆成多个同时出现的问题。</p>
+          <table>
+            <thead>
+              <tr>
+                <th>阶段</th>
+                <th>妖姬侧目标</th>
+                <th>复盘标准</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>开局</td>
+                <td>优先找能接资源的场地和单位，不要只保留看起来很强、但没有落点的进攻牌。</td>
+                <td>第一轮结束时，手里的下一步是否已经写进场地或单位位置。</td>
+              </tr>
+              <tr>
+                <td>中盘</td>
+                <td>用映像把卡兹克的反应牌拉薄，让对手不能只盯一个威胁。</td>
+                <td>每次映像以后，卡兹克方是否被迫重新分配防守，而不是顺手处理。</td>
+              </tr>
+              <tr>
+                <td>终局</td>
+                <td>用蔚或等价高质量单位结算前面积累的资源，别让优势停在手牌和场面里。</td>
+                <td>最后两轮是否同时拥有威胁、保护和第二条得分路线。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">58:00 - 58:45</span>
+              <span class="watch-title">用数据页和 KEY 牌反推胜路</span>
+              <p>赛后数据页显示 DWT-阿龙<span class="player-tag" data-player-side="妖姬方玩家">选手</span>映像打出 10 次，随后 KEY 牌给到蔚，和平卫士。复盘时就按这个顺序回看：先找哪些映像延长了回合，再找蔚怎样把资源变成胜势。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="3480" data-label="58:00 选手数据对比">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=3480" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="leblanc-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：比分咬住时，妖姬仍要保留下一轮资源</h2>
+            </div>
+            <div class="time">05:30 - 27:45</div>
+          </div>
+          <p class="lead">第一局最适合练“紧分不慌”。画面到 26:00 左右已经是 6:7 的拉锯，妖姬方没有把所有牌一次性压完，而是继续让卡兹克面对多个防守点。DWT-阿龙<span class="player-tag" data-player-side="妖姬方玩家">选手</span>最后能拿下整场，前提就是第一局没有在紧分里把回合长度打断。</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>双方代表牌和场地都已经翻出，妖姬有资源场地，卡兹克有明确的反应和防守轴。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>中盘不是谁一次打出最大战力，而是谁能在交换后保留下一轮行动。妖姬要让映像和场地继续提供落点。</td>
+              </tr>
+              <tr>
+                <td>资源决定</td>
+                <td>紧分时不要只追当前一分。先看下一轮是否还有单位、映像或蔚的落点，否则追到一分也可能被卡兹克反压。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>回看 15:30 到 27:45，记录每次妖姬投入资源后，下一回合是否仍有动作。如果有，说明映像压力没有断。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">15:30 - 16:30</span>
+              <h3>中盘先看回合长度</h3>
+              <p>这段不要只盯当前分。妖姬玩家要暂停检查：现在投入的单位或映像，是否能让下一轮继续问卡兹克问题。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="930" data-label="15:30 中盘资源交换">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=930" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">26:00 - 27:45</span>
+              <h3>紧分时不要把路线打成单线</h3>
+              <p>6:7 的画面适合练终局规划。妖姬如果只押一个威胁，会被卡兹克的反应牌集中处理；保留第二条线才是稳定收口。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1560" data-label="26:00 第一局末段">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=1560" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>妖姬的紧分局不是靠一口气打穿，而是靠每轮都让对手多防一个点。回合不断，卡兹克才会慢慢失去选择权。</p>
+          </div>
+        </section>
+
+        <section id="leblanc-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：重开后继续铺资源，最后交给蔚结算</h2>
+            </div>
+            <div class="time">33:00 - 58:30</div>
+          </div>
+          <p class="lead">第二局从 33:00 左右重开。妖姬的关键不是复刻第一局某个单点，而是重新铺场地、手牌和映像的连续性。赛后 KEY 牌给到蔚，说明最终收口靠的是高质量单位把前面的资源优势兑现，而不是只靠妖姬本体冲一次。</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>双方比分重置，卡兹克方会更警惕映像和场地；妖姬必须重新把资源点铺出来。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>40:00 前后的卡兹克防线让妖姬不能单点推进。这里要用多点威胁逼对手同时处理单位、映像和后续高质量单位。</td>
+              </tr>
+              <tr>
+                <td>收口方式</td>
+                <td>蔚，和平卫士作为 KEY 牌，是把前面资源优势转成最终胜利的工具。她要在卡兹克反应牌被拉薄后进场。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>看第二局时，记录蔚进场前卡兹克方已经被迫交过哪些防守资源。只有先拉薄防线，KEY 牌才真的关键。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">33:00 - 34:00</span>
+              <h3>重开后先稳资源点</h3>
+              <p>第二局开头不要急着找终结。妖姬玩家要先确认场地、手牌和单位之间有没有连接，否则会被卡兹克拆成一段一段。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1980" data-label="33:00 第二局开局">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=1980" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">58:30</span>
+              <h3>KEY 牌不是孤立牌</h3>
+              <p>蔚，和平卫士被评为全场 KEY 牌。复盘时把她当成“结算器”：前面的映像和场地负责拉薄防线，她负责把优势变成胜利。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3510" data-label="58:30 全场 KEY 牌">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=3510" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="warning">
+            <p><strong>第二局结论：</strong>妖姬收口前要先把卡兹克方防线拉薄。蔚强，是因为她进入的是一个已经被映像和多点压力消耗过的局面。</p>
+          </div>
+        </section>
+
+        <section id="leblanc-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>妖姬玩家练习清单</h2>
+            </div>
+          </div>
+          <h3>每回合都做的四个判断</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我这次映像之后，下一轮是否仍有单位或场地能承接资源？</span></div>
+            <div class="check"><span class="box"></span><span>卡兹克在场时，我有没有准备多点推进，而不是单点送成长？</span></div>
+            <div class="check"><span class="box"></span><span>蔚或其他高质量单位进场前，对手的反应牌是否已经被拉薄？</span></div>
+            <div class="check"><span class="box"></span><span>紧分时我是在保留第二条得分线，还是把所有资源压在一条线上？</span></div>
+          </div>
+          <h3>关键牌使用规则</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>诡术妖姬</td>
+                <td>不要只看一次爆发。她的任务是让映像和场地不断延长回合，逼卡兹克方连续做选择。</td>
+              </tr>
+              <tr>
+                <td>暮色玫瑰实验室</td>
+                <td>作为资源承接点使用。开局看到它时，先规划哪张单位或映像能被它放大。</td>
+              </tr>
+              <tr>
+                <td>希拉娜修道院</td>
+                <td>适合把紧分局拖成长回合。不要在没有后续落点时空转场地价值。</td>
+              </tr>
+              <tr>
+                <td>映像牌组</td>
+                <td>目标是制造第二、第三个问题，不是复制一个会被卡兹克舒服处理的单点。</td>
+              </tr>
+              <tr>
+                <td>蔚，和平卫士</td>
+                <td>当作收口单位。先用映像和场地拉薄防线，再让蔚去结算优势，避免过早裸进场。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="leblanc-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>妖姬玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把映像当成一次性加压，没有规划下一轮资源落点。</li>
+            <li>看到卡兹克在场仍然单点推进，给对手最舒服的成长和防守方式。</li>
+            <li>场地已经翻出，却没有安排能承接场地收益的单位。</li>
+            <li>紧分时只追当前一分，忽略下一轮是否还拥有第二条路线。</li>
+            <li>蔚过早进场，被卡兹克方反应牌集中处理，没能成为收口单位。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给妖姬玩家的核心课是：先用映像和场地把回合拉长，再用蔚这样的高质量单位把资源优势结算掉。不要把所有胜负压在一次看起来很大的进攻里。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-khazix" role="tabpanel" aria-labelledby="tab-khazix" data-perspective-panel="khazix" hidden>
+        <section id="khazix-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>卡兹克视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">Zugo<span class="player-tag" data-player-side="卡兹克方玩家">选手</span>这场的难点，是妖姬方把问题拆成了多条线。卡兹克不是不能防，而是不能只防当前最大单位；一旦每次防守都只换掉一个威胁，DWT-阿龙<span class="player-tag" data-player-side="妖姬方玩家">选手</span>的映像和场地就会把下一轮继续接上。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>让卡兹克改变对手排序</h3>
+              <p>卡兹克在场的价值，是让妖姬不能随便单点推进。如果对手仍然能舒服地一个个推进，卡兹克就没有兑现防守压力。</p>
+            </article>
+            <article class="insight">
+              <h3>防守后必须反问</h3>
+              <p>解掉一个映像不够。卡兹克方每次防守后都要立刻制造得分、经验或资源窗口，否则只是让妖姬晚一点赢。</p>
+            </article>
+            <article class="insight">
+              <h3>蔚进场前要留答案</h3>
+              <p>官方 KEY 牌给到蔚，和平卫士，说明卡兹克方没有把最终收口点拦住。复盘时要问蔚进场前答案花在哪里了。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>数据页暴露了问题</h3>
+              <p>赛后数据页显示妖姬方映像打出 10 次，卡兹克方为 0。卡兹克必须用防守回合换到主动权，不能只让对手多打回合。</p>
+            </article>
+            <article class="insight">
+              <h3>紧分局要提前收窄路线</h3>
+              <p>第一局 6:7 附近不能只守当前分。卡兹克要提前判断妖姬下一轮还有几条线，并主动砍掉其中一条。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="khazix-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照卡兹克的防守问题</h2>
+            </div>
+            <div class="time">P3 瑞士轮第十轮</div>
+          </div>
+          <p class="lead">卡兹克视角重点看三件事：能不能迫使妖姬改变排序，防守后有没有反问，以及蔚出现前是否还留着有效答案。</p>
+          <div class="jump-grid" aria-label="卡兹克视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="180" data-label="03:00 对局信息">
+              <span>03:00</span>
+              <strong>先确认双方资源轴</strong>
+              <em>卡兹克对妖姬，第一件事是决定哪些映像和场地必须提前处理。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="330" data-label="05:30 第一局开局">
+              <span>05:30</span>
+              <strong>第一局看防守优先级</strong>
+              <em>从开局就记录：Zugo<span class="player-tag" data-player-side="卡兹克方玩家">选手</span>每次防守后有没有获得主动权。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1560" data-label="26:00 第一局末段">
+              <span>26:00</span>
+              <strong>紧分局要砍第二路线</strong>
+              <em>比分咬住时，卡兹克不能只看当前威胁，要提前处理妖姬下一轮的承接点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1980" data-label="33:00 第二局开局">
+              <span>33:00</span>
+              <strong>第二局重设防守计划</strong>
+              <em>重开后先看自己是否能让卡兹克成为排序压力，而不是单纯挡一轮。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2400" data-label="40:00 卡兹克防线">
+              <span>40:00</span>
+              <strong>最该放大的防守窗口</strong>
+              <em>这里要观察卡兹克能否逼妖姬多付出，而不只是被多点压力绕开。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3300" data-label="55:00 赛后结果">
+              <span>55:00</span>
+              <strong>2:0 的结果页</strong>
+              <em>结果页显示 Zugo<span class="player-tag" data-player-side="卡兹克方玩家">选手</span>落败，说明两局都没有把防守转成反问。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3480" data-label="58:00 数据对比">
+              <span>58:00</span>
+              <strong>看映像次数和经验差</strong>
+              <em>数据页能反推：妖姬回合更长，卡兹克没有把经验窗口变成胜势。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3510" data-label="58:30 全场 KEY 牌">
+              <span>58:30</span>
+              <strong>蔚是必须预留答案的点</strong>
+              <em>KEY 牌给到蔚，卡兹克复盘时要追问答案为何没留到这里。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="khazix-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>防守框架：不要让妖姬把每轮都打成多选题</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">卡兹克方对妖姬，真正要防的不是某一个最大单位，而是妖姬的回合长度。只要妖姬每轮都能多做一到两件事，卡兹克就会一直处在被动分配资源的位置。</p>
+          <ol class="method-flow">
+            <li>
+              <span class="num">1</span>
+              <div>
+                <h3>先标记资源承接点</h3>
+                <p>暮色玫瑰实验室、希拉娜修道院和能承载映像的单位，优先级高于普通战力点。</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <div>
+                <h3>用卡兹克约束排序</h3>
+                <p>卡兹克不能只是站着等交换。它要让妖姬担心单点推进被惩罚，从而迫使对手多付费用或分散资源。</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <div>
+                <h3>防守后立刻反问</h3>
+                <p>每次挡住映像以后，下一步必须是经验、得分或手牌优势。只清场不反推，会被妖姬继续补问题。</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <div>
+                <h3>蔚进场前保留硬答案</h3>
+                <p>如果把答案都交在小交换上，最后面对蔚，和平卫士时就只能看她把优势结算。</p>
+              </div>
+            </li>
+          </ol>
+          <h3>卡兹克每回合先问这三个问题</h3>
+          <ul class="clean">
+            <li>这回合真正延长妖姬回合的是哪一个点：场地、映像，还是承载单位？</li>
+            <li>我的卡兹克有没有迫使妖姬改变排序，还是被对手绕开了？</li>
+            <li>如果蔚下回合进场，我是否还有能处理她的费用和答案？</li>
+          </ul>
+        </section>
+
+        <section id="khazix-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：紧分时要砍掉妖姬的下一轮，而不是只守当前一分</h2>
+            </div>
+            <div class="time">05:30 - 27:45</div>
+          </div>
+          <p class="lead">第一局中后段比分咬得很紧，这正是卡兹克方最容易误判的地方。Zugo<span class="player-tag" data-player-side="卡兹克方玩家">选手</span>不能只盯当前分差；更重要的是，妖姬下一轮还有没有映像、场地和高质量单位接着问第二个问题。</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>卡兹克拥有防守和惩罚单点推进的能力，但妖姬的场地能不断延长回合。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>中盘每次只处理当前最大威胁，都可能让妖姬保留下一个承接点。卡兹克要主动切断下一轮路线。</td>
+              </tr>
+              <tr>
+                <td>资源决定</td>
+                <td>不要被 6:7 这类紧分画面骗到只算当前分。你要算的是对手下一轮还有几条得分线。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>回看第一局，把每次防守后的下一步写下来：如果没有经验、得分或资源优势，就说明防守没有反问。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">26:00 - 27:45</span>
+              <span class="watch-title">紧分不是只守当前分</span>
+              <p>这段最适合卡兹克玩家复盘防守优先级。挡住眼前威胁以后，必须确认妖姬还有没有第二条线，否则下一轮仍然被动。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="1560" data-label="26:00 第一局末段">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=1560" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>卡兹克的防守要砍路线，不只是挡单位。只要妖姬下一轮还完整，当前防守就没有真正解决问题。</p>
+          </div>
+        </section>
+
+        <section id="khazix-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：卡兹克防线必须换到主动权，否则蔚会完成收口</h2>
+            </div>
+            <div class="time">33:00 - 58:30</div>
+          </div>
+          <p class="lead">第二局重开后，卡兹克方有机会重新规划防守。问题在于，妖姬继续用映像和多点威胁延长回合，最终由蔚，和平卫士完成收口。Zugo<span class="player-tag" data-player-side="卡兹克方玩家">选手</span>复盘时要重点看：卡兹克防线有没有换到主动权，还是只让妖姬多付了一点成本。</p>
+          <table>
+            <tbody>
+              <tr>
+                <td>起始条件</td>
+                <td>双方重置，卡兹克要更早锁定妖姬的资源承接点，不能等映像滚起来再处理。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>40:00 前后的防线是窗口。如果卡兹克只让妖姬改变一次排序，却没有接上反问，妖姬仍会找第二条线。</td>
+              </tr>
+              <tr>
+                <td>收口问题</td>
+                <td>蔚成为 KEY 牌，说明卡兹克方最终没能保留足够硬的答案处理她。</td>
+              </tr>
+              <tr>
+                <td>复盘标准</td>
+                <td>看第二局时，记录每次防守后卡兹克方是否拿到经验、分数或下一轮先手。如果没有，就说明防线只是在拖时间。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">40:00 - 41:00</span>
+              <h3>卡兹克要逼对手多付成本</h3>
+              <p>这里看卡兹克是否真的改变妖姬排序。只要妖姬仍能把多个问题一起推出，卡兹克的防守价值就会被稀释。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2400" data-label="40:00 卡兹克防线">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=2400" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">58:00 - 58:30</span>
+              <h3>从 KEY 牌倒查答案使用</h3>
+              <p>蔚，和平卫士被评为全场 KEY 牌。卡兹克复盘时，不要只看她有多强，要倒查自己的硬答案是不是过早交掉了。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3510" data-label="58:30 全场 KEY 牌">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=3&t=3510" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="warning">
+            <p><strong>第二局结论：</strong>卡兹克防线必须换到主动权。只让妖姬多绕一步，不足以阻止她用映像和蔚完成收口。</p>
+          </div>
+        </section>
+
+        <section id="khazix-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>卡兹克玩家练习清单</h2>
+            </div>
+          </div>
+          <h3>每回合都做的四个判断</h3>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我这次防守后，是否立刻获得经验、得分或手牌优势？</span></div>
+            <div class="check"><span class="box"></span><span>卡兹克有没有迫使妖姬改变排序，还是被对手多点推进绕开？</span></div>
+            <div class="check"><span class="box"></span><span>妖姬的场地和映像是否还有下一轮承接点？</span></div>
+            <div class="check"><span class="box"></span><span>蔚或等价收口单位进场前，我是否保留了硬答案？</span></div>
+          </div>
+          <h3>关键牌使用规则</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td>虚空掠夺者卡兹克</td>
+                <td>不要只当防守身材。它的角色是惩罚妖姬单点推进，并逼对手改变整个进攻排序。</td>
+              </tr>
+              <tr>
+                <td>反应牌</td>
+                <td>优先留给妖姬的资源承接点和蔚这类收口单位。普通小交换能不用就不要提前消耗。</td>
+              </tr>
+              <tr>
+                <td>中型防守单位</td>
+                <td>要和卡兹克一起形成防线，不能一个一个被映像或高质量单位拆掉。</td>
+              </tr>
+              <tr>
+                <td>经验获取路线</td>
+                <td>赛后数据页显示卡兹克方有经验获取，但没有转成胜势。经验要服务于下一轮主动权，不是独立收益。</td>
+              </tr>
+              <tr>
+                <td>终局答案</td>
+                <td>看到妖姬映像次数已经很多时，要预判对手会用高质量单位收口，提前把答案留到最后两轮。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="khazix-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>卡兹克玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>只处理当前最大单位，没有处理妖姬下一轮的场地或映像承接点。</li>
+            <li>让卡兹克站场后没有改变对手排序，导致它只是普通防守单位。</li>
+            <li>防守以后没有反问，经验和资源没有转成主动权。</li>
+            <li>硬答案过早交在小交换上，最后无法处理蔚，和平卫士。</li>
+            <li>紧分局只算当前分差，没有提前砍掉妖姬第二条得分路线。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给卡兹克玩家的核心课是：防守必须换主动权。只要妖姬的映像和场地还能把下一轮接上，你处理掉一个威胁也只是延后问题。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部" hidden>↑</a>
+  <script src="../assets/page-nav.js?v=page-nav-20260529-floating-actions"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260529-leblanc-khazix"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgXianDecklists.byKey,
+      decks: [
+        { sourceKey: "dwt-along-leblanc" },
+        { sourceKey: "zugo-khazix" }
+      ],
+      articleCardLinks: {
+        root: "main"
+      }
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260529-floating-desktop-large"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
