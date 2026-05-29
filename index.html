@@ -907,7 +907,7 @@
         });
       }
 
-      function renderDuelCover(card) {
+      function renderDuelCover(card, options = {}) {
         let legends = getExplicitDuelLegends(card);
         if (legends.length !== 2) {
           const source = sourceByName[card.dataset.deckSource] || {};
@@ -926,6 +926,8 @@
 
         const leftName = getLegendName(legends[0]);
         const rightName = getLegendName(legends[1]);
+        const loading = options.eager ? "eager" : "lazy";
+        const fetchPriority = options.eager ? ' fetchpriority="high"' : "";
         clearFallbackThumbClasses(thumb);
         thumb.classList.add("has-duel-cover");
         thumb.setAttribute("aria-label", `${leftName} VS ${rightName}`);
@@ -933,12 +935,12 @@
           <span class="duel-cover" aria-hidden="true">
             <span class="duel-mask duel-side is-left">
               <span class="duel-image-plane">
-                <img class="duel-art" src="${escapeHtml(legends[0].image || "")}" alt="" loading="lazy">
+                <img class="duel-art" src="${escapeHtml(legends[0].image || "")}" alt="" loading="${loading}" decoding="async"${fetchPriority}>
               </span>
             </span>
             <span class="duel-mask duel-side is-right">
               <span class="duel-image-plane">
-                <img class="duel-art" src="${escapeHtml(legends[1].image || "")}" alt="" loading="lazy">
+                <img class="duel-art" src="${escapeHtml(legends[1].image || "")}" alt="" loading="${loading}" decoding="async"${fetchPriority}>
               </span>
             </span>
             <span class="duel-slash"></span>
@@ -953,6 +955,32 @@
         });
       }
 
+      function queueSeasonDuelCovers(season) {
+        const cards = [...document.querySelectorAll(`[data-season-panel="${season}"] .guide-card`)];
+        const eagerCount = Math.min(cards.length, window.matchMedia("(max-width: 980px)").matches ? 1 : 3);
+        let coverObserver = null;
+
+        cards.forEach((card, index) => {
+          if (card.querySelector(".duel-cover")) return;
+          if (index < eagerCount || !("IntersectionObserver" in window)) {
+            renderDuelCover(card, { eager: index < eagerCount });
+            return;
+          }
+
+          if (!coverObserver) {
+            coverObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                coverObserver.unobserve(entry.target);
+                renderDuelCover(entry.target);
+              });
+            }, { rootMargin: "720px 0px" });
+          }
+
+          coverObserver.observe(card);
+        });
+      }
+
       function setSeason(nextSeason) {
         tabs.forEach((tab) => {
           const isActive = tab.dataset.season === nextSeason;
@@ -963,13 +991,15 @@
         panels.forEach((panel) => {
           panel.hidden = panel.dataset.seasonPanel !== nextSeason;
         });
+
+        queueSeasonDuelCovers(nextSeason);
       }
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => setSeason(tab.dataset.season));
       });
 
-      document.querySelectorAll(".guide-card").forEach(renderDuelCover);
+      queueSeasonDuelCovers(document.querySelector(".season-tab.active")?.dataset.season || "season-3");
 
       stationGroups.forEach((group) => {
         const count = group.querySelectorAll(".guide-card").length;
