@@ -15,19 +15,21 @@
 }
 
 .backtop {
+  --floating-action-scale: clamp(1, calc(100vw / 375px), 1.55);
   position: fixed;
   right: calc(18px + env(safe-area-inset-right));
   bottom: calc(18px + env(safe-area-inset-bottom));
   z-index: 40;
   display: inline-grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: calc(42px * var(--floating-action-scale));
+  height: calc(42px * var(--floating-action-scale));
   border-radius: 50%;
   color: #fff;
   background: var(--green-dark, #16402c);
   text-decoration: none;
   box-shadow: var(--shadow, 0 14px 44px rgba(25, 39, 31, 0.12));
+  font-size: calc(16px * var(--floating-action-scale));
   font-weight: 800;
 }
 

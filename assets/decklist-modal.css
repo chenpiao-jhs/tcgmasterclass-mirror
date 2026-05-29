@@ -61,13 +61,14 @@ body.deck-modal-open {
 }
 
 .deck-floating-button {
+  --deck-floating-scale: clamp(1, calc(100vw / 375px), 1.9);
   appearance: none;
   position: fixed;
   right: calc(8px + env(safe-area-inset-right));
-  bottom: calc(72px + env(safe-area-inset-bottom));
+  bottom: calc((18px + (42px * var(--deck-floating-scale)) + (12px * var(--deck-floating-scale))) + env(safe-area-inset-bottom));
   z-index: 44;
-  width: 96px;
-  height: 104px;
+  width: calc(68px * var(--deck-floating-scale));
+  height: calc(74px * var(--deck-floating-scale));
   display: block;
   padding: 0;
   border: 0;
@@ -86,9 +87,9 @@ body.deck-modal-open .deck-floating-button {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 24px;
+  bottom: calc(16px * var(--deck-floating-scale));
   z-index: 1;
-  height: 72px;
+  height: calc(50px * var(--deck-floating-scale));
   pointer-events: none;
 }
 
@@ -114,23 +115,23 @@ body.deck-modal-open .deck-floating-button {
 }
 
 .deck-floating-card-left {
-  left: 8px;
+  left: calc(8px * var(--deck-floating-scale));
   z-index: 2;
   transform: rotate(-7deg);
 }
 
 .deck-floating-card-right {
-  right: 10px;
+  right: calc(10px * var(--deck-floating-scale));
   z-index: 1;
   transform: rotate(10deg);
 }
 
 .deck-floating-card.is-active {
-  width: 48px;
+  width: calc(34px * var(--deck-floating-scale));
 }
 
 .deck-floating-card.is-inactive {
-  width: 38px;
+  width: calc(27px * var(--deck-floating-scale));
 }
 
 .deck-floating-label {
@@ -139,7 +140,7 @@ body.deck-modal-open .deck-floating-button {
   bottom: 0;
   left: 0;
   z-index: 3;
-  height: 30px;
+  height: calc(22px * var(--deck-floating-scale));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,7 +149,7 @@ body.deck-modal-open .deck-floating-button {
   background: var(--green-dark);
   box-shadow: 0 12px 34px rgba(25, 39, 31, 0.18);
   color: #fff;
-  font-size: 15px;
+  font-size: calc(12px * var(--deck-floating-scale));
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0;
@@ -595,29 +596,6 @@ body.deck-modal-open .deck-floating-button {
 @media (max-width: 900px) {
   .decklist-label {
     display: none;
-  }
-
-  .deck-floating-button {
-    width: 68px;
-    height: 74px;
-  }
-
-  .deck-floating-cards {
-    bottom: 16px;
-    height: 50px;
-  }
-
-  .deck-floating-card.is-active {
-    width: 34px;
-  }
-
-  .deck-floating-card.is-inactive {
-    width: 27px;
-  }
-
-  .deck-floating-label {
-    height: 22px;
-    font-size: 12px;
   }
 
   .deck-modal {
