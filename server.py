@@ -52,6 +52,7 @@ PAGE_TITLES = {
     "/leblanc-khazix-xian-swiss/": "妖姬 VS 卡兹克",
     "/vi-diana-xian-swiss/": "皮城执法官 VS 皎月女神",
     "/draven-rengar-xian-swiss/": "荣耀行刑官 VS 傲之追猎者",
+    "/vex-lux-xian-swiss/": "愁云使者 VS 光辉女郎",
 }
 VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{24,96}$")
 BOT_USER_AGENT_KEYWORDS = (
