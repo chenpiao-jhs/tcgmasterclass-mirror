@@ -28,7 +28,7 @@ MAX_BODY_BYTES = 16 * 1024
 FEEDBACK_LOCK = threading.Lock()
 VISIT_LOCK = threading.Lock()
 PRIVATE_PREFIXES = ("/.git", "/data")
-PRIVATE_FILES = {"/analytics.py", "/server.py", "/runeterra-guide.service"}
+PRIVATE_FILES = {"/AGENTS.md", "/analytics.py", "/server.py", "/runeterra-guide.service"}
 ALLOWED_FEEDBACK_TYPES = {"", "功能建议", "bug/报错", "其他"}
 EMAIL_GATEWAY_URL = "http://169.254.169.254/gateway/email/send"
 FEEDBACK_EMAIL_TO = os.environ.get("FEEDBACK_EMAIL_TO", "chenpiao@jihuanshe.com")
@@ -50,6 +50,7 @@ PAGE_TITLES = {
     "/azir-diana-xian-final/": "沙漠皇帝 VS 皎月女神",
     "/azir-vex-xian-quarterfinal/": "沙漠皇帝 VS 愁云使者",
     "/leblanc-khazix-xian-swiss/": "妖姬 VS 卡兹克",
+    "/vi-diana-xian-swiss/": "皮城执法官 VS 皎月女神",
 }
 VISITOR_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{24,96}$")
 BOT_USER_AGENT_KEYWORDS = (

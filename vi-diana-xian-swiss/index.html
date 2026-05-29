@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>皎月 VS 蔚：折戟拆装、专法清场与肉搏卡组的难题</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --red: #9f3d36;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("cover.jpg?v=result-covers-20260529") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 126px;
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.01), rgba(245, 247, 242, 0.88) 70%, var(--bg) 86%, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--green-dark);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .links a {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      color: var(--green-dark);
+      font-size: 34px;
+    }
+
+    .time {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .jump-grid,
+    .watch-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .jump-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .watch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .jump-card,
+    .watch-card,
+    .note-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 16px 46px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight,
+    .note-card {
+      padding: 18px;
+    }
+
+    .insight h3,
+    .watch-card h3 {
+      color: var(--green-dark);
+      font-size: 19px;
+    }
+
+    .insight p,
+    .watch-card p,
+    .note-card p {
+      margin-top: 10px;
+      color: var(--muted);
+    }
+
+    .jump-card {
+      cursor: pointer;
+      padding: 16px;
+      color: inherit;
+      text-align: left;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .jump-card:hover,
+    .jump-card:focus {
+      transform: translateY(-2px);
+      border-color: rgba(47, 111, 78, 0.4);
+      box-shadow: 0 18px 42px rgba(25, 39, 31, 0.12);
+      outline: none;
+    }
+
+    .jump-card.active {
+      border-color: var(--green);
+      background: linear-gradient(180deg, #ffffff, #f3faf5);
+    }
+
+    .jump-card span {
+      display: inline-flex;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.25;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-style: normal;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 22px;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      width: 28%;
+      background: var(--paper-soft);
+      color: var(--green-dark);
+    }
+
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .mistakes,
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mistakes li,
+    .checklist li {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .mistakes li::before,
+    .checklist li::before {
+      color: var(--gold);
+      font-weight: 900;
+      content: "• ";
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 20px;
+      border-radius: var(--radius);
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .footer p {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .backtop {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      z-index: 20;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 440px;
+      }
+
+      .hero-inner {
+        width: min(100% - 28px, var(--max));
+        padding: 64px 0 82px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      main {
+        width: min(100% - 28px, var(--max));
+        margin: 34px auto 0;
+      }
+
+      section {
+        margin-top: 46px;
+      }
+
+      .section-head,
+      .grid-2,
+      .grid-3,
+      .jump-grid,
+      .watch-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: start;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .section-head h2 {
+        font-size: 24px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .backtop {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260529-floating-actions">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260529-floating-desktop-large">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">西安站DAY2 · 瑞士轮第九轮</div>
+      <h1>皎月 VS 蔚：折戟拆装、专法清场与肉搏卡组的难题</h1>
+      <p class="summary">把火星.化作蝴蝶飞舞 2:0 猫岛巡礼.No.Jay 的进阶瑞士轮第九轮，整理成皎月玩家和蔚玩家都能对照练习的打法页面。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛西安站 DAY2 第 2P</li>
+        <li>对局：皮城执法官（猫岛巡礼.No.Jay） VS 皎月女神（火星.化作蝴蝶飞舞）</li>
+        <li>结果：火星.化作蝴蝶飞舞 2:0 获胜</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=2&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1mVGE68EMg?p=2">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=2&autoplay=0&t=230" title="第三赛季区域公开赛西安站 DAY2 第 2P：皮城执法官 VS 皎月女神" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：03:50 双方选手登场</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=230" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-diana-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+        <button class="perspective-tab" id="tab-vi-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-vi" data-perspective-target="vi">蔚玩家视角</button>
+      </div>
+      <section id="decklistMount"></section>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">西安瑞士轮双视角</div>
+        <div class="links" data-perspective-nav="diana">
+          <a href="#diana-principles">核心结论</a>
+          <a href="#diana-video">关键片段</a>
+          <a href="#diana-plan">对局计划</a>
+          <a href="#diana-game-one">第一局</a>
+          <a href="#diana-game-two">第二局</a>
+          <a href="#diana-checklist">清单</a>
+          <a href="#diana-mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="vi" hidden>
+          <a href="#vi-principles">核心结论</a>
+          <a href="#vi-video">关键片段</a>
+          <a href="#vi-plan">破局框架</a>
+          <a href="#vi-game-one">第一局</a>
+          <a href="#vi-game-two">第二局</a>
+          <a href="#vi-checklist">清单</a>
+          <a href="#vi-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-diana" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+        <button class="perspective-tab" id="tab-vi" type="button" role="tab" aria-selected="false" aria-controls="panel-vi" data-perspective-target="vi">蔚玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-diana" role="tabpanel" aria-labelledby="tab-diana" data-perspective-panel="diana">
+        <section id="diana-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>皎月视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">火星.化作蝴蝶飞舞<span class="player-tag" data-player-side="皎月方玩家">选手</span>赢得很干净：皎月没有和蔚正面比战力，而是用折戟再战拆装备、用月之降临和换换乐改变结算方式，再用彗、薇古丝和废弃大厅把蔚最想要的过量伤害窗口挡住。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>先拆装备，再拆回合</h3>
+              <p>蔚靠海克斯科技护手、枯萎战斧和大体型单位把数值滚起来。皎月第一局先把装备轴切断，蔚就很难把手里的力量落到战场上。</p>
+            </article>
+            <article class="insight">
+              <h3>法盾不是不能打</h3>
+              <p>第一局蔚连续用烬、狮子狗和魄罗这种法盾单位试探，皎月仍然愿意交高费用法术。只要交换后能保住节奏，倒法盾本身就是赚时间。</p>
+            </article>
+            <article class="insight">
+              <h3>别给蔚过量伤害</h3>
+              <p>第二局最重要的防守不是硬吃大哥，而是让蔚的攻击达不到过量三。不给超杀，蔚就少一次活跃、游走和捕猎场收益。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>折戟再战是战术核心</h3>
+              <p>官方 KEY 牌给到折戟再战。它不是只拆一张装备，而是让蔚玩家不敢安全投入护手和战斧，整个肉搏计划都会变慢。</p>
+            </article>
+            <article class="insight">
+              <h3>皎月要主动选择战斗</h3>
+              <p>赛后数据里皎月战斗获胜率更高，原因不是皎月更会拼数值，而是皎月总在自己能控制的地方发起进攻。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="diana-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照皎月方法</h2>
+            </div>
+            <div class="time">P2 瑞士轮第九轮</div>
+          </div>
+          <p class="lead">这些时间点来自 P2 字幕和画面：选手名、场地、两局关键回合、胜利页和 KEY 牌页都已逐段核对。</p>
+          <div class="jump-grid" aria-label="皎月视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="230" data-label="03:50 双方选手登场">
+              <span>03:50</span>
+              <strong>先确认双方身份</strong>
+              <em>猫岛巡礼.No.Jay<span class="player-tag" data-player-side="蔚方玩家">选手</span>使用蔚，火星.化作蝴蝶飞舞<span class="player-tag" data-player-side="皎月方玩家">选手</span>使用皎月。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="312" data-label="05:12 第一局场地">
+              <span>05:12</span>
+              <strong>皮城学院对落岩之径</strong>
+              <em>皎月用皮城学院接法术回响，蔚翻出落岩之径，比赛从一开始就围绕法术和装备展开。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="432" data-label="07:12 折戟威胁装备">
+              <span>07:12</span>
+              <strong>折戟再战先锁住装备轴</strong>
+              <em>解说已经点出皎月手里有折戟再战，蔚的护手和战斧都不能无脑上。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1080" data-label="18:00 换换乐处理狮子狗">
+              <span>18:00</span>
+              <strong>换换乐打断大身材反扑</strong>
+              <em>蔚用雷恩加尔和战斧打出巨大战力，皎月用换换乐把最危险的结算变成空转。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1871" data-label="31:11 专法清场">
+              <span>31:11</span>
+              <strong>第二局专法敢顶法盾</strong>
+              <em>皎月专法把明面上的进攻单位清掉，即使要面对法盾，也先拆蔚下一回合的进攻材料。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1986" data-label="33:06 不给过量三">
+              <span>33:06</span>
+              <strong>不给蔚触发过量三</strong>
+              <em>通过加学生和调整战力，皎月让雷恩加尔无法完成蔚最需要的过量伤害节奏。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2455" data-label="40:55 终局防守">
+              <span>40:55</span>
+              <strong>彗、薇古丝和盖牌一起守</strong>
+              <em>皎月把蔚的总攻拆成多个小结算，逼猫岛巡礼.No.Jay<span class="player-tag" data-player-side="蔚方玩家">选手</span>每一步都要重付费用。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2672" data-label="44:32 胜利与 KEY 牌">
+              <span>44:32</span>
+              <strong>皎月 2:0 获胜，KEY 牌折戟再战</strong>
+              <em>结果页和 KEY 牌页把整场结论说清：拆装备比单纯拼战力更关键。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="diana-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>对局计划：把蔚从肉搏题改成费用题</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">蔚最舒服的局面，是装备贴上去、单位打出过量、活跃以后再游走或继续压第二路。皎月要做的不是在每一路都比蔚大，而是让她每次进攻都缺一块：缺装备、缺费用、缺过量，或者缺下一轮手牌。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>开局</th>
+                <td>保留折戟再战、换换乐、月之降临这类能改变结算的牌。不要只留大单位，因为蔚的胜路本来就是把战力做大。</td>
+              </tr>
+              <tr>
+                <th>中盘</th>
+                <td>优先拆护手和战斧的承载点。蔚的装备如果没人穿，手牌就会变成一堆无法进入战场的数值。</td>
+              </tr>
+              <tr>
+                <th>防守</th>
+                <td>看到蔚的超杀回合，先算能不能让它差一两点。只要过量三不成立，这回合就从爆发回合变成普通交换。</td>
+              </tr>
+              <tr>
+                <th>收口</th>
+                <td>资源领先以后不要空交答案。留一张回合外互动，让蔚重新手打装备时还要再吃一次干扰。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">40:55 - 44:40</span>
+              <span class="watch-title">终局把蔚的总攻拆散</span>
+              <p>这段适合练防守计算：彗、薇古丝、盖牌和学生不是为了赢一个漂亮的大结算，而是让蔚的过量、断魂一扼和装备复用全部差一点。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="2455" data-label="40:55 终局防守">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=2455" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="diana-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：折戟拆掉护手，皎月先把蔚的资源落点拔掉</h2>
+            </div>
+            <div class="time">05:12 - 20:55</div>
+          </div>
+          <p class="lead">第一局蔚不是没有动作：烬、魄罗、雷恩加尔、海克斯科技护手和枯萎战斧都出现了。但皎月一直在问同一个问题：这些装备和大身材能不能真的结算成分？答案多数时候是否定的。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>起手结构</th>
+                <td>蔚用落岩之径和装备打肉搏，皎月用皮城学院让法术更容易连续结算。</td>
+              </tr>
+              <tr>
+                <th>关键转折</th>
+                <td>折戟再战让护手和战斧不再安全，蔚场上和手里的装备开始卡在一起。</td>
+              </tr>
+              <tr>
+                <th>皎月执行</th>
+                <td>面对法盾单位也敢交资源，先清能进攻的明牌单位，再用换换乐处理雷恩加尔的高战力回合。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>回看 07:12 到 18:00，记录每次蔚投入装备后，皎月是否让装备失去承载点。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">07:12 - 10:30</span>
+              <h3>折戟让装备变危险</h3>
+              <p>蔚本来想靠装备防守和反推，皎月的折戟再战让这个计划从第一轮开始就不稳定。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="432" data-label="07:12 折戟威胁装备">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=432" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">18:00 - 20:55</span>
+              <h3>换换乐把大哥变成空转</h3>
+              <p>雷恩加尔配战斧的数字很夸张，但皎月没有和它硬拼，而是改写结算，让蔚的爆发不能变成比分。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1080" data-label="18:00 换换乐处理狮子狗">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=1080" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="diana-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：废弃大厅给皎月反而成了防超杀工具</h2>
+            </div>
+            <div class="time">25:13 - 44:47</div>
+          </div>
+          <p class="lead">第二局蔚换到捕猎场，目标更明确：通过过量伤害触发收益。皎月翻出废弃大厅后，没有把它只当进攻场地，而是把学生、彗和薇古丝都变成防线的一部分。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>蔚的调整</th>
+                <td>红印和战斧继续服务于装备爆发，捕猎场要求蔚必须真的打出过量。</td>
+              </tr>
+              <tr>
+                <th>皎月的反制</th>
+                <td>专法先处理明面进攻单位，学生和废弃大厅不断补战力，让蔚差一点完成超杀。</td>
+              </tr>
+              <tr>
+                <th>终局算点</th>
+                <td>蔚用顺劈和断魂一扼尝试最后突破，但皎月的联防仍能让单位留下，进攻没有形成致命分差。</td>
+              </tr>
+              <tr>
+                <th>学习重点</th>
+                <td>对蔚时不要只问“能不能杀掉大哥”，还要问“能不能让它不触发过量三”。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">31:11 - 33:25</span>
+              <h3>专法与战力调整连着看</h3>
+              <p>皎月先用专法清场，再用学生补战力，不给雷恩加尔完成蔚最想要的超杀回合。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1871" data-label="31:11 专法清场">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=1871" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">42:38 - 44:47</span>
+              <h3>最后一攻差一点，就是防守成功</h3>
+              <p>蔚把能用的增益都叠上来，仍然没有打穿。皎月赢在让每个结算都差一口气。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2558" data-label="42:38 断魂一扼尝试突破">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=2558" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="diana-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>皎月玩家复盘清单</h2>
+            </div>
+          </div>
+          <ul class="checklist">
+            <li>看到蔚保留红黄资源时，先问对面是不是要让装备和雷恩加尔完成过量三。</li>
+            <li>折戟再战不要只等最大装备；能拆掉蔚的过牌或第一件承载装备，就已经影响整局。</li>
+            <li>面对法盾单位，先算交法术后能不能保住节奏，不要被“亏一层法盾”的直觉吓住。</li>
+            <li>废弃大厅回合先算防守阈值，学生加战力有时比主动追分更重要。</li>
+            <li>终局留一张能改结算的牌，让蔚重新手打装备时仍然要过第二道门。</li>
+          </ul>
+        </section>
+
+        <section id="diana-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>皎月玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把折戟再战留得太久，结果让蔚先用护手或战斧抽到足够资源。</li>
+            <li>看到法盾就不敢交专法，导致蔚下回合拿到更大的过量窗口。</li>
+            <li>只处理最高战力单位，没有处理装备承载点和下一次活跃路径。</li>
+            <li>废弃大厅回合只想着自己进攻，忘了用战力阈值卡住蔚的超杀。</li>
+            <li>资源领先后把互动打空，让蔚最后一轮可以放心重装装备。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给皎月玩家的核心课是：对蔚不要恋战。你要赢的是结算方式，不是正面数字。只要蔚的装备和过量伤害连续被打断，肉搏卡组就会被拖进皎月更擅长的费用题。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-vi" role="tabpanel" aria-labelledby="tab-vi" data-perspective-panel="vi" hidden>
+        <section id="vi-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>蔚视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">猫岛巡礼.No.Jay<span class="player-tag" data-player-side="蔚方玩家">选手</span>展示了蔚的上限：雷恩加尔、战斧、顺劈和断魂一扼都能把数字做得很大。但这场也说明了蔚的难题：如果对手不跟你正面肉搏，你必须先处理“如何让装备安全落地”，再谈过量伤害。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>装备要有第二承载点</h3>
+              <p>第一局手里和场上的装备很多，但承载单位被皎月反复处理。蔚不能把所有价值都压在同一个单位上。</p>
+            </article>
+            <article class="insight">
+              <h3>法盾不是绝对保护</h3>
+              <p>皎月愿意顶法盾交牌时，蔚需要用这个信息判断对手手里还有没有后续互动，而不是默认法盾能挡一整轮。</p>
+            </article>
+            <article class="insight">
+              <h3>过量窗口要提前铺</h3>
+              <p>临时靠顺劈和断魂一扼补两三点，很容易被学生、彗或薇古丝卡住。蔚要在前一轮就让场面逼近阈值。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>红黄要主动逼答案</h3>
+              <p>红黄缺少魅惑和灵活回手，不能只等皎月进来。你需要用小单位和装备逼对手先交换换乐、折戟或专法。</p>
+            </article>
+            <article class="insight">
+              <h3>别让折戟拆到节奏点</h3>
+              <p>折戟再战拆掉护手或第一件关键装备时，损失的不只是战力，也是后续抽牌和费用安排。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="vi-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照蔚的破局问题</h2>
+            </div>
+            <div class="time">P2 瑞士轮第九轮</div>
+          </div>
+          <p class="lead">蔚视角重点不在“哪里打错一张牌”，而在每次装备和大单位要进场之前，是否已经逼出了皎月最要命的互动。</p>
+          <div class="jump-grid" aria-label="蔚视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="312" data-label="05:12 第一局场地">
+              <span>05:12</span>
+              <strong>落岩之径对皮城学院</strong>
+              <em>蔚需要尽快把比赛拉成肉搏；皎月的皮城学院会让法术互动更容易连起来。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="570" data-label="09:30 装备轴被拆">
+              <span>09:30</span>
+              <strong>护手被折戟压住</strong>
+              <em>蔚的过牌装备失去承载点后，手牌里的战斧和后续数值都变慢。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="840" data-label="14:00 雷恩加尔打出过量">
+              <span>14:00</span>
+              <strong>雷恩加尔是破局核心</strong>
+              <em>四费红色雷恩加尔靠极速、强攻、法盾和游走制造机会，是蔚最能威胁皎月的点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1080" data-label="18:00 战斧反扑被换掉">
+              <span>18:00</span>
+              <strong>战斧加大哥仍怕换结算</strong>
+              <em>数字做大以后，如果没有先逼出换换乐，皎月仍然能让这次进攻失效。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1513" data-label="25:13 第二局换场地">
+              <span>25:13</span>
+              <strong>捕猎场要求真的打出过量</strong>
+              <em>第二局蔚换到捕猎场，目标更清晰，但也更怕皎月卡住过量三。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2145" data-label="35:45 复仇处理大哥">
+              <span>35:45</span>
+              <strong>大哥被复仇直接处理</strong>
+              <em>蔚如果只有一个核心承载点，皎月的直杀和回手都会让装备回合失去收益。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2558" data-label="42:38 断魂一扼冲刺">
+              <span>42:38</span>
+              <strong>最后冲刺差两点</strong>
+              <em>顺劈加断魂一扼已经很接近，但皎月的联防让蔚没有真正打穿。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2672" data-label="44:32 赛后结论">
+              <span>44:32</span>
+              <strong>赛后确认：卡组克制很重</strong>
+              <em>解说也提到，蔚对灵活紫色 trick 的办法不多，需要更多构筑和排序解法。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="vi-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>破局框架：先骗互动，再把装备结算成两路威胁</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">蔚打皎月不能只看“我这一拳有多大”。真正要问的是：对手的折戟、换换乐、月之降临和彗分别在哪里？这些答案没出来之前，最大单位也可能只是帮皎月确认该交哪张牌。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>先手阶段</th>
+                <td>用较小单位和低风险装备试探，不要第一时间把护手和战斧都交到同一个单位上。</td>
+              </tr>
+              <tr>
+                <th>中盘阶段</th>
+                <td>如果折戟已经出现，立刻调整成多承载点路线，让皎月拆一件装备也不能拆掉整回合。</td>
+              </tr>
+              <tr>
+                <th>总攻阶段</th>
+                <td>顺劈、断魂一扼和雷恩加尔要服务于过量三，而不是单纯做大数字。先算对面能不能用学生或薇古丝把你卡在阈值外。</td>
+              </tr>
+              <tr>
+                <th>备牌思路</th>
+                <td>优先考虑能保护装备承载点、补手牌或迫使皎月提前交互动的牌。只加更多装备，可能让卡手问题更严重。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">18:00 - 19:20</span>
+              <span class="watch-title">大数字不等于已经突破</span>
+              <p>雷恩加尔加战斧的回合看起来很强，但皎月还有换换乐。蔚要把这类牌先逼出来，再把真正的装备爆发交出去。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="1080" data-label="18:00 战斧反扑被换掉">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=1080" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="vi-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：装备很多，但皎月让装备找不到安全落点</h2>
+            </div>
+            <div class="time">05:12 - 20:55</div>
+          </div>
+          <p class="lead">第一局蔚的问题不只是折戟拆了一张装备，而是装备、单位和过牌没有形成稳定链条。皎月每次都先让承载点变薄，再处理装备价值。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>可取之处</th>
+                <td>雷恩加尔确实给了皎月压力，也证明蔚有能力把单轮战力做得非常高。</td>
+              </tr>
+              <tr>
+                <th>主要风险</th>
+                <td>护手和战斧太早暴露后，皎月知道该围绕装备落点来打，蔚的资源变得被动。</td>
+              </tr>
+              <tr>
+                <th>调整方向</th>
+                <td>先用小单位逼月之降临或换换乐，再把真正需要过牌的护手交出去。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>回看 09:30 到 18:00，找出蔚有没有机会把装备分散到两个威胁上。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="vi-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：思路更接近，但最后仍被卡在过量阈值外</h2>
+            </div>
+            <div class="time">25:13 - 44:47</div>
+          </div>
+          <p class="lead">第二局捕猎场、红印、雷恩加尔和断魂一扼都说明蔚已经在努力把比赛拉回自己的规则里。问题是皎月太清楚“差一点过量”意味着什么，整局都在让蔚差那一点。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>开局调整</th>
+                <td>保留红印支持战斧是合理的，但面对三张折戟的皎月，蔚需要同时准备装备被拆后的替代进攻。</td>
+              </tr>
+              <tr>
+                <th>中盘突破</th>
+                <td>雷恩加尔冲捕猎场时，皎月通过学生加战力让超杀不成立。蔚需要提前逼掉这类战力调整。</td>
+              </tr>
+              <tr>
+                <th>最后一攻</th>
+                <td>顺劈和断魂一扼的想法很好，但没有补足最后两点，且皎月还有场面留下来，进攻就不能转成胜势。</td>
+              </tr>
+              <tr>
+                <th>学习重点</th>
+                <td>对皎月，终局总攻必须带着“防换结算”的冗余。刚好够的数字，经常就会变成不够。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">33:06 - 34:15</span>
+              <h3>超杀被卡住的瞬间</h3>
+              <p>这段最好暂停算：蔚需要多几分才能触发过量？皎月能用哪些方式让你差一点？</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1986" data-label="33:06 不给过量三">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=1986" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">42:38 - 44:20</span>
+              <h3>最后一攻的算点训练</h3>
+              <p>蔚的路线已经很接近，但皎月的彗、薇古丝和废弃大厅把数字推到安全线外。练蔚时要专门复盘这种差值。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2558" data-label="42:38 断魂一扼尝试突破">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=2&t=2558" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="vi-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>蔚玩家复盘清单</h2>
+            </div>
+          </div>
+          <ul class="checklist">
+            <li>装备上场前，确认还有没有第二个可用承载点，避免被折戟拆掉整个回合。</li>
+            <li>用小单位先骗换换乐、月之降临或彗，不要把最大战力直接送进未知盖牌。</li>
+            <li>每个捕猎场回合先算过量三，而不是只算战斗能不能赢。</li>
+            <li>如果手牌里装备过多，优先找过牌和单位密度，别继续把资源压成单点。</li>
+            <li>终局总攻至少多准备两到三点冗余，防皎月用学生、薇古丝或回手改变结算。</li>
+          </ul>
+        </section>
+
+        <section id="vi-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>蔚玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把护手和战斧看成必定能结算的资源，没有先确认皎月的拆装备数量。</li>
+            <li>过早把雷恩加尔当唯一大哥，导致复仇、换换乐或专法处理后没有第二威胁。</li>
+            <li>只计算自己的最大数字，没有计算皎月能让你差几分不过量。</li>
+            <li>明知道皎月还有盖牌，仍然把总攻做成“刚好够”的路线。</li>
+            <li>备牌只增加更大的装备，没有补充逼互动、保护承载点或持续过牌的手段。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给蔚玩家的核心课是：你不是没有上限，而是要先让上限安全落地。面对皎月这种灵活紫色套牌，装备、过量和游走必须分成两到三条威胁线，否则每次都会被一个互动拆成普通交换。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部" hidden>↑</a>
+  <script src="../assets/page-nav.js?v=page-nav-20260529-floating-actions"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260529-vi-diana"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgXianDecklists.byKey,
+      decks: [
+        { sourceKey: "huoxing-butterfly-diana" },
+        { sourceKey: "no-jay-vi" }
+      ],
+      articleCardLinks: {
+        root: "main",
+        aliases: {
+          "烬": "烬, 致命艺术",
+          "彗": "彗, 焚心绘华",
+          "折戟": "折戟再战",
+          "护手": "海克斯科技护手",
+          "战斧": "枯萎战斧",
+          "红印": "暴怒之印",
+          "狮子狗": "雷恩加尔, 隐匿杀机",
+          "魄罗": "呸呸魄罗",
+          "学生": "拉文布鲁姆学生"
+        }
+      }
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260529-floating-desktop-large"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
