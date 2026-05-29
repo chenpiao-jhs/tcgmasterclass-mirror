@@ -14,6 +14,27 @@
   background: var(--green-dark, #16402c);
 }
 
+.backtop {
+  position: fixed;
+  right: calc(18px + env(safe-area-inset-right));
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 40;
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--green-dark, #16402c);
+  text-decoration: none;
+  box-shadow: var(--shadow, 0 14px 44px rgba(25, 39, 31, 0.12));
+  font-weight: 800;
+}
+
+.backtop[hidden] {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
   .topbar .nav {
     width: min(var(--max), calc(100% - 40px));

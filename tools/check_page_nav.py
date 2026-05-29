@@ -8,7 +8,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_PAGE_NAV_VERSION = "page-nav-20260525"
+EXPECTED_PAGE_NAV_VERSION = "page-nav-20260529-floating-actions"
 MOBILE_CONTRACTS = (
     (".topbar .nav", ("width:", "margin:", "flex-direction: column", "padding:")),
     (".topbar .brand", ("display: none",)),

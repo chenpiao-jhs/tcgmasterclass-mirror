@@ -3,7 +3,7 @@ body.deck-modal-open {
 }
 
 .decklist-panel {
-  display: grid;
+  display: none;
   gap: 10px;
   margin: 0;
   padding: 14px;
@@ -58,6 +58,110 @@ body.deck-modal-open {
   color: #35443a;
   font-size: 12px;
   line-height: 1.2;
+}
+
+.deck-floating-button {
+  appearance: none;
+  position: fixed;
+  right: calc(8px + env(safe-area-inset-right));
+  bottom: calc(72px + env(safe-area-inset-bottom));
+  z-index: 44;
+  width: 96px;
+  height: 104px;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #050505;
+  cursor: pointer;
+  font: inherit;
+}
+
+.deck-floating-button[hidden],
+body.deck-modal-open .deck-floating-button {
+  display: none;
+}
+
+.deck-floating-cards {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  z-index: 1;
+  height: 72px;
+  pointer-events: none;
+}
+
+.deck-floating-card {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  aspect-ratio: 5 / 7;
+  overflow: hidden;
+  border: 1px solid rgba(243, 231, 197, 0.9);
+  border-radius: 5px;
+  background: var(--paper-soft);
+  box-shadow: 0 9px 20px rgba(25, 39, 31, 0.2);
+  transform-origin: bottom center;
+}
+
+.deck-floating-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.deck-floating-card-left {
+  left: 8px;
+  z-index: 2;
+  transform: rotate(-7deg);
+}
+
+.deck-floating-card-right {
+  right: 10px;
+  z-index: 1;
+  transform: rotate(10deg);
+}
+
+.deck-floating-card.is-active {
+  width: 48px;
+}
+
+.deck-floating-card.is-inactive {
+  width: 38px;
+}
+
+.deck-floating-label {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(184, 137, 46, 0.42);
+  border-radius: var(--radius);
+  background: var(--green-dark);
+  box-shadow: 0 12px 34px rgba(25, 39, 31, 0.18);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.deck-floating-button:hover .deck-floating-label,
+.deck-floating-button:focus .deck-floating-label {
+  background: var(--green);
+}
+
+.deck-floating-button:focus-visible .deck-floating-label {
+  outline: 2px solid rgba(184, 137, 46, 0.72);
+  outline-offset: 3px;
 }
 
 .deck-modal[hidden] {
@@ -489,35 +593,31 @@ body.deck-modal-open {
 }
 
 @media (max-width: 900px) {
-  .decklist-panel {
-    width: min(var(--max), calc(100% - 40px));
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin: 0 auto;
-    padding: 8px 0 0;
-    border-bottom: 0;
-    background: transparent;
-  }
-
   .decklist-label {
     display: none;
   }
 
-  .decklist-button {
-    min-height: 34px;
-    padding: 6px 8px;
-    gap: 5px;
+  .deck-floating-button {
+    width: 68px;
+    height: 74px;
   }
 
-  .decklist-button span {
-    font-size: 13px;
-    white-space: nowrap;
+  .deck-floating-cards {
+    bottom: 16px;
+    height: 50px;
   }
 
-  .decklist-button strong {
-    padding: 3px 6px;
-    font-size: 10px;
-    white-space: nowrap;
+  .deck-floating-card.is-active {
+    width: 34px;
+  }
+
+  .deck-floating-card.is-inactive {
+    width: 27px;
+  }
+
+  .deck-floating-label {
+    height: 22px;
+    font-size: 12px;
   }
 
   .deck-modal {
@@ -571,7 +671,7 @@ body.deck-modal-open {
 
 @media (max-width: 560px) {
   .decklist-panel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: none;
   }
 
   .deck-dialog {

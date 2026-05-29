@@ -217,6 +217,19 @@
     return deck.buttonLabel || deck.title || "牌表";
   }
 
+  function normalizeToken(value) {
+    return String(value || "").toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "");
+  }
+
+  function getLegendaryCard(deck) {
+    const cards = [...(deck?.main || []), ...(deck?.side || [])];
+    return (
+      cards.find((card) => getCardMeta(card).startsWith("传奇") && getCardImage(card)) ||
+      cards.find((card) => getCardImage(card)) ||
+      null
+    );
+  }
+
   function renderEntrypoints(mount, decks, label) {
     mount.classList.add("decklist-panel");
     mount.setAttribute("aria-label", label);
@@ -249,6 +262,26 @@
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
     });
+  }
+
+  function createMobileFloatingButton() {
+    const button = document.createElement("button");
+    button.className = "deck-floating-button";
+    button.type = "button";
+    button.hidden = true;
+    document.body.append(button);
+    return button;
+  }
+
+  function renderFloatingCard(deck, card, className) {
+    const image = getCardImage(card);
+    if (!image) return "";
+    const cardName = getCardName(card) || getDeckLabel(deck);
+    return `
+      <span class="deck-floating-card ${className}">
+        <img src="${escapeHtml(image)}" alt="${escapeHtml(cardName)}">
+      </span>
+    `;
   }
 
   function resolveDecks(decks, dataSource) {
@@ -436,6 +469,10 @@
       "input",
       "select",
       "option",
+      "[role='tab']",
+      "[role='tablist']",
+      ".perspective-tab",
+      ".perspective-switch",
       ".deck-modal",
       ".deck-card-hover-preview",
       ".deck-card-lightbox"
@@ -609,6 +646,7 @@
     if (!mount || decks.length === 0) return null;
 
     const deckByKey = new Map(decks.map((deck) => [String(deck.key), deck]));
+    const perspectiveDecks = options.perspectiveDecks || options.perspectiveDeckMap || {};
     const sectionConfig = options.sections || defaultSections;
     const rarityTags = options.rarityTags || defaultRarityTags;
     const label = options.label || "公开牌表";
@@ -635,8 +673,133 @@
     let lightboxPointerStartY = null;
 
     renderEntrypoints(mount, decks, label);
-    renderDeckSwitcher(deckSwitcher, decks);
+    const mobileFloatingButton = options.mobileFloatingButton === false
+      ? null
+      : document.querySelector(options.mobileFloatingSelector || ".deck-floating-button") || createMobileFloatingButton();
+    const backtopButton = document.querySelector(options.backtopSelector || ".backtop");
     const articleCardRoot = linkArticleCardNames(getArticleCardConfig(options), decks);
+
+    function getPerspectiveNames() {
+      const names = [];
+      document.querySelectorAll("[data-perspective-target]").forEach((tab) => {
+        const name = tab.dataset.perspectiveTarget;
+        if (name && !names.includes(name)) names.push(name);
+      });
+      return names;
+    }
+
+    function getActivePerspectiveName() {
+      return (
+        [...document.querySelectorAll("[data-perspective-target]")]
+          .find((tab) => tab.classList.contains("active") || tab.getAttribute("aria-selected") === "true")
+          ?.dataset.perspectiveTarget || ""
+      );
+    }
+
+    function getConfiguredPerspectiveDeck(perspective) {
+      const configured = perspectiveDecks[perspective];
+      if (!configured) return null;
+      if (typeof configured === "string") return deckByKey.get(configured) || null;
+      if (configured.key) return deckByKey.get(String(configured.key)) || configured;
+      return null;
+    }
+
+    function getDeckSearchText(deck) {
+      return [
+        deck.key,
+        deck.title,
+        deck.buttonLabel,
+        deck.deckName,
+        deck.deckCategory,
+        deck.player
+      ].map(normalizeToken).filter(Boolean).join(" ");
+    }
+
+    function findDeckByPerspective(perspective) {
+      const configuredDeck = getConfiguredPerspectiveDeck(perspective);
+      if (configuredDeck) return configuredDeck;
+
+      const needle = normalizeToken(perspective);
+      if (!needle) return null;
+      return decks.find((deck) => getDeckSearchText(deck).includes(needle)) || null;
+    }
+
+    function getDeckForPerspective(perspective) {
+      const directDeck = findDeckByPerspective(perspective);
+      if (directDeck) return directDeck;
+
+      const perspectiveNames = getPerspectiveNames();
+      if (decks.length === 2 && perspectiveNames.length === 2) {
+        const otherMatchedDecks = perspectiveNames
+          .filter((name) => name !== perspective)
+          .map((name) => findDeckByPerspective(name))
+          .filter(Boolean);
+        const unmatchedDeck = decks.find((deck) => !otherMatchedDecks.includes(deck));
+        if (unmatchedDeck) return unmatchedDeck;
+      }
+
+      const perspectiveIndex = perspectiveNames.indexOf(perspective);
+      return decks[perspectiveIndex] || decks[0] || null;
+    }
+
+    function getOrderedPerspectiveDecks() {
+      const orderedDecks = [];
+      getPerspectiveNames().forEach((perspective) => {
+        const deck = getDeckForPerspective(perspective);
+        if (deck && !orderedDecks.includes(deck)) orderedDecks.push(deck);
+      });
+      decks.forEach((deck) => {
+        if (!orderedDecks.includes(deck)) orderedDecks.push(deck);
+      });
+      return orderedDecks;
+    }
+
+    function getFloatingDeckState() {
+      const currentDeck = getDeckForPerspective(getActivePerspectiveName()) || decks[0];
+      return {
+        currentDeck,
+        orderedDecks: getOrderedPerspectiveDecks().slice(0, 2)
+      };
+    }
+
+    renderDeckSwitcher(deckSwitcher, getOrderedPerspectiveDecks());
+
+    function isBacktopVisible() {
+      if (!backtopButton) return true;
+      return !backtopButton.hidden && window.getComputedStyle(backtopButton).display !== "none";
+    }
+
+    function updateMobileFloatingButton() {
+      if (!mobileFloatingButton) return;
+      const { currentDeck, orderedDecks } = getFloatingDeckState();
+      const currentCard = getLegendaryCard(currentDeck);
+      if (!currentDeck || !currentCard || !isBacktopVisible()) {
+        mobileFloatingButton.hidden = true;
+        return;
+      }
+
+      const floatingCards = orderedDecks.map((deck, index) => {
+        const card = getLegendaryCard(deck);
+        if (!card) return "";
+        const slotClass = index === 0 ? "deck-floating-card-left" : "deck-floating-card-right";
+        const activeClass = deck === currentDeck ? "is-active" : "is-inactive";
+        return renderFloatingCard(deck, card, `${slotClass} ${activeClass}`);
+      }).join("");
+
+      mobileFloatingButton.dataset.deckKey = currentDeck.key;
+      mobileFloatingButton.setAttribute("aria-label", `查看${getDeckLabel(currentDeck)}`);
+      mobileFloatingButton.innerHTML = `
+        <span class="deck-floating-cards" aria-hidden="true">
+          ${floatingCards}
+        </span>
+        <span class="deck-floating-label">查看牌表</span>
+      `;
+      mobileFloatingButton.hidden = false;
+    }
+
+    function scheduleMobileFloatingUpdate() {
+      window.requestAnimationFrame(updateMobileFloatingButton);
+    }
 
     function renderTextDeck() {
       if (!textList) return;
@@ -749,14 +912,18 @@
       lastImageTrigger?.focus();
     }
 
-    function openDeck(button) {
-      activeDeck = deckByKey.get(button.dataset.deckKey);
+    function openDeckByKey(deckKey, trigger) {
+      activeDeck = deckByKey.get(String(deckKey));
       if (!activeDeck || !modal) return;
-      lastTrigger = button;
+      lastTrigger = trigger || null;
       renderActiveDeck(hasTextDeck(activeDeck) ? "text" : "image");
       modal.hidden = false;
       document.body.classList.add("deck-modal-open");
       closeButton?.focus();
+    }
+
+    function openDeck(button) {
+      openDeckByKey(button.dataset.deckKey, button);
     }
 
     function switchDeck(key) {
@@ -782,9 +949,38 @@
       if (button) openDeck(button);
     });
 
+    mobileFloatingButton?.addEventListener("click", () => {
+      openDeckByKey(mobileFloatingButton.dataset.deckKey, mobileFloatingButton);
+    });
+
     tabs.forEach((tab) => {
       tab.addEventListener("click", () => setDeckTab(tab.dataset.deckTab || "image"));
     });
+
+    document.querySelectorAll("[data-perspective-target]").forEach((tab) => {
+      tab.addEventListener("click", scheduleMobileFloatingUpdate);
+    });
+
+    if (window.MutationObserver) {
+      const perspectiveObserver = new MutationObserver(scheduleMobileFloatingUpdate);
+      document.querySelectorAll("[data-perspective-target]").forEach((tab) => {
+        perspectiveObserver.observe(tab, {
+          attributes: true,
+          attributeFilter: ["class", "aria-selected"]
+        });
+      });
+      if (backtopButton) {
+        perspectiveObserver.observe(backtopButton, {
+          attributes: true,
+          attributeFilter: ["hidden"]
+        });
+      }
+    }
+
+    updateMobileFloatingButton();
+    window.addEventListener("hashchange", scheduleMobileFloatingUpdate);
+    window.addEventListener("popstate", scheduleMobileFloatingUpdate);
+    window.addEventListener("load", scheduleMobileFloatingUpdate);
 
     deckSwitcher?.addEventListener("click", (event) => {
       const button = event.target.closest("[data-deck-switch]");

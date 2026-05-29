@@ -321,9 +321,58 @@
     scheduleActiveNavUpdate(false);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initPageNav);
-  } else {
+  function initFloatingActions() {
+    const backtop = document.querySelector(".backtop");
+    if (!backtop) return;
+
+    const desktopSwitch = document.querySelector(".perspective-switch-desktop");
+    const topbar = document.querySelector(".topbar");
+    const mobileQuery = window.matchMedia("(max-width: 900px)");
+    let backtopFrame = 0;
+
+    function getStickyTop(node) {
+      const top = Number.parseFloat(window.getComputedStyle(node).top);
+      return Number.isFinite(top) ? top : 0;
+    }
+
+    function isPinned(node) {
+      if (!node || window.getComputedStyle(node).display === "none") return false;
+      return node.getBoundingClientRect().top <= getStickyTop(node) + 1;
+    }
+
+    function shouldShowBacktop() {
+      if (mobileQuery.matches) return isPinned(topbar);
+      if (desktopSwitch) return isPinned(desktopSwitch);
+      return (document.scrollingElement?.scrollTop || window.scrollY || 0) > 320;
+    }
+
+    function updateBacktop() {
+      backtopFrame = 0;
+      backtop.hidden = !shouldShowBacktop();
+    }
+
+    function scheduleBacktopUpdate() {
+      if (backtopFrame) return;
+      backtopFrame = window.requestAnimationFrame(updateBacktop);
+    }
+
+    updateBacktop();
+    window.addEventListener("scroll", scheduleBacktopUpdate, { passive: true });
+    window.addEventListener("resize", scheduleBacktopUpdate);
+    window.addEventListener("load", scheduleBacktopUpdate);
+    window.addEventListener("hashchange", scheduleBacktopUpdate);
+    window.addEventListener("popstate", scheduleBacktopUpdate);
+    mobileQuery.addEventListener?.("change", scheduleBacktopUpdate);
+  }
+
+  function initSharedPageComponents() {
     initPageNav();
+    initFloatingActions();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSharedPageComponents);
+  } else {
+    initSharedPageComponents();
   }
 })();
