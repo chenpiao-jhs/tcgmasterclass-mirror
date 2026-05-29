@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>德莱文 VS 雷恩加尔：时间压力、枯萎战斧与瑞士轮抢分课</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --red: #9f3d36;
+      --red-soft: #f2dcda;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("cover.jpg?v=result-covers-20260529") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 126px;
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.01), rgba(245, 247, 242, 0.88) 70%, var(--bg) 86%, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      max-width: 860px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 780px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--green-dark);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .links a {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      color: var(--green-dark);
+      font-size: 34px;
+    }
+
+    .time {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .jump-grid,
+    .watch-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .grid-2,
+    .jump-grid,
+    .watch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .insight,
+    .jump-card,
+    .watch-card,
+    .note-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 16px 46px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight,
+    .note-card {
+      padding: 18px;
+    }
+
+    .insight {
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3,
+    .note-card h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 18px;
+    }
+
+    .insight p,
+    .note-card p {
+      color: var(--muted);
+    }
+
+    .jump-card {
+      appearance: none;
+      min-height: 132px;
+      padding: 16px;
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.52);
+      background: var(--paper-soft);
+      outline: none;
+    }
+
+    .jump-card span {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .jump-card strong,
+    .jump-card em {
+      display: block;
+    }
+
+    .jump-card em {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    table {
+      width: 100%;
+      margin: 22px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.05);
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    th {
+      width: 150px;
+      color: var(--green-dark);
+      background: var(--paper-soft);
+      font-weight: 800;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    .checklist,
+    .mistakes {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li,
+    .mistakes li {
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--muted);
+    }
+
+    .mistakes li {
+      border-left: 4px solid var(--red);
+      background: #fffafa;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper-soft);
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 460px;
+      }
+
+      .hero-inner {
+        width: min(var(--max), calc(100% - 28px));
+        padding: 60px 0 84px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .hero .summary {
+        font-size: 16px;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      .grid-2,
+      .grid-3,
+      .jump-grid,
+      .watch-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .time {
+        width: fit-content;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .section-head h2 {
+        font-size: 24px;
+      }
+
+      th,
+      td {
+        display: block;
+        width: 100%;
+      }
+
+      th {
+        border-bottom: 0;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260529-floating-actions">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=shared-tabs-20260520">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260529-floating-desktop-large">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">西安站DAY2 · 瑞士轮第八轮</div>
+      <h1>德莱文 VS 雷恩加尔：时间压力、枯萎战斧与瑞士轮抢分课</h1>
+      <p class="summary">把 NGNL·雨辰 2:1 福州晖宸土豆揍bob 的进阶瑞士轮第八轮，整理成德莱文玩家和雷恩加尔玩家都能练的抢分、换线和终局计时页面。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛西安站 DAY2 第 1P</li>
+        <li>对局：荣耀行刑官（NGNL·雨辰） VS 傲之追猎者（福州晖宸土豆揍bob）</li>
+        <li>结果：NGNL·雨辰 2:1 获胜</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=1&autoplay=1" data-page-base="https://www.bilibili.com/video/BV1mVGE68EMg?p=1">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1mVGE68EMg&page=1&autoplay=0&t=519" title="第三赛季区域公开赛西安站 DAY2 第 1P：荣耀行刑官 VS 傲之追猎者" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：08:39 对局登场</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=519" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-draven-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-draven" data-perspective-target="draven">德莱文玩家视角</button>
+        <button class="perspective-tab" id="tab-rengar-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-rengar" data-perspective-target="rengar">雷恩加尔玩家视角</button>
+      </div>
+      <section id="decklistMount"></section>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">西安瑞士轮双视角</div>
+        <div class="links" data-perspective-nav="draven">
+          <a href="#draven-principles">核心结论</a>
+          <a href="#draven-video">关键片段</a>
+          <a href="#draven-plan">抢分框架</a>
+          <a href="#draven-game-one">第一局</a>
+          <a href="#draven-game-two">第二局</a>
+          <a href="#draven-game-three">第三局</a>
+          <a href="#draven-checklist">清单</a>
+          <a href="#draven-mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="rengar" hidden>
+          <a href="#rengar-principles">核心结论</a>
+          <a href="#rengar-video">关键片段</a>
+          <a href="#rengar-plan">进攻框架</a>
+          <a href="#rengar-game-one">第一局</a>
+          <a href="#rengar-game-two">第二局</a>
+          <a href="#rengar-game-three">第三局</a>
+          <a href="#rengar-checklist">清单</a>
+          <a href="#rengar-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-draven" type="button" role="tab" aria-selected="true" aria-controls="panel-draven" data-perspective-target="draven">德莱文玩家视角</button>
+        <button class="perspective-tab" id="tab-rengar" type="button" role="tab" aria-selected="false" aria-controls="panel-rengar" data-perspective-target="rengar">雷恩加尔玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-draven" role="tabpanel" aria-labelledby="tab-draven" data-perspective-panel="draven">
+        <section id="draven-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>德莱文视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">NGNL·雨辰<span class="player-tag" data-player-side="德莱文方玩家">选手</span>赢下这场，不是因为每局都打得更顺。第一局后手第一回合空过仍然拿下，第二局被福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>扳回，第三局再靠先手、分差和小鲨鱼把死三回合锁住。德莱文玩家要学的是：红紫不是只拼爆发，而是要知道什么时候把一分先放进袋子里。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>先守住分差，再谈大回合</h3>
+              <p>第三局时间很紧，德莱文不是必须赢每一次战斗。只要能稳定领先两分，雷恩加尔最后一轮就很难追完。</p>
+            </article>
+            <article class="insight">
+              <h3>责退和回手是保险，不是炫技</h3>
+              <p>面对雷恩加尔、枯萎战斧和决斗，德莱文要把责退、换换乐、驭风而行当成保险线，专门防对手把一个点做成不可逆的大分。</p>
+            </article>
+            <article class="insight">
+              <h3>小鲨鱼负责结算小分</h3>
+              <p>终局小鲨鱼打掉伊焚娜那一路，让德莱文来到六分。不要小看这种低成本得分，它是计时局最稳的收口方式。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>手牌差时要早点止损</h3>
+              <p>第二局解说点出德莱文手牌结构差，且前期忘记触发对面战场。手牌不支持大回合时，先少输一分比强行找爆发更重要。</p>
+            </article>
+            <article class="insight">
+              <h3>枯萎战斧是双方共同考点</h3>
+              <p>全场 KEY 牌给到枯萎战斧。德莱文能用它补战力，雷恩加尔也能用它制造压力，所以每次战斧进场都要问：这次装备会不会真的转成分？</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="draven-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照德莱文方法</h2>
+            </div>
+            <div class="time">P1 瑞士轮第八轮</div>
+          </div>
+          <p class="lead">这些时间点来自 P1 字幕和可见画面：对局标题、选手名、三局胜负、赛后结果页、数据页和 KEY 牌页都已逐段核对。</p>
+          <div class="jump-grid" aria-label="德莱文视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="519" data-label="08:39 对局登场">
+              <span>08:39</span>
+              <strong>狮子狗大战德莱文</strong>
+              <em>两边都是对应传奇的唯一晋级者，先把本场看成红系肉搏里的稀有镜像题。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="671" data-label="11:11 枯萎战斧思路">
+              <span>11:11</span>
+              <strong>枯萎战斧开始定义交换</strong>
+              <em>解说提到用烬加枯萎战斧实现无损装配，这张牌后来也成为全场 KEY 牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2294" data-label="38:14 第一局德莱文先下一城">
+              <span>38:14</span>
+              <strong>第一局：后手空过也能赢</strong>
+              <em>NGNL·雨辰<span class="player-tag" data-player-side="德莱文方玩家">选手</span>在后手第一回合空过的情况下拿下第一局，重点看对方阿克尚线怎样被拆开。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3636" data-label="1:00:36 第二局被扳平">
+              <span>1:00:36</span>
+              <strong>第二局：雷恩加尔把思路整理回来</strong>
+              <em>福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>用更清楚的交换和提速把 BO3 拉进决胜局。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3790" data-label="1:03:10 第三局先手">
+              <span>1:03:10</span>
+              <strong>第三局德莱文先手</strong>
+              <em>德莱文拿到巨神峰之巅，雷恩加尔用流星疗泉，双方都在为最后十分钟抢节奏。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4089" data-label="1:08:09 雷恩加尔伏笔">
+              <span>1:08:09</span>
+              <strong>对手漏掉传奇收益</strong>
+              <em>雷恩加尔侧送掉奈德丽并漏掉关键收益，德莱文要立刻把这种失误转成分差。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4600" data-label="1:16:40 领先两分">
+              <span>1:16:40</span>
+              <strong>领先两分就是胜利条件</strong>
+              <em>解说明确判断：只要保持领先两分，最后一回合雷恩加尔追不回来。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4743" data-label="1:19:03 德莱文 2:1 获胜">
+              <span>1:19:03</span>
+              <strong>德莱文 2:1 获胜</strong>
+              <em>结果页显示 NGNL·雨辰<span class="player-tag" data-player-side="德莱文方玩家">选手</span>胜利，福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>落败。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="draven-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>抢分框架：让雷恩加尔的大回合追不上小分</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">雷恩加尔的胜路，是用战斧、决斗、先打再问和击退把一个单位做成必须回答的大分。德莱文的胜路不是每次都正面接住，而是提前把分差写进回合，让对手即使打出大回合也只能追平或差一点。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>开局</th>
+                <td>优先保留能低成本得分的单位和一张反应牌。手牌如果只剩大装备和高费单位，雷恩加尔会更容易判断你没有答案。</td>
+              </tr>
+              <tr>
+                <th>中盘</th>
+                <td>看到对方把资源集中到阿克尚、雷恩加尔或卡莎身上，先判断这是不是必须接的分。能用责退或换换乐改结算时，别急着正面拼大数字。</td>
+              </tr>
+              <tr>
+                <th>终局</th>
+                <td>进入死三前，优先把领先扩大到两分。小鲨鱼、诺克萨斯新兵和低风险攻击都要服务于这个目标。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>每局结束后回看：德莱文有没有把“必争分”和“可以放的分”分清楚。如果每分都硬接，红紫会被雷恩加尔拖进更大的肉搏。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">1:16:40 - 1:17:40</span>
+              <span class="watch-title">把领先两分当成终局模板</span>
+              <p>这段最适合暂停练计时局。NGNL·雨辰<span class="player-tag" data-player-side="德莱文方玩家">选手</span>不需要再证明自己能赢大交换，只要用小鲨鱼拿到第六分，雷恩加尔就没有足够轮次追回。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="4600" data-label="1:16:40 领先两分">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=4600" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="draven-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：后手空过以后，德莱文靠对手的阿克尚线止损反超</h2>
+            </div>
+            <div class="time">10:31 - 38:14</div>
+          </div>
+          <p class="lead">第一局的表面信息很糟：德莱文后手第一回合空过，雷恩加尔先拿到枯萎战斧和单位。但雷恩加尔方把阿克尚反复投入高风险交换，给了德莱文用回手和战力牌拆开局面的机会。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>起始条件</th>
+                <td>双方第一回合都慢，雷恩加尔先翻出枯萎战斧，德莱文要避免被第一件装备滚出连续得分。</td>
+              </tr>
+              <tr>
+                <th>关键转折</th>
+                <td>雷恩加尔方阿克尚线投入过深，解说赛后也判断“阿克尚来来回回倒腾”以后把自己玩进去了。</td>
+              </tr>
+              <tr>
+                <th>德莱文执行</th>
+                <td>不追求每回合都大胜，而是利用对手资源失配，把手里的回手和战力牌变成稳定一分。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>从 21:08 到 38:14 记录每次阿克尚被投入后，德莱文有没有把它变成对手下一轮缺资源的问题。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">21:08 - 24:00</span>
+              <h3>卡莎和阿克尚一起暴露资源结构</h3>
+              <p>雷恩加尔方想用卡莎补牌、阿克尚承接战力，但这也让德莱文看清哪些点必须回答，哪些点可以放到下一轮处理。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1268" data-label="21:08 阿克尚资源线">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=1268" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">38:14 - 39:00</span>
+              <h3>第一局结论：德莱文先下一城</h3>
+              <p>解说点出雷恩加尔前面交换并不差，但阿克尚线出了问题。德莱文玩家要学的是：落后开局也要等对手把资源交错位。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2294" data-label="38:14 第一局德莱文先下一城">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=2294" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="draven-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：手牌结构差时，德莱文不能把每个点都当成可争分</h2>
+            </div>
+            <div class="time">41:17 - 1:00:43</div>
+          </div>
+          <p class="lead">第二局福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>明显打得更清楚：更愿意测试德莱文有没有牌，也更懂得把狩猎律动、先打再问和场地收益写进得分路线。德莱文的问题是手牌结构差，还漏掉了对方战场效果，导致后面只能被动接题。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>起始变化</th>
+                <td>雷恩加尔方第二局主动性更强，德莱文没有足够的高质量互动去惩罚对方冒进。</td>
+              </tr>
+              <tr>
+                <th>关键转折</th>
+                <td>解说总结雷恩加尔方“把思绪整理回来”，并点出德莱文方前期忘记触发对方战场效果。</td>
+              </tr>
+              <tr>
+                <th>德莱文反思</th>
+                <td>手牌不支持大反击时，要提前做止损排序。可以输一分，但不能把所有费用都投入到还会被对方提速压过的交换里。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>看 51:00 到 1:00:36，找出哪些点其实应该直接放掉，保留资源给下一轮的责退或小单位结算。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="draven-game-three">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>第三局：计时局里，德莱文要把领先两分写成胜利条件</h2>
+            </div>
+            <div class="time">1:03:10 - 1:19:10</div>
+          </div>
+          <p class="lead">决胜局只剩十分钟左右，德莱文先手，雷恩加尔有提速潜力。NGNL·雨辰<span class="player-tag" data-player-side="德莱文方玩家">选手</span>真正做对的，是在对手漏掉雷恩加尔传奇收益后，快速把比赛变成分差题。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>开局条件</th>
+                <td>德莱文拿到巨神峰之巅，雷恩加尔翻流星疗泉。两边都不适合慢慢铺，谁先把小分落袋谁更舒服。</td>
+              </tr>
+              <tr>
+                <th>关键转折</th>
+                <td>雷恩加尔方送掉奈德丽并漏掉传奇效果，德莱文立即获得时间和分差优势。</td>
+              </tr>
+              <tr>
+                <th>终局选择</th>
+                <td>德莱文用小鲨鱼清掉伊焚娜那一路，来到一个扳不回的分差。这里的重点不是打满伤害，而是锁住轮次。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>从 1:08:09 开始记录：每次雷恩加尔无法立刻得分，德莱文是否都用最低成本把分差维持住。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">1:08:09 - 1:10:00</span>
+              <h3>对手漏收益后要立刻转分</h3>
+              <p>这段不要只看雷恩加尔失误。德莱文玩家要练的是：对手漏了以后，我用哪一路最低成本拿分？</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="4089" data-label="1:08:09 雷恩加尔伏笔">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=4089" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">1:16:40 - 1:19:10</span>
+              <h3>小鲨鱼结算终局分差</h3>
+              <p>小鲨鱼不是华丽牌，但它把比分推到雷恩加尔追不回的位置。计时局里，稳定得分比爆发更重要。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="4600" data-label="1:16:40 领先两分">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=4600" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="draven-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>德莱文玩家复盘清单</h2>
+            </div>
+          </div>
+          <ul class="checklist">
+            <li>每轮开始先问：这一分必须争吗，还是可以用更低成本在另一边拿回来？</li>
+            <li>面对雷恩加尔留橙红费用时，先假设对方有先打再问、顺劈、决斗或击退。</li>
+            <li>手牌差时优先保留责退、换换乐或驭风而行，别把所有牌都投入同一路肉搏。</li>
+            <li>进入死三前先算分差。领先两分时，小单位稳定拿分比大装备更重要。</li>
+            <li>对手漏触发或错交资源后，立刻把优势换成分，不要给下一轮重新整理手牌的机会。</li>
+          </ul>
+          <table>
+            <tbody>
+              <tr>
+                <th>枯萎战斧</th>
+                <td>用于补足关键战力或逼对方交击退。不要在没有承载点保护时先把它暴露成对方的计算目标。</td>
+              </tr>
+              <tr>
+                <th>责退 / 换换乐</th>
+                <td>留给雷恩加尔叠高的一路，尤其是带战斧、决斗或击退保护的回合。不要提前交在普通小分上。</td>
+              </tr>
+              <tr>
+                <th>小鲨鱼</th>
+                <td>计时局的收分工具。用来打掉低战力一路、扩大分差，而不是硬塞进已经会被处理的主战场。</td>
+              </tr>
+              <tr>
+                <th>旋转飞斧</th>
+                <td>优先服务于“这一分会改变终局分差”的回合。单纯赢一个不影响轮次的战斗，通常不值得交。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="draven-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>德莱文玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把每个雷恩加尔进攻都当成必须接，导致自己的回手和责退太早打空。</li>
+            <li>手牌不好时还想打完整大回合，没有先把下一轮的分差安全线留出来。</li>
+            <li>忘记对方战场或传奇触发，让本来能止损的一分变成连续失分。</li>
+            <li>看到枯萎战斧就只想拼数值，忘了红紫还有改结算的路线。</li>
+            <li>死三回合没有先算“领先几分够赢”，结果把稳定得分换成了不必要的高风险交换。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给德莱文玩家的核心课是：红紫可以打肉搏，但不能被肉搏牵着走。你要把小分、回手和计时压力串起来，让雷恩加尔每次大投入都只能追到你已经离开的地方。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-rengar" role="tabpanel" aria-labelledby="tab-rengar" data-perspective-panel="rengar" hidden>
+        <section id="rengar-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>雷恩加尔视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>第二局打出了这套牌最该有的样子：用激进测试逼出德莱文有没有货，再把狩猎律动和先打再问写成快速得分。但第一局阿克尚线和第三局奈德丽、雷恩加尔触发的失误也提醒玩家：雷恩加尔可以激进，不能混乱。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>激进是计划，不是情绪</h3>
+              <p>解说说“玩狮子狗就得激进”，但前提是每一次顶上去都在测试德莱文有没有答案，而不是把核心单位送进未知手牌。</p>
+            </article>
+            <article class="insight">
+              <h3>枯萎战斧要配承载点</h3>
+              <p>全场 KEY 牌给到枯萎战斧，说明它两边都强。雷恩加尔侧要让战斧和卡莎、奈德丽、雷恩加尔形成连续压力，而不是只打一拳。</p>
+            </article>
+            <article class="insight">
+              <h3>时间局不能漏触发</h3>
+              <p>第三局漏掉雷恩加尔传奇收益后，分差直接变得难追。计时局里一个触发往往就是最后一轮的追分空间。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>阿克尚不要反复倒腾</h3>
+              <p>第一局阿克尚线投入过深，导致本来优势的交换变成德莱文的反击窗口。阿克尚要帮你换主动权，不是拖慢你的节奏。</p>
+            </article>
+            <article class="insight">
+              <h3>第二局的成功可以复制</h3>
+              <p>第二局雷恩加尔用大胆试探确认德莱文手里没答案，再把后续进攻平推过去。这是这套牌最值得保留的打法模板。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="rengar-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照雷恩加尔方法</h2>
+            </div>
+            <div class="time">P1 瑞士轮第八轮</div>
+          </div>
+          <p class="lead">雷恩加尔视角不要只看输赢，而要看每一次“顶上去”有没有明确目的：逼牌、提速、制造过量，还是单纯把资源交出去。</p>
+          <div class="jump-grid" aria-label="雷恩加尔视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="519" data-label="08:39 对局登场">
+              <span>08:39</span>
+              <strong>第一雷恩加尔对第一德莱文</strong>
+              <em>两边都是稀有传奇晋级者，雷恩加尔要证明自己不只是冷门，而是能用速度压住德莱文。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="671" data-label="11:11 枯萎战斧思路">
+              <span>11:11</span>
+              <strong>枯萎战斧进入比赛主题</strong>
+              <em>这张牌是全场共同核心。雷恩加尔要思考的是：战斧装上后，下一轮还能不能继续施压。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2294" data-label="38:14 第一局失利">
+              <span>38:14</span>
+              <strong>第一局：阿克尚线把优势打散</strong>
+              <em>福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>前期并不差，但阿克尚投入过深，最终被德莱文抓到反超点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3636" data-label="1:00:36 第二局扳平">
+              <span>1:00:36</span>
+              <strong>第二局：整理思路后成功扳平</strong>
+              <em>这里看雷恩加尔如何大胆测试德莱文手牌，再用速度把对局拖进第三局。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3730" data-label="1:02:10 激进测试">
+              <span>1:02:10</span>
+              <strong>有计划的激进</strong>
+              <em>解说认为雷恩加尔第二局的测试很大胆，但成功确认德莱文没有足够答案。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4089" data-label="1:08:09 重大伏笔">
+              <span>1:08:09</span>
+              <strong>第三局：漏触发变成重大伏笔</strong>
+              <em>奈德丽交换和雷恩加尔传奇效果处理失误，让德莱文可以直接抢分。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4397" data-label="1:13:17 击退与大雷恩加尔">
+              <span>1:13:17</span>
+              <strong>手里有击退时可以做大一路</strong>
+              <em>雷恩加尔把资源集中到一路，手里击退能防责退，但仍要注意费用和符文回收。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="4743" data-label="1:19:03 2:1 结果">
+              <span>1:19:03</span>
+              <strong>最终 1:2 落败</strong>
+              <em>结果页确认雷恩加尔失败。复盘重点是把第二局的进攻节奏保留下来，同时消掉第一局和第三局的触发问题。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="rengar-plan">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Plan</div>
+              <h2>进攻框架：先确认德莱文有没有货，再决定是否全力提速</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">雷恩加尔打德莱文最怕两件事：第一，自己把核心单位送进责退或换换乐；第二，进入死三时分差不够。正确顺序是先用可接受的压力测试对手，再用战斧和狩猎律动把成功测试变成连续得分。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>开局</th>
+                <td>找低费单位、先打再问、顺劈和枯萎战斧。没有单位时不要急着只拍装备，装备必须和下一轮得分路线绑定。</td>
+              </tr>
+              <tr>
+                <th>中盘</th>
+                <td>用一两个中等威胁测试德莱文有没有责退、换换乐和加战力。如果对手没货，就像第二局那样快速平推。</td>
+              </tr>
+              <tr>
+                <th>终局</th>
+                <td>如果进入计时局，优先让每个触发都转成分。雷恩加尔传奇、流星疗泉和奈德丽抽牌不能漏，因为它们都是追分资源。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>每次做大一路前问：这一路被责退后，我还有没有下一条得分线？如果没有，就先逼答案再装战斧。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">1:02:10 - 1:03:00</span>
+              <span class="watch-title">第二局的激进为什么成立</span>
+              <p>解说提到那波顶上去虽然大胆，但成功测试出德莱文手里没货。雷恩加尔要复制的是这种“有目的的测试”，不是单纯所有牌往前冲。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="3730" data-label="1:02:10 激进测试">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=3730" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="rengar-game-one">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：前期交换不差，但阿克尚线把节奏拖散</h2>
+            </div>
+            <div class="time">10:31 - 38:14</div>
+          </div>
+          <p class="lead">第一局雷恩加尔不是从头输到尾。枯萎战斧和卡莎都出现了，阿克尚也能制造压力。问题在于阿克尚被反复投入、回收和处理，反而让德莱文得到回合窗口。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>可取之处</th>
+                <td>雷恩加尔早早看到战斧，卡莎也能补牌，理论上有条件把德莱文拖进连续防守。</td>
+              </tr>
+              <tr>
+                <th>主要失误</th>
+                <td>阿克尚线没有换到主动权。解说赛后认为这是把自己玩进去的关键。</td>
+              </tr>
+              <tr>
+                <th>调整方向</th>
+                <td>阿克尚只要逼出德莱文关键牌就完成任务，不要为了同一路反复追加资源。</td>
+              </tr>
+              <tr>
+                <th>复盘标准</th>
+                <td>回看 21:08 到 38:14，标出每次阿克尚投入后，雷恩加尔下一轮是否仍有快速得分路线。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="rengar-game-two">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：大胆测试德莱文手牌，把速度重新抢回来</h2>
+            </div>
+            <div class="time">41:17 - 1:00:43</div>
+          </div>
+          <p class="lead">第二局是雷恩加尔玩家最该反复看的正面教材。福州晖宸土豆揍bob<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>没有被第一局影响，反而更果断地用单位和战力测试德莱文答案。测试成功后，后续推进就变得顺畅。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>起始变化</th>
+                <td>雷恩加尔方更快进入进攻状态，先把德莱文逼到必须证明自己有答案的位置。</td>
+              </tr>
+              <tr>
+                <th>关键转折</th>
+                <td>中盘大胆顶上去测试德莱文手牌。解说认为这波很激进，但成功确认对手没有货。</td>
+              </tr>
+              <tr>
+                <th>成功原因</th>
+                <td>雷恩加尔没有停在“赢一次战斗”，而是把测试结果继续转成后续得分和第三局空间。</td>
+              </tr>
+              <tr>
+                <th>学习重点</th>
+                <td>激进要带目的：确认对方有没有答案、逼掉答案、或者直接换成分。没有目的的激进只是送资源。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">1:00:36 - 1:03:00</span>
+              <h3>第二局赛后立刻复盘思路</h3>
+              <p>解说把第二局总结得很清楚：雷恩加尔整理好思绪，德莱文手牌结构差，且前期有触发失误。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3636" data-label="1:00:36 第二局扳平">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=3636" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">1:02:10 - 1:02:58</span>
+              <h3>大胆测试后的平推</h3>
+              <p>这段是雷恩加尔打法模板：先测试手牌，再根据测试结果决定是否继续把资源交上去。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3730" data-label="1:02:10 激进测试">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=3730" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="rengar-game-three">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>第三局：时间压力下，漏触发会直接变成追不回的分差</h2>
+            </div>
+            <div class="time">1:03:10 - 1:19:10</div>
+          </div>
+          <p class="lead">第三局雷恩加尔其实仍有机会，尤其手里有击退时可以把一路做大。但前面的奈德丽交换和雷恩加尔传奇收益处理不干净，导致德莱文在死三前已经拿到安全分差。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>开局条件</th>
+                <td>德莱文先手，雷恩加尔有流星疗泉。时间不足时，雷恩加尔必须更重视每一个触发。</td>
+              </tr>
+              <tr>
+                <th>重大伏笔</th>
+                <td>奈德丽被送掉后，对方抽牌拿分；雷恩加尔传奇效果也疑似被遗漏。解说直接称为重大伏笔。</td>
+              </tr>
+              <tr>
+                <th>中盘机会</th>
+                <td>手里有击退时，把资源集中给雷恩加尔有道理，但仍要确保费用、符文和下一轮追分都算完。</td>
+              </tr>
+              <tr>
+                <th>终局教训</th>
+                <td>一旦德莱文领先两分，雷恩加尔就不能再只做一条大线。必须同时制造两路得分，否则小鲨鱼这种低成本单位会把比赛锁死。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-grid">
+            <article class="watch-card">
+              <span class="watch-time">1:08:09 - 1:09:10</span>
+              <h3>重大伏笔：奈德丽和传奇收益</h3>
+              <p>这段要按触发清单复盘。计时局里少一抽、少一分、少一个传奇收益，都可能让最后一轮变成追不回。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="4089" data-label="1:08:09 重大伏笔">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=4089" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">1:13:17 - 1:14:20</span>
+              <h3>击退保护下的大雷恩加尔</h3>
+              <p>手里有击退时可以顶一路，但这不是终点。雷恩加尔还要确认这一路拿分后，下一轮有没有第二条路线。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="4397" data-label="1:13:17 击退与大雷恩加尔">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1mVGE68EMg?p=1&t=4397" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="rengar-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>雷恩加尔玩家复盘清单</h2>
+            </div>
+          </div>
+          <ul class="checklist">
+            <li>每次做大一路前，先确认对方责退、换换乐、驭风而行有没有被逼出来。</li>
+            <li>阿克尚和卡莎要服务于下一轮得分，不要为了同一路反复追加资源。</li>
+            <li>进入计时局后，雷恩加尔传奇、流星疗泉、奈德丽抽牌和战场收益逐项口头确认。</li>
+            <li>有击退时可以更激进，但仍要保留第二条得分路线，避免被德莱文用小分锁死。</li>
+            <li>如果第二局那种测试确认对方没货，就要立刻提速，别给德莱文重新整理手牌的回合。</li>
+          </ul>
+          <table>
+            <tbody>
+              <tr>
+                <th>枯萎战斧</th>
+                <td>全场 KEY 牌。最佳用法是和能连续压分的单位绑定，而不是只做一轮大数字。</td>
+              </tr>
+              <tr>
+                <th>先打再问 / 顺劈</th>
+                <td>用于测试德莱文手里有没有货。测试成功后要继续追分，测试失败则立刻止损保下一轮。</td>
+              </tr>
+              <tr>
+                <th>击退</th>
+                <td>可以保护大雷恩加尔免受责退影响，但要先算费用和符文回收，避免保护牌自己卡住节奏。</td>
+              </tr>
+              <tr>
+                <th>奈德丽 / 卡莎</th>
+                <td>负责补牌和延长回合。不要把她们当普通战力送掉，尤其在时间局里每一抽都可能等于最后一分。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="rengar-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>雷恩加尔玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把“激进”理解成所有资源都压同一路，没有先确认德莱文有没有回手。</li>
+            <li>阿克尚线反复倒腾，结果没有换主动权，只给德莱文更多调整窗口。</li>
+            <li>漏掉雷恩加尔传奇、战场或抽牌触发，让计时局直接少一轮追分空间。</li>
+            <li>有击退就以为一路安全，忘记德莱文可以改打另一边的小分。</li>
+            <li>第二局打出成功模板后，第三局没有继续用“测试再提速”的思路执行到底。</li>
+          </ul>
+          <div class="footer">
+            <p>这场给雷恩加尔玩家的核心课是：你可以比德莱文更快，但不能比德莱文更乱。把枯萎战斧、测试手牌和触发清单串起来，雷恩加尔的激进才会变成压力，而不是变成对手的反击窗口。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部" hidden>↑</a>
+  <script src="../assets/page-nav.js?v=page-nav-20260529-floating-actions"></script>
+  <script src="../assets/video-hub.js"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/xian-decklists.js?v=xian-decklists-20260529-draven-rengar"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgXianDecklists.byKey,
+      decks: [
+        { sourceKey: "ngnl-yuchen-draven" },
+        { sourceKey: "fuzhou-huichen-tudouzhoubob-rengar" }
+      ],
+      articleCardLinks: {
+        root: "main",
+        exclude: ["德莱文", "雷恩加尔", "狮子狗", "荣耀行刑官", "傲之追猎者"],
+        aliases: {
+          "战斧": "枯萎战斧",
+          "飞斧": "旋转飞斧",
+          "冷眼旁观": "薇古丝, 冷眼旁观",
+          "阿克尚": "阿克尚, 放浪不羁",
+          "卡莎": "卡莎, 九死一生",
+          "奈德丽": "奈德丽, 灵猫形态",
+          "菲奥娜": "菲奥娜, 苦心孤诣",
+          "烬": "烬, 致命艺术",
+          "控潮者": "控潮者"
+        }
+      }
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260529-floating-desktop-large"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
