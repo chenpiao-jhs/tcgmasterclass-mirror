@@ -362,6 +362,14 @@ body.deck-modal-open .deck-floating-button {
   background: #f8faf6;
 }
 
+.deck-tile-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+  background: #f8faf6;
+}
+
 .deck-text-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -462,6 +470,93 @@ body.deck-modal-open .deck-floating-button {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
+}
+
+.deck-card-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.deck-card-tile {
+  appearance: none;
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto minmax(34px, auto);
+  gap: 6px;
+  padding: 7px;
+  border: 1px solid rgba(223, 231, 221, 0.9);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--green-dark);
+  cursor: zoom-in;
+  font: inherit;
+  text-align: left;
+  box-shadow: 0 8px 22px rgba(25, 39, 31, 0.08);
+  transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.deck-card-tile:hover,
+.deck-card-tile:focus {
+  border-color: rgba(184, 137, 46, 0.72);
+  box-shadow: 0 12px 28px rgba(25, 39, 31, 0.14);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.deck-card-tile:focus-visible {
+  outline: 2px solid rgba(184, 137, 46, 0.72);
+  outline-offset: 2px;
+}
+
+.deck-card-tile-art {
+  position: relative;
+  display: block;
+  aspect-ratio: 5 / 7;
+  overflow: hidden;
+  border: 1px solid rgba(223, 231, 221, 0.9);
+  border-radius: 5px;
+  background: #eef2eb;
+}
+
+.deck-card-tile-art img,
+.deck-card-tile-empty {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.deck-card-tile-badge {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: inline-grid;
+  min-width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(18, 37, 27, 0.9);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.deck-card-tile-name {
+  min-width: 0;
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 :where(.tcg-card-link, .article-card-link) {
@@ -642,6 +737,15 @@ body.deck-modal-open .deck-floating-button {
     padding: 12px;
   }
 
+  .deck-tile-wrap {
+    padding: 12px;
+  }
+
+  .deck-card-tile-grid {
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 10px;
+  }
+
   .deck-card-hover-preview {
     display: none;
   }
@@ -652,13 +756,66 @@ body.deck-modal-open .deck-floating-button {
     display: none;
   }
 
+  .deck-modal {
+    padding: 6px;
+  }
+
   .deck-dialog {
-    width: calc(100vw - 20px);
-    max-height: calc(100vh - 20px);
+    width: calc(100vw - 12px);
+    max-height: calc(100vh - 12px);
+  }
+
+  .deck-dialog-head {
+    padding: 7px 12px;
   }
 
   .deck-dialog-head h2 {
-    font-size: 19px;
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .deck-close {
+    border-radius: 6px;
+    padding: 7px 9px;
+    font-size: 13px;
+  }
+
+  .deck-switcher {
+    gap: 6px;
+    padding: 6px 12px;
+  }
+
+  .deck-switch-button {
+    min-height: 34px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+    padding: 5px 8px;
+  }
+
+  .deck-switch-button span {
+    font-size: 13px;
+  }
+
+  .deck-switch-button strong {
+    align-self: center;
+    justify-self: end;
+    max-width: 72px;
+    padding: 2px 5px;
+    overflow: hidden;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .deck-tabs {
+    gap: 6px;
+    padding: 6px 12px;
+  }
+
+  .deck-tab {
+    border-radius: 6px;
+    padding: 6px 9px;
+    font-size: 13px;
   }
 
   .deck-image-wrap img {
@@ -674,6 +831,21 @@ body.deck-modal-open .deck-floating-button {
   .deck-card-thumb,
   .deck-card-image {
     width: 38px;
+  }
+
+  .deck-card-tile-grid {
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 8px;
+  }
+
+  .deck-card-tile {
+    grid-template-rows: auto;
+    gap: 0;
+    padding: 5px;
+  }
+
+  .deck-card-tile-name {
+    display: none;
   }
 
   .deck-card-lightbox {

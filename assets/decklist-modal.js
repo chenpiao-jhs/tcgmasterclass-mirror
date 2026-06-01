@@ -159,6 +159,46 @@
     `;
   }
 
+  function getFlatDeckCards(deck) {
+    return [
+      ...(deck.main || []).map((card) => ({ card, source: "main" })),
+      ...(deck.side || []).map((card) => ({ card, source: "side" }))
+    ].flatMap(({ card, source }) => {
+      const rawCount = Number(getCardCount(card));
+      const count = Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
+      return Array.from({ length: count }, () => ({ card, source }));
+    });
+  }
+
+  function renderTileCard(item) {
+    const { card, source } = item;
+    const name = getCardName(card);
+    const image = getCardImage(card);
+    const sourceHtml = source === "side" ? `<span class="deck-card-tile-badge">备</span>` : "";
+    const imageHtml = image
+      ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(name)} 卡图" loading="lazy">`
+      : `<span class="deck-card-tile-empty" aria-hidden="true"></span>`;
+    const previewAttrs = image
+      ? ` data-card-image="${escapeHtml(image)}" data-card-name="${escapeHtml(name)}"`
+      : "";
+    return `
+      <button class="deck-card-tile" type="button"${previewAttrs} aria-label="查看 ${escapeHtml(name)} 卡图">
+        <span class="deck-card-tile-art">
+          ${imageHtml}
+          ${sourceHtml}
+        </span>
+        <span class="deck-card-tile-name">${escapeHtml(name)}</span>
+      </button>
+    `;
+  }
+
+  function renderTileDeck(deck) {
+    const cards = getFlatDeckCards(deck);
+    return cards.length > 0
+      ? `<div class="deck-card-tile-grid">${cards.map((item) => renderTileCard(item)).join("")}</div>`
+      : "<p>暂无平铺版牌表。</p>";
+  }
+
   function getSections(deck, sectionConfig) {
     const main = deck.main || [];
     const side = deck.side || [];
@@ -190,10 +230,14 @@
         </div>
         <div class="deck-switcher" id="deckModalSwitcher" aria-label="切换选手牌表" hidden></div>
         <div class="deck-tabs" role="tablist" aria-label="牌表展示方式">
-          <button class="deck-tab is-active" id="deckTabText" type="button" role="tab" aria-selected="true" aria-controls="deckPanelText" data-deck-tab="text">列表版</button>
+          <button class="deck-tab is-active" id="deckTabTile" type="button" role="tab" aria-selected="true" aria-controls="deckPanelTile" data-deck-tab="tile">平铺版</button>
+          <button class="deck-tab" id="deckTabText" type="button" role="tab" aria-selected="false" aria-controls="deckPanelText" data-deck-tab="text">列表版</button>
           <button class="deck-tab" id="deckTabImage" type="button" role="tab" aria-selected="false" aria-controls="deckPanelImage" data-deck-tab="image">图片版</button>
         </div>
-        <div class="deck-panel deck-text-wrap" id="deckPanelText" role="tabpanel" aria-labelledby="deckTabText">
+        <div class="deck-panel deck-tile-wrap" id="deckPanelTile" role="tabpanel" aria-labelledby="deckTabTile">
+          <div id="deckTileList"></div>
+        </div>
+        <div class="deck-panel deck-text-wrap" id="deckPanelText" role="tabpanel" aria-labelledby="deckTabText" hidden>
           <div class="deck-text-grid" id="deckTextList"></div>
         </div>
         <div class="deck-panel deck-image-wrap" id="deckPanelImage" role="tabpanel" aria-labelledby="deckTabImage" hidden>
@@ -551,7 +595,7 @@
     }
 
     function showHoverPreview(trigger, event) {
-      if (!trigger?.dataset.cardImage || window.matchMedia("(hover: none)").matches) return;
+      if (!trigger?.dataset.cardImage || event?.pointerType === "touch") return;
       activePreviewTrigger = trigger;
       setPreviewImage(hoverPreviewImage, hoverPreviewTitle, trigger);
       hoverPreview.hidden = false;
@@ -676,7 +720,9 @@
     const deckSwitcher = modal.querySelector("#deckModalSwitcher");
     const imagePanel = modal.querySelector("#deckPanelImage");
     const textPanel = modal.querySelector("#deckPanelText");
+    const tilePanel = modal.querySelector("#deckPanelTile");
     const textList = modal.querySelector("#deckTextList");
+    const tileList = modal.querySelector("#deckTileList");
     const closeButton = modal.querySelector("[data-deck-close]");
     const hoverPreview = document.querySelector(".deck-card-hover-preview") || createHoverPreview();
     const hoverPreviewImage = hoverPreview.querySelector("img");
@@ -832,26 +878,34 @@
         : "<p>暂无列表版牌表。</p>";
     }
 
+    function renderActiveTileDeck() {
+      if (!tileList) return;
+      tileList.innerHTML = activeDeck ? renderTileDeck(activeDeck) : "<p>暂无平铺版牌表。</p>";
+    }
+
     function setDeckTab(tabName) {
       if (tabName === "image" && activeDeck && !activeDeck.image) {
         tabName = "text";
       }
-      if (tabName === "text" && activeDeck && !hasTextDeck(activeDeck) && activeDeck.image) {
+      if ((tabName === "text" || tabName === "tile") && activeDeck && !hasTextDeck(activeDeck) && activeDeck.image) {
         tabName = "image";
       }
       const isText = tabName === "text";
+      const isTile = tabName === "tile";
       tabs.forEach((tab) => {
         const active = tab.dataset.deckTab === tabName;
         tab.classList.toggle("is-active", active);
         tab.setAttribute("aria-selected", String(active));
         tab.hidden = tab.dataset.deckTab === "image" && activeDeck && !activeDeck.image;
-        if (tab.dataset.deckTab === "text" && activeDeck && !hasTextDeck(activeDeck)) {
+        if ((tab.dataset.deckTab === "text" || tab.dataset.deckTab === "tile") && activeDeck && !hasTextDeck(activeDeck)) {
           tab.hidden = true;
         }
       });
-      if (imagePanel) imagePanel.hidden = isText;
+      if (imagePanel) imagePanel.hidden = isText || isTile;
       if (textPanel) textPanel.hidden = !isText;
+      if (tilePanel) tilePanel.hidden = !isTile;
       if (isText) renderTextDeck();
+      if (isTile) renderActiveTileDeck();
     }
 
     function getActiveDeckTab() {
@@ -869,9 +923,11 @@
       }
       image.alt = activeDeck.alt || deckTitle;
       renderTextDeck();
-      setDeckTab(preferredTab || (hasTextDeck(activeDeck) ? "text" : "image"));
+      renderActiveTileDeck();
+      setDeckTab(preferredTab || (hasTextDeck(activeDeck) ? "tile" : "image"));
       updateDeckSwitcher(deckSwitcher, activeDeck);
       if (textPanel) textPanel.scrollTop = 0;
+      if (tilePanel) tilePanel.scrollTop = 0;
       if (imagePanel) imagePanel.scrollTop = 0;
       hideHoverPreview();
     }
@@ -902,7 +958,7 @@
     }
 
     function showHoverPreview(trigger, event) {
-      if (!trigger?.dataset.cardImage || window.matchMedia("(hover: none)").matches) return;
+      if (!trigger?.dataset.cardImage || event?.pointerType === "touch") return;
       activePreviewTrigger = trigger;
       setPreviewImage(hoverPreviewImage, hoverPreviewTitle, trigger);
       hoverPreview.hidden = false;
@@ -935,7 +991,7 @@
       activeDeck = deckByKey.get(String(deckKey));
       if (!activeDeck || !modal) return;
       lastTrigger = trigger || null;
-      renderActiveDeck(hasTextDeck(activeDeck) ? "text" : "image");
+      renderActiveDeck(hasTextDeck(activeDeck) ? "tile" : "image");
       modal.hidden = false;
       document.body.classList.add("deck-modal-open");
       closeButton?.focus();
@@ -1041,6 +1097,41 @@
       if (trigger) openCardImage(trigger);
     });
 
+    tileList?.addEventListener("pointerover", (event) => {
+      const trigger = event.target.closest(".deck-card-tile");
+      if (!trigger || trigger === activePreviewTrigger) return;
+      showHoverPreview(trigger, event);
+    });
+
+    tileList?.addEventListener("pointermove", (event) => {
+      const trigger = event.target.closest(".deck-card-tile");
+      if (trigger && trigger === activePreviewTrigger) {
+        positionHoverPreview(event, trigger);
+      }
+    });
+
+    tileList?.addEventListener("pointerout", (event) => {
+      const trigger = event.target.closest(".deck-card-tile");
+      if (trigger && !trigger.contains(event.relatedTarget)) {
+        hideHoverPreview();
+      }
+    });
+
+    tileList?.addEventListener("focusin", (event) => {
+      const trigger = event.target.closest(".deck-card-tile");
+      if (trigger) showHoverPreview(trigger);
+    });
+
+    tileList?.addEventListener("focusout", (event) => {
+      const trigger = event.target.closest(".deck-card-tile");
+      if (trigger) hideHoverPreview();
+    });
+
+    tileList?.addEventListener("click", (event) => {
+      const trigger = event.target.closest(".deck-card-tile");
+      if (trigger) openCardImage(trigger);
+    });
+
     articleCardRoot?.addEventListener("pointerover", (event) => {
       const trigger = event.target.closest(articleCardLinkSelector);
       if (!trigger || trigger === activePreviewTrigger) return;
@@ -1088,6 +1179,7 @@
     }, true);
 
     textPanel?.addEventListener("scroll", hideHoverPreview, { passive: true });
+    tilePanel?.addEventListener("scroll", hideHoverPreview, { passive: true });
 
     modal.addEventListener("click", (event) => {
       if (event.target === modal || event.target.closest("[data-deck-close]")) {
