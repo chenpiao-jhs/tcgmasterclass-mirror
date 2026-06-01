@@ -1,0 +1,85 @@
+{
+  "slug": "irelia-sivir-sydney-final",
+  "language": "zh",
+  "title": "刀妹 VS 希维尔极光：总决赛里拆掉 Aurora 的节奏课",
+  "eventLabel": "悉尼站DAY2 · 决赛",
+  "players": {
+    "irelia": "EDG Rico1997",
+    "sivirAurora": "TSS SouledOut"
+  },
+  "result": "EDG Rico1997 以 2:0 击败 TSS SouledOut，获得悉尼区域资格赛冠军。",
+  "sources": [
+    {
+      "label": "YouTube VOD",
+      "url": "https://www.youtube.com/watch?v=GM1oOGwvTQs&t=15971s",
+      "range": "4:00:26-4:36:21"
+    },
+    {
+      "label": "RGN 赛事页",
+      "url": "https://locator.riftbound.uvsgames.com/events/559231"
+    },
+    {
+      "label": "Mobalytics 悉尼赛事页",
+      "url": "https://mobalytics.gg/riftbound/tournaments/sydney-regional-qualifier"
+    },
+    {
+      "label": "Rico 牌表",
+      "url": "https://mobalytics.gg/riftbound/decks/irelia-blade-dancer-sydney-regional-qualifier-1st-edg-rico1997"
+    },
+    {
+      "label": "SouledOut 牌表",
+      "url": "https://mobalytics.gg/riftbound/decks/sivir-battle-mistress-sydney-regional-qualifier-2nd-tss-souledout"
+    },
+    {
+      "label": "Hextech 结果复盘",
+      "url": "https://hextechanalytics.com/articles/sydney-regional-qualifier"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "irelia-view",
+      "title": "刀妹玩家视角",
+      "points": [
+        "第一局说明自适应机器人不是一张简单针对牌：只要它被保护住并且通过驭风而行改变落点，希维尔极光就很难获得闪耀极光真正启动的那一拍。",
+        "Rico 的赢法不是直接撞大牌，而是先用迅捷蟹和控潮者把手牌与站位变透明，再把进攻拆成连续的小问题，让对手无法舒服进入远古巨龙的重置回合。",
+        "第二局最值得复盘。极速反制保护自适应机器人，同时封住远古巨龙和剑刃飓风的爆发线，让 Rico 在对手把第一波极光转成第二波资源之前结束比赛。"
+      ]
+    },
+    {
+      "id": "sivir-aurora-view",
+      "title": "希维尔极光玩家视角",
+      "points": [
+        "SouledOut 的牌表目标很明确：让闪耀极光和远古巨龙成为桌面上最大的问题。但总决赛提醒这套牌必须先拿到干净的第一拍启动窗口。",
+        "刀妹不需要正面处理所有大牌。它可以通过移动压力、提前逼出互动牌，并把硬答案留到真正关键的启动回合，来让极光回合变得笨重。",
+        "希维尔玩家复盘时要重点看排序：极光回合有没有被保护，自适应机器人是不是必须先处理，以及剑刃飓风或远古巨龙是不是已经变成过于单线的计划。"
+      ]
+    }
+  ],
+  "timestamps": [
+    {
+      "time": "4:00:26",
+      "seconds": 14426,
+      "label": "总决赛介绍"
+    },
+    {
+      "time": "4:06:27",
+      "seconds": 14787,
+      "label": "第一局开始"
+    },
+    {
+      "time": "4:20:29",
+      "seconds": 15629,
+      "label": "Rico 拿下第一局"
+    },
+    {
+      "time": "4:24:33",
+      "seconds": 15873,
+      "label": "第二局开始"
+    },
+    {
+      "time": "4:36:21",
+      "seconds": 16581,
+      "label": "Rico 夺冠"
+    }
+  ]
+}

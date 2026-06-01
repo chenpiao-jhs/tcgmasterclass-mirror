@@ -720,6 +720,20 @@
     </section>
 
     <section class="season-panel" id="panel-season-3" role="tabpanel" aria-labelledby="tab-season-3" data-season-panel="season-3">
+      <section class="station-group" aria-labelledby="season-3-sydney">
+        <h2 class="station-title" id="season-3-sydney">海外区域赛-悉尼站 <span class="station-review-count" data-review-count>1 篇复盘</span></h2>
+        <div class="guide-grid" aria-label="第三赛季悉尼站复盘页面列表">
+          <a class="guide-card" href="irelia-sivir-sydney-final/" data-deck-source="sydney" data-decks="edg-rico1997-irelia,tss-souledout-sivir">
+            <div class="thumb" data-fallback-thumb="sydney-irelia-sivir"></div>
+            <div class="card-body">
+              <div class="tagline">悉尼站DAY2 · 决赛</div>
+              <h3>刀妹 VS 希维尔极光：总决赛里拆掉 Aurora 的节奏课</h3>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
       <section class="station-group" aria-labelledby="season-3-xian">
         <h2 class="station-title" id="season-3-xian">区域公开赛-西安站 <span class="station-review-count" data-review-count>7 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季西安站复盘页面列表">
@@ -860,6 +874,7 @@
   </main>
   <script src="assets/xian-decklists.js?v=index-decklists-20260601-db-order"></script>
   <script src="assets/suzhou-decklists.js?v=index-decklists-20260601-db-order"></script>
+  <script src="assets/sydney-decklists.js?v=index-decklists-20260601-sydney"></script>
   <script>
     (() => {
       const tabs = [...document.querySelectorAll(".season-tab")];
@@ -867,7 +882,8 @@
       const stationGroups = [...document.querySelectorAll(".station-group")];
       const sourceByName = {
         xian: window.tcgXianDecklists?.byKey || {},
-        suzhou: window.tcgSuzhouDecklists?.byKey || {}
+        suzhou: window.tcgSuzhouDecklists?.byKey || {},
+        sydney: window.tcgSydneyDecklists?.byKey || {}
       };
 
       function escapeHtml(value) {

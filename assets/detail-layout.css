@@ -1,7 +1,14 @@
 .page-shell {
+  --detail-bottom-floating-space: 120px;
+  --detail-bottom-floating-space-mobile: 128px;
+  --detail-right-floating-space: 168px;
+  --detail-right-floating-space-mobile: 108px;
+}
+
+.page-shell {
   width: min(calc(var(--max) + var(--rail) + 32px), calc(100% - 40px));
   margin: 0 auto;
-  padding: 44px 0 86px;
+  padding: 44px 0 var(--detail-bottom-floating-space);
   display: grid;
   grid-template-columns: 45% minmax(0, 1fr);
   gap: 32px;
@@ -73,6 +80,14 @@
   display: none;
 }
 
+main .footer {
+  padding-right: max(24px, var(--detail-right-floating-space));
+}
+
+main .perspective-panel > :last-child {
+  margin-bottom: 24px;
+}
+
 @media (min-width: 901px) and (max-width: 1250px) {
   .page-shell {
     width: min(1180px, calc(100% - 32px));
@@ -85,7 +100,15 @@
   .page-shell {
     width: 100%;
     display: block;
-    padding: 0 0 86px;
+    padding: 0 0 var(--detail-bottom-floating-space-mobile);
+  }
+
+  main .footer {
+    padding-right: max(24px, var(--detail-right-floating-space-mobile));
+  }
+
+  main .perspective-panel > :last-child {
+    margin-bottom: 24px;
   }
 
   .topbar {

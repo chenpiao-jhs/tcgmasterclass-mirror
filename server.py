@@ -44,6 +44,7 @@ PAGE_TITLES = {
     "/reksai-lillia-swiss/": "虚空遁地兽 VS 含羞蓓蕾",
     "/sivir-garen-swiss/": "战争女神 VS 德玛西亚之力",
     "/sivir-irelia-quarterfinal/": "战争女神 VS 刀锋舞者",
+    "/irelia-sivir-sydney-final/": "刀妹 VS 希维尔极光",
     "/irelia-diana-xian-semifinal/": "刀锋舞者 VS 皎月女神",
     "/yi-aurora-semifinal/": "无极剑圣 VS 欧若拉",
     "/yi-irelia-final/": "无极剑圣 VS 刀锋舞者",
