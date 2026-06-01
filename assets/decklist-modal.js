@@ -80,6 +80,11 @@
     { title: "符文牌", match: (meta) => meta.startsWith("符文") },
     { title: "备牌", source: "side" }
   ];
+  const tileFeatureSections = [
+    { key: "legend", title: "传奇", prefix: "传奇", mode: "cards" },
+    { key: "battlefield", title: "战场", prefix: "战场", mode: "cards" },
+    { key: "rune", title: "符文", prefix: "符文", mode: "runes" }
+  ];
 
   function sumCards(cards) {
     return cards.reduce((sum, card) => sum + Number(getCardCount(card) || 0), 0);
@@ -87,6 +92,18 @@
 
   function getCardMeta(card) {
     return Array.isArray(card) ? card[2] || "" : card.meta || "";
+  }
+
+  function getCardType(card) {
+    return (getCardMeta(card).split(/[｜|]/)[0] || "其他").trim() || "其他";
+  }
+
+  function getTileSummaryType(card) {
+    const type = getCardType(card);
+    if (type.includes("装备")) return "装备";
+    if (type.includes("法术")) return "法术";
+    if (type.includes("单位") || type.includes("英雄")) return "单位";
+    return "";
   }
 
   function getCardName(card) {
@@ -99,6 +116,25 @@
 
   function getCardImage(card) {
     return Array.isArray(card) ? card[3] || "" : card.image || "";
+  }
+
+  function getCardPreviewLayout(card) {
+    return cardMetaStartsWith(card, "战场") ? "landscape" : "";
+  }
+
+  function getCardPreviewAttributes(card, name, image) {
+    if (!image) return "";
+    const layout = getCardPreviewLayout(card);
+    return [
+      `data-card-image="${escapeHtml(image)}"`,
+      `data-card-name="${escapeHtml(name)}"`,
+      layout ? `data-card-layout="${escapeHtml(layout)}"` : ""
+    ].filter(Boolean).join(" ");
+  }
+
+  function applyPreviewLayout(container, trigger) {
+    if (!container) return;
+    container.classList.toggle("is-landscape", trigger?.dataset.cardLayout === "landscape");
   }
 
   function escapeHtml(value) {
@@ -128,9 +164,10 @@
       const meta = formatCardMeta(getCardMeta(card), rarityTags);
       const metaHtml = meta ? `<span class="deck-card-meta">${escapeHtml(meta)}</span>` : "";
       const image = getCardImage(card);
+      const previewAttrs = getCardPreviewAttributes(card, name, image);
       const imageHtml = image
         ? `
-          <button class="deck-card-thumb" type="button" data-card-image="${escapeHtml(image)}" data-card-name="${escapeHtml(name)}" aria-label="查看 ${escapeHtml(name)} 卡图大图">
+          <button class="deck-card-thumb" type="button" ${previewAttrs} aria-label="查看 ${escapeHtml(name)} 卡图大图">
             <img class="deck-card-image" src="${escapeHtml(image)}" alt="${escapeHtml(name)} 卡图" loading="lazy">
           </button>
         `
@@ -159,43 +196,191 @@
     `;
   }
 
-  function getFlatDeckCards(deck) {
+  function getDeckCardsWithSource(deck) {
     return [
       ...(deck.main || []).map((card) => ({ card, source: "main" })),
       ...(deck.side || []).map((card) => ({ card, source: "side" }))
-    ].flatMap(({ card, source }) => {
+    ];
+  }
+
+  function getExpandedCardItems(items) {
+    return items.flatMap(({ card, source }) => {
       const rawCount = Number(getCardCount(card));
       const count = Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
       return Array.from({ length: count }, () => ({ card, source }));
     });
   }
 
+  function getTileItemCount(item) {
+    const rawCount = Number(item?.count);
+    return Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
+  }
+
+  function getTileTypeSummary(items) {
+    const typeOrder = ["单位", "法术", "装备"];
+    const typeMap = new Map(typeOrder.map((type) => [type, 0]));
+    items.forEach((item) => {
+      const type = getTileSummaryType(item.card);
+      if (!type) return;
+      typeMap.set(type, (typeMap.get(type) || 0) + getTileItemCount(item));
+    });
+    return typeOrder
+      .map((type) => ({ type, count: typeMap.get(type) || 0 }))
+      .filter(({ count }) => count > 0);
+  }
+
+  function getCollapsedCardItems(items) {
+    const itemMap = new Map();
+    items.forEach(({ card, source }) => {
+      const name = getCardName(card);
+      const key = `${source}:${normalizeToken(name) || card.cardId || card.cardVersionId || getCardImage(card) || itemMap.size}`;
+      const rawCount = Number(getCardCount(card));
+      const count = Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
+      const existing = itemMap.get(key);
+      if (existing) {
+        existing.count += count;
+        if (!getCardImage(existing.card) && getCardImage(card)) existing.card = card;
+        return;
+      }
+      itemMap.set(key, { card, source, count });
+    });
+    return [...itemMap.values()];
+  }
+
+  function cardMetaStartsWith(card, prefix) {
+    return getCardMeta(card).startsWith(prefix);
+  }
+
+  function isTileFeatureCard(card) {
+    return tileFeatureSections.some((section) => cardMetaStartsWith(card, section.prefix));
+  }
+
+  function getFlatDeckCards(deck, predicate = null, options = {}) {
+    const items = getDeckCardsWithSource(deck)
+      .filter(({ card, source }) => !predicate || predicate(card, source));
+    return options.collapseDuplicates ? getCollapsedCardItems(items) : getExpandedCardItems(items);
+  }
+
+  function getRuneSummaryItems(items) {
+    const runeMap = new Map();
+    items.forEach(({ card, source }) => {
+      const name = getCardName(card) || "未知符文";
+      const key = normalizeToken(name) || name;
+      const rawCount = Number(getCardCount(card));
+      const count = Number.isFinite(rawCount) && rawCount > 0 ? Math.floor(rawCount) : 1;
+      const existing = runeMap.get(key);
+      if (existing) {
+        existing.count += count;
+        if (!getCardImage(existing.card) && getCardImage(card)) {
+          existing.card = card;
+          existing.source = source;
+        }
+        return;
+      }
+      runeMap.set(key, { card, source, count });
+    });
+    return [...runeMap.values()];
+  }
+
+  function getTileFeatureSections(deck) {
+    const items = getDeckCardsWithSource(deck);
+    return tileFeatureSections.map((section) => {
+      const sectionItems = items.filter(({ card }) => cardMetaStartsWith(card, section.prefix));
+      return {
+        ...section,
+        items: section.mode === "runes" ? getRuneSummaryItems(sectionItems) : getExpandedCardItems(sectionItems)
+      };
+    });
+  }
+
   function renderTileCard(item) {
-    const { card, source } = item;
+    const { card, count: itemCount } = item;
     const name = getCardName(card);
     const image = getCardImage(card);
-    const sourceHtml = source === "side" ? `<span class="deck-card-tile-badge">备</span>` : "";
+    const count = Number.isFinite(Number(itemCount)) && Number(itemCount) > 1 ? Math.floor(Number(itemCount)) : 1;
+    const countHtml = count > 1 ? `<span class="deck-card-tile-count">${escapeHtml(count)}</span>` : "";
     const imageHtml = image
       ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(name)} 卡图" loading="lazy">`
       : `<span class="deck-card-tile-empty" aria-hidden="true"></span>`;
-    const previewAttrs = image
-      ? ` data-card-image="${escapeHtml(image)}" data-card-name="${escapeHtml(name)}"`
-      : "";
+    const previewAttrs = getCardPreviewAttributes(card, name, image);
+    const countLabel = count > 1 ? `，${count} 张` : "";
     return `
-      <button class="deck-card-tile" type="button"${previewAttrs} aria-label="查看 ${escapeHtml(name)} 卡图">
+      <button class="deck-card-tile" type="button"${previewAttrs ? ` ${previewAttrs}` : ""} aria-label="查看 ${escapeHtml(name)} 卡图${escapeHtml(countLabel)}">
         <span class="deck-card-tile-art">
           ${imageHtml}
-          ${sourceHtml}
+          ${countHtml}
         </span>
         <span class="deck-card-tile-name">${escapeHtml(name)}</span>
       </button>
     `;
   }
 
-  function renderTileDeck(deck) {
-    const cards = getFlatDeckCards(deck);
-    return cards.length > 0
-      ? `<div class="deck-card-tile-grid">${cards.map((item) => renderTileCard(item)).join("")}</div>`
+  function renderRuneSummaryCard(item) {
+    const { card, count } = item;
+    const name = getCardName(card);
+    const image = getCardImage(card);
+    const imageHtml = image
+      ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(name)} 卡图" loading="lazy">`
+      : `<span class="deck-card-tile-empty" aria-hidden="true"></span>`;
+    const previewAttrs = getCardPreviewAttributes(card, name, image);
+    return `
+      <button class="deck-card-tile deck-rune-summary-card" type="button"${previewAttrs ? ` ${previewAttrs}` : ""} aria-label="查看 ${escapeHtml(name)} 卡图，${escapeHtml(count)} 张">
+        <span class="deck-card-tile-art">
+          ${imageHtml}
+          <span class="deck-card-tile-count">${escapeHtml(count)}</span>
+        </span>
+        <span class="deck-rune-count-chip">x${escapeHtml(count)}</span>
+        <span class="deck-rune-summary-name">${escapeHtml(name)}</span>
+      </button>
+    `;
+  }
+
+  function renderTileFeatureSection(section) {
+    const cardsHtml = section.items.length > 0
+      ? section.items.map((item) => section.mode === "runes" ? renderRuneSummaryCard(item) : renderTileCard(item)).join("")
+      : `<p class="deck-tile-feature-empty">暂无</p>`;
+    return `
+      <section class="deck-tile-feature-section deck-tile-feature-${escapeHtml(section.key)}">
+        <h3>${escapeHtml(section.title)}</h3>
+        <div class="deck-tile-feature-grid${section.mode === "runes" ? " is-runes" : ""}">
+          ${cardsHtml}
+        </div>
+      </section>
+    `;
+  }
+
+  function renderTileCardSection(title, cards) {
+    if (cards.length === 0) return "";
+    const typeSummary = getTileTypeSummary(cards).map(({ type, count }) => `
+          <span class="deck-tile-type-chip">
+            <span>${escapeHtml(type)}</span>
+            <strong>${escapeHtml(count)}</strong>
+          </span>
+        `).join("");
+    return `
+      <section class="deck-tile-card-section">
+        <h3>
+          <span class="deck-tile-section-label">${escapeHtml(title)}</span>
+          <span class="deck-tile-type-summary" aria-label="${escapeHtml(title)}卡牌类型统计">${typeSummary}</span>
+        </h3>
+        <div class="deck-card-tile-grid">${cards.map((item) => renderTileCard(item)).join("")}</div>
+      </section>
+    `;
+  }
+
+  function renderTileDeck(deck, options = {}) {
+    const featureSections = getTileFeatureSections(deck);
+    const featureHtml = featureSections.some((section) => section.items.length > 0)
+      ? `<div class="deck-tile-feature-row" aria-label="特殊卡牌">${featureSections.map(renderTileFeatureSection).join("")}</div>`
+      : "";
+    const mainCards = getFlatDeckCards(deck, (card, source) => source === "main" && !isTileFeatureCard(card), options);
+    const sideCards = getFlatDeckCards(deck, (card, source) => source === "side" && !isTileFeatureCard(card), options);
+    const flatHtml = [
+      renderTileCardSection("主牌组", mainCards),
+      renderTileCardSection("备牌", sideCards)
+    ].join("");
+    return featureHtml || flatHtml
+      ? `${featureHtml}${flatHtml}`
       : "<p>暂无平铺版牌表。</p>";
   }
 
@@ -229,19 +414,28 @@
           <button class="deck-close" type="button" data-deck-close>关闭</button>
         </div>
         <div class="deck-switcher" id="deckModalSwitcher" aria-label="切换选手牌表" hidden></div>
-        <div class="deck-tabs" role="tablist" aria-label="牌表展示方式">
-          <button class="deck-tab is-active" id="deckTabTile" type="button" role="tab" aria-selected="true" aria-controls="deckPanelTile" data-deck-tab="tile">平铺版</button>
-          <button class="deck-tab" id="deckTabText" type="button" role="tab" aria-selected="false" aria-controls="deckPanelText" data-deck-tab="text">列表版</button>
-          <button class="deck-tab" id="deckTabImage" type="button" role="tab" aria-selected="false" aria-controls="deckPanelImage" data-deck-tab="image">图片版</button>
-        </div>
-        <div class="deck-panel deck-tile-wrap" id="deckPanelTile" role="tabpanel" aria-labelledby="deckTabTile">
-          <div id="deckTileList"></div>
-        </div>
-        <div class="deck-panel deck-text-wrap" id="deckPanelText" role="tabpanel" aria-labelledby="deckTabText" hidden>
-          <div class="deck-text-grid" id="deckTextList"></div>
-        </div>
-        <div class="deck-panel deck-image-wrap" id="deckPanelImage" role="tabpanel" aria-labelledby="deckTabImage" hidden>
-          <img id="deckModalImage" src="" alt="">
+        <div class="deck-content-scroll">
+          <div class="deck-tabs">
+            <div class="deck-tab-list" role="tablist" aria-label="牌表展示方式">
+              <button class="deck-tab is-active" id="deckTabTile" type="button" role="tab" aria-selected="true" aria-controls="deckPanelTile" data-deck-tab="tile">平铺版</button>
+              <button class="deck-tab" id="deckTabText" type="button" role="tab" aria-selected="false" aria-controls="deckPanelText" data-deck-tab="text">列表版</button>
+              <button class="deck-tab" id="deckTabImage" type="button" role="tab" aria-selected="false" aria-controls="deckPanelImage" data-deck-tab="image">图片版</button>
+            </div>
+            <label class="deck-fold-toggle" data-deck-fold-toggle hidden>
+              <span>多卡折叠</span>
+              <input type="checkbox" aria-label="多卡折叠" checked>
+              <span class="deck-toggle-track" aria-hidden="true"><span></span></span>
+            </label>
+          </div>
+          <div class="deck-panel deck-tile-wrap" id="deckPanelTile" role="tabpanel" aria-labelledby="deckTabTile">
+            <div id="deckTileList"></div>
+          </div>
+          <div class="deck-panel deck-text-wrap" id="deckPanelText" role="tabpanel" aria-labelledby="deckTabText" hidden>
+            <div class="deck-text-grid" id="deckTextList"></div>
+          </div>
+          <div class="deck-panel deck-image-wrap" id="deckPanelImage" role="tabpanel" aria-labelledby="deckTabImage" hidden>
+            <img id="deckModalImage" src="" alt="">
+          </div>
         </div>
       </div>
     `;
@@ -254,7 +448,9 @@
     preview.className = "deck-card-hover-preview";
     preview.hidden = true;
     preview.innerHTML = `
-      <img alt="">
+      <span class="deck-card-preview-media">
+        <img alt="">
+      </span>
       <p></p>
     `;
     document.body.append(preview);
@@ -268,7 +464,9 @@
     lightbox.innerHTML = `
       <div class="deck-card-lightbox-dialog" role="dialog" aria-modal="true" aria-label="卡牌大图预览">
         <button class="deck-card-lightbox-close" type="button" data-card-preview-close>关闭</button>
-        <img alt="">
+        <span class="deck-card-preview-media">
+          <img alt="">
+        </span>
         <p></p>
       </div>
     `;
@@ -397,7 +595,8 @@
     const image = getCardImage(card);
     const name = getCardName(card);
     if (!term || !image || !name || index.has(term)) return;
-    index.set(term, { name, image });
+    const layout = getCardPreviewLayout(card);
+    index.set(term, { name, image, ...(layout ? { layout } : {}) });
   }
 
   function getCorrectedCardLinkText(corrections, alias, card) {
@@ -478,6 +677,9 @@
     }
     trigger.dataset.cardImage = card.image;
     trigger.dataset.cardName = card.name;
+    if (card.layout) {
+      trigger.dataset.cardLayout = card.layout;
+    }
     trigger.setAttribute("aria-label", `查看 ${card.name} 卡图`);
     if (card.displayText && card.displayText !== term) {
       trigger.dataset.cardMatchedText = term;
@@ -574,6 +776,7 @@
       target.src = trigger.dataset.cardImage;
       target.alt = `${trigger.dataset.cardName || "卡牌"} 卡图`;
       titleTarget.textContent = trigger.dataset.cardName || "";
+      applyPreviewLayout(target.closest(".deck-card-hover-preview, .deck-card-lightbox"), trigger);
     }
 
     function positionHoverPreview(event, trigger) {
@@ -718,11 +921,14 @@
     const title = modal.querySelector("#deckModalTitle");
     const tabs = [...modal.querySelectorAll("[data-deck-tab]")];
     const deckSwitcher = modal.querySelector("#deckModalSwitcher");
+    const contentScroll = modal.querySelector(".deck-content-scroll");
     const imagePanel = modal.querySelector("#deckPanelImage");
     const textPanel = modal.querySelector("#deckPanelText");
     const tilePanel = modal.querySelector("#deckPanelTile");
     const textList = modal.querySelector("#deckTextList");
     const tileList = modal.querySelector("#deckTileList");
+    const tileFoldToggle = modal.querySelector("[data-deck-fold-toggle]");
+    const tileFoldToggleInput = tileFoldToggle?.querySelector("input");
     const closeButton = modal.querySelector("[data-deck-close]");
     const hoverPreview = document.querySelector(".deck-card-hover-preview") || createHoverPreview();
     const hoverPreviewImage = hoverPreview.querySelector("img");
@@ -736,6 +942,8 @@
     let activePreviewTrigger = null;
     let lastImageTrigger = null;
     let lightboxPointerStartY = null;
+    let showTileCardNames = false;
+    let collapseTileDuplicates = isMobileTileLayout();
 
     renderEntrypoints(mount, decks, label);
     const mobileFloatingButton = options.mobileFloatingButton === false
@@ -880,7 +1088,26 @@
 
     function renderActiveTileDeck() {
       if (!tileList) return;
-      tileList.innerHTML = activeDeck ? renderTileDeck(activeDeck) : "<p>暂无平铺版牌表。</p>";
+      tileList.innerHTML = activeDeck ? renderTileDeck(activeDeck, { collapseDuplicates: collapseTileDuplicates }) : "<p>暂无平铺版牌表。</p>";
+      applyTileNameVisibility();
+    }
+
+    function applyTileNameVisibility() {
+      if (!tileList) return;
+      tileList.classList.toggle("is-showing-card-names", showTileCardNames);
+      tileList.classList.toggle("is-hiding-card-names", !showTileCardNames);
+    }
+
+    function isMobileTileLayout() {
+      return window.matchMedia ? window.matchMedia("(max-width: 900px)").matches : window.innerWidth <= 900;
+    }
+
+    function updateTileFoldToggle(isTile) {
+      if (!tileFoldToggle) return;
+      tileFoldToggle.hidden = !isTile || !activeDeck || !hasTextDeck(activeDeck);
+      if (tileFoldToggleInput) {
+        tileFoldToggleInput.checked = collapseTileDuplicates;
+      }
     }
 
     function setDeckTab(tabName) {
@@ -904,6 +1131,7 @@
       if (imagePanel) imagePanel.hidden = isText || isTile;
       if (textPanel) textPanel.hidden = !isText;
       if (tilePanel) tilePanel.hidden = !isTile;
+      updateTileFoldToggle(isTile);
       if (isText) renderTextDeck();
       if (isTile) renderActiveTileDeck();
     }
@@ -926,9 +1154,10 @@
       renderActiveTileDeck();
       setDeckTab(preferredTab || (hasTextDeck(activeDeck) ? "tile" : "image"));
       updateDeckSwitcher(deckSwitcher, activeDeck);
-      if (textPanel) textPanel.scrollTop = 0;
-      if (tilePanel) tilePanel.scrollTop = 0;
-      if (imagePanel) imagePanel.scrollTop = 0;
+      if (contentScroll) {
+        contentScroll.scrollTop = 0;
+        contentScroll.scrollLeft = 0;
+      }
       hideHoverPreview();
     }
 
@@ -937,6 +1166,7 @@
       target.src = trigger.dataset.cardImage;
       target.alt = `${trigger.dataset.cardName || "卡牌"} 卡图`;
       titleTarget.textContent = trigger.dataset.cardName || "";
+      applyPreviewLayout(target.closest(".deck-card-hover-preview, .deck-card-lightbox"), trigger);
     }
 
     function positionHoverPreview(event, trigger) {
@@ -991,6 +1221,8 @@
       activeDeck = deckByKey.get(String(deckKey));
       if (!activeDeck || !modal) return;
       lastTrigger = trigger || null;
+      showTileCardNames = false;
+      collapseTileDuplicates = isMobileTileLayout();
       renderActiveDeck(hasTextDeck(activeDeck) ? "tile" : "image");
       modal.hidden = false;
       document.body.classList.add("deck-modal-open");
@@ -1032,6 +1264,11 @@
       tab.addEventListener("click", () => setDeckTab(tab.dataset.deckTab || "image"));
     });
 
+    tileFoldToggleInput?.addEventListener("change", () => {
+      collapseTileDuplicates = Boolean(tileFoldToggleInput.checked);
+      renderActiveTileDeck();
+    });
+
     document.querySelectorAll("[data-perspective-target]").forEach((tab) => {
       tab.addEventListener("click", scheduleMobileFloatingUpdate);
     });
@@ -1056,6 +1293,10 @@
     window.addEventListener("hashchange", scheduleMobileFloatingUpdate);
     window.addEventListener("popstate", scheduleMobileFloatingUpdate);
     window.addEventListener("load", scheduleMobileFloatingUpdate);
+    window.addEventListener("resize", () => {
+      updateTileFoldToggle(getActiveDeckTab() === "tile");
+      if (!modal.hidden && getActiveDeckTab() === "tile") renderActiveTileDeck();
+    });
 
     deckSwitcher?.addEventListener("click", (event) => {
       const button = event.target.closest("[data-deck-switch]");
