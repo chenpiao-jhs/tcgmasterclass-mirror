@@ -1,0 +1,1459 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>皎月 VS 雷恩加尔：决赛三局的回手与反制课</title>
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --blue: #315f78;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(245, 247, 242, 0.92), rgba(245, 247, 242, 1) 520px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(7, 13, 11, 0.9), rgba(7, 13, 11, 0.62) 50%, rgba(7, 13, 11, 0.18)),
+        url("cover.jpg?v=vancouver-final-trophy-20260602") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 126px;
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.01), rgba(245, 247, 242, 0.88) 70%, var(--bg) 86%, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero h1 {
+      max-width: 860px;
+      margin-top: 22px;
+      font-size: 54px;
+      font-weight: 850;
+    }
+
+    .hero .summary {
+      max-width: 760px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      font-weight: 850;
+      color: var(--green-dark);
+      line-height: 1.25;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      padding: 9px 10px;
+      border-radius: 7px;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-weight: 850;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      font-size: 34px;
+      color: var(--green-dark);
+    }
+
+    .time {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: #35443a;
+      max-width: 840px;
+      margin: 0 0 22px;
+    }
+
+    .grid-3,
+    .grid-2,
+    .jump-grid {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .jump-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    .warning,
+    .jump-card,
+    .timeline-item,
+    .check,
+    .mistakes li {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight,
+    .timeline-item,
+    .check,
+    .mistakes li {
+      padding: 16px;
+    }
+
+    .insight h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 18px;
+    }
+
+    .insight p,
+    .timeline-item p,
+    .mistakes li {
+      color: var(--muted);
+    }
+
+    .note,
+    .warning {
+      margin: 20px 0;
+      padding: 16px 18px;
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+      color: var(--muted);
+    }
+
+    .warning {
+      border-left-color: var(--red);
+      background: linear-gradient(90deg, rgba(242, 220, 218, 0.78), #fff 44%);
+    }
+
+    .note strong,
+    .warning strong {
+      color: var(--green-dark);
+    }
+
+    .jump-card {
+      appearance: none;
+      min-height: 138px;
+      padding: 18px;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+    }
+
+    .jump-card:hover,
+    .jump-card:focus {
+      border-color: rgba(47, 111, 78, 0.5);
+      outline: none;
+      box-shadow: 0 14px 38px rgba(25, 39, 31, 0.11);
+    }
+
+    .jump-card span {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(184, 137, 46, 0.12);
+      color: #8a641d;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-style: normal;
+      line-height: 1.55;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 34px rgba(25, 39, 31, 0.06);
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--green-dark);
+      background: #edf4ee;
+    }
+
+    td:first-child {
+      width: 156px;
+      color: var(--green-dark);
+      font-weight: 850;
+    }
+
+    .timeline,
+    .checklist,
+    .mistakes {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 128px minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .stamp {
+      color: var(--gold);
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      color: #35443a;
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    @media (max-width: 1250px) {
+      .grid-3,
+      .grid-2,
+      .jump-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 520px;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      main {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero .summary {
+        font-size: 17px;
+      }
+
+      th,
+      td {
+        min-width: 180px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260529-floating-actions-compact">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=detail-bottom-safe-20260601c">
+  <link rel="stylesheet" href="../assets/video-hub.css">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260601-mobile-feature-tight">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=detail-perspective-20260521">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-perspective-20260521">
+</head>
+<body id="top">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">温哥华站DAY2 · 决赛</div>
+      <h1>皎月 VS 雷恩加尔：决赛三局的回手与反制课</h1>
+      <p class="summary">这轮决赛不是只看最后一抽。第一局雷恩加尔先证明自己能突破早期薇古丝，第二局皎月靠备牌与隐藏信息扳平，第三局再把卡莎、狩猎律动和派克的终局线拆成回手、换牌与控潮者的收口。</p>
+      <ul class="hero-meta">
+        <li>比赛：Vancouver Regional Qualifier Day 2 Finals BO3</li>
+        <li>对局：皎月女神（CTG ALANZQ） VS 傲之追猎者（SAMDSHERMAN）</li>
+        <li>结果：CTG ALANZQ 2:1 赢下决赛并夺冠</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar" aria-label="固定视频与页面导航">
+      <figure class="media video-hub" data-player-base="https://www.youtube.com/embed/_PEjx43XIMM?autoplay=1&amp;rel=0" data-page-base="https://www.youtube.com/watch?v=_PEjx43XIMM" data-player-time-param="start" data-page-time-param="t">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://www.youtube.com/embed/_PEjx43XIMM?autoplay=0&amp;rel=0&amp;start=15462" title="Vancouver Regional Qualifier Day 2 Finals BO3: CTG ALANZQ VS SAMDSHERMAN" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前：4:17:42 决赛第一局开场</span>
+          <a class="video-open" id="videoOpen" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=15462" target="_blank" rel="noreferrer">YouTube 打开</a>
+        </div>
+        <figcaption>固定比赛播放器。点击正文里的“播放这一段”会切到对应时间点。</figcaption>
+      </figure>
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-diana-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+        <button class="perspective-tab" id="tab-rengar-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-rengar" data-perspective-target="rengar">雷恩加尔玩家视角</button>
+      </div>
+      <section id="decklistMount"></section>
+      <nav class="nav" aria-label="页面导航">
+        <div class="brand">温哥华决赛 BO3</div>
+        <div class="links" data-perspective-nav="diana">
+          <a href="#principles">核心结论</a>
+          <a href="#video">整轮脉络</a>
+          <a href="#deck">牌表与定位</a>
+          <a href="#game1">第一局</a>
+          <a href="#midgame">第二局</a>
+          <a href="#endgame">第三局</a>
+          <a href="#checklist">训练清单</a>
+          <a href="#mistakes">常见错误</a>
+        </div>
+        <div class="links" data-perspective-nav="rengar" hidden>
+          <a href="#rengar-principles">核心结论</a>
+          <a href="#rengar-video">整轮脉络</a>
+          <a href="#rengar-deck">牌表与定位</a>
+          <a href="#rengar-game1">第一局</a>
+          <a href="#rengar-midgame">第二局</a>
+          <a href="#rengar-endgame">第三局</a>
+          <a href="#rengar-checklist">训练清单</a>
+          <a href="#rengar-mistakes">常见错误</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="分析视角">
+        <button class="perspective-tab active" id="tab-diana" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月玩家视角</button>
+        <button class="perspective-tab" id="tab-rengar" type="button" role="tab" aria-selected="false" aria-controls="panel-rengar" data-perspective-target="rengar">雷恩加尔玩家视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-diana" role="tabpanel" aria-labelledby="tab-diana" data-perspective-panel="diana">
+        <section id="principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>皎月方先把三局看成一轮适应赛</h2>
+            </div>
+          </div>
+          <p class="lead">CTG ALANZQ<span class="player-tag" data-player-side="皎月方玩家">选手</span>赢下这轮，不是因为第三局突然抽到控潮者，而是因为他在三局里逐步修正了同一个问题：雷恩加尔能不能把早期压力接成不可回手的终局。</p>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>第一局先交学费</h3>
+              <p>皎月早期有拉文布鲁姆学院、薇古丝和罡风，但薇古丝被雷恩加尔清掉后，节奏没有锁住。第一局要学的是：早期控制牌如果没有第二层保护，不能自动变成胜势。</p>
+            </article>
+            <article class="insight">
+              <h3>第二、三局开始改题</h3>
+              <p>第二局靠星芒凝汇、卡牌骗术和强买强卖扳平，第三局再用月之降临、造化弄人、旅行商人与控潮者完成收口。皎月真正赢在让每个终局都重新结算。</p>
+            </article>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>G1</td>
+                <td>雷恩加尔清掉早期薇古丝并用反应时点雷恩加尔拿到关键战场，皎月输在控制牌没有形成第二层封锁。</td>
+              </tr>
+              <tr>
+                <td>G2</td>
+                <td>皎月用备牌星芒凝汇处理卡莎与场面，再用卡牌骗术隐藏强买强卖，把系列赛扳成 1:1。</td>
+              </tr>
+              <tr>
+                <td>G3</td>
+                <td>皎月连续处理卡莎、狩猎律动和派克终局线，最后通过旅行商人接控潮者完成冠军点。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>整轮先看这六个节点</h2>
+            </div>
+          </div>
+          <div class="jump-grid">
+            <button class="jump-card" type="button" data-time="15462" data-label="4:17:42 决赛第一局开场">
+              <span>4:17:42</span>
+              <strong>G1：拉文布鲁姆学院开局</strong>
+              <em>皎月先手，有学院、薇古丝和罡风，但这并不等于已经锁住雷恩加尔。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="15699" data-label="4:21:39 第一局薇古丝被清">
+              <span>4:21:39</span>
+              <strong>G1：薇古丝被清掉</strong>
+              <em>这是第一局皎月最该复盘的点：控制单位落下后，下一层保护在哪里？</em>
+            </button>
+            <button class="jump-card" type="button" data-time="17935" data-label="4:58:55 第二局星芒凝汇稳定局面">
+              <span>4:58:55</span>
+              <strong>G2：星芒凝汇入局</strong>
+              <em>备牌答案让雷恩加尔的中盘场面不能直接滚成冠军点。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="18574" data-label="5:09:34 第二局强买强卖">
+              <span>5:09:34</span>
+              <strong>G2：卡牌骗术藏住强买强卖</strong>
+              <em>这不是单纯反制，而是用隐藏信息把雷恩加尔的终局判断打乱。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="19770" data-label="5:29:30 第三局强买强卖挡狩猎律动">
+              <span>5:29:30</span>
+              <strong>G3：强买强卖再次命中</strong>
+              <em>狩猎律动第一次被挡，雷恩加尔的收口开始变成单线压力。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="20172" data-label="5:36:12 第三局造化弄人改终局">
+              <span>5:36:12</span>
+              <strong>G3：造化弄人改终局</strong>
+              <em>派克线被重新定价后，旅行商人和控潮者才有了收口空间。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="deck">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Deck</div>
+              <h2>牌表定位：皎月靠的是连续改结算</h2>
+            </div>
+          </div>
+          <p class="lead">这套皎月不是只靠“拖”。主牌有罡风、驭风而行、造化弄人、旅行商人和控潮者；备牌还有星芒凝汇。它的目标是先活过雷恩加尔的爆发，再把终局从力量题改成位置题、手牌题和下一抽题。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>战场不是装饰</h3>
+              <p>拉文布鲁姆学院给法术价值，巨神峰之巅给费用回合，废弃大厅给战力补偿。三局里战场选择都直接改变皎月能不能多留一拍。</p>
+            </article>
+            <article class="insight">
+              <h3>备牌改变第二局</h3>
+              <p>星芒凝汇不是泛用清场，而是针对雷恩加尔中盘单位压线的关键答案。第二局能扳回，靠的就是这个维度进入比赛。</p>
+            </article>
+            <article class="insight">
+              <h3>隐藏信息保护终局</h3>
+              <p>卡牌骗术让强买强卖不总是明牌。雷恩加尔一旦不能确定最后一张互动，狩猎律动就不再是稳定收口。</p>
+            </article>
+          </div>
+          <div class="note">
+            <p><strong>牌表来源：</strong>Yomi 公开列表提供主牌、符文与备牌；Rift Mana 补足完整战场；转播图片版用于视觉复核。若不同来源展示范围不一致，页面按“文字来源 + 第三方战场补充 + 转播截图复核”的组合记录。</p>
+          </div>
+        </section>
+
+        <section id="game1">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：早期薇古丝没守住，皎月先输一局</h2>
+            </div>
+            <div class="time">4:17:42 - 4:36:36</div>
+          </div>
+          <p class="lead">第一局皎月先手翻出拉文布鲁姆学院，看起来能通过法术和薇古丝压慢雷恩加尔。但雷恩加尔很快用竞技场新人、伊焚娜和傲之追猎者加成清掉薇古丝，皎月的第一层控制没有接成封锁。</p>
+          <table aria-label="第一局皎月局内拆解">
+            <thead>
+              <tr>
+                <th>复盘点</th>
+                <th>皎月视角</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>起手条件</td>
+                <td>先手战场是拉文布鲁姆学院，手里有薇古丝、罡风与低费互动，第一目标是把雷恩加尔的早期单位压慢。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>薇古丝被清掉后，皎月失去持续降速点，学院带来的法术价值没有变成稳定战场优势。</td>
+              </tr>
+              <tr>
+                <td>资源决策</td>
+                <td>控制单位落下前，要先规划“它被解掉以后下一张互动是什么”，不能把第一层防线当成完整防线。</td>
+              </tr>
+              <tr>
+                <td>回放标准</td>
+                <td>暂停在薇古丝落地前，检查自己是否还有费用、手牌或战场安排能惩罚对手立刻解薇古丝。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="timeline" aria-label="第一局皎月时间线">
+            <div class="timeline-item">
+              <div class="stamp">4:17:42</div>
+              <p>决赛第一局开场，皎月先手进入拉文布鲁姆学院，目标是用法术链和控制单位拖慢雷恩加尔。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">4:21:39</div>
+              <p>薇古丝被清掉，皎月要从这里回看自己有没有过早暴露唯一的持续控制点。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">4:36:08</div>
+              <p>雷恩加尔在反应时点拿到关键战场，证明皎月前面没有把第二条收口线封住。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:21:39 起</span>
+              <span class="watch-title">薇古丝被清，第一层防线断掉</span>
+              <p>这里不要只问“薇古丝强不强”。要问：皎月在横置后还能不能保护这个控制单位，或者至少让雷恩加尔付出足够高的代价。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="15699" data-label="4:21:39 第一局薇古丝被清">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=15699" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:36:08 起</span>
+              <span class="watch-title">反应时点雷恩加尔拿下关键战场</span>
+              <p>第一局结尾雷恩加尔通过反应时点和第二个战场完成收口。皎月复盘时要把这个点记成“我没有封死第二战场”，而不是只记最后被抢分。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="16568" data-label="4:36:08 第一局雷恩加尔收口">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=16568" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>皎月不是没有开局，也不是没有控制牌；问题是早期控制没有形成连续保护。打雷恩加尔时，第一层互动如果不能逼掉足够资源，后面就会被对手用第二战场收口。</p>
+          </div>
+        </section>
+
+        <section id="midgame">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：备牌与隐藏信息把系列赛扳回来</h2>
+            </div>
+            <div class="time">4:42:19 - 5:10:50</div>
+          </div>
+          <p class="lead">第二局皎月没有照抄第一局。旅行商人先稳住节奏，薇古丝不再被当成无保护的单点防线；更重要的是，星芒凝汇和强买强卖改变了雷恩加尔对中盘与终局的计算。</p>
+          <table aria-label="第二局皎月局内拆解">
+            <thead>
+              <tr>
+                <th>复盘点</th>
+                <th>皎月视角</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>起手条件</td>
+                <td>备牌后进入第二局，皎月手里出现星芒凝汇、罡风、拉文布鲁姆学生与“敲”诈，防守维度比第一局更完整。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>星芒凝汇把卡莎和中盘单位一起纳入处理范围，让雷恩加尔不能靠单次铺场滚成冠军点。</td>
+              </tr>
+              <tr>
+                <td>资源决策</td>
+                <td>卡牌骗术不是随手赚牌，而是把强买强卖藏到对手最想推进雷恩加尔本体的回合。</td>
+              </tr>
+              <tr>
+                <td>回放标准</td>
+                <td>回看时确认自己是否把备牌答案写进曲线，而不是等到场面失控以后才想起来有星芒凝汇。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="timeline" aria-label="第二局皎月时间线">
+            <div class="timeline-item">
+              <div class="stamp">4:44:33</div>
+              <p>暗中破坏看到星芒凝汇等手牌，皎月接下来要用费用和战场让明牌答案仍然有效。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">4:58:55</div>
+              <p>星芒凝汇进入结算，中盘从雷恩加尔的推进题变回皎月能处理的资源题。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:09:34</div>
+              <p>卡牌骗术藏住强买强卖，关键反制在终局回合才翻开，系列赛被拖进第三局。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:44:33 起</span>
+              <span class="watch-title">暗中破坏看到星芒凝汇</span>
+              <p>雷恩加尔看到皎月手里的星芒凝汇、罡风、拉文布鲁姆学生和“敲”诈。这里的练习是：即使对手知道答案存在，皎月仍然可以用费用和战场迫使对手走进答案范围。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="17073" data-label="4:44:33 第二局暗中破坏看手">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=17073" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:58:55 起</span>
+              <span class="watch-title">星芒凝汇处理中盘场面</span>
+              <p>星芒凝汇来自备牌，第一局没有这个维度。它让雷恩加尔的卡莎和中盘单位不能轻松把分数推到冠军点。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="17935" data-label="4:58:55 第二局星芒凝汇">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=17935" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:09:34 起</span>
+              <span class="watch-title">卡牌骗术藏住强买强卖</span>
+              <p>这一步是第二局的核心。皎月用卡牌骗术让关键反制不完全明牌，雷恩加尔把雷恩加尔推进来时吃到强买强卖，系列赛被拖进第三局。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="18574" data-label="5:09:34 第二局强买强卖">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=18574" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="warning">
+            <p><strong>第二局结论：</strong>皎月扳平靠的是信息结构变化。星芒凝汇让雷恩加尔不能只靠中盘场面推进，卡牌骗术让最后一张强买强卖不再是对手能完全规划的明牌。</p>
+          </div>
+        </section>
+
+        <section id="endgame">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>第三局：把冠军点拆成回手、换牌和控潮者</h2>
+            </div>
+            <div class="time">5:19:16 - 5:37:40</div>
+          </div>
+          <p class="lead">第三局的重点不是最后宣布冠军，而是皎月如何连续把雷恩加尔的收口降速：月之降临处理卡莎，强买强卖挡住狩猎律动，造化弄人回手薇古丝，最后旅行商人接到控潮者。</p>
+          <table aria-label="第三局皎月局内拆解">
+            <thead>
+              <tr>
+                <th>复盘点</th>
+                <th>皎月视角</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>起手条件</td>
+                <td>第三局双方都知道对手的后备路线，皎月不能只存一张答案，要把卡莎、狩猎律动和派克分开处理。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>月之降临先拆卡莎，强买强卖再挡狩猎律动，雷恩加尔的速度被拆成多次不完整的进攻。</td>
+              </tr>
+              <tr>
+                <td>资源决策</td>
+                <td>造化弄人不是为了赚一张回手，而是改变派克终局的落点，让旅行商人有时间找真正的收口牌。</td>
+              </tr>
+              <tr>
+                <td>回放标准</td>
+                <td>暂停在雷恩加尔交狩猎律动前，先算“当前力量”再算“回手后战场”，两遍都安全才算真的稳。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="timeline" aria-label="第三局皎月时间线">
+            <div class="timeline-item">
+              <div class="stamp">5:25:12</div>
+              <p>月之降临把卡莎拉回资源交换，雷恩加尔失去最直接的加速器。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:29:30</div>
+              <p>强买强卖挡住第一轮狩猎律动，皎月开始把对手终局从直线题改成多步题。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:35:42</div>
+              <p>狩猎律动交到派克，造化弄人让最后一波重新计算战场落点。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:37:03</div>
+              <p>旅行商人换牌接到控潮者，前面保住的每一拍在这里变成冠军点。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:25:12 起</span>
+              <span class="watch-title">月之降临把卡莎换成资源题</span>
+              <p>卡莎是雷恩加尔的加速器。这里皎月不是单纯解单位，而是把对方的竞速计划拉回资源交换。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="19512" data-label="5:25:12 第三局月之降临处理卡莎">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=19512" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:29:30 起</span>
+              <span class="watch-title">强买强卖挡住第一轮狩猎律动</span>
+              <p>这张强买强卖让雷恩加尔不能把雷恩加尔本体轻松重打进薇古丝所在战场。终局从这里开始不再是雷恩加尔的直线题。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="19770" data-label="5:29:30 第三局强买强卖挡狩猎律动">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=19770" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:35:42 起</span>
+              <span class="watch-title">狩猎律动交到派克，造化弄人改题</span>
+              <p>雷恩加尔最后一波看起来是力量题，但皎月用造化弄人把它变成位置题。这里要练的是回手之后的战场分差，而不是当前力量。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="20142" data-label="5:35:42 第三局狩猎律动终局线">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=20142" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:37:03 起</span>
+              <span class="watch-title">旅行商人接到控潮者</span>
+              <p>控潮者不是孤立神抽。前面的月之降临、强买强卖和造化弄人让旅行商人的换牌仍然有意义，这才让控潮者成为冠军点。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="20223" data-label="5:37:03 第三局旅行商人到控潮者">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=20223" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+        </section>
+
+        <section id="checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>皎月玩家可以直接照着练的清单</h2>
+            </div>
+          </div>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我的早期薇古丝或控制单位是否有第二层保护，还是只是在测试对手有没有答案？</span></div>
+            <div class="check"><span class="box"></span><span>备牌后，我的星芒凝汇、强买强卖、月之降临分别负责哪一种雷恩加尔路线？</span></div>
+            <div class="check"><span class="box"></span><span>卡牌骗术是立刻贪价值，还是留到能隐藏关键反制的回合？</span></div>
+            <div class="check"><span class="box"></span><span>雷恩加尔交狩猎律动前，我有没有先算回手后的战场而不是当前力量？</span></div>
+            <div class="check"><span class="box"></span><span>旅行商人出手时，我是否已经保留了让下一抽立刻影响分差的场面？</span></div>
+          </div>
+          <h3>关键牌使用规则</h3>
+          <table aria-label="皎月关键牌使用规则">
+            <thead>
+              <tr>
+                <th>卡牌或组合</th>
+                <th>本轮职责</th>
+                <th>最佳时点</th>
+                <th>避免误用</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>薇古丝</td>
+                <td>早期降速与压制雷恩加尔进攻单位。</td>
+                <td>对手必须多交资源才能清掉她，且你有第二层保护或后续互动时。</td>
+                <td>把她当成无保护的单点答案，像第一局一样被清掉后失去节奏。</td>
+              </tr>
+              <tr>
+                <td>星芒凝汇</td>
+                <td>备牌后处理卡莎和中盘单位，让铺场不能直接变冠军点。</td>
+                <td>对手已经把关键单位压进同一结算窗口，但还没逼你交掉其他反制时。</td>
+                <td>等到分差已经不可逆才出手，或只把它当普通清场。</td>
+              </tr>
+              <tr>
+                <td>卡牌骗术 + 强买强卖</td>
+                <td>把关键反制藏成伏牌，打乱雷恩加尔对终局回合的判断。</td>
+                <td>雷恩加尔必须推进本体、狩猎律动或关键攻击点的回合。</td>
+                <td>过早翻开，让对手能围绕明牌强买强卖重新安排第二战场。</td>
+              </tr>
+              <tr>
+                <td>月之降临 / 造化弄人</td>
+                <td>把卡莎和派克终局从力量题改成资源与位置题。</td>
+                <td>对手一旦依赖单个单位或单条战场线收口，就用它们重置落点。</td>
+                <td>只为了赚即时点数使用，结果没留下处理下一波狩猎律动的答案。</td>
+              </tr>
+              <tr>
+                <td>旅行商人 + 控潮者</td>
+                <td>在残局把前面争取到的时间转成最后分差。</td>
+                <td>你已经用互动压低对手终局稳定性，下一抽可以马上改变战场时。</td>
+                <td>把控潮者理解成孤立神抽，忽略前面每一步都要为换牌留窗口。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>皎月玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>把第一局的薇古丝当成自动胜势，忽略雷恩加尔可以立刻清掉控制单位。</li>
+            <li>备牌后仍按主牌节奏打，没有围绕星芒凝汇和强买强卖重新规划回合。</li>
+            <li>卡牌骗术过早使用，导致关键强买强卖或造化弄人失去信息优势。</li>
+            <li>只看雷恩加尔当前力量，不算造化弄人之后战场会怎样重排。</li>
+            <li>把第三局记成控潮者神抽，忘了前面每一步如何把雷恩加尔逼到单线。</li>
+          </ul>
+          <div class="footer">
+            <p>皎月视角的核心问题是：我能不能从第一局的失败里调整信息、费用和战场，让雷恩加尔每一局都更难把压力接成必然胜利。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-rengar" role="tabpanel" aria-labelledby="tab-rengar" data-perspective-panel="rengar" hidden>
+        <section id="rengar-principles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>雷恩加尔方要把第一局的成功延续三局</h2>
+            </div>
+          </div>
+          <p class="lead">SAMDSHERMAN<span class="player-tag" data-player-side="雷恩加尔方玩家">选手</span>第一局打出了雷恩加尔想要的样子：清掉早期薇古丝，利用反应时点和多战场收口。问题是第二、三局 CTG ALANZQ<span class="player-tag" data-player-side="皎月方玩家">选手</span>开始用备牌和隐藏信息改变结算，雷恩加尔没能把第一局的多线压力持续到底。</p>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>第一局的模板是对的</h3>
+              <p>薇古丝必须立刻被处理，不能让拉文布鲁姆学院把皎月手牌滚起来。雷恩加尔只要能让对手第一层控制断掉，就能把比赛推进自己的双战场节奏。</p>
+            </article>
+            <article class="insight">
+              <h3>后两局输在信息被改价</h3>
+              <p>当皎月有星芒凝汇、卡牌骗术、强买强卖和造化弄人时，雷恩加尔不能只靠“我这一波够大”。每一波都要先算对手隐藏反制后的第二路线。</p>
+            </article>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>G1</td>
+                <td>清掉薇古丝，保存第二战场，反应时点雷恩加尔收口。这是雷恩加尔赢皎月的正例。</td>
+              </tr>
+              <tr>
+                <td>G2</td>
+                <td>暗中破坏看到了部分答案，但卡牌骗术藏住强买强卖，雷恩加尔最后一波被扳回。</td>
+              </tr>
+              <tr>
+                <td>G3</td>
+                <td>卡莎被月之降临处理，狩猎律动连续被强买强卖和造化弄人改价，终局变成皎月下一抽。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="rengar-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>整轮先看这些雷恩加尔节点</h2>
+            </div>
+          </div>
+          <div class="jump-grid">
+            <button class="jump-card" type="button" data-time="15699" data-label="4:21:39 第一局清掉薇古丝">
+              <span>4:21:39</span>
+              <strong>G1：清掉薇古丝</strong>
+              <em>第一局获胜的基础：不能让皎月的控制单位在学院里持续产出。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="16568" data-label="4:36:08 第一局反应雷恩加尔收口">
+              <span>4:36:08</span>
+              <strong>G1：反应时点收口</strong>
+              <em>雷恩加尔靠第二战场和反应时点拿下第一局，这就是理想模板。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="17073" data-label="4:44:33 第二局暗中破坏看手">
+              <span>4:44:33</span>
+              <strong>G2：暗中破坏看手</strong>
+              <em>看到了星芒凝汇和罡风，但仍要处理未知牌与卡牌骗术。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="18574" data-label="5:09:34 第二局强买强卖">
+              <span>5:09:34</span>
+              <strong>G2：强买强卖翻盘</strong>
+              <em>雷恩加尔推进终局时，被隐藏反制打断，只能进入第三局。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="19512" data-label="5:25:12 第三局卡莎被处理">
+              <span>5:25:12</span>
+              <strong>G3：卡莎被处理</strong>
+              <em>加速器没留下来，雷恩加尔必须立刻找第二条逼分线。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="20142" data-label="5:35:42 第三局狩猎律动终局线">
+              <span>5:35:42</span>
+              <strong>G3：狩猎律动单线化</strong>
+              <em>最后一波如果只测试一张回手，就会被皎月拖进下一抽。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="rengar-deck">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Deck</div>
+              <h2>牌表定位：雷恩加尔必须制造多线收口</h2>
+            </div>
+          </div>
+          <p class="lead">这套雷恩加尔有坚定的哨兵、卡莎、派克、诱人仙灵、狩猎律动、暗中破坏和先打再问。它最强的时候不是单个单位变大，而是同时让皎月处理手牌信息、战场位置和反应时点。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>早期要逼掉控制</h3>
+              <p>第一局清掉薇古丝就是样板。只要控制单位留下，雷恩加尔的伏击和推进都会被减速。</p>
+            </article>
+            <article class="insight">
+              <h3>暗中破坏不是万能</h3>
+              <p>看手牌只能解决明牌。面对卡牌骗术和伏牌，雷恩加尔还要保留能应对未知反制的第二路线。</p>
+            </article>
+            <article class="insight">
+              <h3>狩猎律动要配双战场</h3>
+              <p>专属法术最好是收口，不要变成单点测试。皎月只要用一个回手改变落点，单线终局就会崩。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="rengar-game1">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 1</div>
+              <h2>第一局：雷恩加尔如何正确突破皎月</h2>
+            </div>
+            <div class="time">4:17:42 - 4:36:36</div>
+          </div>
+          <p class="lead">第一局最值得雷恩加尔玩家保存成模板。皎月先手有拉文布鲁姆学院和薇古丝，但雷恩加尔没有让对方慢慢拿价值，而是马上清控制单位、保第二战场，并在结尾用反应时点雷恩加尔收掉关键分。</p>
+          <table aria-label="第一局雷恩加尔局内拆解">
+            <thead>
+              <tr>
+                <th>复盘点</th>
+                <th>雷恩加尔视角</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>起手条件</td>
+                <td>对手先手翻拉文布鲁姆学院，意味着不能让薇古丝或法术价值持续站住。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>清掉薇古丝以后，皎月的降速链断开，雷恩加尔才有空间保存第二战场压力。</td>
+              </tr>
+              <tr>
+                <td>资源决策</td>
+                <td>早期为了清控制单位多交资源是可以接受的，前提是清完以后能立刻接双战场推进。</td>
+              </tr>
+              <tr>
+                <td>回放标准</td>
+                <td>回看时确认自己不是单纯解薇古丝，而是解完以后仍有第二个可结算的收口点。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="timeline" aria-label="第一局雷恩加尔时间线">
+            <div class="timeline-item">
+              <div class="stamp">4:17:42</div>
+              <p>看到拉文布鲁姆学院后，雷恩加尔要把目标改成压掉法术引擎，而不是慢慢交换。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">4:21:39</div>
+              <p>薇古丝被清掉，第一局的胜利模板从这里开始成形。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">4:36:08</div>
+              <p>反应时点雷恩加尔和第二战场一起收口，让皎月无法只靠一张互动应付。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:21:39 起</span>
+              <span class="watch-title">清掉薇古丝，别让皎月降速</span>
+              <p>雷恩加尔这里付出资源是值得的。只要薇古丝继续站着，后续伏击、移动和战场争夺都会被皎月重定价。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="15699" data-label="4:21:39 第一局清掉薇古丝">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=15699" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:36:08 起</span>
+              <span class="watch-title">用反应时点和第二战场收口</span>
+              <p>第一局不是靠一波大数值赢，而是让皎月无法同时照顾两个战场。雷恩加尔要复盘这个多线结构，而不是只记最后一张牌。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="16568" data-label="4:36:08 第一局雷恩加尔收口">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=16568" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="warning">
+            <p><strong>第一局结论：</strong>雷恩加尔打皎月的目标不是“更大”，而是让皎月没有时间把战斗改成回手题。清控制、保第二线、反应时点收口，这三件事必须连在一起。</p>
+          </div>
+        </section>
+
+        <section id="rengar-midgame">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 2</div>
+              <h2>第二局：知道明牌答案，还要防隐藏反制</h2>
+            </div>
+            <div class="time">4:42:19 - 5:10:50</div>
+          </div>
+          <p class="lead">第二局雷恩加尔做了正确的一半：暗中破坏看到了星芒凝汇、罡风、拉文布鲁姆学生和“敲”诈，也知道皎月有中盘清场。问题是卡牌骗术让最后一张强买强卖变成隐藏信息，终局判断因此失效。</p>
+          <table aria-label="第二局雷恩加尔局内拆解">
+            <thead>
+              <tr>
+                <th>复盘点</th>
+                <th>雷恩加尔视角</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>起手条件</td>
+                <td>暗中破坏给了明牌信息，但只覆盖当时看见的手牌，不覆盖卡牌骗术、换牌和伏牌。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>星芒凝汇让中盘铺场不能直接转成冠军点，强买强卖又在最后一波作为隐藏反制翻开。</td>
+              </tr>
+              <tr>
+                <td>资源决策</td>
+                <td>看见星芒凝汇后，要么逼皎月提前交掉它，要么保留能绕过清场的第二条路线。</td>
+              </tr>
+              <tr>
+                <td>回放标准</td>
+                <td>暂停在推进终局前，问自己“如果伏牌是强买强卖，我还有没有另一个战场能结算”。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="timeline" aria-label="第二局雷恩加尔时间线">
+            <div class="timeline-item">
+              <div class="stamp">4:44:33</div>
+              <p>暗中破坏看手后，雷恩加尔获得信息，但不能把这个信息误判成完整答案。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">4:58:55</div>
+              <p>星芒凝汇处理中盘，说明卡莎和单位推进已经进入皎月的备牌答案范围。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:09:34</div>
+              <p>强买强卖从隐藏信息变成实际反制，雷恩加尔终局需要重新设计。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">4:44:33 起</span>
+              <span class="watch-title">暗中破坏看手后，计划不能只看明牌</span>
+              <p>看到星芒凝汇以后，雷恩加尔必须问：我能不能逼皎月提前交它？如果不能，卡莎和中盘单位会被一起处理。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="17073" data-label="4:44:33 第二局暗中破坏看手">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=17073" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:09:34 起</span>
+              <span class="watch-title">强买强卖作为伏牌翻开</span>
+              <p>雷恩加尔推进终局时吃到强买强卖，这不是对手临时多一张答案，而是卡牌骗术让信息结构变了。之后的雷恩加尔要把伏牌当成真实威胁。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="18574" data-label="5:09:34 第二局强买强卖">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=18574" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="note">
+            <p><strong>第二局结论：</strong>暗中破坏看手不是“我知道全部”。面对皎月的卡牌骗术和旅行商人，雷恩加尔要把未知牌也纳入终局计算。</p>
+          </div>
+        </section>
+
+        <section id="rengar-endgame">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Game 3</div>
+              <h2>第三局：终局不能只剩一条狩猎律动线</h2>
+            </div>
+            <div class="time">5:19:16 - 5:37:40</div>
+          </div>
+          <p class="lead">第三局里，雷恩加尔的关键问题连续出现：卡莎没能成为持续加速器，第一轮狩猎律动被强买强卖挡掉，最后派克线又被造化弄人和薇古丝重排。终局只剩一条线时，皎月就有时间找控潮者。</p>
+          <table aria-label="第三局雷恩加尔局内拆解">
+            <thead>
+              <tr>
+                <th>复盘点</th>
+                <th>雷恩加尔视角</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>起手条件</td>
+                <td>第三局必须假设皎月已经有回手与反制路线，不能把狩猎律动当成必然结算。</td>
+              </tr>
+              <tr>
+                <td>关键转折</td>
+                <td>卡莎被月之降临处理后，狩猎律动又被强买强卖和造化弄人连续改价，终局逐渐单线化。</td>
+              </tr>
+              <tr>
+                <td>资源决策</td>
+                <td>每一次大推进都要配第二战场或第二攻击点；只测试一张回手，就是把主动权交回皎月。</td>
+              </tr>
+              <tr>
+                <td>回放标准</td>
+                <td>回看每次狩猎律动前，记录自己是否能回答“对手回手后，我下一步在哪里继续赢”。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="timeline" aria-label="第三局雷恩加尔时间线">
+            <div class="timeline-item">
+              <div class="stamp">5:25:12</div>
+              <p>卡莎被月之降临处理，雷恩加尔要立刻寻找第二条逼分线。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:29:30</div>
+              <p>第一轮狩猎律动被强买强卖挡掉，单靠专属法术已经不够安全。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:35:42</div>
+              <p>派克终局再次被造化弄人改价，第二战场不足的问题彻底暴露。</p>
+            </div>
+            <div class="timeline-item">
+              <div class="stamp">5:37:03</div>
+              <p>比赛拖到皎月旅行商人找牌，雷恩加尔需要把问题回溯到前面没有封死节奏的回合。</p>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:25:12 起</span>
+              <span class="watch-title">卡莎被月之降临处理</span>
+              <p>卡莎被处理后，雷恩加尔要立刻确认第二条逼分线。如果只是继续等狩猎律动，比赛就会进入皎月的资源残局。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="19512" data-label="5:25:12 第三局卡莎被处理">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=19512" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:29:30 起</span>
+              <span class="watch-title">狩猎律动第一次被强买强卖挡掉</span>
+              <p>如果专属法术第一次没有产生决定性分差，雷恩加尔后续就必须用单位与战场双线继续逼，而不是把希望留到最后一张牌。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="19770" data-label="5:29:30 第三局强买强卖挡狩猎律动">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=19770" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">5:35:42 起</span>
+              <span class="watch-title">派克终局被造化弄人改价</span>
+              <p>交狩猎律动前先算两遍：当前战场怎么赢，造化弄人后还有没有第二战场能赢。第二遍算不出来，就不是安全终局。</p>
+            </div>
+            <button class="watch-button" type="button" data-time="20142" data-label="5:35:42 第三局狩猎律动终局线">播放这一段</button>
+            <a class="watch-link" href="https://www.youtube.com/watch?v=_PEjx43XIMM&amp;t=20142" target="_blank" rel="noreferrer">YouTube 打开</a>
+          </div>
+          <div class="warning">
+            <p><strong>第三局结论：</strong>雷恩加尔不要只练“我最大能打多少”。更重要的是练“对手用一个回手后，我还有没有第二个能结算的战场”。</p>
+          </div>
+        </section>
+
+        <section id="rengar-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>雷恩加尔玩家可以直接照着练的清单</h2>
+            </div>
+          </div>
+          <div class="checklist">
+            <div class="check"><span class="box"></span><span>我有没有像第一局一样，先清掉皎月的控制单位，再谈抢分？</span></div>
+            <div class="check"><span class="box"></span><span>暗中破坏看手后，我有没有同时规划看不见的卡牌骗术和伏牌？</span></div>
+            <div class="check"><span class="box"></span><span>卡莎被处理时，我是否立刻有第二条逼分路线？</span></div>
+            <div class="check"><span class="box"></span><span>交狩猎律动前，我有没有算造化弄人、薇古丝和强买强卖之后的战场？</span></div>
+            <div class="check"><span class="box"></span><span>如果皎月还能旅行商人找牌，我前面是哪一回合没有把节奏封死？</span></div>
+          </div>
+          <h3>关键牌使用规则</h3>
+          <table aria-label="雷恩加尔关键牌使用规则">
+            <thead>
+              <tr>
+                <th>卡牌或组合</th>
+                <th>本轮职责</th>
+                <th>最佳时点</th>
+                <th>避免误用</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>暗中破坏</td>
+                <td>确认皎月明牌答案，决定是否要逼出星芒凝汇或罡风。</td>
+                <td>在你准备投入卡莎、中盘单位或雷恩加尔本体前使用。</td>
+                <td>把看见的手牌当成全部信息，忽略卡牌骗术和旅行商人会改变隐藏牌。</td>
+              </tr>
+              <tr>
+                <td>卡莎</td>
+                <td>中盘加速器，迫使皎月提前交解牌。</td>
+                <td>皎月还没有把星芒凝汇或月之降临写进同一回合结算时。</td>
+                <td>孤立投入，让她被一张月之降临处理后没有后续逼分线。</td>
+              </tr>
+              <tr>
+                <td>狩猎律动</td>
+                <td>终局收口牌，用来把已有战场压力转成不可回手的分差。</td>
+                <td>你同时有第二战场、第二攻击点或能惩罚回手的后续资源时。</td>
+                <td>只做最大力量，结果被强买强卖或造化弄人单张改掉。</td>
+              </tr>
+              <tr>
+                <td>先打再问 / 诱人仙灵</td>
+                <td>压缩皎月防守回合，让对手不能舒舒服服等旅行商人。</td>
+                <td>皎月费用紧、手牌信息不完整，或刚交过关键互动后。</td>
+                <td>只为即时点数出手，没有配合下一回合的双线收口。</td>
+              </tr>
+              <tr>
+                <td>坚定的哨兵 / 派克</td>
+                <td>提供持续战场与终局威胁，逼皎月同时处理位置和力量。</td>
+                <td>在你已经清掉薇古丝或能让皎月的回手只覆盖一条线时。</td>
+                <td>把派克线变成最后唯一的测试题，给皎月一个回手就过关的窗口。</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="rengar-mistakes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Review</div>
+              <h2>雷恩加尔玩家最容易犯的错</h2>
+            </div>
+          </div>
+          <ul class="mistakes">
+            <li>第一局赢了以后，以为同样的压力会自然延续，忽略皎月第二局备牌后结构已经变了。</li>
+            <li>暗中破坏看到了明牌答案，却没有把卡牌骗术和伏牌当成真实威胁。</li>
+            <li>卡莎被处理后继续按单线节奏打，给皎月足够时间等回手。</li>
+            <li>狩猎律动只做最大力量，没有配合第二战场或第二攻击点。</li>
+            <li>让比赛拖到对手可以旅行商人找牌，再把失败归结为最后一抽。</li>
+          </ul>
+          <div class="footer">
+            <p>雷恩加尔视角的核心不是“更凶一点”，而是把第一局那种多线压力维持到整轮。只要终局变成单线，皎月就会把题目改掉。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部" hidden>↑</a>
+  <script src="../assets/page-nav.js?v=page-nav-20260529-floating-actions-compact"></script>
+  <script src="../assets/video-hub.js?v=youtube-time-param-20260601"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/vancouver-decklists.js?v=vancouver-decklists-20260602"></script>
+  <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgVancouverDecklists.byKey,
+      decks: [
+        {
+          sourceKey: "ctg-alanzq-diana",
+          image: "deck-ctg-alanzq-diana.jpg",
+          alt: "CTG ALANZQ 的皎月牌表截图"
+        },
+        {
+          sourceKey: "samdsherman-rengar",
+          image: "deck-samdsherman-rengar.jpg",
+          alt: "SAMDSHERMAN 的雷恩加尔牌表截图"
+        }
+      ],
+      articleCardLinks: {
+        root: "main",
+        exclude: ["皎月", "雷恩加尔", "Diana", "Rengar", "CTG ALANZQ", "SAMDSHERMAN"],
+        aliases: {
+          "Scorn of the Moon": "皎月女神",
+          "Diana, Scorn of the Moon": "皎月女神",
+          "Diana Lunari": "黛安娜, 皎月化身",
+          "Diana, Lunari": "黛安娜, 皎月化身",
+          "Pridestalker": "傲之追猎者",
+          "Rengar, Pridestalker": "傲之追猎者",
+          "Rengar Trophy Hunter": "雷恩加尔, 异兽猎手",
+          "Rengar, Trophy Hunter": "雷恩加尔, 异兽猎手",
+          "Targon's Peak": "巨神峰之巅",
+          "Abandoned Hall": "废弃大厅",
+          "Ravenbloom Conservatory": "拉文布鲁姆学院",
+          "Ravenbloom Student": "拉文布鲁姆学生",
+          "The Arena's Greatest": "荣耀竞技场",
+          "Emperor's Dais": "帝王神坛",
+          "Star Spring": "流星疗泉",
+          "Singularity": "星芒凝汇",
+          "Stacked Deck": "卡牌骗术",
+          "Hard Bargain": "强买强卖",
+          "Gust": "罡风",
+          "Stupefy": "“敲”诈",
+          "Moonfall": "月之降临",
+          "Sabotage": "暗中破坏",
+          "Punch First": "先打再问",
+          "Determined Sentry": "坚定的哨兵",
+          "Thrill of the Hunt": "狩猎律动",
+          "throw the Hunt": "狩猎律动",
+          "Star-Crossed": "造化弄人",
+          "Vex, Cheerless": "薇古丝, 郁郁",
+          "Vex, Apathetic": "薇古丝, 冷眼旁观",
+          "Traveling Merchant": "旅行商人",
+          "Tideturner": "控潮者",
+          "Kai'Sa, Survivor": "卡莎, 九死一生",
+          "Pyke": "派克, 码头屠夫",
+          "Pyke, Dockside Butcher": "派克, 码头屠夫",
+          "Irresistible Faefolk": "诱人仙灵",
+          "Faefolk": "诱人仙灵",
+          "Kaisa": "卡莎, 九死一生"
+        },
+        correctedAliases: {
+          "throw the Hunt": "狩猎律动",
+          "Kaisa": "卡莎",
+          "Faefolk": "诱人仙灵",
+          "Emperor's Dais": "帝王神坛"
+        }
+      }
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260601-mobile-feature-tight"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>

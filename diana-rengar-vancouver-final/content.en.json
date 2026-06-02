@@ -1,0 +1,265 @@
+{
+  "metadata": {
+    "sourceLanguage": "en",
+    "availableLanguages": ["zh", "en"],
+    "englishDraftDate": "2026-06-02",
+    "translationDate": "2026-06-02",
+    "videoUrl": "https://www.youtube.com/watch?v=_PEjx43XIMM&t=15462s",
+    "eventUrl": "https://rift.yomis-place.de/vancouver",
+    "match": "Vancouver Regional Qualifier Day 2 Finals BO3",
+    "score": "CTG ALANZQ defeated SAMDSHERMAN 2-1",
+    "players": {
+      "diana": "CTG ALANZQ",
+      "rengar": "SAMDSHERMAN"
+    },
+    "gameBoundaries": [
+      {
+        "game": 1,
+        "start": "04:17:42",
+        "winner": "SAMDSHERMAN",
+        "resultCue": "04:36:30"
+      },
+      {
+        "game": 2,
+        "start": "04:42:19",
+        "winner": "CTG ALANZQ",
+        "resultCue": "05:10:35"
+      },
+      {
+        "game": 3,
+        "start": "05:19:16",
+        "winner": "CTG ALANZQ",
+        "resultCue": "05:37:32"
+      }
+    ],
+    "decklistSources": [
+      "https://rift.yomis-place.de/vancouver/diana",
+      "https://rift.yomis-place.de/vancouver/rengar",
+      "https://riftmana.com/tournaments/alanzq-diana-vancouverregional-qualifier-5-30/",
+      "https://riftmana.com/best-of-metal-cards-legend-winner-decklists-vancouver-regional-qualifier/",
+      "https://riftdecks.com/riftbound-tournaments/riftbound-regional-qualifier-vancouver-final-standings-tournament-decks-11474"
+    ]
+  },
+  "title": "Diana vs Rengar: the three-game finals lesson in bounce, hidden answers, and counter-pressure",
+  "summary": "The Vancouver finals should be studied as a full best-of-three. Game 1 shows Rengar breaking through early Vex pressure. Game 2 shows Diana sideboard into Singularity and hide Hard Bargain through Stacked Deck. Game 3 turns Kai'Sa, Thrill of the Hunt, and Pyke into a sequence of Moonfall, Hard Bargain, Star-Crossed, Traveling Merchant, and Tideturner.",
+  "sections": [
+    {
+      "id": "principles",
+      "heading": "Diana's series lesson",
+      "body": [
+        "Game 1 is the warning: early Vex pressure is not enough if Rengar can clear it and keep a second battlefield live.",
+        "Game 2 is the adaptation: Singularity from the sideboard and hidden Hard Bargain change Rengar's planning rules.",
+        "Game 3 is the finish: Diana does not simply topdeck Tideturner; Moonfall, Hard Bargain, and Star-Crossed keep the board meaningful for that draw."
+      ]
+    },
+    {
+      "id": "video",
+      "heading": "Six practice clips for the whole match",
+      "clips": [
+        {
+          "time": "04:17:42",
+          "seconds": 15462,
+          "lesson": "Diana opens Game 1 on Ravenbloom Conservatory, but still needs a second layer behind Vex."
+        },
+        {
+          "time": "04:21:39",
+          "seconds": 15699,
+          "lesson": "Rengar clears early Vex and exposes Diana's first defensive layer."
+        },
+        {
+          "time": "04:58:55",
+          "seconds": 17935,
+          "lesson": "Singularity turns Rengar's midgame board into a resource exchange."
+        },
+        {
+          "time": "05:09:34",
+          "seconds": 18574,
+          "lesson": "Stacked Deck hides Hard Bargain and ties the series."
+        },
+        {
+          "time": "05:29:30",
+          "seconds": 19770,
+          "lesson": "Hard Bargain stops the first Thrill of the Hunt line in Game 3."
+        },
+        {
+          "time": "05:36:12",
+          "seconds": 20172,
+          "lesson": "Star-Crossed changes the last battlefield and opens the door for Traveling Merchant into Tideturner."
+        }
+      ]
+    },
+    {
+      "id": "deck",
+      "heading": "Diana deck context",
+      "body": [
+        "Diana wins by repeatedly changing how the final turns resolve, not by passively stalling.",
+        "Ravenbloom Conservatory, Targon's Peak, and Abandoned Hall give different ways to buy one more turn.",
+        "Singularity and hidden Hard Bargain are the sideboard and information tools that reshape Games 2 and 3."
+      ]
+    },
+    {
+      "id": "game1",
+      "heading": "Game 1: early Vex is not enough by itself",
+      "breakdown": [
+        "Starting condition: Diana opens on Ravenbloom Conservatory with Vex and interaction.",
+        "Turning point: Rengar clears Vex and prevents the control unit from becoming a long-term engine.",
+        "Replay standard: before committing Vex, Diana should ask what second layer punishes an immediate answer."
+      ],
+      "timeline": ["04:17:42 Game 1 begins", "04:21:39 Vex is cleared", "04:36:08 Rengar closes through a second battlefield"]
+    },
+    {
+      "id": "midgame",
+      "heading": "Game 2: sideboard cards and hidden information tie the match",
+      "breakdown": [
+        "Starting condition: Sabotage reveals Singularity, Gust, Ravenbloom Student, and Stupefy.",
+        "Turning point: Singularity handles the midgame board and prevents Rengar from racing cleanly.",
+        "Replay standard: Stacked Deck should hide the answer until the turn Rengar most wants to commit."
+      ],
+      "timeline": ["04:44:33 Sabotage sees the hand", "04:58:55 Singularity stabilizes", "05:09:34 Hard Bargain is revealed"]
+    },
+    {
+      "id": "endgame",
+      "heading": "Game 3: the championship point is built before Tideturner",
+      "breakdown": [
+        "Starting condition: both players know the sideboard pattern, so Diana must split answers across Kai'Sa, Thrill of the Hunt, and Pyke.",
+        "Turning point: Moonfall, Hard Bargain, and Star-Crossed keep downgrading Rengar's closing lines.",
+        "Replay standard: count the board twice, before bounce and after bounce, before treating any final turn as safe."
+      ],
+      "timeline": ["05:25:12 Moonfall handles Kai'Sa", "05:29:30 Hard Bargain stops Thrill of the Hunt", "05:35:42 Star-Crossed changes the Pyke line", "05:37:03 Traveling Merchant finds Tideturner"]
+    },
+    {
+      "id": "checklist",
+      "heading": "Diana practice checklist",
+      "body": [
+        "Protect or replace early Vex instead of relying on it as a single defensive layer.",
+        "Write Singularity, Hard Bargain, and Moonfall into the post-sideboard curve.",
+        "Use Stacked Deck to protect hidden interaction, not just to gain value."
+      ],
+      "keyRules": [
+        "Vex: play her when the second defensive layer is ready.",
+        "Singularity: hold for the turn when Rengar's midgame units enter the same answer window.",
+        "Stacked Deck plus Hard Bargain: hide the counter until the Rengar player must commit.",
+        "Moonfall and Star-Crossed: change the location and resource math of the final attack.",
+        "Traveling Merchant plus Tideturner: only works because earlier turns preserved a meaningful board."
+      ]
+    },
+    {
+      "id": "mistakes",
+      "heading": "Diana mistakes to avoid",
+      "body": [
+        "Treating Game 1 Vex as an automatic win condition.",
+        "Using Stacked Deck too early and losing hidden-answer value.",
+        "Remembering Game 3 as only a Tideturner topdeck instead of a sequence of setup turns."
+      ]
+    },
+    {
+      "id": "rengar-principles",
+      "heading": "Rengar's series lesson",
+      "body": [
+        "Game 1 is the model: remove Vex early, preserve multiple battlefields, and close at reaction speed.",
+        "Game 2 shows the danger of assuming Sabotage gives perfect information; Stacked Deck and face-down answers still matter.",
+        "Game 3 shows why Thrill of the Hunt needs a second path. If one bounce spell or one counterspell can reset the turn, Diana gets time to redraw."
+      ]
+    },
+    {
+      "id": "rengar-video",
+      "heading": "Rengar practice clips",
+      "clips": [
+        {
+          "time": "04:21:39",
+          "seconds": 15699,
+          "lesson": "Clearing Vex is the start of Rengar's winning Game 1 structure."
+        },
+        {
+          "time": "04:36:08",
+          "seconds": 16568,
+          "lesson": "Reaction timing and a second battlefield close Game 1."
+        },
+        {
+          "time": "04:44:33",
+          "seconds": 17073,
+          "lesson": "Sabotage gives visible information, not complete information."
+        },
+        {
+          "time": "05:09:34",
+          "seconds": 18574,
+          "lesson": "Hidden Hard Bargain punishes a single-line final push."
+        },
+        {
+          "time": "05:25:12",
+          "seconds": 19512,
+          "lesson": "Kai'Sa being answered means Rengar needs a second pressure line immediately."
+        },
+        {
+          "time": "05:35:42",
+          "seconds": 20142,
+          "lesson": "Thrill of the Hunt must be backed by another battlefield."
+        }
+      ]
+    },
+    {
+      "id": "rengar-deck",
+      "heading": "Rengar deck context",
+      "body": [
+        "Rengar is strongest when it makes Diana answer hand information, battlefield position, and reaction timing at once.",
+        "Sabotage is a planning tool, not a guarantee against face-down answers.",
+        "Thrill of the Hunt should close an already split board, not become the only test."
+      ]
+    },
+    {
+      "id": "rengar-game1",
+      "heading": "Game 1: the correct Rengar template",
+      "breakdown": [
+        "Starting condition: Diana opens on Ravenbloom Conservatory, so Rengar must deny the value engine.",
+        "Turning point: clearing Vex lets Rengar preserve a second battlefield.",
+        "Replay standard: after clearing Vex, Rengar should still have another scoring point, not just a temporary board."
+      ],
+      "timeline": ["04:17:42 identify the Conservatory game", "04:21:39 clear Vex", "04:36:08 close with reaction-speed Rengar"]
+    },
+    {
+      "id": "rengar-midgame",
+      "heading": "Game 2: visible information is not full information",
+      "breakdown": [
+        "Starting condition: Sabotage sees part of Diana's hand.",
+        "Turning point: Singularity and hidden Hard Bargain make the endgame unsafe.",
+        "Replay standard: before committing, ask whether a face-down Hard Bargain still leaves a second battlefield."
+      ],
+      "timeline": ["04:44:33 Sabotage sees the hand", "04:58:55 Singularity punishes the board", "05:09:34 Hard Bargain breaks the final push"]
+    },
+    {
+      "id": "rengar-endgame",
+      "heading": "Game 3: do not leave only one Thrill of the Hunt line",
+      "breakdown": [
+        "Starting condition: Diana has already shown bounce and counters, so Rengar must expect them.",
+        "Turning point: Kai'Sa, Thrill of the Hunt, and Pyke are answered one at a time.",
+        "Replay standard: every big push needs a second battlefield or a follow-up threat after bounce."
+      ],
+      "timeline": ["05:25:12 Kai'Sa is answered", "05:29:30 Thrill of the Hunt is stopped", "05:35:42 Pyke is bounced", "05:37:03 Diana gets time to find Tideturner"]
+    },
+    {
+      "id": "rengar-checklist",
+      "heading": "Rengar practice checklist",
+      "body": [
+        "Clear Diana's control units before racing.",
+        "Treat face-down cards and Stacked Deck as real information problems.",
+        "Make Thrill of the Hunt a multi-line closer, not a single-card test."
+      ],
+      "keyRules": [
+        "Sabotage: use before committing key midgame threats, but keep planning for unknown cards.",
+        "Kai'Sa: play when Diana cannot fold her into the same Singularity or Moonfall window.",
+        "Thrill of the Hunt: only commit when bounce or Hard Bargain does not end the entire turn.",
+        "Punch First and Irresistible Faefolk: compress Diana's defensive turns instead of only chasing immediate points.",
+        "Determined Sentry and Pyke: force Diana to answer more than one battlefield."
+      ]
+    },
+    {
+      "id": "rengar-mistakes",
+      "heading": "Rengar mistakes to avoid",
+      "body": [
+        "Assuming Game 1 pressure will still work after Diana sideboards.",
+        "Treating Sabotage as complete information.",
+        "Letting the final turn become a single bounce-or-counter test."
+      ]
+    }
+  ]
+}

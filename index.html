@@ -527,6 +527,12 @@
         url("vex-lux-xian-swiss/cover.jpg?v=result-covers-20260529");
     }
 
+    .thumb.vancouver-diana-rengar {
+      background-image:
+        linear-gradient(180deg, rgba(8, 18, 13, 0.08), rgba(8, 18, 13, 0.12)),
+        url("diana-rengar-vancouver-final/cover.jpg?v=vancouver-final-trophy-20260602");
+    }
+
     .card-body {
       display: flex;
       flex: 1;
@@ -720,6 +726,20 @@
     </section>
 
     <section class="season-panel" id="panel-season-3" role="tabpanel" aria-labelledby="tab-season-3" data-season-panel="season-3">
+      <section class="station-group" aria-labelledby="season-3-vancouver">
+        <h2 class="station-title" id="season-3-vancouver">海外区域赛-温哥华站 <span class="station-review-count" data-review-count>1 篇复盘</span></h2>
+        <div class="guide-grid" aria-label="第三赛季温哥华站复盘页面列表">
+          <a class="guide-card" href="diana-rengar-vancouver-final/" data-deck-source="vancouver" data-decks="ctg-alanzq-diana,samdsherman-rengar">
+            <div class="thumb" data-fallback-thumb="vancouver-diana-rengar"></div>
+            <div class="card-body">
+              <div class="tagline">温哥华站DAY2 · 决赛</div>
+              <h3>皎月 VS 雷恩加尔：决赛三局的回手与反制课</h3>
+              <span class="open">打开复盘</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
       <section class="station-group" aria-labelledby="season-3-sydney">
         <h2 class="station-title" id="season-3-sydney">海外区域赛-悉尼站 <span class="station-review-count" data-review-count>1 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季悉尼站复盘页面列表">
@@ -875,6 +895,7 @@
   <script src="assets/xian-decklists.js?v=index-decklists-20260601-db-order"></script>
   <script src="assets/suzhou-decklists.js?v=index-decklists-20260601-db-order"></script>
   <script src="assets/sydney-decklists.js?v=index-decklists-20260601-sydney"></script>
+  <script src="assets/vancouver-decklists.js?v=index-decklists-20260602-vancouver"></script>
   <script>
     (() => {
       const tabs = [...document.querySelectorAll(".season-tab")];
@@ -883,7 +904,8 @@
       const sourceByName = {
         xian: window.tcgXianDecklists?.byKey || {},
         suzhou: window.tcgSuzhouDecklists?.byKey || {},
-        sydney: window.tcgSydneyDecklists?.byKey || {}
+        sydney: window.tcgSydneyDecklists?.byKey || {},
+        vancouver: window.tcgVancouverDecklists?.byKey || {}
       };
 
       function escapeHtml(value) {
