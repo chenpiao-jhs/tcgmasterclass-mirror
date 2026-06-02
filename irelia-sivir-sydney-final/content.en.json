@@ -40,41 +40,31 @@
       "id": "irelia-view",
       "title": "Irelia player view",
       "points": [
-        "Game 1 shows why Adaptatron is more than a tech card: once it is protected and moved cleanly, the Aurora player loses the turn where Dazzling Aurora is supposed to convert mana into inevitability.",
-        "Rico wins by asking smaller questions first. Scuttle Crab and Tideturner make the Sivir hand visible, Ride the Wind changes the battlefield math, and the Irelia side keeps pressure without walking into a full Elder Dragon reset.",
-        "Game 2 is the important teaching game. Not So Fast protects Adaptatron, denies the most explosive Elder Dragon and Flurry of Blades line, and lets Rico finish before SouledOut can turn a single Aurora trigger into a second setup turn."
+        "The Irelia plan is not to wait for Dazzling Aurora and answer it head-on. It is to use Adaptatron, information, and movement to break the Aurora player's first clean trigger window.",
+        "At 4:06:27, practice the first three beats of Game 1: every spend, move, or open-mana pass should be judged by what it forces the Aurora side to answer first.",
+        "At 4:24:33, practice counterspell allocation. Not So Fast should protect the plan that keeps narrowing Aurora's window, not just a random trade."
       ]
     },
     {
       "id": "sivir-aurora-view",
       "title": "Sivir Aurora player view",
       "points": [
-        "SouledOut's list is built to make Dazzling Aurora and Elder Dragon the biggest questions on the table, but the finals show that the deck still needs a clean first trigger window.",
-        "The Irelia side does not have to beat every large card directly. It can make the Aurora turn awkward by moving pressure, forcing interaction before the big reveal, and saving hard answers for the exact turn that matters.",
-        "For Sivir players, the review target is sequencing: protect the Aurora turn, count whether Adaptatron must be answered before the reveal, and do not let Flurry of Blades or Elder Dragon become the only visible plan."
+        "Sivir Aurora still has a high ceiling, but the setup turn must clear Adaptatron, open mana, and movement pressure before Dazzling Aurora can be safe.",
+        "Game 1 should be reviewed by finding the first turn where the Aurora side stopped advancing its own plan and started answering Irelia's questions.",
+        "Game 2 is about dismantling the protection chain before committing to the expensive line, so Elder Dragon or Flurry of Blades does not become the only visible plan."
       ]
     }
   ],
   "timestamps": [
     {
-      "time": "4:00:26",
-      "seconds": 14426,
-      "label": "Grand Final setup"
-    },
-    {
       "time": "4:06:27",
       "seconds": 14787,
-      "label": "Game 1 begins"
-    },
-    {
-      "time": "4:20:29",
-      "seconds": 15629,
-      "label": "Rico wins Game 1"
+      "label": "Game 1 first trigger window"
     },
     {
       "time": "4:24:33",
       "seconds": 15873,
-      "label": "Game 2 begins"
+      "label": "Game 2 post-board setup"
     }
   ]
 }
