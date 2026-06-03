@@ -164,6 +164,81 @@
       color: #fff;
     }
 
+    .legend-filter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 10px 32px rgba(25, 39, 31, 0.05);
+    }
+
+    .legend-filter-label {
+      flex: none;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .legend-filter-list {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .legend-filter-tab {
+      appearance: none;
+      border: 1px solid rgba(47, 111, 78, 0.16);
+      border-radius: 999px;
+      background: #edf4ee;
+      color: #35443a;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1;
+      padding: 8px 10px;
+      white-space: nowrap;
+    }
+
+    .legend-filter-tab:hover,
+    .legend-filter-tab:focus {
+      border-color: rgba(47, 111, 78, 0.4);
+      color: var(--green-dark);
+      outline: none;
+    }
+
+    .legend-filter-tab.active {
+      border-color: var(--green-dark);
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .legend-filter-count {
+      color: rgba(53, 68, 58, 0.72);
+      font-weight: 750;
+    }
+
+    .legend-filter-tab.active .legend-filter-count {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .legend-filter-empty {
+      margin: 0 0 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--muted);
+      box-shadow: 0 10px 32px rgba(25, 39, 31, 0.05);
+    }
+
     .season-panel[hidden] {
       display: none;
     }
@@ -683,6 +758,37 @@
         margin-top: 12px;
       }
 
+      .legend-filter {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        margin-right: -14px;
+        margin-left: -14px;
+        border-right: 0;
+        border-left: 0;
+        border-radius: 0;
+      }
+
+      .legend-filter-list {
+        flex-wrap: nowrap;
+        width: 100%;
+        padding-bottom: 2px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .legend-filter-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .legend-filter-tab {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+
       .duel-name {
         bottom: 10px;
         max-width: 46%;
@@ -705,6 +811,12 @@
       <button class="season-tab active" id="tab-season-3" type="button" role="tab" aria-selected="true" aria-controls="panel-season-3" data-season="season-3">第三赛季-破限</button>
       <button class="season-tab" id="tab-season-2" type="button" role="tab" aria-selected="false" aria-controls="panel-season-2" data-season="season-2">第二赛季-铸魂淬炼</button>
     </div>
+
+    <div class="legend-filter" aria-label="传奇角色筛选">
+      <span class="legend-filter-label">传奇筛选</span>
+      <div class="legend-filter-list" data-legend-filter></div>
+    </div>
+    <p class="legend-filter-empty" data-legend-empty hidden>当前筛选下暂无复盘。</p>
 
     <section class="season-panel" id="panel-season-2" role="tabpanel" aria-labelledby="tab-season-2" data-season-panel="season-2" hidden>
       <div class="season-panel-head">
@@ -901,6 +1013,10 @@
       const tabs = [...document.querySelectorAll(".season-tab")];
       const panels = [...document.querySelectorAll(".season-panel")];
       const stationGroups = [...document.querySelectorAll(".station-group")];
+      const legendFilter = document.querySelector("[data-legend-filter]");
+      const legendEmpty = document.querySelector("[data-legend-empty]");
+      const allLegendFilter = "__all";
+      let activeLegend = allLegendFilter;
       const sourceByName = {
         xian: window.tcgXianDecklists?.byKey || {},
         suzhou: window.tcgSuzhouDecklists?.byKey || {},
@@ -937,6 +1053,27 @@
         ];
       }
 
+      function getCardLegends(card) {
+        let legends = getExplicitDuelLegends(card);
+        if (legends.length !== 2) {
+          const source = sourceByName[card.dataset.deckSource] || {};
+          legends = String(card.dataset.decks || "")
+            .split(",")
+            .map((key) => getLegend(source[key.trim()]))
+            .filter(Boolean);
+        }
+        return legends;
+      }
+
+      function getCardLegendNames(card) {
+        if (card.dataset.legendNames) {
+          return card.dataset.legendNames.split("|").filter(Boolean);
+        }
+        const names = [...new Set(getCardLegends(card).map(getLegendName))].filter(Boolean);
+        card.dataset.legendNames = names.join("|");
+        return names;
+      }
+
       function getFallbackThumbClasses(thumb) {
         return String(thumb?.dataset.fallbackThumb || "")
           .split(/\s+/)
@@ -961,14 +1098,7 @@
       }
 
       function renderDuelCover(card, options = {}) {
-        let legends = getExplicitDuelLegends(card);
-        if (legends.length !== 2) {
-          const source = sourceByName[card.dataset.deckSource] || {};
-          legends = String(card.dataset.decks || "")
-            .split(",")
-            .map((key) => getLegend(source[key.trim()]))
-            .filter(Boolean);
-        }
+        const legends = getCardLegends(card);
         const thumb = card.querySelector(".thumb");
         if (!thumb || thumb.querySelector(".duel-cover")) return;
 
@@ -1009,7 +1139,8 @@
       }
 
       function queueSeasonDuelCovers(season) {
-        const cards = [...document.querySelectorAll(`[data-season-panel="${season}"] .guide-card`)];
+        const cards = [...document.querySelectorAll(`[data-season-panel="${season}"] .guide-card`)]
+          .filter((card) => !card.hidden);
         const eagerCount = Math.min(cards.length, window.matchMedia("(max-width: 980px)").matches ? 1 : 3);
         let coverObserver = null;
 
@@ -1034,6 +1165,106 @@
         });
       }
 
+      function getActiveSeason() {
+        return document.querySelector(".season-tab.active")?.dataset.season || "season-3";
+      }
+
+      function cardMatchesActiveLegend(card) {
+        return activeLegend === allLegendFilter || getCardLegendNames(card).includes(activeLegend);
+      }
+
+      function updateLegendFilterTabs() {
+        const activeSeasonCards = [...document.querySelectorAll(`[data-season-panel="${getActiveSeason()}"] .guide-card`)];
+        const seasonLegendCounts = new Map();
+        activeSeasonCards.forEach((card) => {
+          getCardLegendNames(card).forEach((name) => {
+            seasonLegendCounts.set(name, (seasonLegendCounts.get(name) || 0) + 1);
+          });
+        });
+
+        legendFilter?.querySelectorAll(".legend-filter-tab").forEach((tab) => {
+          const value = tab.dataset.legendFilterValue;
+          const isActive = value === activeLegend;
+          const count = value === allLegendFilter
+            ? activeSeasonCards.length
+            : seasonLegendCounts.get(value) || 0;
+          const countLabel = tab.querySelector(".legend-filter-count");
+          if (countLabel) countLabel.textContent = String(count);
+          tab.dataset.legendFilterCount = String(count);
+          tab.hidden = value !== allLegendFilter && count === 0 && !isActive;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-pressed", String(isActive));
+        });
+
+        const tabsToSort = [...legendFilter.querySelectorAll(".legend-filter-tab")];
+        tabsToSort
+          .sort((a, b) => {
+            if (a.dataset.legendFilterValue === allLegendFilter) return -1;
+            if (b.dataset.legendFilterValue === allLegendFilter) return 1;
+            const countDiff = Number(b.dataset.legendFilterCount || 0) - Number(a.dataset.legendFilterCount || 0);
+            if (countDiff) return countDiff;
+            return a.dataset.legendFilterValue.localeCompare(b.dataset.legendFilterValue, "zh-Hans-CN");
+          })
+          .forEach((tab) => legendFilter.appendChild(tab));
+      }
+
+      function updateVisibleCounts() {
+        panels.forEach((panel) => {
+          const visibleCards = [...panel.querySelectorAll(".guide-card")]
+            .filter((card) => !card.hidden);
+          const countLabel = panel.querySelector(".season-count");
+          if (countLabel) countLabel.textContent = `${visibleCards.length} 篇复盘`;
+        });
+
+        stationGroups.forEach((group) => {
+          const visibleCards = [...group.querySelectorAll(".guide-card")]
+            .filter((card) => !card.hidden);
+          group.hidden = visibleCards.length === 0;
+          const countLabel = group.querySelector("[data-review-count]");
+          if (countLabel) countLabel.textContent = `${visibleCards.length} 篇复盘`;
+        });
+      }
+
+      function applyLegendFilter() {
+        document.querySelectorAll(".guide-card").forEach((card) => {
+          card.hidden = !cardMatchesActiveLegend(card);
+        });
+        updateLegendFilterTabs();
+        updateVisibleCounts();
+
+        const activeVisibleCards = document.querySelectorAll(
+          `[data-season-panel="${getActiveSeason()}"] .guide-card:not([hidden])`
+        ).length;
+        if (legendEmpty) legendEmpty.hidden = activeVisibleCards > 0;
+        queueSeasonDuelCovers(getActiveSeason());
+      }
+
+      function buildLegendFilterTabs() {
+        if (!legendFilter) return;
+        const cards = [...document.querySelectorAll(".guide-card")];
+        const legendCounts = new Map();
+        cards.forEach((card) => {
+          getCardLegendNames(card).forEach((name) => {
+            legendCounts.set(name, (legendCounts.get(name) || 0) + 1);
+          });
+        });
+
+        const legendTabs = [...legendCounts.entries()]
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-Hans-CN"))
+          .map(([name, count]) => `
+            <button class="legend-filter-tab" type="button" aria-pressed="false" data-legend-filter-value="${escapeHtml(name)}">
+              ${escapeHtml(name)} <span class="legend-filter-count">${count}</span>
+            </button>
+          `);
+
+        legendFilter.innerHTML = `
+          <button class="legend-filter-tab active" type="button" aria-pressed="true" data-legend-filter-value="${allLegendFilter}">
+            全部 <span class="legend-filter-count">${cards.length}</span>
+          </button>
+          ${legendTabs.join("")}
+        `;
+      }
+
       function setSeason(nextSeason) {
         tabs.forEach((tab) => {
           const isActive = tab.dataset.season === nextSeason;
@@ -1045,20 +1276,22 @@
           panel.hidden = panel.dataset.seasonPanel !== nextSeason;
         });
 
-        queueSeasonDuelCovers(nextSeason);
+        applyLegendFilter();
       }
+
+      buildLegendFilterTabs();
+      legendFilter?.addEventListener("click", (event) => {
+        const tab = event.target.closest(".legend-filter-tab");
+        if (!tab) return;
+        activeLegend = tab.dataset.legendFilterValue || allLegendFilter;
+        applyLegendFilter();
+      });
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => setSeason(tab.dataset.season));
       });
 
-      queueSeasonDuelCovers(document.querySelector(".season-tab.active")?.dataset.season || "season-3");
-
-      stationGroups.forEach((group) => {
-        const count = group.querySelectorAll(".guide-card").length;
-        const countLabel = group.querySelector("[data-review-count]");
-        if (countLabel) countLabel.textContent = `${count} 篇复盘`;
-      });
+      applyLegendFilter();
     })();
   </script>
   <script src="assets/feedback-widget.js"></script>
