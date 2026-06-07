@@ -31,27 +31,38 @@
     const basePlayer = hub.dataset.playerBase || stripTimeParam(player.src, playerTimeParam);
     const basePage = hub.dataset.pageBase || (openLink ? stripTimeParam(openLink.href, pageTimeParam) : "");
 
-    function setVideo(time, label) {
+    function setVideo(time, label, control) {
       if (!time) return;
 
-      player.src = appendTime(basePlayer, time, playerTimeParam);
+      const effectivePlayerTimeParam = control?.dataset.playerTimeParam || playerTimeParam;
+      const effectivePageTimeParam = control?.dataset.pageTimeParam || pageTimeParam;
+      const effectiveBasePlayer = control?.dataset.playerBase
+        ? stripTimeParam(control.dataset.playerBase, effectivePlayerTimeParam)
+        : basePlayer;
+      const effectiveBasePage = control?.dataset.pageBase
+        ? stripTimeParam(control.dataset.pageBase, effectivePageTimeParam)
+        : basePage;
+
+      player.src = appendTime(effectiveBasePlayer, time, effectivePlayerTimeParam);
 
       if (status && label) {
         status.textContent = `当前：${label}`;
       }
 
-      if (openLink && basePage) {
-        openLink.href = appendTime(basePage, time, pageTimeParam);
+      if (openLink && effectiveBasePage) {
+        openLink.href = appendTime(effectiveBasePage, time, effectivePageTimeParam);
       }
 
       jumps.forEach((jump) => {
-        jump.classList.toggle("active", jump.dataset.time === String(time));
+        const sameVideo = !control?.dataset.playerBase && !jump.dataset.playerBase;
+        jump.classList.toggle("active", sameVideo && jump.dataset.time === String(time));
       });
     }
 
     controls.forEach((control) => {
-      control.addEventListener("click", () => {
-        setVideo(control.dataset.time, control.dataset.label);
+      control.addEventListener("click", (event) => {
+        if (control.dataset.playerBase) event.preventDefault();
+        setVideo(control.dataset.time, control.dataset.label, control);
       });
     });
   }

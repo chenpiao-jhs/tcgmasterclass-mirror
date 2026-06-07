@@ -1,0 +1,1967 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>皎月 VS 光辉：无限费拉克丝给主流皎月的截断课</title>
+  <link rel="stylesheet" href="../assets/page-nav.css?v=page-nav-20260529-floating-actions-compact">
+  <link rel="stylesheet" href="../assets/detail-layout.css?v=detail-layout-20260529">
+  <link rel="stylesheet" href="../assets/video-hub.css?v=video-hub-20260529">
+  <link rel="stylesheet" href="../assets/watch-card.css?v=watch-card-20260529">
+  <link rel="stylesheet" href="../assets/detail-content.css?v=detail-content-20260529">
+  <link rel="stylesheet" href="../assets/decklist-modal.css?v=decklist-modal-20260601-mobile-feature-tight">
+  <link rel="stylesheet" href="../assets/player-tag.css?v=player-tag-20260521">
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --paper: #ffffff;
+      --paper-soft: #fbfcf8;
+      --ink: #18201b;
+      --muted: #5f6b63;
+      --line: #dfe7dd;
+      --green: #2f6f4e;
+      --green-dark: #16402c;
+      --mint: #dceee3;
+      --gold: #b8892e;
+      --gold-soft: #f3e7c5;
+      --red: #9f3d36;
+      --shadow: 0 22px 70px rgba(25, 39, 31, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+      --rail: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.92), var(--bg) 520px), var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(8, 18, 13, 0.86), rgba(8, 18, 13, 0.58) 48%, rgba(8, 18, 13, 0.14)),
+        url("cover.jpg?v=result-covers-20260607") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 126px;
+      background: linear-gradient(180deg, rgba(245, 247, 242, 0.01), rgba(245, 247, 242, 0.88) 70%, var(--bg) 86%, var(--bg));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      max-width: 840px;
+      margin-top: 22px;
+      font-size: 56px;
+      font-weight: 800;
+    }
+
+    .hero .summary {
+      max-width: 780px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-meta li {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .brand {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: var(--green-dark);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .links a {
+      padding: 9px 10px;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus {
+      color: var(--green-dark);
+      background: var(--mint);
+      outline: none;
+    }
+
+    main {
+      width: 100%;
+      min-width: 0;
+    }
+
+    section {
+      scroll-margin-top: 86px;
+      margin-top: 58px;
+    }
+
+    section:first-child {
+      margin-top: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 6px;
+      color: var(--green-dark);
+      font-size: 34px;
+    }
+
+    .time {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .lead {
+      max-width: 850px;
+      margin-bottom: 22px;
+      color: #35443a;
+      font-size: 18px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .watch-grid {
+      display: grid;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .watch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insight,
+    .note,
+    table,
+    .method-flow li,
+    .checklist li,
+    .mistakes li {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .insight {
+      padding: 20px;
+      border-top: 4px solid var(--green);
+    }
+
+    .insight h3 {
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 20px;
+    }
+
+    .insight p,
+    .note p {
+      color: var(--muted);
+    }
+
+    .note {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border-left: 5px solid var(--gold);
+      background: linear-gradient(90deg, rgba(243, 231, 197, 0.78), #fff 44%);
+    }
+
+    table {
+      width: 100%;
+      margin: 22px 0;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    th,
+    td:first-child {
+      width: 118px;
+      color: var(--green-dark);
+      font-weight: 850;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .jump-card {
+      appearance: none;
+      min-height: 118px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      box-shadow: 0 12px 32px rgba(25, 39, 31, 0.06);
+    }
+
+    .jump-card:hover,
+    .jump-card:focus,
+    .jump-card.active {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .jump-card span {
+      display: inline-block;
+      margin-bottom: 5px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .jump-card strong {
+      display: block;
+      color: var(--green-dark);
+      line-height: 1.3;
+    }
+
+    .jump-card em {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: normal;
+      line-height: 1.45;
+    }
+
+    .loop-strip {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(310px, 78%);
+      gap: 16px;
+      margin: 20px -4px 0;
+      padding: 4px 4px 18px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: rgba(22, 64, 44, 0.34) transparent;
+    }
+
+    .loop-card {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 14px 38px rgba(25, 39, 31, 0.09);
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .loop-visual {
+      min-height: 176px;
+      display: grid;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background:
+        linear-gradient(135deg, rgba(22, 64, 44, 0.9), rgba(47, 111, 78, 0.7)),
+        #102317;
+    }
+
+    .loop-card-stack {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .loop-card-thumb {
+      width: min(30%, 92px);
+      min-width: 68px;
+      aspect-ratio: 5 / 7;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 7px;
+      background: #0f1f16;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .loop-plus,
+    .loop-arrow {
+      flex: none;
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .loop-flow-label {
+      justify-self: center;
+      max-width: 100%;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .loop-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .loop-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .loop-step,
+    .loop-source {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 0 9px;
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .loop-step {
+      color: #fff;
+      background: var(--green-dark);
+    }
+
+    .loop-source {
+      color: #8a641d;
+      background: rgba(184, 137, 46, 0.14);
+    }
+
+    .loop-card h3 {
+      margin: 0;
+      color: var(--green-dark);
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .loop-detail {
+      display: grid;
+      gap: 8px;
+    }
+
+    .loop-detail p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .loop-detail strong {
+      color: var(--green-dark);
+      font-weight: 850;
+    }
+
+    .loop-note {
+      padding: 8px 10px;
+      border-radius: 7px;
+      background: rgba(184, 137, 46, 0.09);
+    }
+
+    .loop-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+
+    .loop-actions .watch-button,
+    .loop-source-link {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .loop-actions .watch-button {
+      grid-column: auto;
+      grid-row: auto;
+      align-self: stretch;
+    }
+
+    .loop-source-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--paper-soft);
+      color: var(--green-dark);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 850;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .loop-source-link:hover,
+    .loop-source-link:focus {
+      border-color: rgba(47, 111, 78, 0.45);
+      background: #eef6f1;
+      outline: none;
+    }
+
+    .method-flow,
+    .checklist,
+    .mistakes {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .method-flow li {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .method-flow .num {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-weight: 850;
+    }
+
+    .method-flow h3 {
+      color: var(--green-dark);
+      font-size: 19px;
+    }
+
+    .method-flow p,
+    .checklist li,
+    .mistakes li {
+      color: var(--muted);
+    }
+
+    .checklist li,
+    .mistakes li {
+      padding: 14px 16px;
+    }
+
+    .practice-manual {
+      display: grid;
+      gap: 18px;
+      margin: 24px 0;
+    }
+
+    .practice-overview {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .practice-metric,
+    .practice-block,
+    .practice-warning {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(25, 39, 31, 0.06);
+    }
+
+    .practice-metric {
+      padding: 14px;
+    }
+
+    .practice-metric b {
+      display: block;
+      color: var(--green-dark);
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .practice-metric span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .practice-block {
+      overflow: hidden;
+    }
+
+    .practice-block-head {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(220, 238, 227, 0.76), rgba(255, 255, 255, 0.96));
+    }
+
+    .practice-index {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: #fff;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .practice-block h3 {
+      color: var(--green-dark);
+      font-size: 22px;
+    }
+
+    .practice-goal {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .practice-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.68fr);
+      gap: 18px;
+      padding: 18px;
+    }
+
+    .practice-body h4 {
+      margin: 0 0 8px;
+      color: var(--green-dark);
+      font-size: 15px;
+    }
+
+    .practice-body ol,
+    .practice-body ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .practice-body li + li {
+      margin-top: 8px;
+    }
+
+    .practice-card-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .practice-card-row img {
+      width: 58px;
+      aspect-ratio: 3 / 4;
+      border: 1px solid rgba(22, 64, 44, 0.18);
+      border-radius: 6px;
+      object-fit: cover;
+      background: #eef3ed;
+    }
+
+    .practice-prompt {
+      margin-top: 14px;
+      padding: 12px;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 7px 7px 0;
+      background: rgba(243, 231, 197, 0.42);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .practice-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .practice-warning {
+      padding: 18px;
+      border-left: 5px solid var(--red);
+      background: linear-gradient(90deg, rgba(159, 61, 54, 0.08), #fff 46%);
+    }
+
+    .practice-warning h3 {
+      margin-bottom: 8px;
+      color: var(--red);
+      font-size: 20px;
+    }
+
+    .practice-warning p {
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--green-dark);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 440px;
+      }
+
+      .hero-inner {
+        width: min(var(--max), calc(100% - 32px));
+        padding: 58px 0 78px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero .summary {
+        font-size: 16px;
+      }
+
+      main {
+        width: min(var(--max), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .section-head,
+      .grid-2,
+      .grid-3,
+      .watch-grid,
+      .jump-grid,
+      .practice-overview,
+      .practice-body {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-strip {
+        grid-auto-columns: minmax(282px, 88%);
+        margin-right: -16px;
+        padding-right: 16px;
+      }
+
+      .loop-visual {
+        min-height: 160px;
+        padding: 14px;
+      }
+
+      .loop-card-thumb {
+        width: min(29%, 82px);
+        min-width: 58px;
+      }
+
+      .time {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="eyebrow">天津站DAY1 · 瑞士轮第七轮</div>
+      <h1>皎月 VS 光辉：无限费拉克丝给主流皎月的截断课</h1>
+      <p class="summary">纸传.晓镜的光辉用两局展示了同一个命题：如果皎月等到最后一回合才想反制，进化日、无限精灵、烈娜塔和过牌链已经把比赛变成光辉自己的单人题。</p>
+      <ul class="hero-meta">
+        <li>比赛：第三赛季区域公开赛天津站 DAY1 第 8P</li>
+        <li>对阵：月上当年楼（皎月） VS 纸传.晓镜（光辉）</li>
+        <li>结果：纸传.晓镜 2:0 获胜</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="topbar">
+      <figure class="media video-hub" data-player-base="https://player.bilibili.com/player.html?bvid=BV1Xz7S66E7H&amp;page=8&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8">
+        <div class="video-screen">
+          <iframe id="matchPlayer" src="https://player.bilibili.com/player.html?bvid=BV1Xz7S66E7H&amp;page=8&amp;autoplay=0&amp;t=225" title="第三赛季区域公开赛天津站 DAY1 第 8P：皎月 VS 光辉" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen scrolling="no"></iframe>
+        </div>
+        <div class="video-toolbar">
+          <span class="video-status" id="videoStatus">当前片段：03:45 先攻与对局框架</span>
+          <a class="video-open" id="videoOpen" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=225" target="_blank" rel="noreferrer">B站打开</a>
+        </div>
+      </figure>
+
+      <div class="perspective-switch perspective-switch-mobile" role="tablist" aria-label="移动端视角切换">
+        <button class="perspective-tab active" id="tab-diana-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月视角</button>
+        <button class="perspective-tab" id="tab-lux-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-lux" data-perspective-target="lux">光辉视角</button>
+      </div>
+
+      <nav class="nav" aria-label="复盘目录">
+        <div class="brand">皎月 VS 光辉</div>
+        <div class="links" data-perspective-nav="diana">
+          <a href="#diana-core">核心结论</a>
+          <a href="#diana-video">关键片段</a>
+          <a href="#diana-window">截断窗口</a>
+          <a href="#diana-games">两局复盘</a>
+          <a href="#diana-checklist">练习清单</a>
+        </div>
+        <div class="links" data-perspective-nav="lux" hidden>
+          <a href="#lux-core">核心结论</a>
+          <a href="#lux-video">关键片段</a>
+          <a href="#lux-loop">循环框架</a>
+          <a href="#lux-resilience">容错机制</a>
+          <a href="#lux-games">两局复盘</a>
+          <a href="#lux-checklist">练习清单</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="perspective-switch perspective-switch-desktop" role="tablist" aria-label="复盘视角切换">
+        <button class="perspective-tab active" id="tab-diana" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月视角</button>
+        <button class="perspective-tab" id="tab-lux" type="button" role="tab" aria-selected="false" aria-controls="panel-lux" data-perspective-target="lux">光辉视角</button>
+      </div>
+
+      <div class="perspective-panel" id="panel-diana" role="tabpanel" aria-labelledby="tab-diana" data-perspective-panel="diana">
+        <section id="diana-core">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>皎月视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">月上当年楼<span class="player-tag" data-player-side="皎月方玩家">选手</span>面对的不是普通慢速光辉，而是一套会把对手得分、自己过牌、弃牌堆回收和多个终局出口串起来的组合技。皎月要赢，不能等对手“开始表演”以后再想办法，而是要在进化日、艾克 + 牺牲、未来熔炉和无限精灵锁场成型前逐层截断。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>这局是竞速，不是慢控</h3>
+              <p>第二局先攻没二费单位，让皎月的分数压力慢半拍。对组合技卡组，慢一轮就等于多给光辉一次彩纸灵树、进化日或地沟区地图的准备时间。</p>
+            </article>
+            <article class="insight">
+              <h3>得分会喂给地沟区地图</h3>
+              <p>皎月不能因为地图就不拿分，但必须知道慢慢拿分是在帮光辉继续过牌。如果没有截断牌，得分就要尽快转成终局压力。</p>
+            </article>
+            <article class="insight">
+              <h3>艾克 + 牺牲要在支付前处理</h3>
+              <p>牺牲把艾克作为额外费用送进循环；等这个费用已经支付，再回手或处理艾克往往太晚。皎月要提前让艾克、牺牲或关键后场单位不安全。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>未来熔炉削弱普通互动</h3>
+              <p>把组件丢掉或解掉，很多时候只是送进未来熔炉可以回收的区域。真正有价值的是让第一张进化日不安全，或让熔炉回收前的牌库组织被打乱。</p>
+            </article>
+            <article class="insight">
+              <h3>别把烈娜塔当唯一出口</h3>
+              <p>烈娜塔是本场最清楚的直接得分口，但不是唯一赢法。光辉一旦能反复冲出无限精灵，也可以让皎月很难继续得分；拆烈娜塔只是逼它换出口，不等于拆掉整套循环。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="diana-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边找皎月能截断的窗口</h2>
+            </div>
+            <div class="time">P8 瑞士轮第七轮</div>
+          </div>
+          <p class="lead">这些时间点不要只看光辉怎么赢，而要倒推皎月还能在哪里让路径变难：早期能否给足分数压力，中盘能否卡住第一张进化日，启动前能否处理艾克 + 牺牲，终局前能否让光辉既不能直接得分，也不能用无限精灵把战场锁住。</p>
+          <div class="jump-grid" aria-label="皎月视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="225" data-label="03:45 对局框架">
+              <span>03:45</span>
+              <strong>先把对局定性成反组合技</strong>
+              <em>星芒凝汇只是表层压力；真正要警觉的是光辉会把高费、过牌和回收连成同一条路径。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="640" data-label="10:40 地沟区地图">
+              <span>10:40</span>
+              <strong>地沟区地图让得分变成过牌</strong>
+              <em>皎月每推进一分，都可能帮光辉更快找到进化日、艾克、牺牲和熔炉。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="848" data-label="14:08 组件尚未找齐">
+              <span>14:08</span>
+              <strong>组件没齐时才是加压窗口</strong>
+              <em>这时光辉还在找拼图。皎月要逼费用、逼后场单位，而不是等对手手牌到十几张。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1380" data-label="23:00 艾克牺牲窗口">
+              <span>23:00</span>
+              <strong>艾克 + 牺牲启动前要动手</strong>
+              <em>等牺牲支付完成，艾克已经进循环。皎月的互动要落在这个动作之前。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1880" data-label="31:20 无限路径展示">
+              <span>31:20</span>
+              <strong>第一局：从无限资源转成胜势</strong>
+              <em>本场展示的是烈娜塔得分链，但前面的无限精灵也已经能把战场变成皎月很难突破的状态。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2259" data-label="37:39 先攻没二">
+              <span>37:39</span>
+              <strong>第二局：先攻没二费的代价</strong>
+              <em>分数压力慢下来，光辉就能更舒服地安排鬼影湾、进化日和后续回收。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2445" data-label="40:45 艾希拆手牌">
+              <span>40:45</span>
+              <strong>光辉也会先拆你的答案</strong>
+              <em>艾希 + 择日再战不是赚牌，而是提前拿掉皎月手里的关键截断牌。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3004" data-label="50:04 过牌变检索">
+              <span>50:04</span>
+              <strong>过牌量已经近似定向检索</strong>
+              <em>这时再交普通互动，多半会被未来熔炉和下一轮过牌补回来。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="diana-window">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>截断框架：把互动前移到进化日之前</h2>
+            </div>
+            <div class="time">全场通用</div>
+          </div>
+          <p class="lead">皎月最容易犯的错，是把这局当成普通控制对局：等光辉交出关键牌，再用回手、反制或专法回应。但这套光辉的强点正是“关键牌很多，而且能把它们重新找回来”。皎月要按阶段拆路径，而不是按单卡换资源。</p>
+          <table>
+            <tbody>
+              <tr>
+                <th>调度</th>
+                <td>先问自己有没有二费节奏和早期分数压力。没有二费时，不能还按普通中速手牌评估，因为光辉会多出一整轮跳费、过牌和地图准备。</td>
+              </tr>
+              <tr>
+                <th>进化日前</th>
+                <td>不要只盯星芒凝汇。真正要卡的是第一张进化日是否安全：能不能逼掉光辉费用，让它少过牌，或让关键后场单位不能安稳站住。</td>
+              </tr>
+              <tr>
+                <th>过牌链</th>
+                <td>地沟区地图会把皎月得分转换成光辉过牌。皎月不是停止得分，而是要么把得分推进成终局，要么把互动留给进化日、未来熔炉和艾克 + 牺牲。</td>
+              </tr>
+              <tr>
+                <th>引擎前</th>
+                <td>艾克 + 牺牲要在支付前处理。等牺牲已经把艾克作为额外费用送走，再处理艾克本体往往没有意义；这时未来熔炉还会把牺牲等组件重新排回牌库。</td>
+              </tr>
+              <tr>
+                <th>收口前</th>
+                <td>不要只盯烈娜塔，也不要只盯“无限费”。本场直接结算的是择日再战回手烈娜塔的得分链；但只要无限精灵能反复铺场，皎月也可能被锁到无法继续得分。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">36:24 - 41:27</span>
+              <span class="watch-title">真正的反制点在“对手展示之前”</span>
+              <p>这段适合所有皎月玩家暂停：第二局已经知道路径，但答案仍然必须提前发生。只留一张最后回合的互动，可能会被艾希先拆掉，也可能被未来熔炉和过牌补回来。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="2184" data-label="36:24 第二局阻止点">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=2184" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="diana-games">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Games</div>
+              <h2>两局复盘：同一条路径，第二次仍然拦不住</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <article class="watch-card">
+              <span class="watch-time">14:08 - 31:52</span>
+              <h3>第一局：组件缺口没有被放大</h3>
+              <p>14:08 时光辉还在找组件，但连续进化日和地沟区地图很快把手牌拉开。等未来熔炉回收组件、无限精灵和烈娜塔出口都亮出来，皎月已经只能看对手把比分推到 7:1。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="848" data-label="14:08 第一局组件缺口">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=848" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">37:39 - 53:45</span>
+              <h3>第二局：已知路径仍然被资源差压住</h3>
+              <p>皎月先攻没二费，光辉借鬼影湾和地沟区地图继续铺资源。到 50:04 后，进化日和暗影的召唤已经把过牌变成找牌，皎月再等最后一张互动就来不及了。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="2259" data-label="37:39 先攻没二">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=2259" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+          <div class="note">
+            <p>这场不是“皎月没有答案”，而是答案需要提前发生。月上当年楼<span class="player-tag" data-player-side="皎月方玩家">选手</span>第二局已经知道对手在做什么，但如果分数压力、进化日截断和上游引擎处理都慢半拍，知道路径也不等于能阻止路径。</p>
+          </div>
+        </section>
+
+        <section id="diana-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>皎月玩家练习清单</h2>
+            </div>
+          </div>
+          <ul class="checklist">
+            <li>调度时先问：这手牌有没有二费节奏、早期得分压力和至少一个能干扰进化日或后场单位的动作。</li>
+            <li>看到彩纸灵树、地沟区地图或鬼影湾时，立刻把对局改写成“反组合技竞速”，不要继续按普通控制内战留牌。</li>
+            <li>每次光辉准备进化日，都先数它的费用、手牌和牌库：它这次是单纯补牌，还是已经能把未来熔炉放回的组件抓回来。</li>
+            <li>艾克 + 牺牲要提前处理。等牺牲已经支付额外费用，再处理艾克通常不能阻止循环启动。</li>
+            <li>不要把普通解牌或丢牌当作稳定断点；如果组件只是进弃牌堆，未来熔炉可能会把它们重新排回牌库。</li>
+            <li>警惕艾希 + 择日再战先拆手牌。不要把整局希望压在唯一一张最后回合互动上。</li>
+            <li>终局前不要只盯烈娜塔。拆掉烈娜塔主线只能争取时间，还要同时考虑无限精灵锁场、时间扭曲等备用出口；真正优先的是让引擎在成型前停下。</li>
+          </ul>
+          <div class="footer">
+            <p>皎月复盘这场的核心不是“怎么在无限后反制”，而是“怎么让无限那一轮不存在”。你的窗口在进化日前、艾克 + 牺牲启动前、未来熔炉回收前，以及无限精灵和其他出口成型前。</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="perspective-panel" id="panel-lux" role="tabpanel" aria-labelledby="tab-lux" data-perspective-panel="lux" hidden>
+        <section id="lux-core">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Core</div>
+              <h2>光辉视角先记住这五句话</h2>
+            </div>
+          </div>
+          <p class="lead">纸传.晓镜<span class="player-tag" data-player-side="光辉方玩家">选手</span>这场最值得学的不是“凑齐一次无限”，而是两局都把比赛变成同一套可复现脚本：前期活到进化日，过牌把牌库压薄，艾克、牺牲和未来熔炉滚出费用与符能，再根据局面选择烈娜塔直接收分或用无限精灵持续压住战场。</p>
+          <div class="grid-3">
+            <article class="insight">
+              <h3>先活到第一张进化日</h3>
+              <p>彩纸灵树负责跳费，地沟区地图把对手得分变成自己抽牌。光辉前期不是急着抢分，而是在确保进化日能安全过到足够多牌。</p>
+            </article>
+            <article class="insight">
+              <h3>过牌要把牌库压成检索</h3>
+              <p>进化日、卡牌骗术、牺牲和暗影的召唤不是随便多抽。牌库越薄，未来熔炉放回的择日再战和组件越容易被下一轮抓回来。</p>
+            </article>
+            <article class="insight">
+              <h3>艾克和牺牲才是资源发动机</h3>
+              <p>牺牲把艾克作为额外费用摧毁，艾克回到循环里，牺牲继续抽牌并给符能。未来熔炉再回收牺牲和自己，循环才会越跑越赚。</p>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="insight">
+              <h3>本场由烈娜塔把无限变成分数</h3>
+              <p>本场主线不是开门，也不是摧毁烈娜塔再捞回。集结部队让重新打出的烈娜塔变强力，菲奥娜让她活跃，烈娜塔再支付 4 费和 4 个蓝符能得分；但这只是最直接的出口，不是唯一出口。</p>
+            </article>
+            <article class="insight">
+              <h3>真正要防的是上游截断</h3>
+              <p>普通丢牌和解组件常常会被未来熔炉补回来；真正麻烦的是第一张进化日、艾克 + 牺牲或熔炉回收被提前截断。烈娜塔被处理会逼你换出口，但不等于整套牌停下。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="lux-video">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Watch</div>
+              <h2>边看比赛，边对照光辉的组合技脚本</h2>
+            </div>
+            <div class="time">P8 瑞士轮第七轮</div>
+          </div>
+          <p class="lead">光辉视角重点看六个动作：选战场、抢先攻、过牌找组件、第一次展示无限、第二局防截断、最终确认 2:0。</p>
+          <div class="jump-grid" aria-label="光辉视角关键片段跳转">
+            <button class="jump-card active" type="button" data-time="180" data-label="03:00 跳费战场">
+              <span>03:00</span>
+              <strong>战场选择服务高费法术</strong>
+              <em>光辉要尽快进入高费和过牌回合，不能把自己当普通中速打。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="274" data-label="04:34 光辉先攻">
+              <span>04:34</span>
+              <strong>先攻由光辉拿下</strong>
+              <em>先攻让光辉可以更早安排费用和组件，皎月的压力被迫追在后面。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="848" data-label="14:08 组件缺口">
+              <span>14:08</span>
+              <strong>组件没齐时要继续过牌</strong>
+              <em>解说注意到组件未齐，但牌库已经被快速压薄，后续启动有基础。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="1880" data-label="31:20 第一局无限">
+              <span>31:20</span>
+              <strong>第一局完整展示路径</strong>
+              <em>先演示、再简化，说明纸传.晓镜<span class="player-tag" data-player-side="光辉方玩家">选手</span>对流程非常熟。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="2418" data-label="40:18 进化日窗口">
+              <span>40:18</span>
+              <strong>第二局：进化日成为安全门</strong>
+              <em>费用和手牌都到位后，皎月很难再从最后一回合截断。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3004" data-label="50:04 定向找牌">
+              <span>50:04</span>
+              <strong>过牌量变成找牌能力</strong>
+              <em>一回合过十几张后，光辉不再靠运气摸组件，而是在执行既定路线。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3225" data-label="53:45 第二次无限">
+              <span>53:45</span>
+              <strong>第二局确认无限费</strong>
+              <em>把最后几张牌摊明，说明这已经不是试跑，而是胜利展示。</em>
+            </button>
+            <button class="jump-card" type="button" data-time="3426" data-label="57:06 全场 KEY 牌">
+              <span>57:06</span>
+              <strong>KEY 牌：烈娜塔·戈拉斯克</strong>
+              <em>官方回放确认核心单卡，值得单独复盘它在循环里的位置。</em>
+            </button>
+          </div>
+        </section>
+
+        <section id="lux-loop">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Framework</div>
+              <h2>循环框架：比赛里怎样把烈娜塔变成得分机器</h2>
+            </div>
+            <div class="time">第一局 15:00 起</div>
+          </div>
+          <p class="lead">本场不是单纯展示“无限费”，而是把无限费服务于烈娜塔·戈拉斯克, 幕后主脑的得分按钮：烈娜塔必须在战场上，支付 4 费和 4 个蓝符能并横置才能获得 1 分；集结部队让重新打出的烈娜塔获得 +1 增益并跨过强力门槛，黄剑姬再把她变为活跃状态。这里的主线不是先摧毁烈娜塔，而是用择日再战把得分后的烈娜塔返回手牌，费用足够就能直接再拍；未来熔炉负责回收择日再战、牺牲、暗影的召唤和熔炉本身，让这条回手线不断有牌可用。</p>
+          <div class="loop-strip" aria-label="本场无限流拉克丝循环拆解">
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/638-sc-1764817304.jpg" alt="">
+                  <span class="loop-arrow">→</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/461-sc-1764067027.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">集结部队给增益 → 烈娜塔变强力 → 黄剑姬活跃</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">Step 1</span><span class="loop-source">本场胜利条件</span></div>
+                <h3>先确定烈娜塔为什么能反复启动</h3>
+                <div class="loop-detail">
+                  <p><strong>第一层：</strong>集结部队本回合会让每个打出的友方单位获得增益。烈娜塔本来是 4 力量，重新打出时吃到 +1 增益变成 5 力量，也就是进入强力状态。</p>
+                  <p><strong>第二层：</strong>黄剑姬看见友方单位“变为强力”后，可以支付黄色让它变为活跃。于是烈娜塔不是天然反复重置，而是每次重新打出、重新吃增益、重新触发黄剑姬。</p>
+                  <p><strong>第三层：</strong>烈娜塔活跃后再支付 4 费和 4 个蓝符能并横置拿 1 分；择日再战把已经横置的烈娜塔回到手牌，并额外提供休眠符文。第二局还展示了鬼影湾配合回手继续跳符能，所以“回手”同时承担重打、重置和补符能三件事。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="watch-button" type="button" data-time="900" data-label="15:00 烈娜塔得分前提">看本场 15:00</button>
+                  <button class="watch-button" type="button" data-time="1345" data-label="22:25 得分机器">看本场 22:25</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/240-cvx-20250612113112.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">艾克被消灭 → 费用回正并继续赚费</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">Step 2</span><span class="loop-source">供费引擎</span></div>
+                <h3>艾克 + 牺牲把费用、符能和手牌一起滚起来</h3>
+                <div class="loop-detail">
+                  <p><strong>动作：</strong>打出艾克, 溯时洄光，再用牺牲主动消灭艾克。艾克靠绝念回到循环里，牺牲抽两张并召出休眠符文；暗影的召唤也能控制抽牌数量，把牌库压到能定向抓组件的状态。</p>
+                  <p><strong>落到本场：</strong>图片里的复盘重点就在这里：反复牺牲艾克、回收牺牲和暗影的召唤，循环中会多出费用、符能和有效手牌。等牌库被压薄后，未来熔炉把这些牌排回去，过牌再抓回来，消耗就小于产出，烈娜塔才付得起后续每一次得分。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="loop-source-link" type="button" data-time="30" data-label="讲解 0:30 艾克 + 牺牲" data-player-base="https://player.bilibili.com/player.html?bvid=BV1paoXBhEhF&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1paoXBhEhF/">看讲解 0:30</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg" alt="">
+                  <span class="loop-arrow">↺</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">未来熔炉把择日再战和组件放回牌库底</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">Step 3</span><span class="loop-source">回收组件</span></div>
+                <h3>未来熔炉回收的是“再战按钮”</h3>
+                <div class="loop-detail">
+                  <p><strong>动作：</strong>牌库快空时，用未来熔炉回收择日再战、牺牲、暗影的召唤、未来熔炉本身等已经进废牌堆的组件，再靠过牌抓回手里。</p>
+                  <p class="loop-note"><strong>比赛意义：</strong>第一局 20:33 解说已经提到“择日再战有了就可以回手拍下来”，30:32 又说“不怕回手，因为还可以再把她拍下来”。所以本场烈娜塔的清晰主线是回手再拍；如果她真的被处理进废牌堆，熔炉也能救回来，但那是备用线。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="watch-button" type="button" data-time="1472" data-label="24:32 熔炉回收">看本场 24:32</button>
+                  <button class="loop-source-link" type="button" data-time="66" data-label="讲解 1:06 未来熔炉回收" data-player-base="https://player.bilibili.com/player.html?bvid=BV1SbRyBCE7t&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1SbRyBCE7t/">看讲解 1:06</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg" alt="">
+                  <span class="loop-arrow">→</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/240-cvx-20250612113112.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">过牌抓回组件 → 再次启动</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">Step 4</span><span class="loop-source">定向找牌</span></div>
+                <h3>进化日把循环组件重新抓回手里</h3>
+                <div class="loop-detail">
+                  <p><strong>动作：</strong>未来熔炉把牌放回牌库底后，进化日、卡牌骗术、牺牲和暗影的召唤把它们重新抓上来，再打艾克 + 牺牲，或者抓回择日再战准备下一次烈娜塔回手。</p>
+                  <p><strong>落到本场：</strong>50:04 后的“大过牌”不是炫技，而是在找择日再战、牺牲、熔炉等指定组件。图片里也点出地沟区地图会借对手得分继续过牌，等牌库足够薄时，光辉已经接近“想要什么拿什么”。</p>
+                  <p><strong>操作边界：</strong>这不是无脑多抓。第一局 24:49 解说提醒牌库只剩两张时继续过牌会触发燃尽，所以要先用未来熔炉补回牌库，或用牺牲刚好抓完关键牌而不多抓。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="watch-button" type="button" data-time="3004" data-label="50:04 过牌变检索">看本场 50:04</button>
+                  <button class="loop-source-link" type="button" data-time="191" data-label="演示 3:11 过牌抓回组件" data-player-base="https://player.bilibili.com/player.html?bvid=BV1paoXBhEhF&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1paoXBhEhF/">看演示 3:11</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202603288b642eb27a21750c7bca2b7be9df7f43.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/638-sc-1764817304.jpg" alt="">
+                  <span class="loop-arrow">→</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">先打开战场，再让烈娜塔吃增益进场</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">Step 5</span><span class="loop-source">第一局收口前</span></div>
+                <h3>无限精灵先锁场，本场主线再用烈娜塔收分</h3>
+                <div class="loop-detail">
+                  <p><strong>动作：</strong>精灵迸发可以在无限费下反复制造战力，先处理或抢占战场。比赛里这一步服务于后面的烈娜塔落场；如果烈娜塔主线被拖住，无限精灵也能让皎月很难继续拿分。</p>
+                  <p><strong>关键窗口：</strong>29:23 到 30:24，光辉先把战场问题解开，再把集结部队、烈娜塔和黄剑姬这套得分机制搬上台面。皎月如果要截断，应该在无限精灵和主线出口都成型之前动手。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="watch-button" type="button" data-time="1763" data-label="29:23 无限精灵开路">看本场 29:23</button>
+                  <button class="watch-button" type="button" data-time="1824" data-label="30:24 烈娜塔计划">看本场 30:24</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg" alt="">
+                  <span class="loop-arrow">→</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/461-sc-1764067027.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">择日再战回手 → 重新打出 → 活跃得分</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">Step 6</span><span class="loop-source">胜利展示</span></div>
+                <h3>收口时展示的是“能拿满分”</h3>
+                <div class="loop-detail">
+                  <p><strong>单次得分：</strong>集结部队生效后重新打出烈娜塔，4 力量吃 +1 变 5 力量，黄剑姬支付黄色让她活跃；烈娜塔再支付 4 费和 4 个蓝符能并横置拿 1 分。</p>
+                  <p><strong>反复打出：</strong>循环不是让同一只横置烈娜塔原地反复触发。本场最明确的做法是：得分后用择日再战让烈娜塔回手，择日再战进入废牌堆；未来熔炉把择日再战和抽牌组件回收，过牌抓回后再把烈娜塔拍下。每次重新打出都是一次新的变强力事件。</p>
+                  <p><strong>备用路线：</strong>如果烈娜塔被对手解掉，或被牺牲这类效果送进废牌堆，未来熔炉也可以把她作为回收对象放回牌库，再靠过牌抓回。但这不是本场收口时最清楚、最省动作的主线。</p>
+                  <p><strong>比赛结果：</strong>第一局 30:24 后展示到 7:1 迫使皎月认输；第二局 53:45 则压缩展示同一逻辑，证明无限费可以转化为实际分数。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="watch-button" type="button" data-time="1880" data-label="31:20 第一局得分展示">看本场 31:20</button>
+                  <button class="watch-button" type="button" data-time="3225" data-label="53:45 第二局无限确认">看本场 53:45</button>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="watch-card">
+            <div>
+              <span class="watch-time">30:24 - 31:47</span>
+              <span class="watch-title">烈娜塔计划从“能循环”变成“能得分”</span>
+              <p>这段最能说明本场逻辑：先打开战场，再让集结部队生效，随后重新打出烈娜塔触发 +1 增益；她从 4 变 5 成为强力单位，黄剑姬再把她变活跃。无限费保证每次都付得起，择日再战负责把得分后的烈娜塔回手，未来熔炉和过牌负责把择日再战、牺牲、暗影的召唤等组件续上。本场直接结算的是这套“回手、重打、变强力、活跃、得分”的重复；如果这条线被拖住，前面的无限精灵仍会让皎月很难继续拿分。</p>
+            </div>
+            <div class="watch-actions">
+              <button class="watch-button" type="button" data-time="1824" data-label="30:24 烈娜塔计划">播放这一段</button>
+              <a class="watch-link" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=1824" target="_blank" rel="noreferrer">B站打开</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="lux-resilience">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Resilience</div>
+              <h2>容错机制：为什么这套牌不怕单点被拆</h2>
+            </div>
+            <div class="time">容错与收口</div>
+          </div>
+          <p class="lead">上一节只讲本场为什么用烈娜塔收口；这里看这套牌更难防的一面：它不是只有一条线。过牌和地沟区地图可以找组件，未来熔炉可以修牌库，艾希可以先拆对手关键牌；无限精灵可以持续锁住战场，带开门（时间扭曲）的同体系版本还能把已经铺好的优势带进额外回合。本场两局主线不靠开门，所以这里要同时看清容错和上游截断点。</p>
+          <div class="loop-strip" aria-label="无限流拉克丝容错机制拆解">
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://cdn.playloltcg.com/lol/card/20260325/cab71dd4d3e14c22ae09d0a46fe4585a.webp" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/328-sc-1764067067.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">压薄牌库 → 过牌近似检索</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">保险线 1</span><span class="loop-source">找组件</span></div>
+                <h3>先把“摸不到”变成小概率事件</h3>
+                <div class="loop-detail">
+                  <p><strong>原理：</strong>彩纸灵树帮助进入高费回合，地沟区地图把对手得分转成自己抽牌，进化日和卡牌骗术继续压薄牌库。牌库越薄，未来熔炉放回去的组件越容易被下一轮过牌抓回来。</p>
+                  <p><strong>练习点：</strong>不要把过牌当成单次补手牌；它是在把“找艾克、牺牲、熔炉、择日再战、收口牌”这件事变得可计划。对手为了赢必须拿分，拿分又会喂给地沟区地图，这就是本场很难追的地方。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="loop-source-link" type="button" data-time="74" data-label="讲解 1:14 压薄牌库" data-player-base="https://player.bilibili.com/player.html?bvid=BV1paoXBhEhF&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1paoXBhEhF/">看讲解 1:14</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg" alt="">
+                  <span class="loop-arrow">↺</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">弃牌堆不是损耗，而是备用牌库</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">保险线 2</span><span class="loop-source">修循环</span></div>
+                <h3>未来熔炉让失误空间变大</h3>
+                <div class="loop-detail">
+                  <p><strong>原理：</strong>牺牲、过牌和高费法术会把关键牌送进弃牌堆；未来熔炉把这些牌重新放回牌库，让一次使用过的组件继续参与循环。</p>
+                  <p><strong>边界：</strong>熔炉不是随便洗牌。它优先照顾牺牲、择日再战、暗影的召唤、自己和下一轮需要抽回来的牌；艾克, 溯时洄光靠自己的绝念回收，不需要抢熔炉名额。牌库太薄时也要先补回去，避免燃尽把节奏打乱。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="loop-source-link" type="button" data-time="66" data-label="讲解 1:06 未来熔炉回收" data-player-base="https://player.bilibili.com/player.html?bvid=BV1SbRyBCE7t&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1SbRyBCE7t/">看讲解 1:06</button>
+                  <button class="loop-source-link" type="button" data-time="191" data-label="演示 3:11 过牌抓回组件" data-player-base="https://player.bilibili.com/player.html?bvid=BV1paoXBhEhF&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1paoXBhEhF/">看演示 3:11</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260401d1c36ff4ce9eda6bdc2ff1b9ba4b0cf3.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg" alt="">
+                  <span class="loop-arrow">→</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/240-cvx-20250612113112.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">先拆手牌，再交真正启动牌</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">保险线 3</span><span class="loop-source">防截断</span></div>
+                <h3>艾希先丢掉对手关键牌</h3>
+                <div class="loop-detail">
+                  <p><strong>原理：</strong>面对有反制、回手或放逐的对手，光辉可以先用艾希, 凛如寒芒配合择日再战去处理关键手牌，再进入艾克 + 牺牲的循环。</p>
+                  <p><strong>比赛意义：</strong>这不是为了赚一张牌，而是为了防止“我已经能循环，但第一张进化日、未来熔炉或出口牌被对手截断”。如果对手能处理烈娜塔，光辉仍可能改走无限精灵压场或其他出口；艾希的价值，是提前拆掉那些会让主线和备用线都变难的关键牌。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="loop-source-link" type="button" data-time="0" data-label="补充讲解：防截断与容错" data-player-base="https://player.bilibili.com/player.html?bvid=BV1SbRyBCE7t&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1SbRyBCE7t/">看补充讲解</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202603288b642eb27a21750c7bca2b7be9df7f43.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/307-sc-1764067053.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">精灵铺场 + 开门额外回合</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">保险线 4</span><span class="loop-source">替代收口</span></div>
+                <h3>开门是同体系替代收口，不是本场发动机</h3>
+                <div class="loop-detail">
+                  <p><strong>原理：</strong>循环完成以后，精灵迸发可以把无限费用转成战场压力；即使不马上靠烈娜塔拿满分，反复铺精灵也能让对手难以继续得分。开门（时间扭曲）则把已经建立的优势带进额外回合，给这些战力真正得分的机会。</p>
+                  <p><strong>和本场区别：</strong>本场两局选择烈娜塔直接结算分数，解说也讨论过“这套没有开门”的风险。所以开门要理解成同体系版本的替代收口，而不是本场实际展示的发动机；无限精灵锁场则是本场也能成立的战场压力。</p>
+                </div>
+                <div class="loop-actions">
+                  <button class="loop-source-link" type="button" data-time="0" data-label="构筑讲解：开门收口路线" data-player-base="https://player.bilibili.com/player.html?bvid=BV1paoXBhEhF&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1paoXBhEhF/">看构筑讲解</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-card">
+              <div class="loop-visual" aria-hidden="true">
+                <div class="loop-card-stack">
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/871-sc-1774148535.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg" alt="">
+                  <span class="loop-plus">+</span>
+                  <img class="loop-card-thumb" src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/307-sc-1764067053.jpg" alt="">
+                </div>
+                <div class="loop-flow-label">拖回合、换收口、减少单点依赖</div>
+              </div>
+              <div class="loop-body">
+                <div class="loop-meta"><span class="loop-step">保险线 5</span><span class="loop-source">实战取舍</span></div>
+                <h3>容错来自“多条胜利出口”</h3>
+                <div class="loop-detail">
+                  <p><strong>原理：</strong>破败之咒能争取回合，烈娜塔能直接得分，精灵迸发能把战场锁住，时间扭曲能把战场优势延后结算。对手如果只盯一张牌，仍可能被另一条出口收掉。</p>
+                  <p><strong>复盘口径：</strong>所以这套牌要分两层看：本场最清楚的直接得分主线是烈娜塔；泛用容错是熔炉修循环、艾希拆手牌、精灵迸发锁场和时间扭曲提供替代收口。真正要打断它，窗口通常在第一张进化日、艾克 + 牺牲、未来熔炉或早期后场英雄，而不是等无限费已经成立以后再交普通互动。</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="lux-games">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Games</div>
+              <h2>两局复盘：从第一次展示到第二次确认</h2>
+            </div>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <th>第一局</th>
+                <td>前中盘还在找组件，但光辉的过牌和费用已经为无限回合做铺垫。31:43 后，无限精灵压场和烈娜塔得分链都已经连起来，7:1 领先迫使皎月投降。</td>
+              </tr>
+              <tr>
+                <th>第二局</th>
+                <td>皎月已经知道路径，解说也指出要在进化日阶段干扰。但光辉费用、过牌和牌库管理更完整，最终再次完成无限并 2:0 收下比赛。</td>
+              </tr>
+              <tr>
+                <th>赛后</th>
+                <td>57:06 的全场 KEY 牌给到烈娜塔·戈拉斯克, 幕后主脑；60:18 后解说提到这套牌早在 4 月已有分享，这次天津站证明了熟练度。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="grid-2">
+            <article class="watch-card">
+              <span class="watch-time">31:20 - 31:52</span>
+              <h3>第一次展示：先演示，再简化</h3>
+              <p>这一段说明实战里要能清楚解释路径。对手理解不理解已经不重要，重要的是你能稳定完成。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="1880" data-label="31:20 第一局无限路径">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=1880" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+            <article class="watch-card">
+              <span class="watch-time">53:45 - 54:10</span>
+              <h3>第二次展示：已经是胜利确认</h3>
+              <p>纸传.晓镜<span class="player-tag" data-player-side="光辉方玩家">选手</span>把最后几张牌摊开时，比赛已经进入不可逆状态。光辉玩家要练的是到这里之前每一步的稳定性。</p>
+              <div class="watch-actions">
+                <button class="watch-button" type="button" data-time="3225" data-label="53:45 第二局无限费">播放这一段</button>
+                <a class="watch-link" href="https://www.bilibili.com/video/BV1Xz7S66E7H?p=8&amp;t=3225" target="_blank" rel="noreferrer">B站打开</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="lux-checklist">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Practice</div>
+              <h2>光辉玩家实战训练手册</h2>
+            </div>
+          </div>
+          <p class="lead">这套光辉不能只练“最后四张牌怎么摆”。真正要练的是从第一张过牌开始就知道自己在找什么、什么时候可以启动、哪些干扰必须先拆、最后怎样把无限资源稳定换成烈娜塔分数或无限精灵锁场。下面按本场两局和补充资料拆成可反复演练的脚本。</p>
+          <div class="practice-manual" aria-label="无限流拉克丝实战训练手册">
+            <div class="practice-overview" aria-label="训练完成标准">
+              <div class="practice-metric">
+                <b>4 个入口</b>
+                <span>费用、过牌、回收、收口，每次调度后都要能各说出一张当前候选牌。</span>
+              </div>
+              <div class="practice-metric">
+                <b>3 个数量</b>
+                <span>剩余牌库、手牌张数、可用符能。进化日之前和熔炉之前都要重新数。</span>
+              </div>
+              <div class="practice-metric">
+                <b>2 个窗口</b>
+                <span>第一张进化日是否安全，终局前对手是否能同时拆主线和无限精灵压场。</span>
+              </div>
+              <div class="practice-metric">
+                <b>1 条主线</b>
+                <span>本场选择择日再战回手烈娜塔收分，但要记得无限精灵也是备用压力。</span>
+              </div>
+            </div>
+
+            <article class="practice-block">
+              <div class="practice-block-head">
+                <span class="practice-index">1</span>
+                <div>
+                  <h3>前期训练：先活到第一张进化日</h3>
+                  <p class="practice-goal">目标不是前期抢分，而是让手牌、费用和牌库密度进入组合技节奏。第一局里光辉宁可不让小单位上去蹭分，也要持续抽牌和沉淀资源。</p>
+                </div>
+              </div>
+              <div class="practice-body">
+                <div>
+                  <h4>操作口令</h4>
+                  <ol>
+                    <li>调度后先标记当前手牌里的四类牌：跳费入口、过牌入口、回收入口、真正收口牌。没有收口牌也没关系，但必须知道下一张进化日要找什么。</li>
+                    <li>面对皎月这种主流压力牌组，不要为了早拿 1 分暴露关键后场单位。只要分差还没有逼死你，优先保证进化日能过到足够多牌。</li>
+                    <li>如果未来熔炉或后场英雄要在对方有费用时落场，先问：这一拍会不会吃到强买强卖或其他关键互动？如果会，能不能先过牌或等对手费用更低。</li>
+                  </ol>
+                  <p class="practice-prompt">暂停复盘：第 6 分钟到第 11 分钟，记录光辉每次“不拿小分也继续抽牌”的位置，判断这些动作是在拖慢自己，还是在加速组合技。</p>
+                  <div class="practice-actions">
+                    <button class="watch-button" type="button" data-time="348" data-label="05:48 择日再战与跳费">看本场 05:48</button>
+                    <button class="watch-button" type="button" data-time="640" data-label="10:40 地沟区地图过牌">看本场 10:40</button>
+                  </div>
+                </div>
+                <aside>
+                  <div class="practice-card-row" aria-hidden="true">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/648-sc-1769680684.jpg" alt="">
+                    <img src="https://cdn.playloltcg.com/lol/card/20260325/cab71dd4d3e14c22ae09d0a46fe4585a.webp" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg" alt="">
+                  </div>
+                  <h4>训练标准</h4>
+                  <ul>
+                    <li>能说清楚彩纸灵树、地沟区地图、进化日分别解决哪一类问题。</li>
+                    <li>能判断当前回合是该抢分、过牌、还是保留费用。</li>
+                    <li>知道对手拿分会喂给地沟区地图，不能只把分差当成压力。</li>
+                  </ul>
+                </aside>
+              </div>
+            </article>
+
+            <article class="practice-block">
+              <div class="practice-block-head">
+                <span class="practice-index">2</span>
+                <div>
+                  <h3>过牌训练：把随机抽牌压成近似检索</h3>
+                  <p class="practice-goal">视频和图片都强调同一点：当牌库被压到个位数，进化日、卡牌骗术、牺牲和暗影的召唤就不再只是“多抽”，而是在按顺序找回指定组件。</p>
+                </div>
+              </div>
+              <div class="practice-body">
+                <div>
+                  <h4>操作口令</h4>
+                  <ol>
+                    <li>每次打进化日前，先报出剩余牌库数量、还需要的组件、以及下一次过牌会不会触发燃尽。</li>
+                    <li>未来熔炉回收后，不要立刻说“我无限了”。先说明放回去的是哪几张、下一张过牌会抓到什么、抓完后牌库还剩多少。</li>
+                    <li>卡牌骗术和暗影的召唤要当作控牌库工具使用：目标是刚好抓回组件，而不是把牌库无差别抽空。</li>
+                  </ol>
+                  <p class="practice-prompt">暂停复盘：第一局 24:49 解说提醒继续抽会触发燃尽。练习时每次都要能提前一张牌发现这个风险。</p>
+                  <div class="practice-actions">
+                    <button class="watch-button" type="button" data-time="1472" data-label="24:32 熔炉回收与牌库数量">看本场 24:32</button>
+                    <button class="watch-button" type="button" data-time="3004" data-label="50:04 过牌变检索">看本场 50:04</button>
+                  </div>
+                </div>
+                <aside>
+                  <div class="practice-card-row" aria-hidden="true">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/328-sc-1764067067.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/870-sc-1774148543.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg" alt="">
+                  </div>
+                  <h4>必须写在纸上的数</h4>
+                  <ul>
+                    <li>牌库剩几张，弃牌堆里有哪些可回收组件。</li>
+                    <li>熔炉最多回收四张，哪张是下一轮必须抓到的第一张。</li>
+                    <li>当前是否已经进入燃尽危险区。</li>
+                  </ul>
+                </aside>
+              </div>
+            </article>
+
+            <article class="practice-block">
+              <div class="practice-block-head">
+                <span class="practice-index">3</span>
+                <div>
+                  <h3>引擎训练：艾克、牺牲、未来熔炉如何滚成正收益</h3>
+                  <p class="practice-goal">这一步要练到可以口述给对手和裁判听：牺牲把艾克作为额外费用摧毁，艾克回到循环里，牺牲抽牌并给符能，未来熔炉再回收用过的牺牲和熔炉本身。</p>
+                </div>
+              </div>
+              <div class="practice-body">
+                <div>
+                  <h4>操作口令</h4>
+                  <ol>
+                    <li>先确认艾克是强力单位，牺牲可以合法把它作为额外费用摧毁；这个费用支付完成后，对手很难再阻止“艾克已经被送掉”这件事。</li>
+                    <li>每轮循环结算后更新三件事：增加了多少费用、增加了多少休眠符文、抽到了哪些下一轮要用的牌。</li>
+                    <li>未来熔炉回收顺序优先级：牺牲、择日再战、暗影的召唤、未来熔炉本身。艾克靠自己的能力回到循环里，通常不抢熔炉名额。</li>
+                    <li>当手牌里已经有第二张牺牲或第二张熔炉，先判断是否能简化路径。比赛中纸传.晓镜多次展示后可以简化，不必每次完整演一遍。</li>
+                  </ol>
+                  <p class="practice-prompt">暂停复盘：第一局 23:00 到 26:58，专门跟踪“熔炉回收了什么”和“下一次过牌抓回了什么”。不要只看最后赢了。</p>
+                  <div class="practice-actions">
+                    <button class="watch-button" type="button" data-time="1380" data-label="23:00 牺牲与熔炉循环">看本场 23:00</button>
+                    <button class="loop-source-link" type="button" data-time="30" data-label="讲解 0:30 艾克 + 牺牲" data-player-base="https://player.bilibili.com/player.html?bvid=BV1paoXBhEhF&amp;autoplay=1" data-page-base="https://www.bilibili.com/video/BV1paoXBhEhF/">看讲解 0:30</button>
+                  </div>
+                </div>
+                <aside>
+                  <div class="practice-card-row" aria-hidden="true">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/240-cvx-20250612113112.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg" alt="">
+                  </div>
+                  <h4>通过标准</h4>
+                  <ul>
+                    <li>能在 30 秒内讲清楚为什么对手回手艾克已经太晚。</li>
+                    <li>能在不翻错顺序的情况下连续演示两轮。</li>
+                    <li>每轮结束都能报出下一张要抓的牌。</li>
+                  </ul>
+                </aside>
+              </div>
+            </article>
+
+            <article class="practice-block">
+              <div class="practice-block-head">
+                <span class="practice-index">4</span>
+                <div>
+                  <h3>主线收口训练：从无限资源转成烈娜塔分数</h3>
+                  <p class="practice-goal">无限费本身不会赢。本场最清楚的直接收口是：打开战场，打出集结部队，重打烈娜塔使其从 4 变 5，菲奥娜让她活跃，再用烈娜塔支付 4 费和 4 个蓝符能得分。若这条主线被拖住，无限精灵也能成为压住皎月得分的备用压力。</p>
+                </div>
+              </div>
+              <div class="practice-body">
+                <div>
+                  <h4>操作口令</h4>
+                  <ol>
+                    <li>先确认战场空位：精灵迸发可以开路，但不要让精灵占住烈娜塔和菲奥娜需要的位置。</li>
+                    <li>集结部队必须在重打烈娜塔前生效。烈娜塔重新打出后吃 +1，从 4 力量变 5 力量，才会成为强力单位。</li>
+                    <li>菲奥娜看到友方单位变为强力后支付黄色让烈娜塔活跃。不要把这一步误写成烈娜塔自己刷新。</li>
+                    <li>得分后用择日再战把烈娜塔回手，再重打，继续触发集结部队和菲奥娜。第二局鬼影湾还能把回手转换成额外休眠符文。</li>
+                  </ol>
+                  <p class="practice-prompt">暂停复盘：第一局 30:24 到 31:40，逐句复述“为什么这不是同一只横置烈娜塔原地反复得分”。</p>
+                  <div class="practice-actions">
+                    <button class="watch-button" type="button" data-time="1824" data-label="30:24 烈娜塔计划">看本场 30:24</button>
+                    <button class="watch-button" type="button" data-time="1880" data-label="31:20 第一局得分展示">看本场 31:20</button>
+                  </div>
+                </div>
+                <aside>
+                  <div class="practice-card-row" aria-hidden="true">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/638-sc-1764817304.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/461-sc-1764067027.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg" alt="">
+                    <img src="https://cdn.playloltcg.com/lol/card/20260319/4f285ce4d65748c49186dd2655718e8b.webp" alt="">
+                  </div>
+                  <h4>收口前自检</h4>
+                  <ul>
+                    <li>蓝符能是否够支付烈娜塔多次得分。</li>
+                    <li>黄色费用是否够让菲奥娜多次活跃烈娜塔。</li>
+                    <li>择日再战是否能持续被抓回。</li>
+                  </ul>
+                </aside>
+              </div>
+            </article>
+
+            <article class="practice-block">
+              <div class="practice-block-head">
+                <span class="practice-index">5</span>
+                <div>
+                  <h3>抗干扰训练：哪些牌要提前拆，哪些牌可以靠熔炉补</h3>
+                  <p class="practice-goal">解说在第二局指出，等无限费成立后再交普通互动通常太晚。光辉玩家要练的是在启动前判断哪些牌会截断上游引擎，哪些牌只是逼自己从烈娜塔主线切到无限精灵或其他出口。</p>
+                </div>
+              </div>
+              <div class="practice-body">
+                <div>
+                  <h4>操作口令</h4>
+                  <ol>
+                    <li>进化日前先看对手费用：如果第一张进化日可能被无效化，先问自己是否有第二张进化日、卡牌骗术或地沟区地图继续补。</li>
+                    <li>如果对手的互动只是把组件丢进废牌堆，未来熔炉通常能补回来；如果对手处理的是烈娜塔主线，先判断能否改用无限精灵压场或时间扭曲类出口继续赢。</li>
+                    <li>艾希 + 择日再战不是单纯赚牌，而是先把对手能打断进化日、未来熔炉、无限精灵压场或主要出口的关键牌丢掉。</li>
+                    <li>带时间扭曲的同体系版本可以走开门收口，但本场两局主线不是开门。复盘时不要把外部版本的备用线误当成本场已经发生的线。</li>
+                  </ol>
+                  <p class="practice-prompt">暂停复盘：第二局 40:45 到 41:27，解说开始讨论艾希怎样处理对手关键手牌；46:35 后又讨论未来熔炉为什么不怕普通丢牌。</p>
+                  <div class="practice-actions">
+                    <button class="watch-button" type="button" data-time="2445" data-label="40:45 艾希防截断">看本场 40:45</button>
+                    <button class="watch-button" type="button" data-time="2795" data-label="46:35 熔炉抗丢牌">看本场 46:35</button>
+                  </div>
+                </div>
+                <aside>
+                  <div class="practice-card-row" aria-hidden="true">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260401d1c36ff4ce9eda6bdc2ff1b9ba4b0cf3.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg" alt="">
+                    <img src="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/307-sc-1764067053.jpg" alt="">
+                  </div>
+                  <h4>截断风险排序</h4>
+                  <ul>
+                    <li>最高优先级：第一张进化日、艾克 + 牺牲或未来熔炉被提前截断，导致上游引擎跑不起来。</li>
+                    <li>第二优先级：牌库太薄时熔炉和过牌顺序被打乱，导致燃尽或抓不回关键组件。</li>
+                    <li>第三优先级：烈娜塔主线被处理。它会拖慢直接得分，但通常不是整套牌的唯一出口。</li>
+                  </ul>
+                </aside>
+              </div>
+            </article>
+
+            <article class="practice-block">
+              <div class="practice-block-head">
+                <span class="practice-index">6</span>
+                <div>
+                  <h3>复盘训练：把“我赢了”拆成可重复脚本</h3>
+                  <p class="practice-goal">两局都赢不代表路径已经练会。每次练习后，都要把比赛脚本写成能复现的记录：在哪个回合开始过牌、什么时候进入燃尽风险、哪一刻已经可以展示无限。</p>
+                </div>
+              </div>
+              <div class="practice-body">
+                <div>
+                  <h4>赛后记录模板</h4>
+                  <ol>
+                    <li>启动前一回合：手牌有哪些入口，牌库还有几张，对手手里可能有哪些上游截断牌。</li>
+                    <li>第一张进化日后：抓到了哪些组件，下一张进化日或卡牌骗术要找什么。</li>
+                    <li>第一轮艾克 + 牺牲后：净赚了多少费用和符能，未来熔炉准备回收哪几张。</li>
+                    <li>进入收口前：战场空位是否打开，集结部队、菲奥娜、烈娜塔、择日再战是否都能接上。</li>
+                    <li>展示无限时：哪些步骤可以简化，哪些步骤必须完整说明给对手和裁判。</li>
+                  </ol>
+                  <p class="practice-prompt">暂停复盘：第二局 52:00 后，纸传.晓镜反复确认牌库数量并把最后几张牌摊开。练习时要能在摊牌前就说明“为什么已经不可逆”。</p>
+                  <div class="practice-actions">
+                    <button class="watch-button" type="button" data-time="3120" data-label="52:00 牌库数量确认">看本场 52:00</button>
+                    <button class="watch-button" type="button" data-time="3225" data-label="53:45 第二局无限确认">看本场 53:45</button>
+                  </div>
+                </div>
+                <aside>
+                  <h4>练习通过标准</h4>
+                  <ul>
+                    <li>能不看文章完整讲出 6 步收口脚本。</li>
+                    <li>能指出本场主线和同体系开门路线的区别。</li>
+                    <li>能解释为什么“普通丢牌”不等于断循环，“处理烈娜塔”也只是拆掉主线出口，不等于拆掉无限精灵和其他出口。</li>
+                    <li>能顺着图文完整复述启动到收口的路径，不需要回头翻前文找缺失步骤。</li>
+                  </ul>
+                </aside>
+              </div>
+            </article>
+
+            <div class="practice-warning">
+              <h3>最常见的三种练习误区</h3>
+              <p>第一，只练最后一回合，忽略前 10 分钟如何活到进化日。第二，把未来熔炉当万能洗牌，忘了它最多回收四张，而且要防燃尽。第三，把本场烈娜塔主线当成唯一出口；实际练习时要区分烈娜塔直接得分、无限精灵锁场和时间扭曲类备用收口。</p>
+            </div>
+          </div>
+          <div class="footer">
+            <p>光辉复盘这场的核心是熟练度。纸传.晓镜<span class="player-tag" data-player-side="光辉方玩家">选手</span>赢在把一套看似复杂的组合技，压成了可重复执行的比赛脚本：先活到进化日，再把牌库压薄，用艾克和牺牲滚资源，用未来熔炉续组件；本场选择用择日再战反复回手烈娜塔收分，同时保留无限精灵锁场这类备用压力。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <a class="backtop" href="#top" aria-label="回到顶部" hidden>↑</a>
+  <script src="../assets/page-nav.js?v=page-nav-20260529-floating-actions-compact"></script>
+  <script src="../assets/video-hub.js?v=multi-source-bilibili-20260607"></script>
+  <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script>
+    window.tcgArticleCardLinkConfig = {
+      root: "main",
+      cards: [
+        {
+          name: "皎月女神",
+          count: 1,
+          meta: "传奇｜蓝/紫｜稀有",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/2026040199608249de9e2d33ead0b971e73e47a0.jpg"
+        },
+        {
+          name: "光辉女郎, 入门",
+          count: 1,
+          meta: "传奇｜蓝/黄｜稀有",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/219-sc-1764067008.jpg"
+        },
+        {
+          name: "拉克丝, 冕卫之光",
+          count: 1,
+          meta: "英雄单位｜黄｜4费｜2力量｜史诗",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/212-sc-1764067009.jpg"
+        },
+        {
+          name: "艾克, 溯时洄光",
+          count: 1,
+          meta: "英雄单位｜蓝｜5费｜5力量",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/240-cvx-20250612113112.jpg"
+        },
+        {
+          name: "牺牲",
+          count: 1,
+          meta: "法术｜黄｜1费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg"
+        },
+        {
+          name: "未来熔炉",
+          count: 1,
+          meta: "装备｜黄｜2费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg"
+        },
+        {
+          name: "暗影的召唤",
+          count: 1,
+          meta: "法术｜黄｜2费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/870-sc-1774148543.jpg"
+        },
+        {
+          name: "进化日",
+          count: 1,
+          meta: "法术｜蓝｜6费｜稀有",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg"
+        },
+        {
+          name: "卡牌骗术",
+          count: 1,
+          meta: "法术｜紫｜1费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/328-sc-1764067067.jpg"
+        },
+        {
+          name: "择日再战",
+          count: 1,
+          meta: "法术｜蓝｜1费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg"
+        },
+        {
+          name: "彩纸灵树",
+          count: 1,
+          meta: "战场｜无色｜稀有",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/648-sc-1769680684.jpg"
+        },
+        {
+          name: "地沟区地图",
+          count: 1,
+          meta: "装备｜蓝｜2费",
+          image: "https://cdn.playloltcg.com/lol/card/20260325/cab71dd4d3e14c22ae09d0a46fe4585a.webp"
+        },
+        {
+          name: "鬼影湾",
+          count: 1,
+          meta: "战场｜无色",
+          image: "https://cdn.playloltcg.com/lol/card/20260319/4f285ce4d65748c49186dd2655718e8b.webp"
+        },
+        {
+          name: "星芒凝汇",
+          count: 1,
+          meta: "法术｜蓝｜6费｜不凡",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/237-sc-1764067043.jpg"
+        },
+        {
+          name: "烈娜塔·戈拉斯克, 幕后主脑",
+          count: 1,
+          meta: "英雄单位｜蓝｜5费｜4力量｜史诗",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg"
+        },
+        {
+          name: "菲奥娜, 无上统御",
+          count: 1,
+          meta: "英雄单位｜黄｜4费｜3力量｜不凡",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/461-sc-1764067027.jpg"
+        },
+        {
+          name: "集结部队",
+          count: 1,
+          meta: "法术｜黄｜2费｜不凡",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/638-sc-1764817304.jpg"
+        },
+        {
+          name: "艾希, 凛如寒芒",
+          count: 1,
+          meta: "英雄单位｜黄｜5费｜4力量",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260401d1c36ff4ce9eda6bdc2ff1b9ba4b0cf3.jpg"
+        },
+        {
+          name: "破败之咒",
+          count: 1,
+          meta: "法术｜黄｜9费｜史诗",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/871-sc-1774148535.jpg"
+        },
+        {
+          name: "精灵迸发",
+          count: 1,
+          meta: "法术｜蓝｜5费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202603288b642eb27a21750c7bca2b7be9df7f43.jpg"
+        },
+        {
+          name: "时间扭曲",
+          count: 1,
+          meta: "法术｜蓝｜10费",
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/307-sc-1764067053.jpg"
+        }
+      ],
+      exclude: ["皎月", "光辉", "拉克丝", "月上当年楼", "纸传.晓镜"],
+      aliases: {
+        "星芒": "星芒凝汇",
+        "新花日": "进化日",
+        "净化日": "进化日",
+        "才智灵术": "彩纸灵树",
+        "才指灵术": "彩纸灵树",
+        "裁纸灵术": "彩纸灵树",
+        "裁纸灵树": "彩纸灵树",
+        "艾克": "艾克, 溯时洄光",
+        "熔炉": "未来熔炉",
+        "机箱": "牺牲",
+        "泽日": "择日再战",
+        "责任": "择日再战",
+        "烈娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "列娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "蓝烈娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "蓝色烈娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "蓝色列娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "菲奥娜": "菲奥娜, 无上统御",
+        "黄剑姬": "菲奥娜, 无上统御",
+        "黄色剑姬": "菲奥娜, 无上统御",
+        "黄金机": "菲奥娜, 无上统御",
+        "黄金鸡": "菲奥娜, 无上统御",
+        "开门": "时间扭曲",
+        "鬼影观": "鬼影湾"
+      },
+      corrections: {
+        "新花日": "进化日",
+        "净化日": "进化日",
+        "才智灵术": "彩纸灵树",
+        "才指灵术": "彩纸灵树",
+        "裁纸灵术": "彩纸灵树",
+        "裁纸灵树": "彩纸灵树",
+        "艾克": "艾克, 溯时洄光",
+        "熔炉": "未来熔炉",
+        "机箱": "牺牲",
+        "泽日": "择日再战",
+        "责任": "择日再战",
+        "列娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "蓝烈娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "蓝色烈娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "蓝色列娜塔": "烈娜塔·戈拉斯克, 幕后主脑",
+        "黄剑姬": "菲奥娜, 无上统御",
+        "黄色剑姬": "菲奥娜, 无上统御",
+        "黄金机": "菲奥娜, 无上统御",
+        "黄金鸡": "菲奥娜, 无上统御",
+        "鬼影观": "鬼影湾"
+      }
+    };
+  </script>
+  <script src="../assets/decklist-modal.js?v=decklist-modal-20260601-mobile-feature-tight"></script>
+  <script src="../assets/article-return-home.js"></script>
+  <script src="../assets/feedback-widget.js"></script>
+</body>
+</html>
