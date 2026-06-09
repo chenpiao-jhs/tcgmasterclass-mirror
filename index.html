@@ -845,7 +845,7 @@
       <section class="station-group" aria-labelledby="season-3-tianjin">
         <h2 class="station-title" id="season-3-tianjin">区域公开赛-天津站 <span class="station-review-count" data-review-count>1 篇复盘</span></h2>
         <div class="guide-grid" aria-label="第三赛季天津站复盘页面列表">
-          <a class="guide-card" href="diana-lux-tianjin-swiss/" data-duel-left-name="皎月女神" data-duel-left-image="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/2026040199608249de9e2d33ead0b971e73e47a0.jpg" data-duel-right-name="光辉女郎, 入门" data-duel-right-image="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/219-sc-1764067008.jpg">
+          <a class="guide-card" href="diana-lux-tianjin-swiss/" data-deck-source="tianjin" data-decks="yueshang-diana,xiaojing-lux" data-duel-left-name="皎月女神" data-duel-left-image="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202604012917aa7951dcecdd59528cc31f04cfd1.jpg" data-duel-right-name="光辉女郎, 入门" data-duel-right-image="https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/219-sc-1764067008.jpg">
             <div class="thumb" data-fallback-thumb="tianjin-diana-lux"></div>
             <div class="card-body">
               <div class="tagline">天津站DAY1 · 瑞士轮第七轮</div>
@@ -1026,6 +1026,7 @@
   <script src="assets/suzhou-decklists.js?v=index-decklists-20260601-db-order"></script>
   <script src="assets/sydney-decklists.js?v=index-decklists-20260601-sydney"></script>
   <script src="assets/vancouver-decklists.js?v=index-decklists-20260602-vancouver"></script>
+  <script src="assets/tianjin-decklists.js?v=index-decklists-20260609-tianjin"></script>
   <script>
     (() => {
       const tabs = [...document.querySelectorAll(".season-tab")];
@@ -1039,7 +1040,8 @@
         xian: window.tcgXianDecklists?.byKey || {},
         suzhou: window.tcgSuzhouDecklists?.byKey || {},
         sydney: window.tcgSydneyDecklists?.byKey || {},
-        vancouver: window.tcgVancouverDecklists?.byKey || {}
+        vancouver: window.tcgVancouverDecklists?.byKey || {},
+        tianjin: window.tcgTianjinDecklists?.byKey || {}
       };
 
       function escapeHtml(value) {

@@ -765,6 +765,10 @@
       color: rgba(255, 255, 255, 0.9);
     }
 
+    #decklistMount.decklist-panel {
+      display: grid;
+    }
+
     @media (max-width: 900px) {
       .hero {
         min-height: 440px;
@@ -818,6 +822,7 @@
         justify-self: start;
       }
     }
+
   </style>
 </head>
 <body>
@@ -850,6 +855,8 @@
         <button class="perspective-tab active" id="tab-diana-mobile" type="button" role="tab" aria-selected="true" aria-controls="panel-diana" data-perspective-target="diana">皎月视角</button>
         <button class="perspective-tab" id="tab-lux-mobile" type="button" role="tab" aria-selected="false" aria-controls="panel-lux" data-perspective-target="lux">光辉视角</button>
       </div>
+
+      <section id="decklistMount"></section>
 
       <nav class="nav" aria-label="复盘目录">
         <div class="brand">皎月 VS 光辉</div>
@@ -1778,138 +1785,37 @@
   <script src="../assets/page-nav.js?v=page-nav-20260529-floating-actions-compact"></script>
   <script src="../assets/video-hub.js?v=multi-source-bilibili-20260607"></script>
   <script src="../assets/player-tag.js?v=player-tag-20260521"></script>
+  <script src="../assets/tianjin-decklists.js?v=tianjin-decklists-20260609-db"></script>
   <script>
+    window.tcgDecklistConfig = {
+      mount: "#decklistMount",
+      label: "公开牌表",
+      dataSource: window.tcgTianjinDecklists.byKey,
+      decks: [
+        { sourceKey: "yueshang-diana" },
+        { sourceKey: "xiaojing-lux" }
+      ],
+      perspectiveDecks: {
+        diana: "yueshang-diana",
+        lux: "xiaojing-lux"
+      }
+    };
+
     window.tcgArticleCardLinkConfig = {
       root: "main",
+      dataSource: window.tcgTianjinDecklists.byKey,
+      decks: ["yueshang-diana", "xiaojing-lux"],
       cards: [
-        {
-          name: "皎月女神",
-          count: 1,
-          meta: "传奇｜蓝/紫｜稀有",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/2026040199608249de9e2d33ead0b971e73e47a0.jpg"
-        },
-        {
-          name: "光辉女郎, 入门",
-          count: 1,
-          meta: "传奇｜蓝/黄｜稀有",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/219-sc-1764067008.jpg"
-        },
-        {
-          name: "拉克丝, 冕卫之光",
-          count: 1,
-          meta: "英雄单位｜黄｜4费｜2力量｜史诗",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/212-sc-1764067009.jpg"
-        },
-        {
-          name: "艾克, 溯时洄光",
-          count: 1,
-          meta: "英雄单位｜蓝｜5费｜5力量",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/240-cvx-20250612113112.jpg"
-        },
-        {
-          name: "牺牲",
-          count: 1,
-          meta: "法术｜黄｜1费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/785-sc-1773975729.jpg"
-        },
-        {
-          name: "未来熔炉",
-          count: 1,
-          meta: "装备｜黄｜2费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/255-sc-1764067076.jpg"
-        },
-        {
-          name: "暗影的召唤",
-          count: 1,
-          meta: "法术｜黄｜2费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/870-sc-1774148543.jpg"
-        },
-        {
-          name: "进化日",
-          count: 1,
-          meta: "法术｜蓝｜6费｜稀有",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/264-sc-1764067052.jpg"
-        },
-        {
-          name: "卡牌骗术",
-          count: 1,
-          meta: "法术｜紫｜1费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/328-sc-1764067067.jpg"
-        },
-        {
-          name: "择日再战",
-          count: 1,
-          meta: "法术｜蓝｜1费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/299-sc-1764067044.jpg"
-        },
-        {
-          name: "彩纸灵树",
-          count: 1,
-          meta: "战场｜无色｜稀有",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/648-sc-1769680684.jpg"
-        },
-        {
-          name: "地沟区地图",
-          count: 1,
-          meta: "装备｜蓝｜2费",
-          image: "https://cdn.playloltcg.com/lol/card/20260325/cab71dd4d3e14c22ae09d0a46fe4585a.webp"
-        },
-        {
-          name: "鬼影湾",
-          count: 1,
-          meta: "战场｜无色",
-          image: "https://cdn.playloltcg.com/lol/card/20260319/4f285ce4d65748c49186dd2655718e8b.webp"
-        },
-        {
-          name: "星芒凝汇",
-          count: 1,
-          meta: "法术｜蓝｜6费｜不凡",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/237-sc-1764067043.jpg"
-        },
-        {
-          name: "烈娜塔·戈拉斯克, 幕后主脑",
-          count: 1,
-          meta: "英雄单位｜蓝｜5费｜4力量｜史诗",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/601-sc-1764817285.jpg"
-        },
-        {
-          name: "菲奥娜, 无上统御",
-          count: 1,
-          meta: "英雄单位｜黄｜4费｜3力量｜不凡",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/461-sc-1764067027.jpg"
-        },
-        {
-          name: "集结部队",
-          count: 1,
-          meta: "法术｜黄｜2费｜不凡",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/638-sc-1764817304.jpg"
-        },
-        {
-          name: "艾希, 凛如寒芒",
-          count: 1,
-          meta: "英雄单位｜黄｜5费｜4力量",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/20260401d1c36ff4ce9eda6bdc2ff1b9ba4b0cf3.jpg"
-        },
-        {
-          name: "破败之咒",
-          count: 1,
-          meta: "法术｜黄｜9费｜史诗",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/871-sc-1774148535.jpg"
-        },
-        {
-          name: "精灵迸发",
-          count: 1,
-          meta: "法术｜蓝｜5费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/202603288b642eb27a21750c7bca2b7be9df7f43.jpg"
-        },
         {
           name: "时间扭曲",
           count: 1,
           meta: "法术｜蓝｜10费",
-          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/307-sc-1764067053.jpg"
+          image: "https://jihuanshe-r2-imagex.jihuanshe.com/lol/card_versions/next/307-sc-1764067053.jpg",
+          cardId: 491,
+          cardVersionId: 523
         }
       ],
-      exclude: ["皎月", "光辉", "拉克丝", "月上当年楼", "纸传.晓镜"],
+      exclude: ["皎月", "光辉", "拉克丝", "入门", "月上当年楼", "纸传.晓镜"],
       aliases: {
         "星芒": "星芒凝汇",
         "新花日": "进化日",
