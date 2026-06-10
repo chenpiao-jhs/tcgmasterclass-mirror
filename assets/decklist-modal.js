@@ -491,20 +491,6 @@
     );
   }
 
-  function renderEntrypoints(mount, decks, label) {
-    mount.classList.add("decklist-panel");
-    mount.setAttribute("aria-label", label);
-    mount.innerHTML = `
-      <div class="decklist-label">${escapeHtml(label)}</div>
-      ${decks.map((deck) => `
-        <button class="decklist-button" type="button" data-deck-key="${escapeHtml(deck.key)}">
-          <span>${escapeHtml(deck.buttonLabel || deck.title || "牌表")}</span>
-          <strong>${escapeHtml(deck.player || "")}</strong>
-        </button>
-      `).join("")}
-    `;
-  }
-
   function renderDeckSwitcher(switcher, decks) {
     if (!switcher) return;
     switcher.hidden = decks.length <= 1;
@@ -908,14 +894,12 @@
 
   function initDecklistModal(options = {}) {
     const decks = resolveDecks(Array.isArray(options.decks) ? options.decks : [], options.dataSource || options.deckSource);
-    const mount = typeof options.mount === "string" ? document.querySelector(options.mount) : options.mount;
-    if (!mount || decks.length === 0) return null;
+    if (decks.length === 0) return null;
 
     const deckByKey = new Map(decks.map((deck) => [String(deck.key), deck]));
     const perspectiveDecks = options.perspectiveDecks || options.perspectiveDeckMap || {};
     const sectionConfig = options.sections || defaultSections;
     const rarityTags = options.rarityTags || defaultRarityTags;
-    const label = options.label || "公开牌表";
     const modal = document.querySelector(options.modalSelector || ".deck-modal") || createModal();
     const image = modal.querySelector("#deckModalImage");
     const title = modal.querySelector("#deckModalTitle");
@@ -945,7 +929,6 @@
     let showTileCardNames = false;
     let collapseTileDuplicates = isMobileTileLayout();
 
-    renderEntrypoints(mount, decks, label);
     const mobileFloatingButton = options.mobileFloatingButton === false
       ? null
       : document.querySelector(options.mobileFloatingSelector || ".deck-floating-button") || createMobileFloatingButton();
@@ -1250,11 +1233,6 @@
       closeCardImage();
       lastTrigger?.focus();
     }
-
-    mount.addEventListener("click", (event) => {
-      const button = event.target.closest(".decklist-button");
-      if (button) openDeck(button);
-    });
 
     mobileFloatingButton?.addEventListener("click", () => {
       openDeckByKey(mobileFloatingButton.dataset.deckKey, mobileFloatingButton);
