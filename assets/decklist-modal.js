@@ -892,7 +892,16 @@
     return { root, closeCardImage };
   }
 
+  function retireEntryMount(options = {}) {
+    const mount = typeof options.mount === "string" ? document.querySelector(options.mount) : options.mount;
+    if (!mount) return;
+    mount.hidden = true;
+    mount.setAttribute("aria-hidden", "true");
+    mount.innerHTML = "";
+  }
+
   function initDecklistModal(options = {}) {
+    retireEntryMount(options);
     const decks = resolveDecks(Array.isArray(options.decks) ? options.decks : [], options.dataSource || options.deckSource);
     if (decks.length === 0) return null;
 
